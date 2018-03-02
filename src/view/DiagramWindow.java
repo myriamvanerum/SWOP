@@ -15,6 +15,7 @@ public class DiagramWindow extends CanvasWindow {
     private Controller controller = new Controller();
     private Selectable selectedParty = null;
     private DiagramType diagramType = DiagramType.SEQUENCE;
+    private String label = "";
 
     public enum DiagramType {SEQUENCE, COMMUNICATION};
 
@@ -57,6 +58,10 @@ public class DiagramWindow extends CanvasWindow {
                 message.paintComponentSeq(g2);
             }*/
     	}
+        
+        if (label != null) {
+        	g.drawString(label, 50, 50);
+        }
     }    
 
 	@Override
@@ -111,6 +116,12 @@ public class DiagramWindow extends CanvasWindow {
             case KeyEvent.VK_BACK_SPACE:
                 deleteSelectedComponent();
                 break;
+        }
+        
+        // Enkel letters (hoofdletters & kleineletters, de 'i' toets is nog verbonden aan de messages
+        if (keyCode >= 65 && keyCode <= 90) {
+        	this.label += keyChar;
+        	repaint();
         }
     }
 
