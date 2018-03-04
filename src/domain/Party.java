@@ -4,26 +4,20 @@ import java.awt.geom.Point2D;
 
 import domain.Component;
 
+/*
+ * A Party class
+ * 
+ * @author SWOP groep 03
+ */
 public abstract class Party extends Component {
 
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;
-    private ComponentType type = ComponentType.ACTOR;
+    private ComponentType type;
     private String instanceName;
     private String className;
     private String label;
     private Message sendingMessage;
-
-
-//    public Party(int x, int y, ComponentType type, String instanceName, String className) {
-//        this.type = type;
-//        this.instanceName = instanceName;
-//        this.className = className;
-//        this.label = instanceName+";"+className;
-//        this.type = type;
-//        posInCommDiagram = new Point2D.Double(x,y);
-//        posInSeqDiagram = x;
-//    }
 
     public Party(int x, int y, ComponentType type, String label) {
         posInCommDiagram = new Point2D.Double(x,y);
@@ -49,7 +43,7 @@ public abstract class Party extends Component {
     }
 
     public double getYCom() {
-        return  posInCommDiagram.getY();
+        return posInCommDiagram.getY();
     }
     
     public double getYSeq() {
@@ -98,9 +92,5 @@ public abstract class Party extends Component {
 
     public void setSendingMessage(Message sendingMessage) {
         this.sendingMessage = sendingMessage;
-    }
-    
-    public String toString() {
-    	return this.type + " " + this.label;
     }
 }

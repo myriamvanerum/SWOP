@@ -1,7 +1,10 @@
 package domain;
 
-import java.awt.*;
-
+/*
+ * A Message class
+ * 
+ * @author SWOP groep 03
+ */
 public abstract class Message extends Component {
     private Party sender;
     private Party receiver;

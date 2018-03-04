@@ -10,14 +10,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
-import domain.Actor;
-import domain.Component;
-import domain.ComponentType;
-import domain.DiagramType;
-import domain.Message;
+import domain.*;
 import domain.Object;
-import domain.Party;
 
+/*
+ * A controller class
+ * 
+ * @author SWOP groep 03
+ */
 public class Controller {
 	
 	private DiagramType diagramType = DiagramType.SEQUENCE;
@@ -53,7 +53,7 @@ public class Controller {
         messages.remove(message);
     }
 
-    public void removeSelectable(Component object){
+    public void removeComponent(Component object){
         if (object instanceof Party){
             removeParty((Party) object);
         }else {
@@ -69,7 +69,7 @@ public class Controller {
         return messages;
     }
     
-    public void makeNewParty(Party party, int x, int y) {
+    private void makeNewParty(Party party, int x, int y) {
     	if (party.getType() == ComponentType.ACTOR) {
             Object object = new Object(x, y, ComponentType.OBJECT, "Empty");
             removeParty(party);
@@ -81,7 +81,7 @@ public class Controller {
         }
     }
     
-    public boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
+    private boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
 		if (component instanceof Actor) {
     		return x >= x - 20 / 2 && x <= x + 20 / 2 && y <= 140;
     	} else if (component instanceof Object) {
@@ -93,7 +93,7 @@ public class Controller {
 	}
     
  // check if there is a component in the clicked coordinates
-    public Party checkCoordinate(int x, int y) {
+    private Party checkCoordinate(int x, int y) {
         for (Party component : getParties()) {
         	if (getDiagramType() == DiagramType.COMMUNICATION) {
         		 if (isComponent(component, x, y, component.getXCom(), component.getYCom()))
@@ -119,12 +119,12 @@ public class Controller {
         }
     }
     
-    public void addComponent(int x, int y) {
+    private void addComponent(int x, int y) {
     	Party component = new Object(x, y, ComponentType.OBJECT, "Object");
     	addParty(component);
     }
     
-    public void moveComponent(Party component, int x, int y) {
+    private void moveComponent(Party component, int x, int y) {
     	if (getDiagramType() == DiagramType.COMMUNICATION) {
     		component.setXCom(x);
             component.setY(y);
@@ -150,13 +150,13 @@ public class Controller {
         }
     }
 
-    public void unselectComponent() {
+    private void unselectComponent() {
         selectedParty.unselect();
         selectedParty = null;
     }
 
     public void deleteSelectedComponent() {
-        removeSelectable(selectedParty);
+        removeComponent(selectedParty);
         unselectComponent();
     }
     
@@ -225,8 +225,33 @@ public class Controller {
                 message.paintComponentSeq(g2);
             }*/
     	}
+    }
+    
+    public void doubleClick(int x, int y) {
+    	Party party = checkCoordinate(x, y);
         
-        
+        if (party == null) {
+            addComponent(x, y);
+        } else {
+        	if (getDiagramType() == DiagramType.COMMUNICATION) {
+        		makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
+        		
+        	} else if (getDiagramType() == DiagramType.SEQUENCE){
+        		makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
+        	}                
+        }
+    }
+    
+    public void singleClick(int x, int y) {
+    	if (checkCoordinate(x, y) == null && selectedParty != null) {
+            unselectComponent();
+        }
+    }
+    
+    public void drag(int x, int y) {
+    	if (selectedParty != null && selectedParty instanceof Party) {
+            moveComponent((Party) selectedParty, x, y);
+        }
     }
 
 }

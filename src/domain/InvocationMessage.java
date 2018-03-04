@@ -1,9 +1,10 @@
 package domain;
 
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-
+/*
+ * An Invocation Message class
+ * 
+ * @author SWOP groep 03
+ */
 public class InvocationMessage extends Message {
 
     public InvocationMessage(String label, Party sender, Party receiver) {

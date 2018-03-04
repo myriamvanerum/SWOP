@@ -1,7 +1,12 @@
 package domain;
 
-import java.awt.*;
+import java.awt.Color;
 
+/*
+ * A Component class
+ * 
+ * @author SWOP groep 03
+ */
 public class Component {
 
     private boolean isSelected = false;
