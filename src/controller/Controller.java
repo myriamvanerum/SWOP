@@ -14,11 +14,13 @@ public class Controller {
 
     public void addParty(Party party){
         parties.add(party);
+        System.out.println(parties);
     }
 
     public void removeParty(Party party){
         parties.remove(party);
         messages.remove(party.getSendingMessage());
+        System.out.println(parties);
     }
 
     public void addMessage(Message message){

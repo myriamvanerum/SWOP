@@ -107,4 +107,8 @@ public abstract class Party extends Selectable {
     public void setSendingMessage(Message sendingMessage) {
         this.sendingMessage = sendingMessage;
     }
+    
+    public String toString() {
+    	return this.type + " " + this.label;
+    }
 }

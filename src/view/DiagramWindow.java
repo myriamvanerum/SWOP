@@ -1,6 +1,6 @@
 package view;
 
-import controller.Controller;
+import controller.*;
 import model.*;
 import model.Object;
 
@@ -13,6 +13,7 @@ import java.awt.geom.Line2D;
 public class DiagramWindow extends CanvasWindow {
 
     private Controller controller = new Controller();
+    private PartyController partyController = new PartyController();
     private Selectable selectedParty = null;
     private DiagramType diagramType = DiagramType.SEQUENCE;
     private String label = "";
@@ -42,7 +43,7 @@ public class DiagramWindow extends CanvasWindow {
         if (this.getDiagramType() == DiagramType.COMMUNICATION) {
         	for (Party component : controller.getParties()) {
         		if (component instanceof Actor)
-                	drawStickman(g2, component.getXCom(), component.getYCom(), component.getActorLabel(), 20, 120);
+                	drawActor(g2, component.getXCom(), component.getYCom(), component.getActorLabel(), 20, 120);
         		else if (component instanceof Object)
         			drawObject(g2,component.getXCom(), component.getYCom(), component.getLabel(), 80, 80);
         	}
@@ -84,13 +85,14 @@ public class DiagramWindow extends CanvasWindow {
                 addComponent(x, y);
             } else {
             	if (this.getDiagramType() == DiagramType.COMMUNICATION) {
-            		makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
+            		partyController.makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
             		
             	} else if (this.getDiagramType() == DiagramType.SEQUENCE){
-            		makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
+            		partyController.makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
             	}                
                 repaint();
             }
+            repaint();
         }
 
         if (id == MouseEvent.MOUSE_DRAGGED) {
@@ -211,7 +213,7 @@ public class DiagramWindow extends CanvasWindow {
         repaint();
     }
     
-    private void drawStickman(Graphics2D g, double x, double y, String label, int size, int totalHeight) {
+    private void drawActor(Graphics2D g, double x, double y, String label, int size, int totalHeight) {
     	Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
         g.draw(c);
         // Draw body actor
@@ -239,24 +241,12 @@ public class DiagramWindow extends CanvasWindow {
         g2d.draw(new Line2D.Double(x, startY, x, endY));
     }
     
-    public void makeNewParty(Party party, int x, int y) {
-    	if (party.getType() == ComponentType.ACTOR) {
-            Object object = new Object(x, y, ComponentType.OBJECT, "Empty");
-            controller.removeParty(party);
-            controller.addParty(object);
-        } else {
-            Actor actor = new Actor(x, y, ComponentType.ACTOR, "instance", "class");
-            controller.removeParty(party);
-            controller.addParty(actor);
-        }
-    }
-    
     private void drawComponent(Graphics g, Party component) {
     	Graphics2D g2 = (Graphics2D) g;
     	int startLifelineX = 0, startLifelineY = 0;
     	
         if (component instanceof Actor) {
-        	drawStickman(g2, component.getXSeq(), component.getYSeq(), component.getActorLabel(), 20, 120);
+        	drawActor(g2, component.getXSeq(), component.getYSeq(), component.getActorLabel(), 20, 120);
         	startLifelineX = (int) component.getXSeq();
         	startLifelineY = (int) component.getYSeq() + 125;
         }else if (component instanceof Object) {
