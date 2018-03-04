@@ -1,6 +1,9 @@
 package controller;
 
+import model.Actor;
+import model.ComponentType;
 import model.Message;
+import model.Object;
 import model.Party;
 import model.Selectable;
 
@@ -14,13 +17,11 @@ public class Controller {
 
     public void addParty(Party party){
         parties.add(party);
-        System.out.println(parties);
     }
 
     public void removeParty(Party party){
         parties.remove(party);
         messages.remove(party.getSendingMessage());
-        System.out.println(parties);
     }
 
     public void addMessage(Message message){
@@ -45,6 +46,18 @@ public class Controller {
 
     public ArrayList<Message> getMessages(){
         return messages;
+    }
+    
+    public void makeNewParty(Party party, int x, int y) {
+    	if (party.getType() == ComponentType.ACTOR) {
+            Object object = new Object(x, y, ComponentType.OBJECT, "Empty");
+            removeParty(party);
+            addParty(object);
+        } else {
+            Actor actor = new Actor(x, y, ComponentType.ACTOR, "instance", "class");
+            removeParty(party);
+            addParty(actor);
+        }
     }
 
 }

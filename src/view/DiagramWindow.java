@@ -13,7 +13,6 @@ import java.awt.geom.Line2D;
 public class DiagramWindow extends CanvasWindow {
 
     private Controller controller = new Controller();
-    private PartyController partyController = new PartyController();
     private Selectable selectedParty = null;
     private DiagramType diagramType = DiagramType.SEQUENCE;
     private String label = "";
@@ -85,10 +84,10 @@ public class DiagramWindow extends CanvasWindow {
                 addComponent(x, y);
             } else {
             	if (this.getDiagramType() == DiagramType.COMMUNICATION) {
-            		partyController.makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
+            		controller.makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
             		
             	} else if (this.getDiagramType() == DiagramType.SEQUENCE){
-            		partyController.makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
+            		controller.makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
             	}                
                 repaint();
             }
