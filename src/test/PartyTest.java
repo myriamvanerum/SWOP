@@ -8,13 +8,13 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import model.Actor;
-import model.ComponentType;
-import model.Party;
+import domain.Actor;
+import domain.ComponentType;
+import domain.Party;
 
 class PartyTest {
 	
-	private Party actor = new Actor(1,2,ComponentType.ACTOR,"instance","class");
+	private Party actor = new Actor(1,2,ComponentType.ACTOR,"label");
 	
 	//private Party partyObject = new Party(1,2,ComponentType.OBJECT,"instance","class");
 	

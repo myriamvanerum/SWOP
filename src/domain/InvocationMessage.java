@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

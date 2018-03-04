@@ -1,14 +1,10 @@
-package model;
+package domain;
 
-import java.awt.*;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 
-import view.DiagramWindow;
-import view.DiagramWindow.DiagramType;
-import model.Selectable;
+import domain.Component;
 
-public abstract class Party extends Selectable {
+public abstract class Party extends Component {
 
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;
@@ -19,15 +15,15 @@ public abstract class Party extends Selectable {
     private Message sendingMessage;
 
 
-    public Party(int x, int y, ComponentType type, String instanceName, String className) {
-        this.type = type;
-        this.instanceName = instanceName;
-        this.className = className;
-        this.label = instanceName+";"+className;
-        this.type = type;
-        posInCommDiagram = new Point2D.Double(x,y);
-        posInSeqDiagram = x;
-    }
+//    public Party(int x, int y, ComponentType type, String instanceName, String className) {
+//        this.type = type;
+//        this.instanceName = instanceName;
+//        this.className = className;
+//        this.label = instanceName+";"+className;
+//        this.type = type;
+//        posInCommDiagram = new Point2D.Double(x,y);
+//        posInSeqDiagram = x;
+//    }
 
     public Party(int x, int y, ComponentType type, String label) {
         posInCommDiagram = new Point2D.Double(x,y);
@@ -62,10 +58,6 @@ public abstract class Party extends Selectable {
 
     public void setY(int y) {
         this.posInCommDiagram.setLocation(posInCommDiagram.getX(),y);
-    }
-
-    public String getActorLabel() {
-        return String.format("%s <%s>",instanceName,className);
     }
 
     public String getLabel(){

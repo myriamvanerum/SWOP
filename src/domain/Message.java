@@ -1,8 +1,8 @@
-package model;
+package domain;
 
 import java.awt.*;
 
-public abstract class Message extends Selectable {
+public abstract class Message extends Component {
     private Party sender;
     private Party receiver;
     private String label;

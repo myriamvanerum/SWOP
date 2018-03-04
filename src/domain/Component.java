@@ -1,8 +1,8 @@
-package model;
+package domain;
 
 import java.awt.*;
 
-public class Selectable {
+public class Component {
 
     private boolean isSelected = false;
 
