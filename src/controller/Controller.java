@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -161,6 +162,12 @@ public class Controller {
     }
     
     private void drawActor(Graphics2D g, double x, double y, String label, int size, int totalHeight) {
+//    	if(isSelected()){
+//            g.setPaint(new Color(159, 236, 249));
+//        }else{
+//            g.setPaint(new Color(0, 0, 0));
+//        }
+    	
     	Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
         g.draw(c);
         // Draw body actor
@@ -208,6 +215,7 @@ public class Controller {
     public void paintScreen(Graphics2D g) {
     	if (getDiagramType() == DiagramType.COMMUNICATION) {
         	for (Party component : getParties()) {
+        		setColor(component, g);
         		if (component instanceof Actor)
                 	drawActor(g, component.getXCom(), component.getYCom(), component.getLabel(), 20, 120);
         		else if (component instanceof Object)
@@ -218,13 +226,23 @@ public class Controller {
                 message.paintComponentCom(g2);
             }*/
     	} else if (getDiagramType() == DiagramType.SEQUENCE) {
-    		for (Party component : getParties()) 
+    		for (Party component : getParties()) {
+    			setColor(component, g);
     			drawComponent(g, component);
+    		}
 
             /*for (Message message : controller.getMessages()) {
                 message.paintComponentSeq(g2);
             }*/
     	}
+    }
+    
+    private void setColor(Party component, Graphics2D g) {
+    	if(component.isSelected()){
+            g.setPaint(new Color(70, 170, 220));
+        } else {
+            g.setPaint(new Color(0, 0, 0));
+        }
     }
     
     public void doubleClick(int x, int y) {
