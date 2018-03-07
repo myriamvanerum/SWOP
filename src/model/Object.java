@@ -1,9 +1,9 @@
 package model;
 
-/*
+/**
  * An Object class
  * 
- * @author SWOP groep 03
+ * @author groep 03
  */
 public class Object extends Party {
 
