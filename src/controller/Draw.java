@@ -248,6 +248,15 @@ public interface Draw {
 		}
 	}
 	
+	/**
+	 * This method draws a label for the components
+	 * @param g
+	 * 		The graphics library used
+	 * @param label
+	 * 		The label to draw
+	 * @param color
+	 * 		The color to draw the label in
+	 */
 	default void drawLabel(Graphics2D g, Label label, Color color) {		
 		g.setColor(color);
 		g.drawString(label.getText(), label.getX(), label.getY());
