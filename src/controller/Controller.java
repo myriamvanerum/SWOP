@@ -99,14 +99,14 @@ public class Controller extends ObjectFocusListener implements Draw {
 
 		switch (keyCode) {
 		case KeyEvent.VK_I:
-			addMessage(new InvocationMessage("Hello", parties.get(0), parties.get(1)));
+			addMessage(new InvocationMessage(new Label(1,1, ""), parties.get(0), parties.get(1)));
 			break;
 
 		case KeyEvent.VK_TAB:
 			switchDiagram();
 			break;
 
-		case KeyEvent.VK_BACK_SPACE:
+		case KeyEvent.VK_DELETE:
 			deleteFocused();
 			break;
 		}
@@ -242,7 +242,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            y coordinate
 	 */
 	private void addComponent(int x, int y) {
-		Party component = new Object(x, y, "Object");
+		Party component = new Object(x, y, new Label(x,y,""));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
 		addParty(component);
 	}
@@ -302,11 +302,11 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 */
 	private void changeParty(Party party, int x, int y) {
 		if (party instanceof Actor) {
-			Object object = new Object(x, y, "Empty");
+			Object object = new Object(x, y, new Label(x,y,party.getLabelText()));
 			removeParty(party);
 			addParty(object);
 		} else if (party instanceof Object){
-			Actor actor = new Actor(x, y, "label");
+			Actor actor = new Actor(x, y, new Label(x,y,party.getLabelText()));
 			removeParty(party);
 			addParty(actor);
 		}

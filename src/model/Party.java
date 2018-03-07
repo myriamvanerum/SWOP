@@ -13,10 +13,8 @@ public abstract class Party extends DiagramComponent {
 
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;
-    private String instanceName;
-    private String className;
-    private String label;
     private Message sendingMessage;
+    private Label label;
 
     /**
      * Party constructor
@@ -27,7 +25,7 @@ public abstract class Party extends DiagramComponent {
 	 * @param label
 	 * 		The party's label
      */
-    public Party(int x, int y, String label) {
+    public Party(int x, int y, Label label) {
         posInCommDiagram = new Point2D.Double(x,y);
         posInSeqDiagram = x;
         this.label = label;
@@ -61,28 +59,12 @@ public abstract class Party extends DiagramComponent {
         this.posInCommDiagram.setLocation(posInCommDiagram.getX(),y);
     }
 
-    public String getLabel(){
+    public Label getLabel(){
         return label;
     }
 
-    public void setLabel(String label){
+    public void setLabel(Label label){
         this.label = label;
-    }
-
-    public String getInstanceName() {
-        return instanceName;
-    }
-
-    public void setInstanceName(String instanceName) {
-        this.instanceName = instanceName;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public Message getSendingMessage() {
@@ -91,5 +73,9 @@ public abstract class Party extends DiagramComponent {
 
     public void setSendingMessage(Message sendingMessage) {
         this.sendingMessage = sendingMessage;
+    }
+    
+    public String getLabelText() {
+    	return this.label.getText();
     }
 }

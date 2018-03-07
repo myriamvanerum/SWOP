@@ -6,7 +6,6 @@ package model;
  * @author SWOP groep 03
  */
 public class Actor extends Party {
-
 	/**
 	 * Actor constructor
 	 * @param x
@@ -16,7 +15,7 @@ public class Actor extends Party {
 	 * @param label
 	 * 		The actor's label
 	 */
-    public Actor(int x, int y, String label) {
+    public Actor(int x, int y, Label label) {
         super(x, y, label);
     }
 }

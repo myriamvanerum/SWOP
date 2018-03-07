@@ -10,9 +10,9 @@ import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
-import model.Actor;
+import model.*;
 import model.Object;
-import model.Party;
+import model.Label;
 
 /**
  * This interface groups together all the methods used to draw components on the
@@ -44,7 +44,7 @@ public interface Draw {
 	 * @param totalHeight
 	 *            The total height of the stickfigure
 	 */
-	default void drawActor(Graphics2D g, double x, double y, String label, int size, int totalHeight) {
+	default void drawActor(Graphics2D g, double x, double y, Label label, int size, int totalHeight) {
 		Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -56,7 +56,8 @@ public interface Draw {
 		g.draw(new Line2D.Double(x - 20, y + size + 70, x, y + size + 50));
 		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));
 		// draw label
-		g.drawString(label, (int) (x + ((size / 2) - label.length() * 3)), (int) (y) + totalHeight);
+//		g.drawString(label, (int) (x + ((size / 2) - label.length() * 3)), (int) (y) + totalHeight);
+		g.drawString(label.getText(), label.getX(), label.getY());
 	}
 
 	/**
@@ -75,9 +76,9 @@ public interface Draw {
 	 * @param width
 	 *            The width of the rectangle to paint
 	 */
-	default void drawObject(Graphics2D g, double x, double y, String label, int height, int width) {
+	default void drawObject(Graphics2D g, double x, double y, Label label, int height, int width) {
 		Rectangle r = new Rectangle((int) x, (int) y, width, height);
-		g.drawString(label, (int) (x + ((width / 2) - label.length() * 2)), (int) (y) + height / 2);
+		g.drawString(label.getText(), label.getX(), label.getY());
 		g.draw(r);
 	}
 
