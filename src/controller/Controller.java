@@ -27,7 +27,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 
 	public DiagramComponent selectedParty = null;
 
-    private boolean inputMode = false;
+    private boolean inputMode = false, labelClickedOnce = false;
 	public DiagramComponent currentComponent = null;
 
 	private DiagramWindow view;
@@ -208,9 +208,15 @@ public class Controller extends ObjectFocusListener implements Draw {
 				case 1:
 					if (party == null && getFocusedObject() != null) {
 						unFocus();
-					} else if (party != null && labelClickedParty(party, x, y)) {
-						// edit label
-						System.out.println("edit label");
+					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == false) {
+						checkAndFocus(x, y);
+						labelClickedOnce = true;
+					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == true) {
+						unFocus();
+						inputMode = true;
+						labelClickedOnce = false;
+						currentComponent = party;
+						party.getLabel().setText(party.getLabelText()+ "|");						
 					}
 					break;
 
