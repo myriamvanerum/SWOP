@@ -1,8 +1,11 @@
 package model;
 
-import java.awt.*;
-import java.util.ArrayList;
-
+/**
+ * DiagramComponent implements the interface Focusable.
+ * 
+ * @author groep 03
+ *
+ */
 public class DiagramComponent implements Focusable {
 
     private boolean focused;
@@ -20,15 +23,5 @@ public class DiagramComponent implements Focusable {
     @Override
     public void unfocus() {
         focused = false;
-    }
-
-    @Override
-    public Color getFocusColor() {
-        return new Color(159, 236, 249);
-    }
-
-    @Override
-    public Color getDefaultColor() {
-        return new Color(0, 0, 0);
     }
 }

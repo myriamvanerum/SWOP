@@ -1,7 +1,11 @@
 package model;
 
-import java.awt.*;
-
+/**
+ * An interface Focusable that determines what properties a focusable has.
+ * 
+ * @author groep 03
+ *
+ */
 public interface Focusable {
 
     Boolean focused();
@@ -9,9 +13,4 @@ public interface Focusable {
     void focus();
 
     void unfocus();
-
-    Color getFocusColor();
-
-    Color getDefaultColor();
-
 }
