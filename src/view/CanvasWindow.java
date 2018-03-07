@@ -1,6 +1,5 @@
-package canvaswindow;
+package view;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -360,7 +359,7 @@ public class CanvasWindow {
 		
 		@Override
 		protected void paintComponent(Graphics g) {
-			System.out.println("Painting...");
+			//System.out.println("Painting...");
 			super.paintComponent(g);
 			
 			if (recording != null) {
@@ -405,6 +404,8 @@ public class CanvasWindow {
 		if (!EventQueue.isDispatchThread())
 			throw new RuntimeException("You must call this method from the AWT dipatch thread");
 		panel = new Panel();
+        	// VOLGENDE REGEL ZELF TOEGEVOEGD!!!
+        	panel.setFocusTraversalKeysEnabled(false);
 		frame = new Frame(title);
 		frame.setVisible(true);
 	}
