@@ -15,7 +15,7 @@ import model.Object;
 import model.Label;
 
 public interface Draw {
-	default void drawActor(Graphics2D g, double x, double y, Label label, int size, int totalHeight) {
+	default void drawActor(Graphics2D g, double x, double y, int size, Party actor) {
 		Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -25,11 +25,16 @@ public interface Draw {
 		g.draw(new Line2D.Double(x, y + size + 5, x + 20, y + size + 25));
 		// draw legs actor
 		g.draw(new Line2D.Double(x - 20, y + size + 70, x, y + size + 50));
-		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));
+		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));		
+
+		actor.getLabel().setX((int) x + (10 - actor.getLabel().getText().length() * 3));			
+		actor.getLabel().setY((int) y + 115);
 	}
 
-	default void drawObject(Graphics2D g, double x, double y, Label label, int height, int width) {
+	default void drawObject(Graphics2D g, double x, double y, int height, int width, Party object) {
 		Rectangle r = new Rectangle((int) x, (int) y, width, height);
+		object.getLabel().setX((int)x + ((width/2) - object.getLabel().getText().length() * 2));
+		object.getLabel().setY((int)y + height/2);
 		g.draw(r);
 	}
 
@@ -43,15 +48,16 @@ public interface Draw {
 	default void drawComponent(Graphics g, Party component) {
 		Graphics2D g2 = (Graphics2D) g;
 		int startLifelineX = 0, startLifelineY = 0;
-
-		if (component instanceof Actor) {
-			drawActor(g2, component.getXSeq(), component.getYSeq(), component.getLabel(), 20, 120);
+		
+		if (component instanceof Actor) {			
+			drawActor(g2, component.getXSeq(), component.getYSeq(), 20, component);
 			startLifelineX = (int) component.getXSeq();
 			startLifelineY = (int) component.getYSeq() + 125;
 		} else if (component instanceof Object) {
-			drawObject(g2, component.getXSeq(), component.getYSeq(), component.getLabel(), 80, 80);
-			startLifelineX = (int) component.getXSeq() + 40;
-			startLifelineY = (int) component.getYSeq() + 80;
+			int height = 80, width = 80;			
+			drawObject(g2, component.getXSeq(), component.getYSeq(), height, width, component);
+			startLifelineX = (int) component.getXSeq() + width/2;
+			startLifelineY = (int) component.getYSeq() + height;
 		}
 
 		drawLifeline(g, startLifelineX, startLifelineY, startLifelineY + 400);
@@ -91,7 +97,7 @@ public interface Draw {
 		}
 	}
 	
-	default void drawLabel(Graphics2D g, Label label, Color color) {
+	default void drawLabel(Graphics2D g, Label label, Color color) {		
 		g.setColor(color);
 		g.drawString(label.getText(), label.getX(), label.getY());
 		g.setColor(new Color(0,0,0));

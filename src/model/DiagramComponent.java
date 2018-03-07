@@ -9,6 +9,7 @@ package model;
 public class DiagramComponent implements Focusable {
 
     private boolean focused;
+    protected Label label;
 
     @Override
     public Boolean focused() {
@@ -23,5 +24,13 @@ public class DiagramComponent implements Focusable {
     @Override
     public void unfocus() {
         focused = false;
+    }    
+
+    public Label getLabel(){
+        return label;
+    }
+
+    public void setLabel(Label label){
+        this.label = label;
     }
 }

@@ -27,7 +27,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	public DiagramComponent selectedParty = null;
 
     private boolean inputMode = false;
-	public Party currentObject = null;
+	public DiagramComponent currentComponent = null;
 
 	private DiagramWindow view;
 
@@ -62,30 +62,19 @@ public class Controller extends ObjectFocusListener implements Draw {
 			for (Party component : getParties()) {
 				setColor(component, g);
 				if (component instanceof Actor) {
-					drawActor(g, component.getXCom(), component.getYCom(), component.getLabel(), 20, 120);
+					drawActor(g, component.getXCom(), component.getYCom(), 20, component);
 				}else if (component instanceof Object) {
-					drawObject(g, component.getXCom(), component.getYCom(), component.getLabel(), 80, 80);
+					drawObject(g, component.getXCom(), component.getYCom(), 80, 80, component);
 				}
 				
-				// TODO optimize code
-				if (component == currentObject && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
-					drawLabel(g, component.getLabel(), new Color(0,255,0));
-		        else if (component == currentObject && inputMode == true && !component.getLabel().correctSyntax())
-		        	drawLabel(g, component.getLabel(), new Color(255,0,0));
-		        else
-		        	drawLabel(g, component.getLabel(), new Color(0,0,0));
+				checkLabelSettings(g, component);
 			}
 		} else if (getDiagramType() == DiagramType.SEQUENCE) {
 			for (Party component : getParties()) {
 				setColor(component, g);
 				drawComponent(g, component);
 								
-				if (component == currentObject && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
-					drawLabel(g, component.getLabel(), new Color(0,255,0));
-		        else if (component == currentObject && inputMode == true && !component.getLabel().correctSyntax())
-		        	drawLabel(g, component.getLabel(), new Color(255,0,0));
-		        else
-		        	drawLabel(g, component.getLabel(), new Color(0,0,0));
+				checkLabelSettings(g, component);
 			}
 		}
 
@@ -101,6 +90,15 @@ public class Controller extends ObjectFocusListener implements Draw {
 		}
 	}
 
+	private void checkLabelSettings(Graphics2D g, Party component) {
+		if (component == currentComponent && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
+			drawLabel(g, component.getLabel(), new Color(0,255,0));
+		else if (component == currentComponent && inputMode == true && !component.getLabel().correctSyntax())
+			drawLabel(g, component.getLabel(), new Color(255,0,0));
+		else			
+			drawLabel(g, component.getLabel(), g.getColor());
+	}
+
 	/**
 	 * When a keyevent occurs, it is handled in this method. If tab is pressed, the
 	 * view of the diagram is switched, from communication to sequence and vice
@@ -114,33 +112,35 @@ public class Controller extends ObjectFocusListener implements Draw {
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		if (inputMode == true)
 		{
-			int index = parties.indexOf(currentObject);
+			int index = parties.indexOf(currentComponent);
+			String inputLabel = currentComponent.getLabel().getText();
 			
 			// Enkel letters (hoofdletters & kleineletters
 	        // 513 is de keyCode voor ":"
 	        // 65-90 zijn de keyCodes voor alle letters
 	        // 8 is de keyCode voor backspace
 	        // 10 is de keyCode voor enter		
-	        if (keyCode >= 65 && keyCode <= 90 || 
-	        		keyCode == 513 || 
-	        		keyCode == 8) { 
-	        	String inputLabel = currentObject.getLabelText();
+	        if (keyCode >= 65 && keyCode <= 90 || keyCode == 513 || keyCode == 8) { 	        	
 	        		    			    		    		
 	        	if (keyCode == 8 && inputLabel.length() > 1)
-	        		currentObject.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
+	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
 	        	else if (inputLabel != null && inputLabel.length() > 0) {
-	        		currentObject.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
+	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
 	    	    }    	
-		        parties.set(index, currentObject);
 	        }   
 	        
-	        if (currentObject.getLabel().correctSyntax() && keyCode == 10) {
+	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
 	        	System.out.println("Test updaten label");
-	        	currentObject.getLabel().setText(currentObject.getLabelText().substring(0, currentObject.getLabelText().length() - 1));
-		        parties.set(index, currentObject);
-	        	inputMode = false;
-	        	currentObject = null;  
-	        }  	        
+	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
+		        inputMode = false;
+	        	currentComponent = null;  
+	        }  	     
+
+        	if (currentComponent instanceof Party)       		        	
+        		parties.set(index, (Party)currentComponent);
+        	if (currentComponent instanceof Message)
+        		messages.set(index, (Message)currentComponent);
+        	
 		} else {
 			switch (keyCode) {
 			case KeyEvent.VK_I:
@@ -275,7 +275,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	private void addComponent(int x, int y) {
 		Party component = new Object(x, y, ComponentType.OBJECT, new Label(x+10,y,"|"));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
-		currentObject = component;
+		currentComponent = component;
 		inputMode = true;
 		addParty(component);
 	}
