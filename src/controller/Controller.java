@@ -144,21 +144,21 @@ public class Controller extends ObjectFocusListener implements Draw {
                 	drawActor(g, component.getXCom(), component.getYCom(), component.getLabel(), 20, 120);
         		else if (component instanceof Object)
         			drawObject(g,component.getXCom(), component.getYCom(), component.getLabel(), 80, 80);
-        	}
-
-            /*for (Message message : controller.getMessages()) {
-                message.paintComponentCom(g2);
-            }*/
+        	}     
     	} else if (getDiagramType() == DiagramType.SEQUENCE) {
     		for (Party component : getParties()) {
     			setColor(component, g);
     			drawComponent(g, component);
     		}
-
-            /*for (Message message : controller.getMessages()) {
-                message.paintComponentSeq(g2);
-            }*/
     	}
+    	
+    	for (Message message : getMessages()) {
+        	if (message instanceof InvocationMessage) {
+        		drawInvocationMessage(g, message.focused(), message.getSender().getXCom(), message.getSender().getYCom(), message.getReceiver().getXCom(), message.getReceiver().getYCom());
+        	} else if (message instanceof ResultMessage) {
+        		drawResultMessage(g, message.focused(), message.getSender().getXCom(), message.getSender().getYCom(), message.getReceiver().getXCom(), message.getReceiver().getYCom());
+        	}
+        }
     }
    
     public void handleKeyEvent(int id, int keyCode, char keyChar) {
