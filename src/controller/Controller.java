@@ -31,12 +31,22 @@ public class Controller extends ObjectFocusListener implements Draw {
 		this.view = view;
 	}
 
+	/* GETTERS AND SETTERS */
+	
 	public DiagramType getDiagramType() {
 		return diagramType;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
 		this.diagramType = diagramType;
+	}
+	
+	public ArrayList<Party> getParties() {
+		return parties;
+	}
+
+	public ArrayList<Message> getMessages() {
+		return messages;
 	}
 
 	public void paintScreen(Graphics2D g) {
@@ -181,7 +191,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	}
 
 	/**
-	 * Diagram is switched.
+	 * Diagram is switched. If the previous screen showed a sequence diagram, it will now show a communication diagram, and vice versa.
 	 */
 	public void switchDiagram() {
 		switch (getDiagramType()) {
@@ -215,7 +225,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	/**
 	 * The party moves to other coordinates.
 	 * 
-	 * If it's in sequencediagram view, it only gets moved horizontally.
+	 * If it's in sequence diagram view, it only gets moved horizontally.
 	 * 
 	 * @param component:
 	 *            the party to be moved.
@@ -303,14 +313,6 @@ public class Controller extends ObjectFocusListener implements Draw {
 		} else {
 			removeMessage((Message) object);
 		}
-	}
-
-	public ArrayList<Party> getParties() {
-		return parties;
-	}
-
-	public ArrayList<Message> getMessages() {
-		return messages;
 	}
 
 	/* FOCUS METHODS */
