@@ -6,7 +6,15 @@ package model;
  * @author SWOP groep 03
  */
 public class InvocationMessage extends Message {
-
+	/**
+	 * Invocation message constructor
+	 * @param label
+	 * 		The message label
+	 * @param sender
+	 * 		The party that sends the message
+	 * @param receiver
+	 * 		The party that receives the message
+	 */
     public InvocationMessage(String label, Party sender, Party receiver) {
         super(label, sender, receiver);
     }

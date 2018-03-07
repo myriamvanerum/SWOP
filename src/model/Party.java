@@ -13,16 +13,23 @@ public abstract class Party extends DiagramComponent {
 
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;
-    private ComponentType type;
     private String instanceName;
     private String className;
     private String label;
     private Message sendingMessage;
 
-    public Party(int x, int y, ComponentType type, String label) {
+    /**
+     * Party constructor
+     * @param x
+	 * 		The x coordinate of the party
+	 * @param y
+	 * 		The y coordinate of the party
+	 * @param label
+	 * 		The party's label
+     */
+    public Party(int x, int y, String label) {
         posInCommDiagram = new Point2D.Double(x,y);
         posInSeqDiagram = x;
-        this.type = type;
         this.label = label;
     }
 
@@ -76,14 +83,6 @@ public abstract class Party extends DiagramComponent {
 
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    public ComponentType getType() {
-        return type;
-    }
-
-    public void setType(ComponentType type) {
-        this.type = type;
     }
 
     public Message getSendingMessage() {

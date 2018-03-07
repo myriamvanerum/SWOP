@@ -3,8 +3,6 @@ package view;
 import controller.Controller;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /*
  * A DiagramWindow class
@@ -12,7 +10,6 @@ import java.awt.event.MouseEvent;
  * @author SWOP groep 03
  */
 public class DiagramWindow extends CanvasWindow {
-
    
     private String label = "";
 
@@ -56,4 +53,3 @@ public class DiagramWindow extends CanvasWindow {
         repaint();
     }
 }
-
