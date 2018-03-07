@@ -10,9 +10,6 @@ import java.awt.*;
  * @author SWOP groep 03
  */
 public class DiagramWindow extends CanvasWindow {
-   
-    private String label = "";
-
     private Controller controller;
 
     public DiagramWindow(String title) {
@@ -22,16 +19,11 @@ public class DiagramWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-
         Graphics2D g2 = (Graphics2D) g;
         
         g.drawString(controller.getDiagramType().toString() + " DIAGRAM", 10, 10);
         
         controller.paintScreen(g2);
-        
-        if (label != null) {
-        	g.drawString(label, 50, 50);
-        }
     }
 
 	@Override
@@ -43,12 +35,6 @@ public class DiagramWindow extends CanvasWindow {
     // Keyboard keys
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-
-        // Enkel letters (hoofdletters & kleineletters, de 'i' toets is nog verbonden aan de messages
-        if (keyCode >= 65 && keyCode <= 90) {
-        	this.label += keyChar;
-        }
-        
         controller.handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
