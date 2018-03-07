@@ -39,7 +39,6 @@ public interface Draw {
 	 *            The y coordinate to start painting from
 	 * @param size
 	 *            The size of the painted stickfigure
-<<<<<<< HEAD
 	 * @param totalHeight
 	 *            The total height of the stickfigure
 	 * @param actor
@@ -256,8 +255,15 @@ public interface Draw {
 	 * 		The label to draw
 	 * @param color
 	 * 		The color to draw the label in
+	 * @throws IllegalArgumentException
+	 * 		Illegal label or color
 	 */
-	default void drawLabel(Graphics2D g, Label label, Color color) {		
+	default void drawLabel(Graphics2D g, Label label, Color color) {
+		if (label == null || color == null)
+			throw new IllegalArgumentException();
+		if (label.getText() != null)
+			label.setWidth(g);
+		
 		g.setColor(color);
 		g.drawString(label.getText(), label.getX(), label.getY());
 		g.setColor(new Color(0,0,0));

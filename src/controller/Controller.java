@@ -27,7 +27,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 
 	public DiagramComponent selectedParty = null;
 
-    private boolean inputMode = false;
+    private boolean inputMode = false, labelClickedOnce = false;
 	public DiagramComponent currentComponent = null;
 
 	private DiagramWindow view;
@@ -64,7 +64,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * and at the clicked position on a communication diagram.
 	 * @param g
 	 */
-	public void paintScreen(Graphics2D g) {
+	public void paintScreen(Graphics2D g) {		
 		/*Draw actors and objects*/
 		if (getDiagramType() == DiagramType.COMMUNICATION) {
 			for (Party component : getParties()) {
@@ -128,7 +128,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 			int index = parties.indexOf(currentComponent);
 			String inputLabel = currentComponent.getLabel().getText();
 			
-			// Enkel letters (hoofdletters & kleineletters
+			// Enkel letters (hoofdletters & kleineletters)
 	        // 513 is de keyCode voor ":"
 	        // 65-90 zijn de keyCodes voor alle letters
 	        // 8 is de keyCode voor backspace
@@ -143,7 +143,6 @@ public class Controller extends ObjectFocusListener implements Draw {
 	        }   
 	        
 	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
-	        	System.out.println("Test updaten label");
 	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
 		        inputMode = false;
 	        	currentComponent = null;  
@@ -165,7 +164,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 				break;
 
 			case KeyEvent.VK_DELETE:
-				deleteFocused();
+				if (labelClickedOnce) {
+					deleteFocused();
+					labelClickedOnce = false;
+				}
 				break;
 			}	
 		}
@@ -204,10 +206,20 @@ public class Controller extends ObjectFocusListener implements Draw {
 			break;
 			case MouseEvent.MOUSE_CLICKED:
 				Party party = checkCoordinate(x, y);
+				
 				switch (clickCount) {
 				case 1:
 					if (party == null && getFocusedObject() != null) {
 						unFocus();
+					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == false) {
+						checkAndFocus(x, y);
+						labelClickedOnce = true;
+					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == true) {
+						unFocus();
+						inputMode = true;
+						labelClickedOnce = false;
+						currentComponent = party;
+						party.getLabel().setText(party.getLabelText()+ "|");						
 					}
 					break;
 
@@ -215,15 +227,35 @@ public class Controller extends ObjectFocusListener implements Draw {
 					if (party == null) {
 						addComponent(x, y);
 					} else {
-						if (getDiagramType() == DiagramType.COMMUNICATION) {
+						if (getDiagramType() == DiagramType.COMMUNICATION && !labelClickedParty(party, x, y)) {
 							changeParty(party, (int) party.getXCom(), (int) party.getYCom());
 
-						} else if (getDiagramType() == DiagramType.SEQUENCE) {
+						} else if (getDiagramType() == DiagramType.SEQUENCE && !labelClickedParty(party, x, y)) {
 							changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
 						}
 					}
 				}
 			}
+		}		
+	}
+
+	/**
+	 * 
+	 * @param component
+	 * 			the component whose location is checked
+	 * @param x
+	 * 			x coordinate of the clicked event
+	 * @param y
+	 * 			y coordinate of the clicked event
+	 * 
+	 * @return true if the label of the component is clicked, false if the label of the component isn't clicked 
+	 */
+	private boolean labelClickedParty(Party component, int x, int y) {
+		if (component == null || x < 0 || y < 0 )
+			throw new IllegalArgumentException();
+		else {
+			Label label = component.getLabel();					
+			return x >= label.getX() && x <= label.getX() + label.getWidth() && y >= label.getY() - 10 && y <= label.getY() + 10;
 		}		
 	}
 
@@ -248,7 +280,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 		if (component == null || x < 0 || y < 0 || componentX < 0 || componentY < 0)
 			throw new IllegalArgumentException();
 		if (component instanceof Actor) {
-			return x >= x - 20 / 2 && x <= x + 20 / 2 && y <= 140;
+			return x >= componentX - 20 / 2 && x <= componentX + 20 / 2 && y >= componentY - 20 /2 && y <= componentY + 115;
 		} else if (component instanceof Object) {
 			return x >= componentX && x <= componentX + 80 && y >= componentY && y <= componentY + 80;
 		} else

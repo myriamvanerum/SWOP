@@ -1,7 +1,14 @@
 package model;
 
+import java.awt.Graphics;
+
+/*
+ * A Label class
+ * 
+ * @author SWOP groep 03
+ */
 public class Label {
-	int x, y;
+	int x, y, width = 0;
 	String text;
 	
 	public Label() {
@@ -28,6 +35,14 @@ public class Label {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void setWidth(Graphics g) {
+		this.width = g.getFontMetrics().stringWidth(text);
+	}
+	
+	public int getWidth() {
+		return width;
 	}
 
 	public String getText() {
