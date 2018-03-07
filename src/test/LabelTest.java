@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import view.Label;
-
 class LabelTest {
-
+/*
 	Label label = new Label();
 	
 	// Incorrect label format	
@@ -45,5 +43,5 @@ class LabelTest {
 	@Test
 	void correctSyntaxTestInstanceNameLowerCaseClassNameUpperCase() {
 		assertTrue(label.correctSyntax("instanceName:ClassName"));
-	}
+	}*/
 }

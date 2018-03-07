@@ -7,7 +7,7 @@ package model;
  */
 public class Actor extends Party {
 
-    public Actor(int x, int y, ComponentType type, String label) {
+    public Actor(int x, int y, ComponentType type, Label label) {
         super(x, y, type, label);
     }
 }
