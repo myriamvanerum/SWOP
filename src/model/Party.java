@@ -30,6 +30,8 @@ public abstract class Party extends DiagramComponent {
         this.label = label;
     }
 
+    /* GETTERS AND SETTERS */
+    
     public double getXCom() {
         return posInCommDiagram.getX();
     }

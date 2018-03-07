@@ -18,6 +18,10 @@ public class DiagramWindow extends CanvasWindow {
         controller = new Controller(this);
     }
 
+    /**
+     * Override for the standard paint method.
+     * Paints everything the user sees onto the screen.
+     */
     @Override
     protected void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -27,6 +31,17 @@ public class DiagramWindow extends CanvasWindow {
         controller.paintScreen(g2);
     }
 
+    /**
+     * Method to pick up mouse events
+     * @param id
+     * 		The mouseEvent id
+     * @param x
+     * 		The clicked x coordinates
+     * @param y
+     * 		The clicked y coordinates
+     * @param clickCount
+     * 		The number of clicks
+     */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
 		if(controller.isInputMode() == false) {
@@ -35,7 +50,15 @@ public class DiagramWindow extends CanvasWindow {
 		}
     }
     
-    // Keyboard keys
+    /**
+     * Method to pick up keyboard events
+     * @param id
+     * 		The keyEvent id
+     * @param keyCode
+     * 		The keycode for the entered key
+     * @param keyChar
+     * 		The keyChar for the entered key
+     */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
         controller.handleKeyEvent(id, keyCode, keyChar);
