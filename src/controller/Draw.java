@@ -255,8 +255,12 @@ public interface Draw {
 	 * 		The label to draw
 	 * @param color
 	 * 		The color to draw the label in
+	 * @throws IllegalArgumentException
+	 * 		Illegal label or color
 	 */
-	default void drawLabel(Graphics2D g, Label label, Color color) {	
+	default void drawLabel(Graphics2D g, Label label, Color color) {
+		if (label == null || color == null)
+			throw new IllegalArgumentException();
 		if (label.getText() != null)
 			label.setWidth(g);
 		
