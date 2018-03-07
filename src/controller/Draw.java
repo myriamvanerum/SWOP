@@ -12,7 +12,6 @@ import java.awt.geom.Line2D;
 
 import model.*;
 import model.Object;
-import model.Label;
 
 /**
  * This interface groups together all the methods used to draw components on the
@@ -43,8 +42,12 @@ public interface Draw {
 	 *            The size of the painted stickfigure
 	 * @param totalHeight
 	 *            The total height of the stickfigure
+	 * @throws IllegalArgumentException
+	 * 			  Illegal coordinates or size
 	 */
 	default void drawActor(Graphics2D g, double x, double y, Label label, int size, int totalHeight) {
+		if (x < 0 || y < 0 || size < 0 || totalHeight < 0)
+			throw new IllegalArgumentException();
 		Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -75,8 +78,12 @@ public interface Draw {
 	 *            The height of the rectangle to paint
 	 * @param width
 	 *            The width of the rectangle to paint
+	 * @throws IllegalArgumentException
+	 * 			  Illegal coordinates or size
 	 */
 	default void drawObject(Graphics2D g, double x, double y, Label label, int height, int width) {
+		if (x < 0 || y < 0 || height < 0 || width < 0)
+			throw new IllegalArgumentException();
 		Rectangle r = new Rectangle((int) x, (int) y, width, height);
 		g.drawString(label.getText(), label.getX(), label.getY());
 		g.draw(r);
@@ -93,8 +100,12 @@ public interface Draw {
 	 *            The start y value for the lifeline
 	 * @param endY
 	 *            The end y value for the lifeline
+	 * @throws IllegalArgumentException
+	 * 			  Illegal coordinates or size
 	 */
 	default void drawLifeline(Graphics g, int x, int startY, int endY) {
+		if (x < 0 || startY < 0 || endY < 0)
+			throw new IllegalArgumentException();
 		Graphics2D g2d = (Graphics2D) g.create();
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 9 }, 0);
 		g2d.setStroke(dashed);
@@ -109,8 +120,12 @@ public interface Draw {
 	 *            The graphics library used
 	 * @param party
 	 *            The party to paint on the window
+	 * @throws IllegalArgumentException
+	 * 			  Illegal party
 	 */
 	default void drawParty(Graphics g, Party party) {
+		if (party == null)
+			throw new IllegalArgumentException();
 		Graphics2D g2 = (Graphics2D) g;
 		int startLifelineX = 0, startLifelineY = 0;
 
@@ -142,9 +157,13 @@ public interface Draw {
 	 *            The x coordinate of the message receiver
 	 * @param yReceiver
 	 *            The y coordinate of the message receiver
+	 * @throws IllegalArgumentException
+	 * 			  Illegal party coordinates
 	 */
 	default void drawResultMessage(Graphics2D g, boolean focused, double xSender, double ySender, double xReceiver,
 			double yReceiver) {
+		if (xSender < 0 || ySender < 0 || xReceiver < 0 || yReceiver < 0)
+			throw new IllegalArgumentException();
 		Stroke dashed = new BasicStroke(getLineWidthResult(focused), BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
@@ -180,9 +199,13 @@ public interface Draw {
 	 *            The x coordinate of the message receiver
 	 * @param yReceiver
 	 *            The y coordinate of the message receiver
+	 * @throws IllegalArgumentException
+	 * 			  Illegal party coordinates
 	 */
 	default void drawInvocationMessage(Graphics2D g, boolean focused, double xSender, double ySender, double xReceiver,
 			double yReceiver) {
+		if (xSender < 0 || ySender < 0 || xReceiver < 0 || yReceiver < 0)
+			throw new IllegalArgumentException();
 		Stroke full = new BasicStroke(getLineWidthInvocation(focused));
 		g.setStroke(full);
 		g.drawLine((int) xSender, (int) ySender, (int) xReceiver, (int) yReceiver);
@@ -208,9 +231,13 @@ public interface Draw {
 	 * 		The component to be painted
 	 * @param g
 	 * 		The graphics library used
+	 * @throws IllegalArgumentException
+	 * 		Illegal party
 	 */
-	default void setColor(Party component, Graphics2D g) {
-		if (component.focused()) {
+	default void setColor(Focusable focusable, Graphics2D g) {
+		if (focusable == null)
+			throw new IllegalArgumentException();
+		if (focusable.focused()) {
 			g.setPaint(new Color(70, 170, 220));
 		} else {
 			g.setPaint(new Color(0, 0, 0));

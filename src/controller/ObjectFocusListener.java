@@ -21,9 +21,13 @@ public class ObjectFocusListener implements FocusListener {
 
     /**
      * The focusable gets focused.
+     * @throws IllegalArgumentException
+	 * 		Illegal object
      */
     @Override
     public void focusGained(Focusable object) {
+    	if (object == null)
+			throw new IllegalArgumentException();
         object.focus();
         focusedObject = object;
     }

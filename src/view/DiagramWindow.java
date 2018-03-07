@@ -2,7 +2,8 @@ package view;
 
 import controller.Controller;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /*
  * A DiagramWindow class
