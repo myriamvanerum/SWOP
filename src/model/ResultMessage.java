@@ -7,7 +7,7 @@ package model;
  */
 public class ResultMessage extends Message {
 
-    public ResultMessage(String label, Party sender, Party receiver) {
+    public ResultMessage(Label label, Party sender, Party receiver) {
         super(label, sender, receiver);
     }
 

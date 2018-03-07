@@ -11,7 +11,8 @@ package model;
 public abstract class Message extends DiagramComponent {
     private Party sender;
     private Party receiver;
-    private String label;
+    //private String label;
+    private Label label;
 
     /**
      * Constructor of Message.
@@ -20,7 +21,7 @@ public abstract class Message extends DiagramComponent {
      * @param sender: the sender of the message.
      * @param receiver: the receiver of the message.
      */
-    public Message(String label, Party sender, Party receiver) {
+    public Message(Label label, Party sender, Party receiver) {
         this.label = label;
         this.sender = sender;
         this.receiver = receiver;
@@ -33,7 +34,7 @@ public abstract class Message extends DiagramComponent {
      * 
      * @return label.
      */
-    public String getLabel() {
+    public Label getLabel() {
         return label;
     }
 
@@ -42,7 +43,7 @@ public abstract class Message extends DiagramComponent {
      * 
      * @param label: the label of the message.
      */
-    public void setLabel(String label) {
+    public void setLabel(Label label) {
         this.label = label;
     }
 
