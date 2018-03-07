@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import domain.Actor;
-import domain.ComponentType;
-import domain.Party;
+import model.Actor;
+import model.ComponentType;
+import model.Party;
 
 class PartyTest {
 	

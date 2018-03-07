@@ -10,9 +10,9 @@ import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
-import domain.Actor;
-import domain.Object;
-import domain.Party;
+import model.Actor;
+import model.Object;
+import model.Party;
 
 public interface Draw {
 	default void drawActor(Graphics2D g, double x, double y, String label, int size, int totalHeight) {
@@ -61,7 +61,7 @@ public interface Draw {
 	}
     
     default void setColor(Party component, Graphics2D g) {
-    	if(component.isSelected()){
+    	if(component.focused()){
             g.setPaint(new Color(70, 170, 220));
         } else {
             g.setPaint(new Color(0, 0, 0));

@@ -1,4 +1,4 @@
-package domain;
+package model;
 
 /*
  * A Component type enumeration

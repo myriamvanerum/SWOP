@@ -1,28 +1,36 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import domain.*;
-import domain.Object;
+import model.*;
+import model.Object;
+import view.DiagramWindow;
 
 /*
  * A controller class
  * 
  * @author SWOP groep 03
  */
-public class Controller implements Draw {
+public class Controller extends ObjectFocusListener implements Draw {
 	
 	private DiagramType diagramType = DiagramType.SEQUENCE;
 	
     public ArrayList<Party> parties = new ArrayList<>();
     public ArrayList<Message> messages = new ArrayList<>();
     
-    public Component selectedParty = null;
+    public DiagramComponent selectedParty = null;
 
     public DiagramType getDiagramType() {
         return diagramType;
+    }
+    
+    private DiagramWindow view;
+
+    public Controller(DiagramWindow view) {
+        this.view = view;
     }
 
     public void setDiagramType(DiagramType diagramType) {
@@ -47,10 +55,10 @@ public class Controller implements Draw {
         messages.remove(message);
     }
 
-    public void removeComponent(Component object){
+    public void removeComponent(DiagramComponent object){
         if (object instanceof Party){
             removeParty((Party) object);
-        }else {
+        } else {
             removeMessage((Message) object);
         }
     }
@@ -63,7 +71,7 @@ public class Controller implements Draw {
         return messages;
     }
     
-    private void makeNewParty(Party party, int x, int y) {
+    private void changeParty(Party party, int x, int y) {
     	if (party.getType() == ComponentType.ACTOR) {
             Object object = new Object(x, y, ComponentType.OBJECT, "Empty");
             removeParty(party);
@@ -115,6 +123,7 @@ public class Controller implements Draw {
     
     private void addComponent(int x, int y) {
     	Party component = new Object(x, y, ComponentType.OBJECT, "Object");
+    	System.out.println("ADDED COMP X:"+x+" Y:" + y);
     	addParty(component);
     }
     
@@ -125,33 +134,6 @@ public class Controller implements Draw {
     	} else {
     		component.setXSeq(x);
     	}
-    }
-    
-    public void checkAndSelect(int x, int y) {
-        Component selectable = checkCoordinate(x, y);
-
-        if (selectedParty != null) {
-            unselectComponent();
-        }
-        selectComponent(selectable);
-    }
-    
-    private void selectComponent(Component component) {
-
-        if(component != null) {
-            selectedParty = component;
-            selectedParty.setSelected();
-        }
-    }
-
-    private void unselectComponent() {
-        selectedParty.unselect();
-        selectedParty = null;
-    }
-
-    public void deleteSelectedComponent() {
-        removeComponent(selectedParty);
-        unselectComponent();
     }
     
     public void paintScreen(Graphics2D g) {
@@ -178,32 +160,92 @@ public class Controller implements Draw {
             }*/
     	}
     }
-    
-    public void doubleClick(int x, int y) {
-    	Party party = checkCoordinate(x, y);
-        
-        if (party == null) {
-            addComponent(x, y);
-        } else {
-        	if (getDiagramType() == DiagramType.COMMUNICATION) {
-        		makeNewParty(party, (int)party.getXCom(), (int)party.getYCom());
-        		
-        	} else if (getDiagramType() == DiagramType.SEQUENCE){
-        		makeNewParty(party, (int)party.getXSeq(), (int)party.getYSeq());
-        	}                
-        }
-    }
-    
-    public void singleClick(int x, int y) {
-    	if (checkCoordinate(x, y) == null && selectedParty != null) {
-            unselectComponent();
-        }
-    }
-    
-    public void drag(int x, int y) {
-    	if (selectedParty != null && selectedParty instanceof Party) {
-            moveComponent((Party) selectedParty, x, y);
+   
+    public void handleKeyEvent(int id, int keyCode, char keyChar) {
+
+        switch (keyCode) {
+            case KeyEvent.VK_I:
+                addMessage(new InvocationMessage("Hello", parties.get(0), parties.get(1)));
+                break;
+
+            case KeyEvent.VK_TAB:
+                switchDiagram();
+                break;
+
+            case KeyEvent.VK_BACK_SPACE:
+                deleteFocused();
+                break;
         }
     }
 
+    public void handleMouseEvent(int id, int x, int y, int clickCount) {
+        
+        switch (id) {
+
+            case MouseEvent.MOUSE_PRESSED:
+                checkAndFocus(x, y);
+                break;
+
+            case MouseEvent.MOUSE_DRAGGED:
+                if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
+                    moveComponent((Party) getFocusedObject(), x, y);
+                }
+                break;
+
+            case MouseEvent.MOUSE_CLICKED:
+                Party party = checkCoordinate(x, y);
+                switch (clickCount) {
+                    case 1:
+                        if (party == null && getFocusedObject() != null) {
+                            unFocus();
+                        }
+                        break;
+
+                    case 2:
+                        if (party == null) {
+                            addComponent(x, y);
+                        } else {
+                            if (getDiagramType() == DiagramType.COMMUNICATION) {
+                                changeParty(party, (int) party.getXCom(), (int) party.getYCom());
+
+                            } else if (getDiagramType() == DiagramType.SEQUENCE) {
+                                changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
+                            }
+                        }
+                }
+        }
+    }
+
+    /* FOCUS METHODS */
+
+    private void focusComponent(Focusable component) {
+
+        if (component != null) {
+            focusGained(component);
+        }
+    }
+
+    private void unFocus() {
+        focusLost();
+    }
+    
+    private void checkAndFocus(int x, int y) {
+        Focusable selectable = checkCoordinate(x, y);
+
+        if (getFocusedObject() != null) {
+            focusLost();
+        }
+        focusComponent(selectable);
+    }
+    
+    private void deleteFocused() {
+        Focusable focusable = getFocusedObject();
+        assert focusable != null;
+        if (focusable instanceof Party) {
+            removeParty((Party) focusable);
+        } else
+            removeMessage((Message) focusable);
+    }
 }
+
+

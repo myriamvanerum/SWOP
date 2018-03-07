@@ -1,6 +1,6 @@
 package view;
 
-import controller.*;
+import controller.Controller;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -13,12 +13,14 @@ import java.awt.event.MouseEvent;
  */
 public class DiagramWindow extends CanvasWindow {
 
-    private Controller controller = new Controller();
-    
+   
     private String label = "";
+
+    private Controller controller;
 
     public DiagramWindow(String title) {
         super(title);
+        controller = new Controller(this);
     }
 
     @Override
@@ -33,49 +35,25 @@ public class DiagramWindow extends CanvasWindow {
         if (label != null) {
         	g.drawString(label, 50, 50);
         }
-    }    
+    }
 
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-        if (id == MouseEvent.MOUSE_CLICKED && clickCount == 1) {
-        	controller.singleClick(x, y);
-        }
-        if (id == MouseEvent.MOUSE_PRESSED) {
-            controller.checkAndSelect(x, y);
-        }
-        
-        if (id == MouseEvent.MOUSE_CLICKED && clickCount == 2) {      
-        	controller.doubleClick(x, y);
-        }
-
-        if (id == MouseEvent.MOUSE_DRAGGED) {
-        	controller.drag(x, y);
-        }
-        
+        controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
         repaint();
-    }   
+    }
     
     // Keyboard keys
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        switch (keyCode) {
-//            case KeyEvent.VK_I:
-//                controller.addMessage(new InvocationMessage("Hello", controller.getParties().get(0), controller.getParties().get(1)));
-//                repaint();
-//                break;
-            case KeyEvent.VK_TAB:
-                controller.switchDiagram();
-                break;
-            case KeyEvent.VK_DELETE:
-                controller.deleteSelectedComponent();
-                break;
-        }
-        
+
         // Enkel letters (hoofdletters & kleineletters, de 'i' toets is nog verbonden aan de messages
         if (keyCode >= 65 && keyCode <= 90) {
         	this.label += keyChar;
         }
         
+        controller.handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
 }
+

@@ -1,35 +1,34 @@
-package domain;
+package model;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.ArrayList;
 
-/*
- * A Component class
- * 
- * @author SWOP groep 03
- */
-public class Component {
+public class DiagramComponent implements Focusable {
 
-    private boolean isSelected = false;
+    private boolean focused;
 
-    public Boolean isSelected(){
-        return isSelected;
+    @Override
+    public Boolean focused() {
+        return focused;
     }
 
-    public void setSelected(){
-        this.isSelected = true;
+    @Override
+    public void focus() {
+        focused = true;
     }
 
-    public void unselect(){
-        this.isSelected = false;
+    @Override
+    public void unfocus() {
+        focused = false;
     }
 
-    public Color getSelectedColor(){
-
-       return  new Color(159, 236, 249);
+    @Override
+    public Color getFocusColor() {
+        return new Color(159, 236, 249);
     }
 
-    public Color getDefaultColor(){
+    @Override
+    public Color getDefaultColor() {
         return new Color(0, 0, 0);
     }
-
 }

@@ -1,15 +1,15 @@
-package domain;
+package model;
 
 import java.awt.geom.Point2D;
 
-import domain.Component;
+import model.DiagramComponent;
 
 /*
  * A Party class
  * 
  * @author SWOP groep 03
  */
-public abstract class Party extends Component {
+public abstract class Party extends DiagramComponent {
 
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;

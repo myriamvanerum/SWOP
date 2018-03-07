@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Actor;
-import domain.ComponentType;
-import domain.Party;
+import model.Actor;
+import model.ComponentType;
+import model.Party;
 import view.DiagramWindow;
 
 class DiagramWindowTest {

@@ -1,11 +1,11 @@
-package domain;
+package model;
 
 /*
  * A Message class
  * 
  * @author SWOP groep 03
  */
-public abstract class Message extends Component {
+public abstract class Message extends DiagramComponent {
     private Party sender;
     private Party receiver;
     private String label;
@@ -41,13 +41,5 @@ public abstract class Message extends Component {
 
     public void setReceiver(Party receiver) {
         this.receiver = receiver;
-    }
-
-    public Boolean isSelected(){
-        return super.isSelected();
-    }
-
-    public void setSelected(Boolean selected){
-        this.setSelected(selected);
     }
 }
