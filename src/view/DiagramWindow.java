@@ -3,8 +3,6 @@ package view;
 import controller.Controller;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /*
  * A DiagramWindow class
@@ -43,4 +41,3 @@ public class DiagramWindow extends CanvasWindow {
         repaint();
     }
 }
-

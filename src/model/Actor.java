@@ -1,13 +1,21 @@
 package model;
 
 /*
- * An Actor class
+ * An Actor class. An actor is a kind of party
  * 
  * @author SWOP groep 03
  */
 public class Actor extends Party {
-
-    public Actor(int x, int y, ComponentType type, Label label) {
-        super(x, y, type, label);
+	/**
+	 * Actor constructor
+	 * @param x
+	 * 		The x coordinate of the actor
+	 * @param y
+	 * 		The y coordinate of the actor
+	 * @param label
+	 * 		The actor's label
+	 */
+    public Actor(int x, int y, Label label) {
+        super(x, y, label);
     }
 }

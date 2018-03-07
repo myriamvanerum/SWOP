@@ -7,9 +7,16 @@ package model;
  */
 public class Object extends Party {
 
-	public Object(int x, int y, ComponentType type, Label label) {
-		super(x, y, type, label);
+	/**
+	 * Object constructor
+	 * @param x
+	 * 		The x coordinate of the object
+	 * @param y
+	 * 		The y coordinate of the object
+	 * @param label
+	 * 		The object's label
+	 */
+    public Object(int x, int y, Label label) {
+		super(x, y, label);
 	}
-
-   
 }
