@@ -3,8 +3,6 @@ package view;
 import controller.Controller;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /*
  * A DiagramWindow class
@@ -12,6 +10,9 @@ import java.awt.event.MouseEvent;
  * @author SWOP groep 03
  */
 public class DiagramWindow extends CanvasWindow {
+   
+    private String label = "";
+
     private Controller controller;
 
     public DiagramWindow(String title) {
@@ -27,6 +28,10 @@ public class DiagramWindow extends CanvasWindow {
         g.drawString(controller.getDiagramType().toString() + " DIAGRAM", 10, 10);
         
         controller.paintScreen(g2);
+        
+        if (label != null) {
+        	g.drawString(label, 50, 50);
+        }
     }
 
 	@Override
@@ -38,8 +43,13 @@ public class DiagramWindow extends CanvasWindow {
     // Keyboard keys
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
+
+        // Enkel letters (hoofdletters & kleineletters, de 'i' toets is nog verbonden aan de messages
+        if (keyCode >= 65 && keyCode <= 90) {
+        	this.label += keyChar;
+        }
+        
         controller.handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
 }
-

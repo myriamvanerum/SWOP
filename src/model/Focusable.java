@@ -8,9 +8,18 @@ package model;
  */
 public interface Focusable {
 
+	/**
+     * This method determines if the object is focused
+     */
     Boolean focused();
 
+    /**
+     * This method focuses an object
+     */
     void focus();
 
+    /**
+     * This method unfocuses an object
+     */
     void unfocus();
 }

@@ -49,7 +49,14 @@ public class Controller extends ObjectFocusListener implements Draw {
 		return messages;
 	}
 
+	/**
+	 * This method will loop over all the components and paint them on the window. 
+	 * It paints the components all on the same height on a sequence diagram
+	 * and at the clicked position on a communication diagram.
+	 * @param g
+	 */
 	public void paintScreen(Graphics2D g) {
+		/*Draw actors and objects*/
 		if (getDiagramType() == DiagramType.COMMUNICATION) {
 			for (Party component : getParties()) {
 				setColor(component, g);
@@ -61,10 +68,11 @@ public class Controller extends ObjectFocusListener implements Draw {
 		} else if (getDiagramType() == DiagramType.SEQUENCE) {
 			for (Party component : getParties()) {
 				setColor(component, g);
-				drawComponent(g, component);
+				drawParty(g, component);
 			}
 		}
 
+		/*Draw messages*/
 		for (Message message : getMessages()) {
 			if (message instanceof InvocationMessage) {
 				drawInvocationMessage(g, message.focused(), message.getSender().getXCom(),
@@ -130,6 +138,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 			if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
 				moveComponent((Party) getFocusedObject(), x, y);
 			}
+			getFocusedObject().unfocus();
 			break;
 
 		case MouseEvent.MOUSE_CLICKED:
@@ -156,6 +165,21 @@ public class Controller extends ObjectFocusListener implements Draw {
 		}
 	}
 
+	/**
+	 * A clicked location is compared with a component location, to see if the component is located at the clicked spot.
+	 * 
+	 * @param component:
+	 * 			  the component whose location is checked
+	 * @param x:
+	 *            x coordinate
+	 * @param y:
+	 *            y coordinate
+	 * @param componentX:
+	 * 			  component x coordinate
+	 * @param componentY:
+	 * 			  component y coordinate
+	 * @return true if the component covers the clicked position, false if it doesn't
+	 */
 	private boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
 		if (component instanceof Actor) {
 			return x >= x - 20 / 2 && x <= x + 20 / 2 && y <= 140;
@@ -191,7 +215,8 @@ public class Controller extends ObjectFocusListener implements Draw {
 	}
 
 	/**
-	 * Diagram is switched. If the previous screen showed a sequence diagram, it will now show a communication diagram, and vice versa.
+	 * Diagram is switched. 
+	 * If the previous screen showed a sequence diagram, it will now show a communication diagram, and vice versa.
 	 */
 	public void switchDiagram() {
 		switch (getDiagramType()) {
@@ -217,7 +242,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            y coordinate
 	 */
 	private void addComponent(int x, int y) {
-		Party component = new Object(x, y, ComponentType.OBJECT, new Label(x,y,""));
+		Party component = new Object(x, y, new Label(x,y,""));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
 		addParty(component);
 	}
@@ -276,12 +301,12 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            y coordinate of the first party.
 	 */
 	private void changeParty(Party party, int x, int y) {
-		if (party.getType() == ComponentType.ACTOR) {
-			Object object = new Object(x, y, ComponentType.OBJECT, new Label(x,y,party.getLabelText()));
+		if (party instanceof Actor) {
+			Object object = new Object(x, y, new Label(x,y,party.getLabelText()));
 			removeParty(party);
 			addParty(object);
-		} else {
-			Actor actor = new Actor(x, y, ComponentType.ACTOR, new Label(x,y,party.getLabelText()));
+		} else if (party instanceof Object){
+			Actor actor = new Actor(x, y, new Label(x,y,party.getLabelText()));
 			removeParty(party);
 			addParty(actor);
 		}
@@ -307,11 +332,17 @@ public class Controller extends ObjectFocusListener implements Draw {
 		messages.remove(message);
 	}
 
-	public void removeComponent(DiagramComponent object) {
-		if (object instanceof Party) {
-			removeParty((Party) object);
+	/**
+	 * A component gets removed.
+	 * 
+	 * @param component:
+	 *            the component to removed.
+	 */
+	public void removeComponent(DiagramComponent component) {
+		if (component instanceof Party) {
+			removeParty((Party) component);
 		} else {
-			removeMessage((Message) object);
+			removeMessage((Message) component);
 		}
 	}
 
