@@ -29,8 +29,10 @@ public class DiagramWindow extends CanvasWindow {
 
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-        controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
-        repaint();
+		if(controller.isInputMode() == false) {
+			controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
+			repaint();
+		}
     }
     
     // Keyboard keys

@@ -27,6 +27,7 @@ import model.Object;
  *
  */
 public interface Draw {
+	
 	/**
 	 * This method paints an actor on the window
 	 * 
@@ -36,17 +37,18 @@ public interface Draw {
 	 *            The x coordinate to start painting from
 	 * @param y
 	 *            The y coordinate to start painting from
-	 * @param label
-	 *            The label to paint for this actor
 	 * @param size
 	 *            The size of the painted stickfigure
+<<<<<<< HEAD
 	 * @param totalHeight
 	 *            The total height of the stickfigure
+	 * @param actor
+	 *            The actor that will be displayed as a stickfigure
 	 * @throws IllegalArgumentException
-	 * 			  Illegal coordinates or size
+	 * 			  Illegal actor, coordinates or size
 	 */
-	default void drawActor(Graphics2D g, double x, double y, Label label, int size, int totalHeight) {
-		if (x < 0 || y < 0 || size < 0 || totalHeight < 0)
+	default void drawActor(Graphics2D g, double x, double y, int size, Party actor) {
+		if (x < 0 || y < 0 || size < 0 || actor == null)
 			throw new IllegalArgumentException();
 		Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
@@ -57,10 +59,10 @@ public interface Draw {
 		g.draw(new Line2D.Double(x, y + size + 5, x + 20, y + size + 25));
 		// draw legs actor
 		g.draw(new Line2D.Double(x - 20, y + size + 70, x, y + size + 50));
-		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));
-		// draw label
-//		g.drawString(label, (int) (x + ((size / 2) - label.length() * 3)), (int) (y) + totalHeight);
-		g.drawString(label.getText(), label.getX(), label.getY());
+		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));		
+
+		actor.getLabel().setX((int) x + (10 - actor.getLabel().getText().length() * 3));			
+		actor.getLabel().setY((int) y + 115);
 	}
 
 	/**
@@ -72,20 +74,21 @@ public interface Draw {
 	 *            The x coordinate to start painting from
 	 * @param y
 	 *            The y coordinate to start painting from
-	 * @param label
-	 *            The label to paint for this actor
 	 * @param height
 	 *            The height of the rectangle to paint
 	 * @param width
 	 *            The width of the rectangle to paint
+	 * @param object
+	 *            The object that will be displayed 
 	 * @throws IllegalArgumentException
-	 * 			  Illegal coordinates or size
+	 * 			  Illegal object, coordinates or size
 	 */
-	default void drawObject(Graphics2D g, double x, double y, Label label, int height, int width) {
-		if (x < 0 || y < 0 || height < 0 || width < 0)
+	default void drawObject(Graphics2D g, double x, double y, int height, int width, Party object) {
+		if (x < 0 || y < 0 || height < 0 || width < 0 || object == null)
 			throw new IllegalArgumentException();
 		Rectangle r = new Rectangle((int) x, (int) y, width, height);
-		g.drawString(label.getText(), label.getX(), label.getY());
+		object.getLabel().setX((int)x + ((width/2) - object.getLabel().getText().length() * 2));
+		object.getLabel().setY((int)y + height/2);
 		g.draw(r);
 	}
 
@@ -128,15 +131,16 @@ public interface Draw {
 			throw new IllegalArgumentException();
 		Graphics2D g2 = (Graphics2D) g;
 		int startLifelineX = 0, startLifelineY = 0;
-
-		if (party instanceof Actor) {
-			drawActor(g2, party.getXSeq(), party.getYSeq(), party.getLabel(), 20, 120);
+		
+		if (party instanceof Actor) {			
+			drawActor(g2, party.getXSeq(), party.getYSeq(), 20, party);
 			startLifelineX = (int) party.getXSeq();
 			startLifelineY = (int) party.getYSeq() + 125;
 		} else if (party instanceof Object) {
-			drawObject(g2, party.getXSeq(), party.getYSeq(), party.getLabel(), 80, 80);
-			startLifelineX = (int) party.getXSeq() + 40;
-			startLifelineY = (int) party.getYSeq() + 80;
+			int height = 80, width = 80;			
+			drawObject(g2, party.getXSeq(), party.getYSeq(), height, width, party);
+			startLifelineX = (int) party.getXSeq() + width/2;
+			startLifelineY = (int) party.getYSeq() + height;
 		}
 
 		drawLifeline(g, startLifelineX, startLifelineY, startLifelineY + 400);
@@ -242,5 +246,11 @@ public interface Draw {
 		} else {
 			g.setPaint(new Color(0, 0, 0));
 		}
+	}
+	
+	default void drawLabel(Graphics2D g, Label label, Color color) {		
+		g.setColor(color);
+		g.drawString(label.getText(), label.getX(), label.getY());
+		g.setColor(new Color(0,0,0));
 	}
 }

@@ -17,8 +17,6 @@ public class Object extends Party {
 	 * 		The object's label
 	 */
     public Object(int x, int y, Label label) {
-		//label.setX(x + ((80 / 2) - label.getText().length() * 2));
-		//label.setY(y+ height / 2);
 		super(x, y, label);
 	}
 }

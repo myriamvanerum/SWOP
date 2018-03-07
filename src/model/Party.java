@@ -14,7 +14,6 @@ public abstract class Party extends DiagramComponent {
     private Point2D posInCommDiagram;
     private Integer posInSeqDiagram;
     private Message sendingMessage;
-    private Label label;
 
     /**
      * Party constructor
@@ -57,14 +56,6 @@ public abstract class Party extends DiagramComponent {
 
     public void setY(int y) {
         this.posInCommDiagram.setLocation(posInCommDiagram.getX(),y);
-    }
-
-    public Label getLabel(){
-        return label;
-    }
-
-    public void setLabel(Label label){
-        this.label = label;
     }
 
     public Message getSendingMessage() {

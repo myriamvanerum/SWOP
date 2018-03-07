@@ -42,4 +42,16 @@ public class Label {
 	public String toString() {
 		return text;
 	}
+	
+	public boolean correctSyntax() {
+		char first = text.charAt(0);
+		String parts[] = text.split(":");
+		
+		if (first == ':' && parts.length < 3) {
+			return Character.isUpperCase(text.charAt(1));
+		}
+		else if (first != ':' && parts.length <= 3)
+			return text.contains(":") && Character.isLowerCase(first) && Character.isUpperCase(parts[1].charAt(0));
+		else return false;
+	}
 }

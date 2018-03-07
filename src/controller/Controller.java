@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -26,16 +27,23 @@ public class Controller extends ObjectFocusListener implements Draw {
 
 	public DiagramComponent selectedParty = null;
 
+    private boolean inputMode = false;
+	public DiagramComponent currentComponent = null;
+
 	private DiagramWindow view;
 
 	public Controller(DiagramWindow view) {
 		this.view = view;
 	}
-
+	
 	/* GETTERS AND SETTERS */
 	
 	public DiagramType getDiagramType() {
 		return diagramType;
+	}
+
+	public boolean isInputMode() {
+		return inputMode;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
@@ -61,15 +69,19 @@ public class Controller extends ObjectFocusListener implements Draw {
 		if (getDiagramType() == DiagramType.COMMUNICATION) {
 			for (Party component : getParties()) {
 				setColor(component, g);
-				if (component instanceof Actor)
-					drawActor(g, component.getXCom(), component.getYCom(), component.getLabel(), 20, 120);
-				else if (component instanceof Object)
-					drawObject(g, component.getXCom(), component.getYCom(), component.getLabel(), 80, 80);
+				if (component instanceof Actor) {
+					drawActor(g, component.getXCom(), component.getYCom(), 20, component);
+				}else if (component instanceof Object) {
+					drawObject(g, component.getXCom(), component.getYCom(), 80, 80, component);
+				}
+				
+				checkLabelSettings(g, component);
 			}
 		} else if (getDiagramType() == DiagramType.SEQUENCE) {
 			for (Party component : getParties()) {
 				setColor(component, g);
-				drawParty(g, component);
+				drawParty(g, component);								
+				checkLabelSettings(g, component);
 			}
 		}
 
@@ -84,6 +96,15 @@ public class Controller extends ObjectFocusListener implements Draw {
 						message.getReceiver().getXCom(), message.getReceiver().getYCom());
 			}
 		}
+	}
+
+	private void checkLabelSettings(Graphics2D g, Party component) {
+		if (component == currentComponent && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
+			drawLabel(g, component.getLabel(), new Color(0,255,0));
+		else if (component == currentComponent && inputMode == true && !component.getLabel().correctSyntax())
+			drawLabel(g, component.getLabel(), new Color(255,0,0));
+		else			
+			drawLabel(g, component.getLabel(), g.getColor());
 	}
 
 	/**
@@ -101,18 +122,52 @@ public class Controller extends ObjectFocusListener implements Draw {
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
-		switch (keyCode) {
-		case KeyEvent.VK_I:
-			addMessage(new InvocationMessage(new Label(1,1, ""), parties.get(0), parties.get(1)));
-			break;
 
-		case KeyEvent.VK_TAB:
-			switchDiagram();
-			break;
+		if (inputMode == true)
+		{
+			int index = parties.indexOf(currentComponent);
+			String inputLabel = currentComponent.getLabel().getText();
+			
+			// Enkel letters (hoofdletters & kleineletters
+	        // 513 is de keyCode voor ":"
+	        // 65-90 zijn de keyCodes voor alle letters
+	        // 8 is de keyCode voor backspace
+	        // 10 is de keyCode voor enter		
+	        if (keyCode >= 65 && keyCode <= 90 || keyCode == 513 || keyCode == 8) { 	        	
+	        		    			    		    		
+	        	if (keyCode == 8 && inputLabel.length() > 1)
+	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
+	        	else if (inputLabel != null && inputLabel.length() > 0) {
+	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
+	    	    }    	
+	        }   
+	        
+	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
+	        	System.out.println("Test updaten label");
+	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
+		        inputMode = false;
+	        	currentComponent = null;  
+	        }  	     
 
-		case KeyEvent.VK_DELETE:
-			deleteFocused();
-			break;
+        	if (currentComponent instanceof Party)       		        	
+        		parties.set(index, (Party)currentComponent);
+        	if (currentComponent instanceof Message)
+        		messages.set(index, (Message)currentComponent);
+        	
+		} else {
+			switch (keyCode) {
+			case KeyEvent.VK_I:
+				addMessage(new InvocationMessage(new Label(1,1, ""), parties.get(0), parties.get(1)));
+				break;
+
+			case KeyEvent.VK_TAB:
+				switchDiagram();
+				break;
+
+			case KeyEvent.VK_DELETE:
+				deleteFocused();
+				break;
+			}	
 		}
 	}
 
@@ -136,41 +191,40 @@ public class Controller extends ObjectFocusListener implements Draw {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
-		switch (id) {
-
-		case MouseEvent.MOUSE_PRESSED:
-			checkAndFocus(x, y);
-			break;
-
-		case MouseEvent.MOUSE_DRAGGED:
+		if ( inputMode == false) {
+			switch (id) {
+			case MouseEvent.MOUSE_PRESSED:
+				checkAndFocus(x, y);
+				break;
+			case MouseEvent.MOUSE_DRAGGED:
 			if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
 				moveComponent((Party) getFocusedObject(), x, y);
 			}
 			getFocusedObject().unfocus();
 			break;
+			case MouseEvent.MOUSE_CLICKED:
+				Party party = checkCoordinate(x, y);
+				switch (clickCount) {
+				case 1:
+					if (party == null && getFocusedObject() != null) {
+						unFocus();
+					}
+					break;
 
-		case MouseEvent.MOUSE_CLICKED:
-			Party party = checkCoordinate(x, y);
-			switch (clickCount) {
-			case 1:
-				if (party == null && getFocusedObject() != null) {
-					unFocus();
-				}
-				break;
+				case 2:
+					if (party == null) {
+						addComponent(x, y);
+					} else {
+						if (getDiagramType() == DiagramType.COMMUNICATION) {
+							changeParty(party, (int) party.getXCom(), (int) party.getYCom());
 
-			case 2:
-				if (party == null) {
-					addComponent(x, y);
-				} else {
-					if (getDiagramType() == DiagramType.COMMUNICATION) {
-						changeParty(party, (int) party.getXCom(), (int) party.getYCom());
-
-					} else if (getDiagramType() == DiagramType.SEQUENCE) {
-						changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
+						} else if (getDiagramType() == DiagramType.SEQUENCE) {
+							changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
+						}
 					}
 				}
 			}
-		}
+		}		
 	}
 
 	/**
@@ -215,6 +269,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
+	// TO DO component + label teruggeven
 	private Party checkCoordinate(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -262,8 +317,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 	private void addComponent(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		Party component = new Object(x, y, new Label(x,y,""));
+		Party component = new Object(x, y, new Label(x,y,"|"));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
+		currentComponent = component;
+		inputMode = true;
 		addParty(component);
 	}
 
