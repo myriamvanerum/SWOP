@@ -164,7 +164,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 				break;
 
 			case KeyEvent.VK_DELETE:
-				deleteFocused();
+				if (labelClickedOnce) {
+					deleteFocused();
+					labelClickedOnce = false;
+				}
 				break;
 			}	
 		}
