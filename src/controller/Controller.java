@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -25,16 +26,23 @@ public class Controller extends ObjectFocusListener implements Draw {
 
 	public DiagramComponent selectedParty = null;
 
+    private boolean inputMode = false;
+	public Party currentObject = null;
+
 	private DiagramWindow view;
 
 	public Controller(DiagramWindow view) {
 		this.view = view;
 	}
-
+	
 	/* GETTERS AND SETTERS */
 	
 	public DiagramType getDiagramType() {
 		return diagramType;
+	}
+
+	public boolean isInputMode() {
+		return inputMode;
 	}
 
 	public void setDiagramType(DiagramType diagramType) {
@@ -53,15 +61,31 @@ public class Controller extends ObjectFocusListener implements Draw {
 		if (getDiagramType() == DiagramType.COMMUNICATION) {
 			for (Party component : getParties()) {
 				setColor(component, g);
-				if (component instanceof Actor)
+				if (component instanceof Actor) {
 					drawActor(g, component.getXCom(), component.getYCom(), component.getLabel(), 20, 120);
-				else if (component instanceof Object)
+				}else if (component instanceof Object) {
 					drawObject(g, component.getXCom(), component.getYCom(), component.getLabel(), 80, 80);
+				}
+				
+				// TODO optimize code
+				if (component == currentObject && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
+					drawLabel(g, component.getLabel(), new Color(0,255,0));
+		        else if (component == currentObject && inputMode == true && !component.getLabel().correctSyntax())
+		        	drawLabel(g, component.getLabel(), new Color(255,0,0));
+		        else
+		        	drawLabel(g, component.getLabel(), new Color(0,0,0));
 			}
 		} else if (getDiagramType() == DiagramType.SEQUENCE) {
 			for (Party component : getParties()) {
 				setColor(component, g);
 				drawComponent(g, component);
+								
+				if (component == currentObject && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
+					drawLabel(g, component.getLabel(), new Color(0,255,0));
+		        else if (component == currentObject && inputMode == true && !component.getLabel().correctSyntax())
+		        	drawLabel(g, component.getLabel(), new Color(255,0,0));
+		        else
+		        	drawLabel(g, component.getLabel(), new Color(0,0,0));
 			}
 		}
 
@@ -88,19 +112,49 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @param keyChar:
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
+		if (inputMode == true)
+		{
+			int index = parties.indexOf(currentObject);
+			
+			// Enkel letters (hoofdletters & kleineletters
+	        // 513 is de keyCode voor ":"
+	        // 65-90 zijn de keyCodes voor alle letters
+	        // 8 is de keyCode voor backspace
+	        // 10 is de keyCode voor enter		
+	        if (keyCode >= 65 && keyCode <= 90 || 
+	        		keyCode == 513 || 
+	        		keyCode == 8) { 
+	        	String inputLabel = currentObject.getLabelText();
+	        		    			    		    		
+	        	if (keyCode == 8 && inputLabel.length() > 1)
+	        		currentObject.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
+	        	else if (inputLabel != null && inputLabel.length() > 0) {
+	        		currentObject.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
+	    	    }    	
+		        parties.set(index, currentObject);
+	        }   
+	        
+	        if (currentObject.getLabel().correctSyntax() && keyCode == 10) {
+	        	System.out.println("Test updaten label");
+	        	currentObject.getLabel().setText(currentObject.getLabelText().substring(0, currentObject.getLabelText().length() - 1));
+		        parties.set(index, currentObject);
+	        	inputMode = false;
+	        	currentObject = null;  
+	        }  	        
+		} else {
+			switch (keyCode) {
+			case KeyEvent.VK_I:
+				addMessage(new InvocationMessage(new Label(1,1, ""), parties.get(0), parties.get(1)));
+				break;
 
-		switch (keyCode) {
-		case KeyEvent.VK_I:
-			addMessage(new InvocationMessage(new Label(1,1, ""), parties.get(0), parties.get(1)));
-			break;
+			case KeyEvent.VK_TAB:
+				switchDiagram();
+				break;
 
-		case KeyEvent.VK_TAB:
-			switchDiagram();
-			break;
-
-		case KeyEvent.VK_DELETE:
-			deleteFocused();
-			break;
+			case KeyEvent.VK_DELETE:
+				deleteFocused();
+				break;
+			}	
 		}
 	}
 
@@ -119,41 +173,42 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            the number of times the mouse has clicked.
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount) {
+		if ( inputMode == false) {
+			switch (id) {
 
-		switch (id) {
+			case MouseEvent.MOUSE_PRESSED:
+				checkAndFocus(x, y);
+				break;
 
-		case MouseEvent.MOUSE_PRESSED:
-			checkAndFocus(x, y);
-			break;
-
-		case MouseEvent.MOUSE_DRAGGED:
-			if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
-				moveComponent((Party) getFocusedObject(), x, y);
-			}
-			break;
-
-		case MouseEvent.MOUSE_CLICKED:
-			Party party = checkCoordinate(x, y);
-			switch (clickCount) {
-			case 1:
-				if (party == null && getFocusedObject() != null) {
-					unFocus();
+			case MouseEvent.MOUSE_DRAGGED:
+				if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
+					moveComponent((Party) getFocusedObject(), x, y);
 				}
 				break;
 
-			case 2:
-				if (party == null) {
-					addComponent(x, y);
-				} else {
-					if (getDiagramType() == DiagramType.COMMUNICATION) {
-						changeParty(party, (int) party.getXCom(), (int) party.getYCom());
+			case MouseEvent.MOUSE_CLICKED:
+				Party party = checkCoordinate(x, y);
+				switch (clickCount) {
+				case 1:
+					if (party == null && getFocusedObject() != null) {
+						unFocus();
+					}
+					break;
 
-					} else if (getDiagramType() == DiagramType.SEQUENCE) {
-						changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
+				case 2:
+					if (party == null) {
+						addComponent(x, y);
+					} else {
+						if (getDiagramType() == DiagramType.COMMUNICATION) {
+							changeParty(party, (int) party.getXCom(), (int) party.getYCom());
+
+						} else if (getDiagramType() == DiagramType.SEQUENCE) {
+							changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
+						}
 					}
 				}
 			}
-		}
+		}		
 	}
 
 	private boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
@@ -177,6 +232,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            y coordinate
 	 * @return a party.
 	 */
+	// TO DO component + label teruggeven
 	private Party checkCoordinate(int x, int y) {
 		for (Party component : getParties()) {
 			if (getDiagramType() == DiagramType.COMMUNICATION) {
@@ -217,8 +273,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 *            y coordinate
 	 */
 	private void addComponent(int x, int y) {
-		Party component = new Object(x, y, ComponentType.OBJECT, new Label(x,y,""));
+		Party component = new Object(x, y, ComponentType.OBJECT, new Label(x+10,y,"|"));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
+		currentObject = component;
+		inputMode = true;
 		addParty(component);
 	}
 

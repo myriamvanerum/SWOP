@@ -21,7 +21,6 @@ public class DiagramWindow extends CanvasWindow {
 
     @Override
     protected void paint(Graphics g) {
-
         Graphics2D g2 = (Graphics2D) g;
         
         g.drawString(controller.getDiagramType().toString() + " DIAGRAM", 10, 10);
@@ -31,8 +30,10 @@ public class DiagramWindow extends CanvasWindow {
 
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-        controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
-        repaint();
+		if(controller.isInputMode() == false) {
+			controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
+			repaint();
+		}
     }
     
     // Keyboard keys

@@ -26,14 +26,10 @@ public interface Draw {
 		// draw legs actor
 		g.draw(new Line2D.Double(x - 20, y + size + 70, x, y + size + 50));
 		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));
-		// draw label
-//		g.drawString(label, (int) (x + ((size / 2) - label.length() * 3)), (int) (y) + totalHeight);
-		g.drawString(label.getText(), label.getX(), label.getY());
 	}
 
 	default void drawObject(Graphics2D g, double x, double y, Label label, int height, int width) {
 		Rectangle r = new Rectangle((int) x, (int) y, width, height);
-		g.drawString(label.getText(), label.getX(), label.getY());
 		g.draw(r);
 	}
 
@@ -93,5 +89,11 @@ public interface Draw {
 		} else {
 			g.setPaint(new Color(0, 0, 0));
 		}
+	}
+	
+	default void drawLabel(Graphics2D g, Label label, Color color) {
+		g.setColor(color);
+		g.drawString(label.getText(), label.getX(), label.getY());
+		g.setColor(new Color(0,0,0));
 	}
 }
