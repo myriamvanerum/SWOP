@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.awt.event.KeyEvent;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ import model.Object;
 
 /**
  * @author groep 03
- *
+ * 
  */
 class ControllerTest {
 
