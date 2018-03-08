@@ -274,7 +274,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal component, coordinates or component coordinates
 	 */
-	private boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
+	protected boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
 		if (component == null || x < 0 || y < 0 || componentX < 0 || componentY < 0)
 			throw new IllegalArgumentException();
 		if (component instanceof Actor) {
