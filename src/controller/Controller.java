@@ -240,7 +240,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	}
 
 	/**
-	 * 
+	 * This methods checks if a label was clicked
 	 * @param component
 	 * 			the component whose location is checked
 	 * @param x
@@ -334,7 +334,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 		}
 	}
 
-	/* PARTY MESSAGES */
+	/* PARTIES AND MESSAGES */
 
 	/**
 	 * A party is added on the given coordinates.
