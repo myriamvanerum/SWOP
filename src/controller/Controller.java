@@ -133,7 +133,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	        // 65-90 zijn de keyCodes voor alle letters
 	        // 8 is de keyCode voor backspace
 	        // 10 is de keyCode voor enter		
-	        if (keyCode >= 65 && keyCode <= 90 || keyCode == 513 || keyCode == 8) { 	        	
+	        if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) { 	        	
 	        		    			    		    		
 	        	if (keyCode == 8 && inputLabel.length() > 1)
 	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
