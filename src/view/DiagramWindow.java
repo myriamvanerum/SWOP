@@ -5,10 +5,10 @@ import controller.Controller;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-/*
+/**
  * A DiagramWindow class
  * 
- * @author SWOP groep 03
+ * @author  groep 03
  */
 public class DiagramWindow extends CanvasWindow {
     private Controller controller;

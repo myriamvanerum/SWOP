@@ -2,10 +2,10 @@ package model;
 
 import java.awt.Graphics;
 
-/*
+/**
  * A Label class
  * 
- * @author SWOP groep 03
+ * @author groep 03
  */
 public class Label {
 	int x, y, width = 0;

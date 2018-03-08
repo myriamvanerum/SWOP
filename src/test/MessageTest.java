@@ -1,5 +1,5 @@
 /**
- * 
+ * A test to see if the message has the right input.
  */
 package test;
 
@@ -29,15 +29,31 @@ class MessageTest {
 	
 	@Test
 	void test() {
-		
+		testInvocationMessage();
+		testResultMessage();
 	}
 	
 	@Test
 	void testInvocationMessage() {
 		Label l = invmessage.getLabel();
+		Party party1 = invmessage.getSender();
+		Party party2 = invmessage.getReceiver();
 		
+		assertEquals(l, label);
+		assertEquals(party1, sender);
+		assertEquals(party2, receiver);
 	}
 	
-	//
+	@Test
+	void testResultMessage() {
+		Label l = resmessage.getLabel();
+		Party party1 = resmessage.getSender();
+		Party party2 = resmessage.getReceiver();
+		
+		assertEquals(l, label);
+		assertEquals(party1, sender);
+		assertEquals(party2, receiver);
+	}
+	
 
 }
