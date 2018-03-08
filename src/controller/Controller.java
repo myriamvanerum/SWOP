@@ -56,6 +56,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 		return messages;
 	}
 
+	protected void setInputMode(boolean inputMode) {
+		this.inputMode = inputMode;
+	}
+
 	/**
 	 * This method will loop over all the components and paint them on the window. 
 	 * It paints the components all on the same height on a sequence diagram
@@ -96,7 +100,13 @@ public class Controller extends ObjectFocusListener implements Draw {
 		}
 	}
 
-	protected void checkLabelSettings(Graphics2D g, Party component) {
+	/**
+	 * This method makes the application draw labels on the screen
+	 * @param g
+	 * @param component
+	 * 		The component to which the label belongs
+	 */
+	private void checkLabelSettings(Graphics2D g, Party component) {
 		if (component == currentComponent && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
 			drawLabel(g, component.getLabel(), new Color(0,255,0));
 		else if (component == currentComponent && inputMode == true && !component.getLabel().correctSyntax())
@@ -142,7 +152,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	        
 	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
 	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
-		        inputMode = false;
+		        setInputMode(false);
 	        	currentComponent = null;  
 	        }  	     
 
@@ -214,7 +224,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 						labelClickedOnce = true;
 					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == true) {
 						unFocus();
-						inputMode = true;
+						setInputMode(true);
 						labelClickedOnce = false;
 						currentComponent = party;
 						party.getLabel().setText(party.getLabelText()+ "|");						
@@ -274,7 +284,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal component, coordinates or component coordinates
 	 */
-	protected boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
+	private boolean isComponent(Party component, int x, int y, double componentX, double componentY) {
 		if (component == null || x < 0 || y < 0 || componentX < 0 || componentY < 0)
 			throw new IllegalArgumentException();
 		if (component instanceof Actor) {
@@ -299,7 +309,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
-	protected Party checkCoordinate(int x, int y) {
+	public Party checkCoordinate(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		for (Party component : getParties()) {
@@ -343,13 +353,13 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
-	protected void addComponent(int x, int y) {
+	private void addComponent(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		Party component = new Object(x, y, new Label(x,y,"|"));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
 		currentComponent = component;
-		inputMode = true;
+		setInputMode(true);
 		addParty(component);
 	}
 
@@ -367,7 +377,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party or coordinates
 	 */
-	protected void moveComponent(Party party, int x, int y) {
+	private void moveComponent(Party party, int x, int y) {
 		if (party == null || x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		if (getDiagramType() == DiagramType.COMMUNICATION) {
@@ -490,7 +500,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal Focusable
 	 */
-	protected void focusComponent(Focusable component) {
+	private void focusComponent(Focusable component) {
 		if (component == null)
 			throw new IllegalArgumentException();
 		else
@@ -500,7 +510,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	/**
 	 * If a component is focused, it gets unfocused.
 	 */
-	protected void unFocus() {
+	private void unFocus() {
 		focusLost();
 	}
 
@@ -514,7 +524,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
-	protected void checkAndFocus(int x, int y) {
+	private void checkAndFocus(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		Focusable selectable = checkCoordinate(x, y);
@@ -528,7 +538,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	/**
 	 * The component is focused and gets removed.
 	 */
-	protected void deleteFocused() {
+	private void deleteFocused() {
 		Focusable focusable = getFocusedObject();
 		assert focusable != null;
 		if (focusable instanceof Party) {
