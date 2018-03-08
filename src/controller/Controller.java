@@ -25,8 +25,6 @@ public class Controller extends ObjectFocusListener implements Draw {
 	public ArrayList<Party> parties = new ArrayList<>();
 	public ArrayList<Message> messages = new ArrayList<>();
 
-	public DiagramComponent selectedParty = null;
-
     private boolean inputMode = false, labelClickedOnce = false;
 	public DiagramComponent currentComponent = null;
 
