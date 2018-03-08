@@ -11,11 +11,18 @@ import model.Label;
 class LabelTest {
 
 	Label label = new Label(1,1,"");
+	Graphics g;
 	
 	// Incorrect label format	
 	@Test
+	void correctSyntaxTestNoColon() {
+		label.setText("test");
+		assertFalse(label.correctSyntax());
+	}
+	
+	@Test
 	void correctSyntaxTestMultipleColons() {
-		label.setText("test:test:test");
+		label.setText("test:test:test:test");
 		assertFalse(label.correctSyntax());
 	}
 	
