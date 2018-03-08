@@ -4,10 +4,10 @@ import java.awt.geom.Point2D;
 
 import model.DiagramComponent;
 
-/*
+/**
  * A Party class
  * 
- * @author SWOP groep 03
+ * @author  groep 03
  */
 public abstract class Party extends DiagramComponent {
 
