@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import controller.Controller;
 import model.Actor;
@@ -87,8 +85,7 @@ class ControllerTest {
 	
 	@Test
 	void TestAddMessage() {
-		int x1 = 1;
-		int y1 = 2;
+		
 		int lengte = c.messages.size();
 			
 		Message message = new InvocationMessage(label,party1, party2);
@@ -98,8 +95,7 @@ class ControllerTest {
 	
 	@Test
 	void TestRemoveMessage() {
-		int x1 = 1;
-		int y1 = 2;
+		
 				
 		Message message = new InvocationMessage(label,party1, party2);
 		c.addMessage(message);
@@ -117,7 +113,7 @@ class ControllerTest {
 	// Illegal argument 
 
 	@Test
-	public void removePartyNullTest() {		
+	 void removePartyNullTest() {		
 		try {
 			c.removeParty(null);
 		    fail( "My method didn't throw when I expected it to" );
@@ -127,7 +123,7 @@ class ControllerTest {
 	}
 	
 	@Test
-	public void addPartyNullTest() {
+	 void addPartyNullTest() {
 		try {
 			c.addParty(null);
 		    fail( "No exception" );
@@ -137,7 +133,7 @@ class ControllerTest {
 	}
 	
 	@Test
-	public void changePartyNullTest() {
+	 void changePartyNullTest() {
 		try {
 			c.changeParty(null, -2, -2);
 		    fail( "No exception" );
@@ -147,7 +143,7 @@ class ControllerTest {
 	}	
 	
 	@Test
-	public void addMessageNullTest() {
+	 void addMessageNullTest() {
 		try {
 			c.addMessage(null);
 		    fail( "No exception" );
@@ -157,12 +153,13 @@ class ControllerTest {
 	}
 
 	@Test
-	public void removeMessageNullTest() {
+	 void removeMessageNullTest() {
 		try {
 			c.removeMessage(null);
 		    fail( "No exception" );
 		} catch (Exception expectedException) {
 			assertEquals(IllegalArgumentException.class, expectedException.getClass());
 		}
-	}	
+	}
+	
 }

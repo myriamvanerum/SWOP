@@ -6,10 +6,9 @@ package controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import controller.Controller;
 import model.Actor;
@@ -26,7 +25,7 @@ import model.Object;
  *
  */
 class ControllerTest {
-	
+
 	DiagramWindow dg = new DiagramWindow("test");
 	Controller c = new Controller(dg);
 	DiagramType dt = DiagramType.SEQUENCE;
@@ -34,132 +33,217 @@ class ControllerTest {
 	Label label = new Label();
 	Party party1 = new Actor(1, 2, label);
 	Party party2 = new Actor(3, 4, label);
-	
+	Party party3 = new Object(1, 2, label);
+
 	@Test
-	void SwitchDiagramTest() {
-		
+	public void SwitchDiagramTest() {
+
 		c.setDiagramType(dt);
 		c.switchDiagram();
-		
+
 		assertEquals(DiagramType.COMMUNICATION, dtc);
 	}
-	
+
 	@Test
-	void controllerTest() {
+	void SwitchDiagramComTest() {
+
+		c.setDiagramType(dtc);
+		c.switchDiagram();
+
+		assertEquals(DiagramType.SEQUENCE, c.getDiagramType());
+	}
+
+	@Test
+	public void controllerTest() {
 		ArrayList<Party> parties = new ArrayList<>();
 		ArrayList<Message> messages = new ArrayList<>();
 		/*
-		parties.add(new Object(1,1,new Label(1,1,"")));
-		parties.add(new Object(2,2,new Label(2,2,"")));
-		parties.add(new Actor(3,3,new Label(3,3,"")));*/
-		
+		 * parties.add(new Object(1,1,new Label(1,1,""))); parties.add(new
+		 * Object(2,2,new Label(2,2,""))); parties.add(new Actor(3,3,new
+		 * Label(3,3,"")));
+		 */
+
 		assertEquals(parties, c.getParties());
-		assertEquals(messages, c.getMessages());		
+		assertEquals(messages, c.getMessages());
 		assertEquals(false, c.isInputMode());
-		
-		
+
 	}
-	
-	@Test
-	void TestAddParty() {
-		int x1 = 1;
-		int y1 = 2;
-		int lengte = c.parties.size();
-		
-		
-		Party party = new Actor(x1, y1, label);
-		c.addParty(party);
-		assertEquals(lengte+1, c.parties.size());
-	}
-	
-	@Test
-	void TestRemoveParty() {
-		int x1 = 1;
-		int y1 = 2;
-		
-		Party party = new Actor(x1, y1, label);
-		c.addParty(party);
-		int lengte = c.parties.size();
-		
-		c.removeParty(party);
-		assertEquals(lengte-1, c.parties.size());				
-	}	
-	
-	@Test
-	void TestAddMessage() {
-		int x1 = 1;
-		int y1 = 2;
-		int lengte = c.messages.size();
-			
-		Message message = new InvocationMessage(label,party1, party2);
-		c.addMessage(message);
-		assertEquals(lengte+1, c.messages.size());
-	}
-	
-	@Test
-	void TestRemoveMessage() {
-		int x1 = 1;
-		int y1 = 2;
-				
-		Message message = new InvocationMessage(label,party1, party2);
-		c.addMessage(message);
-		int lengte = c.messages.size();
-		
-		c.removeMessage(message);;
-		assertEquals(lengte-1, c.messages.size());
-	}
-	
-	@Test
-	void labelClickedPartyTest() {
-		assertTrue(c.labelClickedParty(new Object(1,1,new Label(5,5,"")), 5, 5));
-	}
-	
-	// Illegal argument 
 
 	@Test
-	 void removePartyNullTest() {		
+	void checkCoordinateTestXSubZero() {
+		try {
+			c.checkCoordinate(-2, 0);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	void checkCoordinateTestYSubZero() {
+		try {
+			c.checkCoordinate(0, -2);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	void checkCoordinateTestNoPartyCom() {
+		c.setDiagramType(dtc);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Object(500, 500, label);
+		parties.add(newParty);
+		c.parties = parties;
+		Party party = c.checkCoordinate(100, 100);
+		assertEquals(party, null);
+	}
+
+	@Test
+	void checkCoordinateTestNoPartySeq() {
+		c.setDiagramType(dt);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Object(500, 500, label);
+		parties.add(newParty);
+		c.parties = parties;
+		Party party = c.checkCoordinate(100, 100);
+		assertEquals(party, null);
+	}
+
+	@Test
+	void checkCoordinateTestPartyCommObject() {
+		c.setDiagramType(dtc);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Object(500, 500, label);
+		parties.add(newParty);
+		c.parties = parties;
+
+		Party party = c.checkCoordinate(500, 500);
+		assertEquals(newParty, party);
+	}
+
+	@Test
+	void checkCoordinateTestPartyCommActor() {
+		c.setDiagramType(dtc);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Actor(500, 500, label);
+		parties.add(newParty);
+		c.parties = parties;
+
+		Party party = c.checkCoordinate(500, 500);
+		assertEquals(newParty, party);
+	}
+
+	@Test
+	void checkCoordinateTestPartySeqObject() {
+		c.setDiagramType(dt);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Object(500, 50, label);
+		parties.add(newParty);
+		c.parties = parties;
+
+		Party party = c.checkCoordinate(500, 50);
+		assertEquals(newParty, party);
+	}
+
+	@Test
+	void checkCoordinateTestPartySeqActor() {
+		c.setDiagramType(dt);
+		ArrayList<Party> parties = new ArrayList<>();
+		Party newParty = new Actor(500, 50, label);
+		parties.add(newParty);
+		c.parties = parties;
+
+		Party party = c.checkCoordinate(500, 50);
+		assertEquals(newParty, party);
+	}
+
+	@Test
+	public void TestAddParty() {
+		int x1 = 1;
+		int y1 = 2;
+		int lengte = c.parties.size();
+
+		Party party = new Actor(x1, y1, label);
+		c.addParty(party);
+		assertEquals(lengte + 1, c.parties.size());
+	}
+
+	@Test
+	public void TestRemoveParty() {
+		int x1 = 1;
+		int y1 = 2;
+
+		Party party = new Actor(x1, y1, label);
+		c.addParty(party);
+		int lengte = c.parties.size();
+
+		c.removeParty(party);
+		assertEquals(lengte - 1, c.parties.size());
+	}
+
+	@Test
+	public void TestAddMessage() {
+		int lengte = c.messages.size();
+
+		Message message = new InvocationMessage(label, party1, party2);
+		c.addMessage(message);
+		assertEquals(lengte + 1, c.messages.size());
+	}
+
+	@Test
+	public void TestRemoveMessage() {
+
+		Message message = new InvocationMessage(label, party1, party2);
+		c.addMessage(message);
+		int lengte = c.messages.size();
+
+		c.removeMessage(message);
+		assertEquals(lengte - 1, c.messages.size());
+	}
+
+	@Test
+	public void labelClickedPartyTest() {
+		assertTrue(c.labelClickedParty(new Object(1, 1, new Label(5, 5, "")), 5, 5));
+	}
+
+	// Illegal argument
+
+	@Test
+	public void removePartyNullTest() {
 		try {
 			c.removeParty(null);
-		    fail( "My method didn't throw when I expected it to" );
-		} catch (Exception expectedException) {
-			assertEquals(IllegalArgumentException.class, expectedException.getClass());
-		}
-	}
-	
-	@Test
-	 void addPartyNullTest() {
-		try {
-			c.addParty(null);
-		    fail( "No exception" );
-		} catch (Exception expectedException) {
-			assertEquals(IllegalArgumentException.class, expectedException.getClass());
-		}
-	}
-	
-	@Test
-	void changePartyNullTest() {
-		try {
-			c.changeParty(null, -2, -2);
-		    fail( "No exception" );
-		} catch (Exception expectedException) {
-			assertEquals(IllegalArgumentException.class, expectedException.getClass());
-		}
-	}	
-	
-	@Test
-	void addMessageNullTest() {
-		try {
-			c.addMessage(null);
-		    fail( "No exception" );
+			fail("My method didn't throw when I expected it to");
 		} catch (Exception expectedException) {
 			assertEquals(IllegalArgumentException.class, expectedException.getClass());
 		}
 	}
 
 	@Test
-	void removeMessageNullTest() {
+	public void addPartyNullTest() {
 		try {
-			c.removeMessage(null);
+			c.addParty(null);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	public void changePartyNullTest() {
+		try {
+			c.changeParty(null, -2, -2);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	public void changePartySubZeroXTest() {
+		try {
+			c.changeParty(party1, -2, 0);
 		    fail( "No exception" );
 		} catch (Exception expectedException) {
 			assertEquals(IllegalArgumentException.class, expectedException.getClass());
@@ -167,19 +251,181 @@ class ControllerTest {
 	}
 	
 	@Test
-	void testIsComponent() {
+	public void changePartySubZeroYTest() {
+		try {
+			c.changeParty(party1, 0, -2);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+}
+	
+	@Test
+	public void changePartyObjectTest() {
+		ArrayList<Party> parties = new ArrayList<>();
+		Party object = new Object(1, 2, label);
+		parties.add(object);
+		c.parties = parties;
+		Integer x = 0, y = 0;
+		c.changeParty(object, x, y);
+		assertFalse(c.parties.contains(object));
+		assertTrue(c.parties.get(0) instanceof Actor);
+		assertTrue(c.parties.get(0).getLabel() == label);
+	}
+	
+	@Test
+	public void changePartyActorTest() {
+		ArrayList<Party> parties = new ArrayList<>();
+		Party actor = new Actor(1, 2, label);
+		parties.add(actor);
+		c.parties = parties;
+		Integer x = 0, y = 0;
+		c.changeParty(actor, x, y);
+		assertFalse(c.parties.contains(actor));
+		assertTrue(c.parties.get(0) instanceof Object);
+		assertTrue(c.parties.get(0).getLabel() == label);
+}
+	
+	@Test
+	public void addMessageNullTest() {
+		try {
+			c.addMessage(null);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	public void removeMessageNullTest() {
+		try {
+			c.removeMessage(null);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	public void testIsComponent() {
 		int x1 = 1;
 		int y1 = 2;
 		int x2 = -1;
 		int y2 = -2;
 
 		try {
-		c.isComponent(party1, x2, y1, x1, y1);
-		fail("No exception");
-		} catch (Exception expectedException){
+			c.isComponent(party1, x2, y1, x1, y1);
+			fail("No exception");
+		} catch (Exception expectedException) {
 			assertEquals(IllegalArgumentException.class, expectedException.getClass());
 		}
-		
-		//c.isComponent(party1, x1, y1, 3, 4);
+
+		try {
+			c.isComponent(party1, x1, y1, x1, y2);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+
+		boolean bool = c.isComponent(party1, x1, y1, 3, 4);
+		assertEquals(true, bool);
+
+		boolean bool2 = c.isComponent(party3, x1, y1, 3, 4);
+		assertEquals(false, bool2);
 	}
+	
+	@Test
+	public void handleKeyEventTestWrongInput() {
+		try {
+			c.handleKeyEvent(-2, -2, 'T');
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+	
+	@Test
+	public void handleKeyEventTestTab() {
+		c.setDiagramType(dt);
+		c.setInputMode(false);
+		c.handleKeyEvent(1, KeyEvent.VK_TAB, 'a');
+		assertEquals(DiagramType.COMMUNICATION, c.getDiagramType());
+}
+
+	@Test
+	public void testAddComponont() {
+		int x1 = 1;
+		int y1 = 2;
+		int x2 = -1;
+		int y2 = -2;
+		try {
+			c.addComponent(x2, y1);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+
+		try {
+			c.addComponent(x1, y2);
+			fail("No exception");
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	public void testFocusComponent() {
+
+	}
+	
+//	
+//	@Test
+//	void moveComponentTestNullParty() {
+//		try {
+//			c.moveComponent(null,0,0);
+//		    fail( "No exception" );
+//		} catch (Exception expectedException) {
+//			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+//		}
+//	}
+//	
+//	@Test
+//	void moveComponentTestXSubZero() {
+//		try {
+//			c.moveComponent(party1,-2,0);
+//		    fail( "No exception" );
+//		} catch (Exception expectedException) {
+//			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+//		}
+//	}
+//	
+//	@Test
+//	void moveComponentTestYSubZero() {
+//		try {
+//			c.moveComponent(party1,0,-2);
+//		    fail( "No exception" );
+//		} catch (Exception expectedException) {
+//			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+//		}
+//	}
+//	
+//	@Test
+//	void moveComponentTestPartyComm() {
+//		c.setDiagramType(dtc);
+//		Party newParty = new Actor(500,50,label);
+//		Integer x = 0, y = 0;
+//		c.moveComponent(newParty, x, y);
+//		
+//		assertTrue(newParty.getXCom() == x);
+//		assertTrue(newParty.getYCom() == y);
+//	}
+//	
+//	@Test
+//	void moveComponentTestPartySeq() {
+//		c.setDiagramType(dt);
+//		Party newParty = new Object(500,50,label);
+//		Integer x = 0, y = 0;
+//		c.moveComponent(newParty, x, y);
+//		
+//		assertTrue(newParty.getXSeq() == x);
+//	}
 }
