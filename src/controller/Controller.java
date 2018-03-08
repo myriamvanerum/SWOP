@@ -250,7 +250,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * 
 	 * @return true if the label of the component is clicked, false if the label of the component isn't clicked 
 	 */
-	private boolean labelClickedParty(Party component, int x, int y) {
+	public boolean labelClickedParty(Party component, int x, int y) {
 		if (component == null || x < 0 || y < 0 )
 			throw new IllegalArgumentException();
 		else {
@@ -301,7 +301,6 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
-	// TO DO component + label teruggeven
 	private Party checkCoordinate(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -423,7 +422,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party or coordinates
 	 */
-	private void changeParty(Party party, int x, int y) {
+	public void changeParty(Party party, int x, int y) {
 		if (party == null || x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		if (party instanceof Actor) {
@@ -475,7 +474,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 */
 	public void removeComponent(DiagramComponent component) {
 		if (component == null)
-		throw new IllegalArgumentException();
+			throw new IllegalArgumentException();
 		if (component instanceof Party) {
 			removeParty((Party) component);
 		} else {

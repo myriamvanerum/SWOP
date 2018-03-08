@@ -5,7 +5,11 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
 import controller.Controller;
 import model.Actor;
@@ -30,13 +34,6 @@ class ControllerTest {
 	Label label = new Label();
 	Party party1 = new Actor(1, 2, label);
 	Party party2 = new Actor(3, 4, label);
-
-	
-	@Test
-	void test() {
-		SwitchDiagramTest();
-		TestAddParty();
-	}
 	
 	@Test
 	void SwitchDiagramTest() {
@@ -45,6 +42,22 @@ class ControllerTest {
 		c.switchDiagram();
 		
 		assertEquals(DiagramType.COMMUNICATION, dtc);
+	}
+	
+	@Test
+	void controllerTest() {
+		ArrayList<Party> parties = new ArrayList<>();
+		ArrayList<Message> messages = new ArrayList<>();
+		/*
+		parties.add(new Object(1,1,new Label(1,1,"")));
+		parties.add(new Object(2,2,new Label(2,2,"")));
+		parties.add(new Actor(3,3,new Label(3,3,"")));*/
+		
+		assertEquals(parties, c.getParties());
+		assertEquals(messages, c.getMessages());		
+		assertEquals(false, c.isInputMode());
+		
+		
 	}
 	
 	@Test
@@ -69,16 +82,15 @@ class ControllerTest {
 		int lengte = c.parties.size();
 		
 		c.removeParty(party);
-		assertEquals(lengte-1, c.parties.size());
-	}
+		assertEquals(lengte-1, c.parties.size());				
+	}	
 	
 	@Test
 	void TestAddMessage() {
 		int x1 = 1;
 		int y1 = 2;
 		int lengte = c.messages.size();
-		
-		
+			
 		Message message = new InvocationMessage(label,party1, party2);
 		c.addMessage(message);
 		assertEquals(lengte+1, c.messages.size());
@@ -88,8 +100,7 @@ class ControllerTest {
 	void TestRemoveMessage() {
 		int x1 = 1;
 		int y1 = 2;
-		
-		
+				
 		Message message = new InvocationMessage(label,party1, party2);
 		c.addMessage(message);
 		int lengte = c.messages.size();
@@ -98,6 +109,60 @@ class ControllerTest {
 		assertEquals(lengte-1, c.messages.size());
 	}
 	
+	@Test
+	void labelClickedPartyTest() {
+		assertTrue(c.labelClickedParty(new Object(1,1,new Label(5,5,"")), 5, 5));
+	}
 	
+	// Illegal argument 
 
+	@Test
+	public void removePartyNullTest() {		
+		try {
+			c.removeParty(null);
+		    fail( "My method didn't throw when I expected it to" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+	
+	@Test
+	public void addPartyNullTest() {
+		try {
+			c.addParty(null);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+	
+	@Test
+	public void changePartyNullTest() {
+		try {
+			c.changeParty(null, -2, -2);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}	
+	
+	@Test
+	public void addMessageNullTest() {
+		try {
+			c.addMessage(null);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+
+	@Test
+	public void removeMessageNullTest() {
+		try {
+			c.removeMessage(null);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}	
 }
