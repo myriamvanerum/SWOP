@@ -1,9 +1,9 @@
 package model;
 
-/*
+/**
  * A result message class
  * 
- * @author SWOP groep 03
+ * @author  groep 03
  */
 public class ResultMessage extends Message {
 

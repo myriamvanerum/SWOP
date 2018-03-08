@@ -1,9 +1,9 @@
 package model;
 
-/*
+/**
  * An Invocation Message class
  * 
- * @author SWOP groep 03
+ * @author  groep 03
  */
 public class InvocationMessage extends Message {
 	/**
