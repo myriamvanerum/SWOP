@@ -21,7 +21,7 @@ import model.Object;
  * @author groep 03
  *
  */
-class TestController {
+class ControllerTest {
 	
 	DiagramWindow dg = new DiagramWindow("test");
 	Controller c = new Controller(dg);

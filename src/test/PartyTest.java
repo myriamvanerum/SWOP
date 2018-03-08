@@ -20,33 +20,38 @@ class PartyTest {
 	private Party actor = new Actor(1,2,label);
 	private Party object = new Object(3,4,label);
 	
-
-	@Test
-	void test() {
-		testActor();
-		testObject();
-	}
-	
+	// Communication diagram
 	@Test
 	void testActor() {
-		Label l = actor.getLabel();
-		double x = actor.getXCom();
-		double y = actor.getYCom();
-		
-		assertEquals(1, x);
-		assertEquals(2, y);
-		assertEquals(l, label);
+		assertEquals(1, actor.getXCom());
+		assertEquals(2, actor.getYCom());
+		assertEquals(label, actor.getLabel());
 	}
 	
 	@Test
-	void testObject() {
-		Label l = object.getLabel();
-		double x = object.getXCom();
-		double y = object.getYCom();
+	void testObject() {		
+		assertEquals(3, object.getXCom());
+		assertEquals(4, object.getYCom());
+		assertEquals(label, object.getLabel());
 		
-		assertEquals(3, x);
-		assertEquals(4, y);
-		assertEquals(l, label);
+
+		object.setXCom(5);
+		object.setY(5);
+		assertEquals(5, object.getXCom());
+		assertEquals(5, object.getYCom());
+	}
+	
+	// Sequence diagram
+	@Test
+	void testActorSeq() {		
+		actor.setLabel(new Label(1,1,"test"));
+		actor.setXSeq(2);
+		actor.setY(0);
+		
+		assertNotEquals(0,actor.getYSeq());
+		assertEquals(50,actor.getYSeq());
+		assertEquals(2,actor.getXSeq());
+		assertEquals("test",actor.getLabelText());
 	}
 	
 	
