@@ -13,8 +13,10 @@ import model.Focusable;
 public interface FocusListener {
 
 	/**
-     * The focusable gets focused.
-     */
+	 * The focusable gets focused.
+	 * @param object
+	 * 		The focusable to focus
+	 */
     void focusGained(Focusable object);
 
     /**

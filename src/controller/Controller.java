@@ -64,7 +64,8 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * This method will loop over all the components and paint them on the window. 
 	 * It paints the components all on the same height on a sequence diagram
 	 * and at the clicked position on a communication diagram.
-	 * @param g
+	 * @param g 
+	 * 		Graphics
 	 */
 	public void paintScreen(Graphics2D g) {		
 		/*Draw actors and objects*/
@@ -121,9 +122,12 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * versa, if delete is pressed (or backspace on a mac, which doesn't have a
 	 * deletebutton) the focused party gets deleted.
 	 * 
-	 * @param id
+	 * @param id 
+	 * 		keyEvent id
 	 * @param keyCode:
+	 * 		Keyboard key pressed
 	 * @param keyChar:
+	 * 		keyboard key pressed keyChar
 	 * @throws IllegalArgumentException
 	 * 			  Illegal id or keyCode
 	 */
@@ -188,6 +192,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * click, it draws a new party.
 	 * 
 	 * @param id
+	 * 			  mouseEvent id
 	 * @param x:
 	 *            coordinate x
 	 * @param y:
@@ -391,7 +396,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	/**
 	 * The party gets added to the view (and to an arrayList).
 	 * 
-	 * @param object:
+	 * @param party:
 	 *            the party to be added.
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party
@@ -405,7 +410,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	/**
 	 * The party gets removed from the view (and the arrayList).
 	 * 
-	 * @param object:
+	 * @param party:
 	 *            the party to be deleted.
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party

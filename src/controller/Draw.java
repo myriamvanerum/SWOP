@@ -39,8 +39,6 @@ public interface Draw {
 	 *            The y coordinate to start painting from
 	 * @param size
 	 *            The size of the painted stickfigure
-	 * @param totalHeight
-	 *            The total height of the stickfigure
 	 * @param actor
 	 *            The actor that will be displayed as a stickfigure
 	 * @throws IllegalArgumentException
@@ -230,7 +228,7 @@ public interface Draw {
 
 	/**
 	 * This method sets the color for all components. Focused components will be blue, others black.
-	 * @param component
+	 * @param focusable
 	 * 		The component to be painted
 	 * @param g
 	 * 		The graphics library used

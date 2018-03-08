@@ -10,7 +10,8 @@ public interface Focusable {
 
 	/**
      * This method determines if the object is focused
-     */
+	 * @return true is focused, false if not focused
+	 */
     Boolean focused();
 
     /**
