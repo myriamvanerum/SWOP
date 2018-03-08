@@ -36,12 +36,21 @@ class ControllerTest {
 	Party party2 = new Actor(3, 4, label);
 	
 	@Test
-	void SwitchDiagramTest() {
+	void SwitchDiagramSeqTest() {
 		
 		c.setDiagramType(dt);
 		c.switchDiagram();
 		
-		assertEquals(DiagramType.COMMUNICATION, dtc);
+		assertEquals(DiagramType.COMMUNICATION, c.getDiagramType());
+	}
+	
+	@Test
+	void SwitchDiagramComTest() {
+		
+		c.setDiagramType(dtc);
+		c.switchDiagram();
+		
+		assertEquals(DiagramType.SEQUENCE, c.getDiagramType());
 	}
 	
 	@Test
@@ -139,12 +148,51 @@ class ControllerTest {
 	@Test
 	public void changePartyNullTest() {
 		try {
-			c.changeParty(null, -2, -2);
+			c.changeParty(null, 0, 0);
 		    fail( "No exception" );
 		} catch (Exception expectedException) {
 			assertEquals(IllegalArgumentException.class, expectedException.getClass());
 		}
-	}	
+	}
+	
+	@Test
+	public void changePartySubZeroXTest() {
+		try {
+			c.changeParty(party1, -2, 0);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+	
+	@Test
+	public void changePartySubZeroYTest() {
+		try {
+			c.changeParty(party1, 0, -2);
+		    fail( "No exception" );
+		} catch (Exception expectedException) {
+			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+		}
+	}
+	
+//	@Test
+//	public void changePartyObjectTest() {
+//		try {
+//			c.changeParty(null, -2, -2);
+//		    fail( "No exception" );
+//		} catch (Exception expectedException) {
+//			assertEquals(IllegalArgumentException.class, expectedException.getClass());
+//		}
+//	}
+//	
+//	@Test
+//	public void changePartyActorTest() {
+//		ArrayList<Party> parties = new ArrayList<>();
+//		Party actor = new Actor(1, 2, label);
+//		parties.add(actor);
+//		c.changeParty(actor, 0, 0);
+//		assertTrue(parties.contains(actor));
+//	}
 	
 	@Test
 	public void addMessageNullTest() {
