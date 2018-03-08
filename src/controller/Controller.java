@@ -485,7 +485,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal DiagramComponent
 	 */
-	public void removeComponent(DiagramComponent component) {
+	void removeComponent(DiagramComponent component) {
 		if (component == null)
 			throw new IllegalArgumentException();
 		if (component instanceof Party) {
