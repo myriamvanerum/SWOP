@@ -56,6 +56,10 @@ public class Controller extends ObjectFocusListener implements Draw {
 		return messages;
 	}
 
+	protected void setInputMode(boolean inputMode) {
+		this.inputMode = inputMode;
+	}
+
 	/**
 	 * This method will loop over all the components and paint them on the window. 
 	 * It paints the components all on the same height on a sequence diagram
@@ -96,6 +100,12 @@ public class Controller extends ObjectFocusListener implements Draw {
 		}
 	}
 
+	/**
+	 * This method makes the application draw labels on the screen
+	 * @param g
+	 * @param component
+	 * 		The component to which the label belongs
+	 */
 	private void checkLabelSettings(Graphics2D g, Party component) {
 		if (component == currentComponent && inputMode == true && component.getLabel().getText().length() > 1 && component.getLabel().correctSyntax())
 			drawLabel(g, component.getLabel(), new Color(0,255,0));
@@ -142,7 +152,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	        
 	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
 	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
-		        inputMode = false;
+		        setInputMode(false);
 	        	currentComponent = null;  
 	        }  	     
 
@@ -214,7 +224,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 						labelClickedOnce = true;
 					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == true) {
 						unFocus();
-						inputMode = true;
+						setInputMode(true);
 						labelClickedOnce = false;
 						currentComponent = party;
 						party.getLabel().setText(party.getLabelText()+ "|");						
@@ -299,7 +309,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates
 	 */
-	private Party checkCoordinate(int x, int y) {
+	public Party checkCoordinate(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		for (Party component : getParties()) {
@@ -349,7 +359,7 @@ public class Controller extends ObjectFocusListener implements Draw {
 		Party component = new Object(x, y, new Label(x,y,"|"));
 		System.out.println("ADDED COMP X:" + x + " Y:" + y);
 		currentComponent = component;
-		inputMode = true;
+		setInputMode(true);
 		addParty(component);
 	}
 
