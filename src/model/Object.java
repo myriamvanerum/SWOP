@@ -16,7 +16,7 @@ public class Object extends Party {
 	 * @param label
 	 * 		The object's label
 	 */
-    public Object(int x, int y, Label label) {
+    public Object(int x, int y, String label) {
 		super(x, y, label);
 	}
 }

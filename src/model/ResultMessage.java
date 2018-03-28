@@ -16,7 +16,7 @@ public class ResultMessage extends Message {
 	 * @param receiver
 	 * 		The party that receives the message
 	 */
-    public ResultMessage(Label label, Party sender, Party receiver) {
+    public ResultMessage(String label, Party sender, Party receiver) {
         super(label, sender, receiver);
     }
 

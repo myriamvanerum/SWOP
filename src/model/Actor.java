@@ -17,7 +17,7 @@ public class Actor extends Party {
 	 * @param label
 	 * 		The actor's label
 	 */
-    public Actor(int x, int y, Label label) {
+    public Actor(int x, int y, String label) {
         super(x, y, label);
     }
 }

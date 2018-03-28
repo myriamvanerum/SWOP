@@ -1,6 +1,6 @@
 package main;
 
-import view.DiagramWindow;
+import view.MainWindow;
 
 /**
  * The Main class creates a window for the user to be able to use the application
@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args){
 
         java.awt.EventQueue.invokeLater(() -> {
-            new DiagramWindow("My Canvas Window").show();
+            new MainWindow("My Canvas Window").show();
         });
 
     }

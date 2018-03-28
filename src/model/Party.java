@@ -2,17 +2,15 @@ package model;
 
 import java.awt.geom.Point2D;
 
-import model.DiagramComponent;
+import model.Component;
 
 /**
  * A Party class
  * 
  * @author  groep 03
  */
-public abstract class Party extends DiagramComponent {
+public abstract class Party extends Component {
 
-    private Point2D posInCommDiagram;
-    private Integer posInSeqDiagram;
     private Message sendingMessage;
 
     /**
@@ -24,41 +22,11 @@ public abstract class Party extends DiagramComponent {
 	 * @param label
 	 * 		The party's label
      */
-    public Party(int x, int y, Label label) {
-        posInCommDiagram = new Point2D.Double(x,y);
-        posInSeqDiagram = x;
+    public Party(int x, int y, String label) {
         this.label = label;
     }
 
     /* GETTERS AND SETTERS */
-    
-    public double getXCom() {
-        return posInCommDiagram.getX();
-    }
-    
-    public double getXSeq() {
-        return posInSeqDiagram;
-    }
-
-    public void setXCom(int x) {
-        this.posInCommDiagram.setLocation(x,posInCommDiagram.getY());
-    }
-    
-    public void setXSeq(int x) {
-        this.posInSeqDiagram = x;
-    }
-
-    public double getYCom() {
-        return posInCommDiagram.getY();
-    }
-    
-    public double getYSeq() {
-        return 50;
-    }
-
-    public void setY(int y) {
-        this.posInCommDiagram.setLocation(posInCommDiagram.getX(),y);
-    }
 
     public Message getSendingMessage() {
         return sendingMessage;
@@ -66,9 +34,5 @@ public abstract class Party extends DiagramComponent {
 
     public void setSendingMessage(Message sendingMessage) {
         this.sendingMessage = sendingMessage;
-    }
-    
-    public String getLabelText() {
-    	return this.label.getText();
     }
 }

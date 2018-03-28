@@ -8,7 +8,7 @@ package model;
  * @author groep 03
  *
  */
-public abstract class Message extends DiagramComponent {
+public abstract class Message extends Component {
     private Party sender;
     private Party receiver;
 
@@ -19,7 +19,7 @@ public abstract class Message extends DiagramComponent {
      * @param sender: the sender of the message.
      * @param receiver: the receiver of the message.
      */
-    public Message(Label label, Party sender, Party receiver) {
+    public Message(String label, Party sender, Party receiver) {
         this.label = label;
         this.sender = sender;
         this.receiver = receiver;
