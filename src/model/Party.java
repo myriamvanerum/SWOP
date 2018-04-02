@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.geom.Point2D;
-
 import model.Component;
 
 /**
@@ -15,14 +13,10 @@ public abstract class Party extends Component {
 
     /**
      * Party constructor
-     * @param x
-	 * 		The x coordinate of the party
-	 * @param y
-	 * 		The y coordinate of the party
 	 * @param label
 	 * 		The party's label
      */
-    public Party(int x, int y, String label) {
+    public Party(String label) {
         this.label = label;
     }
 

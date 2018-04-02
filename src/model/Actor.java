@@ -10,14 +10,10 @@ package model;
 public class Actor extends Party {
 	/**
 	 * Actor constructor
-	 * @param x
-	 * 		The x coordinate of the actor
-	 * @param y
-	 * 		The y coordinate of the actor
 	 * @param label
 	 * 		The actor's label
 	 */
-    public Actor(int x, int y, String label) {
-        super(x, y, label);
+    public Actor(String label) {
+        super(label);
     }
 }

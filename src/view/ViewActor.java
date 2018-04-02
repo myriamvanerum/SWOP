@@ -10,7 +10,7 @@ import model.Actor;
 import model.Object;
 import model.Party;
 
-public class ViewActor {
+public class ViewActor extends ViewParty {
 	/**
 	 * This method paints an actor on the window
 	 * 
@@ -27,19 +27,19 @@ public class ViewActor {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal actor, coordinates or size
 	 */
-	public void draw(Graphics2D g, double x, double y, int size, Party actor) {
-		if (x < 0 || y < 0 || size < 0 || actor == null)
+	public void draw(Graphics2D g, int size, Party actor) {
+		if (position.x < 0 || position.y < 0 || size < 0 || actor == null)
 			throw new IllegalArgumentException();
-		Shape c = new Ellipse2D.Double(x - size, y - size, 2.0 * size, 2.0 * size);
+		Shape c = new Ellipse2D.Double(position.x - size, position.y - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
-		g.draw(new Line2D.Double(x, y + size, x, y + size + 50));
+		g.draw(new Line2D.Double(position.x, position.y + size, position.x, position.y + size + 50));
 		// Draw arms actor
-		g.draw(new Line2D.Double(x - 20, y + size + 25, x, y + size + 5));
-		g.draw(new Line2D.Double(x, y + size + 5, x + 20, y + size + 25));
+		g.draw(new Line2D.Double(position.x - 20, position.y + size + 25, position.x, position.y + size + 5));
+		g.draw(new Line2D.Double(position.x, position.y + size + 5, position.x + 20, position.y + size + 25));
 		// draw legs actor
-		g.draw(new Line2D.Double(x - 20, y + size + 70, x, y + size + 50));
-		g.draw(new Line2D.Double(x, y + size + 50, x + 20, y + size + 70));		
+		g.draw(new Line2D.Double(position.x - 20, position.y + size + 70, position.x, position.y + size + 50));
+		g.draw(new Line2D.Double(position.x, position.y + size + 50, position.x + 20, position.y + size + 70));		
 
 		//actor.getLabel().setX((int) x + (10 - actor.getLabel().getText().length() * 3));			
 		//actor.getLabel().setY((int) y + 115);

@@ -6,16 +6,12 @@ import java.awt.Rectangle;
 
 import model.Party;
 
-public class ViewObject {
+public class ViewObject extends ViewParty{
 	/**
 	 * This method paints an object on the window
 	 * 
 	 * @param g
 	 *            The graphics library used
-	 * @param x
-	 *            The x coordinate to start painting from
-	 * @param y
-	 *            The y coordinate to start painting from
 	 * @param height
 	 *            The height of the rectangle to paint
 	 * @param width
@@ -25,10 +21,11 @@ public class ViewObject {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal object, coordinates or size
 	 */
-	public void draw(Graphics2D g, double x, double y, int height, int width, Party object) {
-		if (x < 0 || y < 0 || height < 0 || width < 0 || object == null)
+	public void draw(Graphics2D g, int height, int width, Party object) {
+		if (position.x < 0 || position.y < 0 || height < 0 || width < 0 || object == null)
 			throw new IllegalArgumentException();
-		Rectangle r = new Rectangle((int) x, (int) y, width, height);
+		
+		Rectangle r = new Rectangle((int) position.x, (int) position.y, width, height);
 //		object.getLabel().setX((int)x + ((width/2) - object.getLabel().getText().length() * 2));
 //		object.getLabel().setY((int)y + height/2);
 		g.draw(r);

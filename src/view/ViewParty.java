@@ -1,5 +1,9 @@
 package view;
 
-public class ViewParty {
+import com.sun.javafx.geom.Point2D;
 
+import model.Party;
+
+public class ViewParty {
+	Point2D position;
 }
