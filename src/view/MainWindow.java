@@ -36,13 +36,15 @@ public class MainWindow extends CanvasWindow {
     protected void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         
-        //g.drawString("" + " DIAGRAM", 10, 10);
-        
+        // Draw all but active window first
         for (SubWindow window : subWindows) {
-			window.draw(g2, 5, 5);
+        	if (window != activeWindow)
+        		window.draw(g2, 5, 5);
 		}
         
-        //controller.paintScreen(g2);
+        // Draw active window on top
+        if (activeWindow != null)
+        	activeWindow.draw(g2, 5, 5);
     }
 
     /**

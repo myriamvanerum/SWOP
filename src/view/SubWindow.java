@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import model.Party;
-
 public class SubWindow {
 	public void draw(Graphics2D g, int x, int y) {
 		if (x < 0 || y < 0)
@@ -21,6 +19,10 @@ public class SubWindow {
 		// Draw title bar
 		g.setColor(Color.LIGHT_GRAY);
 	    g.fillRect(x, y, width, heightTitlebar);
+	    
+		// Draw title bar text
+	    g.setColor(Color.BLACK);
+		g.drawString("SEQUENCE DIAGRAM", x + 10, y + 18);
 		
 		// Draw close button
 	    g.setColor(Color.RED);
