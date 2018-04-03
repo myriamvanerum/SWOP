@@ -311,7 +311,7 @@ public class CanvasWindow {
 		
 		{
 			setPreferredSize(new Dimension(width, height));
-			setBackground(Color.WHITE);
+			setBackground(Color.GRAY);
 			setFocusable(true);
 			
 			addMouseListener(new MouseAdapter() {

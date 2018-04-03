@@ -1,17 +1,32 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import controller.Controller;
+import model.Interaction;
+import model.Party;
+
 public class MainWindow extends CanvasWindow {
+	EventHandler eventHandler;
 	public MainWindow(String title) {
         super(title);
+        eventHandler = new EventHandler(this);
     }
 	
 	SubWindow activeWindow = null;
 	// betere manier dan arraylist?
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
+	
+	
+	
+	public void createNewSubWindow(Interaction interaction) {
+		SubWindow subWindow = new SubWindow();
+		subWindows.add(subWindow);
+		activeWindow = subWindow;
+	}
 	
 	/**
      * Override for the standard paint method.
@@ -19,9 +34,13 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void paint(Graphics g) {
-        //Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
         
-        //g.drawString(controller.getDiagramType().toString() + " DIAGRAM", 10, 10);
+        //g.drawString("" + " DIAGRAM", 10, 10);
+        
+        for (SubWindow window : subWindows) {
+			window.draw(g2, 5, 5);
+		}
         
         //controller.paintScreen(g2);
     }
@@ -56,7 +75,7 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-//        controller.handleKeyEvent(id, keyCode, keyChar);
-//        repaint();
+        eventHandler.handleKeyEvent(id, keyCode, keyChar);
+        repaint();
     }
 }

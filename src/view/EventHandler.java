@@ -3,7 +3,14 @@ package view;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import controller.Controller;
+
 public class EventHandler {
+	Controller controller;
+	
+	public EventHandler(MainWindow window) {
+		controller = new Controller(window);
+	}
 
 	/**
 	 * When a keyevent occurs, it is handled in this method. If tab is pressed, the
@@ -55,6 +62,7 @@ public class EventHandler {
 //        		messages.set(index, (Message)currentComponent);
 //        	
 //		} else {
+		
 			switch (keyCode) {
 
 			case KeyEvent.VK_TAB:
@@ -66,6 +74,15 @@ public class EventHandler {
 //					deleteFocused();
 //					labelClickedOnce = false;
 //				}
+				break;
+			case KeyEvent.VK_N:
+				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/)
+					System.out.println("CTRL-N");
+					controller.createNewInteraction();
+				break;
+			case KeyEvent.VK_D:
+				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/)
+					System.out.println("CTRL-D");
 				break;
 			}	
 //		}
