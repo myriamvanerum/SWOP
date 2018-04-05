@@ -25,6 +25,6 @@ public class Controller {
 	
 	public void duplicateActiveWindow() {
 		// make new subwindow
-		mainWindow.createNewSubWindow(mainWindow.getActiveWindow().getInteraction());
+		mainWindow.duplicateSubWindow();
 	}
 }

@@ -20,9 +20,7 @@ public class MainWindow extends CanvasWindow {
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
 	/**
-	 * Method to create a new SubWindow. Can be triggered by 
-	 *  - Making a new interaction
-	 *  - Duplicating the active window
+	 * Method to create a new SubWindow. 
 	 * @param interaction
 	 */
 	public void createNewSubWindow(Interaction interaction) {
@@ -38,6 +36,28 @@ public class MainWindow extends CanvasWindow {
 		}
 		
 		subWindow = new SubWindow(interaction, x, y);
+		
+		subWindows.add(subWindow);
+		setActiveWindow(subWindow);
+	}
+	
+	/**
+	 * Method to duplicate the active window
+	 * @param interaction
+	 */
+	public void duplicateSubWindow() {
+		SubWindow subWindow;
+		Integer x = 5;
+		Integer y = 5;
+		
+		// find lowest SubWindow
+		if (getSubWindows().size() > 0) {
+			SubWindow lowestSubWindow =  Collections.max(getSubWindows(), Comparator.comparing(s -> s.getY()));
+			x = lowestSubWindow.getX() + 10;
+			y = lowestSubWindow.getY() + 10;
+		}
+		
+		subWindow = new SubWindow(getActiveWindow(), x, y);
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);
