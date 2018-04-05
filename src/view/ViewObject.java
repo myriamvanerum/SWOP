@@ -1,12 +1,14 @@
 package view;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import model.Party;
+import com.sun.javafx.geom.Point2D;
 
 public class ViewObject extends ViewParty{
+	Point2D position;
+	ViewLabel viewLabel = new ViewLabel();
+	
 	/**
 	 * This method paints an object on the window
 	 * 
@@ -14,51 +16,32 @@ public class ViewObject extends ViewParty{
 	 *            The graphics library used
 	 * @param height
 	 *            The height of the rectangle to paint
-	 * @param width
-	 *            The width of the rectangle to paint
-	 * @param object
-	 *            The object that will be displayed 
+	 * @param label
+	 *            The text of the label
 	 * @throws IllegalArgumentException
 	 * 			  Illegal object, coordinates or size
 	 */
-	public void draw(Graphics2D g, int height, int width, Party object) {
-		if (position.x < 0 || position.y < 0 || height < 0 || width < 0 || object == null)
+	public void draw(Graphics2D g, int height, String label) {
+		if (position.x < 0 || position.y < 0 || height < 0 || label == null )
 			throw new IllegalArgumentException();
 		
+		// label width dynamisch maken met label width
+		int labelWidth = g.getFontMetrics().stringWidth(label);
+		int width = labelWidth + 10;
+		
+		if (labelWidth < height)
+			width = height;
+		
 		Rectangle r = new Rectangle((int) position.x, (int) position.y, width, height);
-//		object.getLabel().setX((int)x + ((width/2) - object.getLabel().getText().length() * 2));
-//		object.getLabel().setY((int)y + height/2);
+		viewLabel.draw(g, label, new Point2D((position.x + (width/2)-(labelWidth/2)), position.y + (height/2)));
 		g.draw(r);
 	}
-	
-	/**
-	 * This method paints a party on the sequence diagram window. It draws and actor
-	 * or object, with a lifeline underneath
-	 * 
-	 * @param g
-	 *            The graphics library used
-	 * @param party
-	 *            The party to paint on the window
-	 * @throws IllegalArgumentException
-	 * 			  Illegal party
-	 */
-	public void drawParty(Graphics g, Party party) {
-//		if (party == null)
-//			throw new IllegalArgumentException();
-//		Graphics2D g2 = (Graphics2D) g;
-//		int startLifelineX = 0, startLifelineY = 0;
-//		
-//		if (party instanceof Actor) {			
-//			drawActor(g2, party.getXSeq(), party.getYSeq(), 20, party);
-//			startLifelineX = (int) party.getXSeq();
-//			startLifelineY = (int) party.getYSeq() + 125;
-//		} else if (party instanceof Object) {
-//			int height = 80, width = 80;			
-//			drawObject(g2, party.getXSeq(), party.getYSeq(), height, width, party);
-//			startLifelineX = (int) party.getXSeq() + width/2;
-//			startLifelineY = (int) party.getYSeq() + height;
-//		}
-//
-//		drawLifeline(g, startLifelineX, startLifelineY, startLifelineY + 400);
+
+	public Point2D getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point2D position) {
+		this.position = position;
 	}
 }
