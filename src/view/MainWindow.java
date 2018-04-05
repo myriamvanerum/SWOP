@@ -1,31 +1,46 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import controller.Controller;
 import model.Interaction;
-import model.Party;
 
 public class MainWindow extends CanvasWindow {
 	EventHandler eventHandler;
 	public MainWindow(String title) {
         super(title);
-        eventHandler = new EventHandler(this);
+        setEventHandler(new EventHandler(this));
     }
 	
 	SubWindow activeWindow = null;
-	// betere manier dan arraylist?
+	
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
-	
-	
+	/**
+	 * Method to create a new SubWindow. Can be triggered by 
+	 *  - Making a new interaction
+	 *  - Duplicating the active window
+	 * @param interaction
+	 */
 	public void createNewSubWindow(Interaction interaction) {
-		SubWindow subWindow = new SubWindow();
+		SubWindow subWindow;
+		Integer x = 5;
+		Integer y = 5;
+		
+		// find lowest SubWindow
+		if (getSubWindows().size() > 0) {
+			SubWindow lowestSubWindow =  Collections.max(getSubWindows(), Comparator.comparing(s -> s.getY()));
+			x = lowestSubWindow.getX() + 10;
+			y = lowestSubWindow.getY() + 10;
+		}
+		
+		subWindow = new SubWindow(interaction, x, y);
+		
 		subWindows.add(subWindow);
-		activeWindow = subWindow;
+		setActiveWindow(subWindow);
 	}
 	
 	/**
@@ -39,12 +54,12 @@ public class MainWindow extends CanvasWindow {
         // Draw all but active window first
         for (SubWindow window : subWindows) {
         	if (window != activeWindow)
-        		window.draw(g2, 5, 5);
+        		window.draw(g2);
 		}
         
         // Draw active window on top
         if (activeWindow != null)
-        	activeWindow.draw(g2, 5, 5);
+        	activeWindow.draw(g2);
     }
 
     /**
@@ -60,10 +75,8 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-//		if(controller.isInputMode() == false) {
-//			controller.handleMouseEvent(id, x, y, clickCount); //pass it to controller
-//			repaint();
-//		}
+		eventHandler.handleMouseEvent(id, x, y, clickCount);
+		repaint();
     }
     
     /**
@@ -80,4 +93,28 @@ public class MainWindow extends CanvasWindow {
         eventHandler.handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
+
+	public EventHandler getEventHandler() {
+		return eventHandler;
+	}
+
+	public void setEventHandler(EventHandler eventHandler) {
+		this.eventHandler = eventHandler;
+	}
+
+	public SubWindow getActiveWindow() {
+		return activeWindow;
+	}
+
+	public void setActiveWindow(SubWindow activeWindow) {
+		this.activeWindow = activeWindow;
+	}
+
+	public ArrayList<SubWindow> getSubWindows() {
+		return subWindows;
+	}
+
+	public void setSubWindows(ArrayList<SubWindow> subWindows) {
+		this.subWindows = subWindows;
+	}
 }

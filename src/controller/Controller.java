@@ -22,4 +22,9 @@ public class Controller {
 		// make new subwindow
 		mainWindow.createNewSubWindow(interaction);
 	}
+	
+	public void duplicateActiveWindow() {
+		// make new subwindow
+		mainWindow.createNewSubWindow(mainWindow.getActiveWindow().getInteraction());
+	}
 }

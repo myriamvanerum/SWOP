@@ -76,13 +76,16 @@ public class EventHandler {
 //				}
 				break;
 			case KeyEvent.VK_N:
-				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/)
+				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/) {
 					System.out.println("CTRL-N");
 					controller.createNewInteraction();
+				}
 				break;
 			case KeyEvent.VK_D:
-				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/)
+				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/) {
 					System.out.println("CTRL-D");
+					controller.duplicateActiveWindow();
+				}
 				break;
 			}	
 //		}
@@ -125,6 +128,7 @@ public class EventHandler {
 				
 				switch (clickCount) {
 				case 1:
+					
 //					if (party == null && getFocusedObject() != null) {
 //						unFocus();
 //					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == false) {
