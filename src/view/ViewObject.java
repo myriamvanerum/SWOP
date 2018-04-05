@@ -5,7 +5,14 @@ import java.awt.Rectangle;
 
 import com.sun.javafx.geom.Point2D;
 
+import model.Party;
+
 public class ViewObject extends ViewParty{
+	public ViewObject(Party party) {
+		super(party);
+		// TODO Auto-generated constructor stub
+	}
+
 	Point2D position;
 	ViewLabel viewLabel = new ViewLabel();
 	

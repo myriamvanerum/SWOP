@@ -7,7 +7,14 @@ import java.awt.geom.Line2D;
 
 import com.sun.javafx.geom.Point2D;
 
+import model.Party;
+
 public class ViewActor extends ViewParty {
+	public ViewActor(Party party) {
+		super(party);
+		// TODO Auto-generated constructor stub
+	}
+
 	Point2D position;
 	ViewLabel viewLabel = new ViewLabel();
 	

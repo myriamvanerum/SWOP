@@ -5,23 +5,51 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.util.ArrayList;
 
 import model.Interaction;
+import model.Message;
+import model.Party;
 
 public class SubWindow {
 	private Interaction interaction;
+	private ArrayList<ViewParty> viewParties;
+	private ArrayList<ViewMessage> viewMessages;
 	private Integer x;
 	private Integer y;
 	
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
-		this.interaction = interaction;
-		this.x = x;
-		this.y = y;
+		// ctrl n -> nieuwe, lege interaction
+		setInteraction(interaction);
+		
+		setX(x);
+		setY(y);
+		
+		setViewParties(new ArrayList<>());
+		setViewMessages(new ArrayList<>());
+	}
+	
+	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
+		// leg link met interaction
+		setInteraction(activeWindow.getInteraction());
+		
+		// maak kopie van alle onderdelen van subwindow
+		ArrayList<ViewParty> parties = new ArrayList<ViewParty>(activeWindow.getViewParties().size());
+	    for (ViewParty viewParty : activeWindow.getViewParties()) {
+	        parties.add(new ViewParty(viewParty));
+	    }
+	    setViewParties(parties);
+	    ArrayList<ViewMessage> messages = new ArrayList<ViewMessage>(activeWindow.getViewMessages().size());
+	    for (ViewMessage viewMessage : activeWindow.getViewMessages()) {
+	    	messages.add(new ViewMessage(viewMessage));
+	    }
+		setViewMessages(messages);
+		
+		setX(x);
+		setY(y);
 	}
 	
 	public void draw(Graphics2D g) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
 		Integer width = 500;
 		Integer height = 400;
 		Integer heightTitlebar = 25;
@@ -29,34 +57,34 @@ public class SubWindow {
 		
 		// Draw white field
 		g.setColor(Color.WHITE);
-	    g.fillRect(x, y + heightTitlebar, width, height - heightTitlebar);
+	    g.fillRect(getX(), getY() + heightTitlebar, width, height - heightTitlebar);
 	    
 		// Draw title bar
 		g.setColor(Color.LIGHT_GRAY);
-	    g.fillRect(x, y, width, heightTitlebar);
+	    g.fillRect(getX(), getY(), width, heightTitlebar);
 	    
 		// Draw title bar text
 	    g.setColor(Color.BLACK);
-		g.drawString("SEQUENCE DIAGRAM", x + 10, y + 18);
+		g.drawString("SEQUENCE DIAGRAM", getX() + 10, getY() + 10 + padding);
 		
 		// Draw close button
 	    g.setColor(Color.RED);
-		g.fillRect(x + width - heightTitlebar, y, heightTitlebar, heightTitlebar);
+		g.fillRect(getX() + width - heightTitlebar, getY(), heightTitlebar, heightTitlebar);
 		g.setColor(Color.BLACK);
 		Stroke stroke = new BasicStroke(2);
 		g.setStroke(stroke);
-	    g.drawLine(x + width - 10 - padding, y + padding, x + width - padding, y + 10 + padding);
-	    g.drawLine(x + width - padding, y + padding, x + width - 10 - padding, y + 10 + padding);
+	    g.drawLine(getX() + width - 10 - padding, getY() + padding, getX() + width - padding, getY() + 10 + padding);
+	    g.drawLine(getX() + width - padding, getY() + padding, getX() + width - 10 - padding, getY() + 10 + padding);
 	    
 	    // Draw black border
 	    g.setColor(Color.BLACK);
 	    stroke = new BasicStroke(1);
 		g.setStroke(stroke);
-	    Rectangle r = new Rectangle(x, y, width, height);
+	    Rectangle r = new Rectangle(getX(), getY(), width, height);
 		g.draw(r);
 		
 		// Draw contents
-		
+		// ! only draw contents inside the window !
 	}
 	
 	public Interaction getInteraction() {
@@ -81,5 +109,21 @@ public class SubWindow {
 
 	public void setY(Integer y) {
 		this.y = y;
+	}
+
+	public ArrayList<ViewParty> getViewParties() {
+		return viewParties;
+	}
+
+	public void setViewParties(ArrayList<ViewParty> viewParties) {
+		this.viewParties = viewParties;
+	}
+
+	public ArrayList<ViewMessage> getViewMessages() {
+		return viewMessages;
+	}
+
+	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
+		this.viewMessages = viewMessages;
 	}
 }
