@@ -2,22 +2,19 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
-
-import com.sun.javafx.geom.Point2D;
+import java.awt.geom.*;
 
 import model.Party;
 
 public class ViewActor extends ViewParty {
+	private Point2D position;
+	private ViewLabel viewLabel = new ViewLabel();
+	private int size = 20;
+
 	public ViewActor(Party party) {
 		super(party);
-		// TODO Auto-generated constructor stub
 	}
 
-	Point2D position;
-	ViewLabel viewLabel = new ViewLabel();
-	
 	/**
 	 * This method paints an actor on the window
 	 * 
@@ -28,25 +25,46 @@ public class ViewActor extends ViewParty {
 	 * @param label
 	 *            The text of the label
 	 * @throws IllegalArgumentException
-	 * 			  Illegal actor, coordinates or size
+	 *             Illegal actor, coordinates or size
 	 */
-	public void draw(Graphics2D g, int size, String label) {
-		if (position.x < 0 || position.y < 0 || size < 0 )
+	public void draw(Graphics2D g, String label) {
+		if (g == null || label == null)
 			throw new IllegalArgumentException();
-		
-		Shape c = new Ellipse2D.Double(position.x - size, position.y - size, 2.0 * size, 2.0 * size);
+
+		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
-		g.draw(new Line2D.Double(position.x, position.y + size, position.x, position.y + size + 50));
+		g.draw(new Line2D.Double(position.getX(), position.getY() + size, position.getX(),
+				position.getY() + size + 50));
 		// Draw arms actor
-		g.draw(new Line2D.Double(position.x - 20, position.y + size + 25, position.x, position.y + size + 5));
-		g.draw(new Line2D.Double(position.x, position.y + size + 5, position.x + 20, position.y + size + 25));
+		g.draw(new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(),
+				position.getY() + size + 5));
+		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 5, position.getX() + 20,
+				position.getY() + size + 25));
 		// draw legs actor
-		g.draw(new Line2D.Double(position.x - 20, position.y + size + 70, position.x, position.y + size + 50));
-		g.draw(new Line2D.Double(position.x, position.y + size + 50, position.x + 20, position.y + size + 70));		
+		g.draw(new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(),
+				position.getY() + size + 50));
+		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20,
+				position.getY() + size + 70));
 
-		int labelWidth = g.getFontMetrics().stringWidth(label);		
-		viewLabel.draw(g, label, new Point2D(position.x - (labelWidth/2), position.y+115));
+		int labelWidth = g.getFontMetrics().stringWidth(label);
+		viewLabel.draw(g, label, new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
+	}
+
+	/**
+	 * Checks if the actor is positioned at the clicked coordinates
+	 * 
+	 * @param coordinates
+	 *            The coordinates of a click event
+	 */
+	@Override
+	public boolean checkCoordinates(Point2D coordinates) {
+		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
+			coordinates.getX() == position.getX() && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 ||							// body actor
+			new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(), position.getY() + size + 5).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
+			new Line2D.Double(position.getX(), position.getY() + size + 5, position.getX() + 20, position.getY() + size + 25).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
+			new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50).contains(coordinates.getX(), coordinates.getY()) ||	// legs actor
+			new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
 	}
 
 	public Point2D getPosition() {

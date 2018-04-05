@@ -95,7 +95,7 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		eventHandler.handleMouseEvent(id, x, y, clickCount);
+		eventHandler.handleMouseEvent(id, x, y, clickCount, this);
 		repaint();
     }
     

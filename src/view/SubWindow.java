@@ -8,8 +8,6 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 
 import model.Interaction;
-import model.Message;
-import model.Party;
 
 public class SubWindow {
 	private Interaction interaction;
@@ -17,6 +15,10 @@ public class SubWindow {
 	private ArrayList<ViewMessage> viewMessages;
 	private Integer x;
 	private Integer y;
+	
+	private Integer width = 500;
+	private Integer height = 400;
+	private Integer heightTitlebar = 25;
 	
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		// ctrl n -> nieuwe, lege interaction
@@ -50,9 +52,6 @@ public class SubWindow {
 	}
 	
 	public void draw(Graphics2D g) {
-		Integer width = 500;
-		Integer height = 400;
-		Integer heightTitlebar = 25;
 		Integer padding = 7;
 		
 		// Draw white field
@@ -125,5 +124,29 @@ public class SubWindow {
 
 	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
 		this.viewMessages = viewMessages;
+	}
+
+	public Integer getWidth() {
+		return width;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+
+	public Integer getHeightTitlebar() {
+		return heightTitlebar;
+	}
+
+	public void setHeightTitlebar(Integer heightTitlebar) {
+		this.heightTitlebar = heightTitlebar;
 	}
 }
