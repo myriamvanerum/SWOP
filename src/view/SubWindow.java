@@ -51,6 +51,9 @@ public class SubWindow {
 		
 		setX(x);
 		setY(y);
+		setWidth(500);
+		setHeight(400);
+		setHeightTitlebar(25);
 	}
 	
 	public void draw(Graphics2D g) {
