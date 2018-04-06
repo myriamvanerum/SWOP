@@ -2,14 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import com.sun.javafx.geom.Point2D;
+import java.awt.geom.*;
 
 public class ViewLabel {
 	/**
 	 * This method draws a label for the components
 	 * @param g
-	 * 		The graphics library used
+	 * 		The graphics librar.getY() used
 	 * @param label
 	 * 		The text of the label
 	 * @param position
@@ -18,12 +17,12 @@ public class ViewLabel {
 	 * 		Illegal label or color
 	 */
 	protected void draw(Graphics2D g, String label, Point2D position) {
-		if (label == null || position.x < 0 || position.y < 0)
+		if (label == null || position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 
 		// TODO check label state
 		g.setColor(new Color(0,0,0));
-		g.drawString(label, position.x, position.y);
+		g.drawString(label, (int)position.getX(), (int)position.getY());
 		g.setColor(new Color(0,0,0));
 	}
 }

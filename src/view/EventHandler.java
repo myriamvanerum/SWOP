@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.*;
 
 import controller.Controller;
 
@@ -108,7 +109,7 @@ public class EventHandler {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal id, coordinates or clickCount
 	 */
-	public void handleMouseEvent(int id, int x, int y, int clickCount) {
+	public void handleMouseEvent(int id, int x, int y, int clickCount, MainWindow mainwindow) {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
@@ -154,6 +155,35 @@ public class EventHandler {
 //							changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
 //						}
 //					}
+					break;
+				default:
+					break;
+				}
+			}
+						
+			if (id == MouseEvent.MOUSE_CLICKED) {
+				// TODO subwindow = active subwindow
+				switch (new ClickEventHandler().handleClickEvent(new Point2D.Double(x, y), mainwindow.getActiveWindow())) {
+				case EMPTY:
+					// create party, clickcount 2
+					//controller.createParty();
+					break;
+				case LABEL:
+					// clickcount 1 --> select element
+					
+					// clickcount 2 --> edit label selected element
+					// delete button --> delete element
+					break;
+				case PARTY:
+					// change party type, clickcount 2
+					System.out.println("change party type");
+					break;
+				case LIFELINE:
+					// enter add message mode
+					break;
+				case CLOSE:
+					// close active subwindow
+					System.out.println("close method");
 					break;
 				default:
 					break;
