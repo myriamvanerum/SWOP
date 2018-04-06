@@ -3,12 +3,14 @@ package view;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
+import java.util.ArrayList;
 
 import controller.Controller;
+import view.ClickEventHandler.ClickEvent;
 
 public class EventHandler {
 	Controller controller;
-	
+
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
 	}
@@ -19,79 +21,83 @@ public class EventHandler {
 	 * versa, if delete is pressed (or backspace on a mac, which doesn't have a
 	 * deletebutton) the focused party gets deleted.
 	 * 
-	 * @param id 
-	 * 		keyEvent id
+	 * @param id
+	 *            keyEvent id
 	 * @param keyCode:
-	 * 		Keyboard key pressed
+	 *            Keyboard key pressed
 	 * @param keyChar:
-	 * 		keyboard key pressed keyChar
+	 *            keyboard key pressed keyChar
 	 * @throws IllegalArgumentException
-	 * 			  Illegal id or keyCode
+	 *             Illegal id or keyCode
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-//		if (inputMode == true)
-//		{
-//			int index = parties.indexOf(currentComponent);
-//			String inputLabel = currentComponent.getLabel().getText();
-//			
-//			// Enkel letters (hoofdletters & kleineletters)
-//	        // 513 is de keyCode voor ":"
-//	        // 65-90 zijn de keyCodes voor alle letters
-//	        // 8 is de keyCode voor backspace
-//	        // 10 is de keyCode voor enter		
-//	        if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) { 	        	
-//	        		    			    		    		
-//	        	if (keyCode == 8 && inputLabel.length() > 1)
-//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
-//	        	else if (inputLabel != null && inputLabel.length() > 0) {
-//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
-//	    	    }    	
-//	        }   
-//	        
-//	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
-//	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
-//		        setInputMode(false);
-//	        	currentComponent = null;  
-//	        }  	     
-//
-//        	if (currentComponent instanceof Party)       		        	
-//        		parties.set(index, (Party)currentComponent);
-//        	if (currentComponent instanceof Message)
-//        		messages.set(index, (Message)currentComponent);
-//        	
-//		} else {
-		
-			switch (keyCode) {
+		// if (inputMode == true)
+		// {
+		// int index = parties.indexOf(currentComponent);
+		// String inputLabel = currentComponent.getLabel().getText();
+		//
+		// // Enkel letters (hoofdletters & kleineletters)
+		// // 513 is de keyCode voor ":"
+		// // 65-90 zijn de keyCodes voor alle letters
+		// // 8 is de keyCode voor backspace
+		// // 10 is de keyCode voor enter
+		// if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode
+		// == 8) {
+		//
+		// if (keyCode == 8 && inputLabel.length() > 1)
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 2) + "|");
+		// else if (inputLabel != null && inputLabel.length() > 0) {
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 1) + keyChar + "|");
+		// }
+		// }
+		//
+		// if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 1));
+		// setInputMode(false);
+		// currentComponent = null;
+		// }
+		//
+		// if (currentComponent instanceof Party)
+		// parties.set(index, (Party)currentComponent);
+		// if (currentComponent instanceof Message)
+		// messages.set(index, (Message)currentComponent);
+		//
+		// } else {
 
-			case KeyEvent.VK_TAB:
-//				switchDiagram();
-				break;
+		switch (keyCode) {
 
-			case KeyEvent.VK_DELETE:
-//				if (labelClickedOnce) {
-//					deleteFocused();
-//					labelClickedOnce = false;
-//				}
-				break;
-			case KeyEvent.VK_N:
-				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/) {
-					System.out.println("CTRL-N");
-					controller.createNewInteraction();
-				}
-				break;
-			case KeyEvent.VK_D:
-				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/) {
-					System.out.println("CTRL-D");
-					controller.duplicateActiveWindow();
-				}
-				break;
-			}	
-//		}
+		case KeyEvent.VK_TAB:
+			// switchDiagram();
+			break;
+
+		case KeyEvent.VK_DELETE:
+			// if (labelClickedOnce) {
+			// deleteFocused();
+			// labelClickedOnce = false;
+			// }
+			break;
+		case KeyEvent.VK_N:
+			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
+				System.out.println("CTRL-N");
+				controller.createNewInteraction();
+			}
+			break;
+		case KeyEvent.VK_D:
+			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
+				System.out.println("CTRL-D");
+				controller.duplicateActiveWindow();
+			}
+			break;
+		}
+		// }
 	}
-	
+
 	/**
 	 * When a mouse event occurs, it is handled in this method. If the mouse is
 	 * pressed, the object is focused, if it's dragged, the object should move (if
@@ -99,7 +105,7 @@ public class EventHandler {
 	 * click, it draws a new party.
 	 * 
 	 * @param id
-	 * 			  mouseEvent id
+	 *            mouseEvent id
 	 * @param x:
 	 *            coordinate x
 	 * @param y:
@@ -107,88 +113,110 @@ public class EventHandler {
 	 * @param clickCount:
 	 *            the number of times the mouse has clicked.
 	 * @throws IllegalArgumentException
-	 * 			  Illegal id, coordinates or clickCount
+	 *             Illegal id, coordinates or clickCount
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount, MainWindow mainwindow) {
-		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
+		if (id < 0 || x < 0 || y < 0 || clickCount < 0 || mainwindow.getActiveWindow() == null)
 			throw new IllegalArgumentException();
 
-//		if ( inputMode == false) {
-			switch (id) {
-			case MouseEvent.MOUSE_PRESSED:
-//				checkAndFocus(x, y);
-				break;
-			case MouseEvent.MOUSE_DRAGGED:
-//			if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
-//				moveComponent((Party) getFocusedObject(), x, y);
-//			}
-//			getFocusedObject().unfocus();
+		// if ( inputMode == false) {
+		switch (id) {
+		case MouseEvent.MOUSE_PRESSED:
+			// checkAndFocus(x, y);
 			break;
-			case MouseEvent.MOUSE_CLICKED:
-//				Party party = checkCoordinate(x, y);
-				
-				switch (clickCount) {
-				case 1:
-					
-//					if (party == null && getFocusedObject() != null) {
-//						unFocus();
-//					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == false) {
-//						checkAndFocus(x, y);
-//						labelClickedOnce = true;
-//					} else if (party != null && labelClickedParty(party, x, y) && labelClickedOnce == true) {
-//						unFocus();
-//						setInputMode(true);
-//						labelClickedOnce = false;
-//						currentComponent = party;
-//						party.getLabel().setText(party.getLabelText()+ "|");						
-//					}
-					break;
+		case MouseEvent.MOUSE_DRAGGED:
+			// if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
+			// moveComponent((Party) getFocusedObject(), x, y);
+			// }
+			// getFocusedObject().unfocus();
+			break;
+		case MouseEvent.MOUSE_CLICKED:
+			SubWindow subwindow = mainwindow.getActiveWindow();
 
-				case 2:
-//					if (party == null) {
-//						addComponent(x, y);
-//					} else {
-//						if (getDiagramType() == DiagramType.COMMUNICATION && !labelClickedParty(party, x, y)) {
-//							changeParty(party, (int) party.getXCom(), (int) party.getYCom());
-//
-//						} else if (getDiagramType() == DiagramType.SEQUENCE && !labelClickedParty(party, x, y)) {
-//							changeParty(party, (int) party.getXSeq(), (int) party.getYSeq());
-//						}
-//					}
-					break;
-				default:
-					break;
-				}
+			if (clickOutsideActiveSubwindow(x, y, subwindow)) {
+				controller.findClickedSubwindow();
+			} else if (clickCloseButton(x, y, subwindow)) {
+				controller.closeClickedSubwindow();
+			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
+				controller.changePartyType();
+			} else if (clickCount == 2 && clickEmptySpace(x, y, subwindow)) {
+				controller.createParty();
 			}
-						
-			if (id == MouseEvent.MOUSE_CLICKED) {
-				// TODO subwindow = active subwindow
-				switch (new ClickEventHandler().handleClickEvent(new Point2D.Double(x, y), mainwindow.getActiveWindow())) {
-				case EMPTY:
-					// create party, clickcount 2
-					//controller.createParty();
-					break;
-				case LABEL:
-					// clickcount 1 --> select element
-					
-					// clickcount 2 --> edit label selected element
-					// delete button --> delete element
-					break;
-				case PARTY:
-					// change party type, clickcount 2
-					System.out.println("change party type");
-					break;
-				case LIFELINE:
-					// enter add message mode
-					break;
-				case CLOSE:
-					// close active subwindow
-					System.out.println("close method");
-					break;
-				default:
-					break;
-				}
-			}
-		}		
-//	}
+
+			// TODO Label/Lifeline clicked
+			break;
+		}
+	}
+
+	/**
+	 * Checks if there is a party at the clicked position
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return Null if there is no party on the position given by the coordinates x
+	 *         and y The ViewParty that is on the position given by the coordinates
+	 *         x and y
+	 */
+	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
+		ArrayList<ViewParty> parties = subwindow.getViewParties();
+		for (ViewParty party : parties) {
+			if (party.checkCoordinates(new Point2D.Double(x, y)))
+				return party;
+		}
+		return null;
+	}
+
+	/**
+	 * Checks if the closebutton is clicked
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return True if the close button of the active subwindow is clicked False if
+	 *         the close butten of the active subwindow isn't clicked
+	 */
+	private boolean clickCloseButton(int x, int y, SubWindow subwindow) {
+		return subwindow != null && x >= subwindow.getX() + (subwindow.getWidth() - subwindow.getHeightTitlebar())
+				&& x <= subwindow.getX() + subwindow.getWidth() && y >= subwindow.getY()
+				&& y <= (subwindow.getY() + subwindow.getHeightTitlebar());
+	}
+
+	/**
+	 * Checks if an empty space is clicked
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return
+	 */
+	private boolean clickEmptySpace(int x, int y, SubWindow subwindow) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * Checks if clicked position is part of the active subwindow
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return
+	 */
+	private boolean clickOutsideActiveSubwindow(int x, int y, SubWindow subwindow) {
+		return x < subwindow.getX() || y < subwindow.getY() || x > subwindow.getX() + subwindow.getWidth()
+				|| y > subwindow.getY() + subwindow.getHeight();
+	}
 }
