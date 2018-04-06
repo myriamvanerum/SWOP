@@ -55,11 +55,11 @@ public class SubWindow {
 		
 		// Draw white field
 		g.setColor(Color.WHITE);
-	    g.fillRect(getX(), getY() + heightTitlebar, getWidth(), getHeight() - heightTitlebar);
+	    g.fillRect(getX(), getY() + getHeightTitlebar(), getWidth(), getHeight() - getHeightTitlebar());
 	    
 		// Draw title bar
 		g.setColor(Color.LIGHT_GRAY);
-	    g.fillRect(getX(), getY(), getWidth(), heightTitlebar);
+	    g.fillRect(getX(), getY(), getWidth(), getHeightTitlebar());
 	    
 		// Draw title bar text
 	    g.setColor(Color.BLACK);
@@ -67,7 +67,7 @@ public class SubWindow {
 		
 		// Draw close button
 	    g.setColor(Color.RED);
-		g.fillRect(getX() + getWidth() - heightTitlebar, getY(), heightTitlebar, heightTitlebar);
+		g.fillRect(getX() + getWidth() - getHeightTitlebar(), getY(), getHeightTitlebar(), getHeightTitlebar());
 		g.setColor(Color.BLACK);
 		Stroke stroke = new BasicStroke(2);
 		g.setStroke(stroke);
