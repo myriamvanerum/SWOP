@@ -17,6 +17,8 @@ public class SubWindow {
 	private ArrayList<ViewMessage> viewMessages;
 	private Integer x;
 	private Integer y;
+	private Integer width;
+	private Integer height;
 	
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		// ctrl n -> nieuwe, lege interaction
@@ -24,6 +26,8 @@ public class SubWindow {
 		
 		setX(x);
 		setY(y);
+		setWidth(500);
+		setHeight(400);
 		
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
@@ -50,18 +54,16 @@ public class SubWindow {
 	}
 	
 	public void draw(Graphics2D g) {
-		Integer width = 500;
-		Integer height = 400;
 		Integer heightTitlebar = 25;
 		Integer padding = 7;
 		
 		// Draw white field
 		g.setColor(Color.WHITE);
-	    g.fillRect(getX(), getY() + heightTitlebar, width, height - heightTitlebar);
+	    g.fillRect(getX(), getY() + heightTitlebar, getWidth(), getHeight() - heightTitlebar);
 	    
 		// Draw title bar
 		g.setColor(Color.LIGHT_GRAY);
-	    g.fillRect(getX(), getY(), width, heightTitlebar);
+	    g.fillRect(getX(), getY(), getWidth(), heightTitlebar);
 	    
 		// Draw title bar text
 	    g.setColor(Color.BLACK);
@@ -69,18 +71,18 @@ public class SubWindow {
 		
 		// Draw close button
 	    g.setColor(Color.RED);
-		g.fillRect(getX() + width - heightTitlebar, getY(), heightTitlebar, heightTitlebar);
+		g.fillRect(getX() + getWidth() - heightTitlebar, getY(), heightTitlebar, heightTitlebar);
 		g.setColor(Color.BLACK);
 		Stroke stroke = new BasicStroke(2);
 		g.setStroke(stroke);
-	    g.drawLine(getX() + width - 10 - padding, getY() + padding, getX() + width - padding, getY() + 10 + padding);
-	    g.drawLine(getX() + width - padding, getY() + padding, getX() + width - 10 - padding, getY() + 10 + padding);
+	    g.drawLine(getX() + getWidth() - 10 - padding, getY() + padding, getX() + getWidth() - padding, getY() + 10 + padding);
+	    g.drawLine(getX() + getWidth() - padding, getY() + padding, getX() + getWidth() - 10 - padding, getY() + 10 + padding);
 	    
 	    // Draw black border
 	    g.setColor(Color.BLACK);
 	    stroke = new BasicStroke(1);
 		g.setStroke(stroke);
-	    Rectangle r = new Rectangle(getX(), getY(), width, height);
+	    Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 		
 		// Draw contents
@@ -125,5 +127,21 @@ public class SubWindow {
 
 	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
 		this.viewMessages = viewMessages;
+	}
+
+	public Integer getWidth() {
+		return width;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	public Integer getHeight() {
+		return height;
+	}
+
+	public void setHeight(Integer height) {
+		this.height = height;
 	}
 }

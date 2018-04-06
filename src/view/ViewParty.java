@@ -13,5 +13,7 @@ public class ViewParty {
 		// copy all parameters from viewParty into new viewParty
 	}
 
-	Point2D position;
+	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
+	Point2D positionCom; 
+	Point2D positionSeq;
 }
