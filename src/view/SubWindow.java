@@ -15,9 +15,9 @@ public class SubWindow {
 	private ArrayList<ViewMessage> viewMessages;
 	private Integer x;
 	private Integer y;
-	private Integer width;
-	private Integer height;
-	private Integer heightTitlebar;
+	private Integer width = 500;
+	private Integer height = 400;
+	private Integer heightTitlebar = 25;
 	
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		// ctrl n -> nieuwe, lege interaction
@@ -25,9 +25,6 @@ public class SubWindow {
 		
 		setX(x);
 		setY(y);
-		setWidth(500);
-		setHeight(400);
-		setHeightTitlebar(25);
 		
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
@@ -51,9 +48,6 @@ public class SubWindow {
 		
 		setX(x);
 		setY(y);
-		setWidth(500);
-		setHeight(400);
-		setHeightTitlebar(25);
 	}
 	
 	public void draw(Graphics2D g) {
