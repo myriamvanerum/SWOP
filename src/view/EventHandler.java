@@ -67,7 +67,7 @@ public class EventHandler {
 			switch (keyCode) {
 
 			case KeyEvent.VK_TAB:
-//				switchDiagram();
+				controller.switchDiagramType();
 				break;
 
 			case KeyEvent.VK_DELETE:

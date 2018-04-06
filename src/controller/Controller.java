@@ -27,4 +27,8 @@ public class Controller {
 		// make new subwindow
 		mainWindow.createNewSubWindow(null);
 	}
+	
+	public void switchDiagramType() {
+		mainWindow.getActiveWindow().changeState();
+	}
 }

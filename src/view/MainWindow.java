@@ -20,7 +20,9 @@ public class MainWindow extends CanvasWindow {
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
 	/**
-	 * Method to create a new SubWindow. 
+	 * Method to create a new SubWindow
+	 * Is triggered with a new Interaction if Ctrl N
+	 * Is triggered with null if Ctrl D 
 	 * @param interaction
 	 */
 	public void createNewSubWindow(Interaction interaction) {
@@ -28,7 +30,7 @@ public class MainWindow extends CanvasWindow {
 		Integer x = 5;
 		Integer y = 5;
 		
-		// find lowest SubWindow
+		// find lowest SubWindow to get lowest coordinates
 		if (getSubWindows().size() > 0) {
 			SubWindow lowestSubWindow =  Collections.max(getSubWindows(), Comparator.comparing(s -> s.getY()));
 			x = lowestSubWindow.getX() + 10;
@@ -36,8 +38,10 @@ public class MainWindow extends CanvasWindow {
 		}
 		
 		if (interaction != null)
+			// create new subwindow for new interaction
 			subWindow = new SubWindow(interaction, x, y);
 		else
+			// copy active subwindow
 			subWindow = new SubWindow(getActiveWindow(), x, y);
 		
 		subWindows.add(subWindow);

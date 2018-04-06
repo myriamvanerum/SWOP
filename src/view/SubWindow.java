@@ -9,25 +9,32 @@ import java.util.ArrayList;
 
 import model.Interaction;
 
-public class SubWindow {
+public class SubWindow implements State {
 	private Interaction interaction;
+	
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
+	
 	private Integer x;
 	private Integer y;
 	private Integer width = 500;
 	private Integer height = 400;
 	private Integer heightTitlebar = 25;
 	
+	private State windowState;
+	private SeqState seqState = new SeqState();
+	private ComState comState = new ComState();
+	
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		// ctrl n -> nieuwe, lege interaction
 		setInteraction(interaction);
 		
-		setX(x);
-		setY(y);
-		
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
+		
+		setX(x);
+		setY(y);
+		setState(seqState);
 	}
 	
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
@@ -48,6 +55,7 @@ public class SubWindow {
 		
 		setX(x);
 		setY(y);
+		setState(seqState);
 	}
 	
 	public void draw(Graphics2D g) {
@@ -63,7 +71,7 @@ public class SubWindow {
 	    
 		// Draw title bar text
 	    g.setColor(Color.BLACK);
-		g.drawString("SEQUENCE DIAGRAM", getX() + 10, getY() + 10 + padding);
+	    drawTitle(g, getX() + 10, getY() + 10 + padding);
 		
 		// Draw close button
 	    g.setColor(Color.RED);
@@ -83,6 +91,12 @@ public class SubWindow {
 		
 		// Draw contents
 		// ! only draw contents inside the window !
+	}
+	
+	public void changeState() {
+		if (getState() == seqState)
+			setState(comState);
+		else setState(seqState);
 	}
 	
 	public Interaction getInteraction() {
@@ -147,5 +161,24 @@ public class SubWindow {
 
 	public void setHeightTitlebar(Integer heightTitlebar) {
 		this.heightTitlebar = heightTitlebar;
+	}
+	
+	public State getState() {
+		return windowState;
+	}
+
+	public void setState(State windowState) {
+		this.windowState = windowState;
+	}
+
+	@Override
+	public void drawTitle(Graphics2D g, Integer x, Integer y) {
+		getState().drawTitle(g, x, y);
+	}
+	
+
+	@Override
+	public void drawContents() {
+		getState().drawContents();
 	}
 }
