@@ -39,6 +39,7 @@ public class SubWindow implements State {
 		
 		setX(x);
 		setY(y);
+		
 		setState(seqState);
 	}
 	
@@ -66,11 +67,13 @@ public class SubWindow implements State {
 		
 		setX(x);
 		setY(y);
+		
 		setState(activeWindow.getState());
 	}
 	
 	public void draw(Graphics2D g) {
 		Integer padding = 7;
+		Integer paddingBig = padding + 10;
 		
 		// Draw white field
 		g.setColor(Color.WHITE);
@@ -82,7 +85,7 @@ public class SubWindow implements State {
 	    
 		// Draw title bar text
 	    g.setColor(Color.BLACK);
-	    drawTitle(g, getX() + 10, getY() + 10 + padding);
+	    drawTitle(g, getX() + padding, getY() + paddingBig);
 		
 		// Draw close button
 	    g.setColor(Color.RED);
@@ -90,8 +93,8 @@ public class SubWindow implements State {
 		g.setColor(Color.BLACK);
 		Stroke stroke = new BasicStroke(2);
 		g.setStroke(stroke);
-	    g.drawLine(getX() + getWidth() - 10 - padding, getY() + padding, getX() + getWidth() - padding, getY() + 10 + padding);
-	    g.drawLine(getX() + getWidth() - padding, getY() + padding, getX() + getWidth() - 10 - padding, getY() + 10 + padding);
+	    g.drawLine(getX() + getWidth() - paddingBig, getY() + padding, getX() + getWidth() - padding, getY() + paddingBig);
+	    g.drawLine(getX() + getWidth() - padding, getY() + padding, getX() + getWidth() - paddingBig, getY() + paddingBig);
 	    
 	    // Draw black border
 	    g.setColor(Color.BLACK);
@@ -102,6 +105,7 @@ public class SubWindow implements State {
 		
 		// Draw contents
 		// ! only draw contents inside the window !
+		// Plan: overal twee verschillende methodes (indien nodig), drawSeq en drawCom. elke state roept zijn eigen methodes op
 	}
 	
 	public void changeState() {
