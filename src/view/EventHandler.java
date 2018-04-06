@@ -6,7 +6,6 @@ import java.awt.geom.*;
 import java.util.ArrayList;
 
 import controller.Controller;
-import view.ClickEventHandler.ClickEvent;
 
 public class EventHandler {
 	Controller controller;
@@ -21,81 +20,77 @@ public class EventHandler {
 	 * versa, if delete is pressed (or backspace on a mac, which doesn't have a
 	 * deletebutton) the focused party gets deleted.
 	 * 
-	 * @param id
-	 *            keyEvent id
+	 * @param id 
+	 * 		keyEvent id
 	 * @param keyCode:
-	 *            Keyboard key pressed
+	 * 		Keyboard key pressed
 	 * @param keyChar:
-	 *            keyboard key pressed keyChar
+	 * 		keyboard key pressed keyChar
 	 * @throws IllegalArgumentException
-	 *             Illegal id or keyCode
+	 * 			  Illegal id or keyCode
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		// if (inputMode == true)
-		// {
-		// int index = parties.indexOf(currentComponent);
-		// String inputLabel = currentComponent.getLabel().getText();
-		//
-		// // Enkel letters (hoofdletters & kleineletters)
-		// // 513 is de keyCode voor ":"
-		// // 65-90 zijn de keyCodes voor alle letters
-		// // 8 is de keyCode voor backspace
-		// // 10 is de keyCode voor enter
-		// if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode
-		// == 8) {
-		//
-		// if (keyCode == 8 && inputLabel.length() > 1)
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 2) + "|");
-		// else if (inputLabel != null && inputLabel.length() > 0) {
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 1) + keyChar + "|");
-		// }
-		// }
-		//
-		// if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 1));
-		// setInputMode(false);
-		// currentComponent = null;
-		// }
-		//
-		// if (currentComponent instanceof Party)
-		// parties.set(index, (Party)currentComponent);
-		// if (currentComponent instanceof Message)
-		// messages.set(index, (Message)currentComponent);
-		//
-		// } else {
+//		if (inputMode == true)
+//		{
+//			int index = parties.indexOf(currentComponent);
+//			String inputLabel = currentComponent.getLabel().getText();
+//			
+//			// Enkel letters (hoofdletters & kleineletters)
+//	        // 513 is de keyCode voor ":"
+//	        // 65-90 zijn de keyCodes voor alle letters
+//	        // 8 is de keyCode voor backspace
+//	        // 10 is de keyCode voor enter		
+//	        if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) { 	        	
+//	        		    			    		    		
+//	        	if (keyCode == 8 && inputLabel.length() > 1)
+//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
+//	        	else if (inputLabel != null && inputLabel.length() > 0) {
+//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
+//	    	    }    	
+//	        }   
+//	        
+//	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
+//	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
+//		        setInputMode(false);
+//	        	currentComponent = null;  
+//	        }  	     
+//
+//        	if (currentComponent instanceof Party)       		        	
+//        		parties.set(index, (Party)currentComponent);
+//        	if (currentComponent instanceof Message)
+//        		messages.set(index, (Message)currentComponent);
+//        	
+//		} else {
+		
+			switch (keyCode) {
 
-		switch (keyCode) {
+			case KeyEvent.VK_TAB:
+				controller.switchDiagramType();
+				break;
 
-		case KeyEvent.VK_TAB:
-			// switchDiagram();
-			break;
-
-		case KeyEvent.VK_DELETE:
-			// if (labelClickedOnce) {
-			// deleteFocused();
-			// labelClickedOnce = false;
-			// }
-			break;
-		case KeyEvent.VK_N:
-			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
-				System.out.println("CTRL-N");
-				controller.createNewInteraction();
-			}
-			break;
-		case KeyEvent.VK_D:
-			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
-				System.out.println("CTRL-D");
-				controller.duplicateActiveWindow();
-			}
-			break;
-		}
-		// }
+			case KeyEvent.VK_DELETE:
+//				if (labelClickedOnce) {
+//					deleteFocused();
+//					labelClickedOnce = false;
+//				}
+				break;
+			case KeyEvent.VK_N:
+				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/) {
+					System.out.println("CTRL-N");
+					controller.createNewInteraction();
+				}
+				break;
+			case KeyEvent.VK_D:
+				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/) {
+					System.out.println("CTRL-D");
+					controller.duplicateActiveWindow();
+				}
+				break;
+			}	
+//		}
 	}
 
 	/**

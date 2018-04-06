@@ -49,9 +49,12 @@ public class Controller {
 	public void closeClickedSubwindow() {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void changePartyType() {
 		// TODO Auto-generated method stub		
+	}
+
+	public void switchDiagramType() {
+		mainWindow.getActiveWindow().changeState();
 	}
 }
