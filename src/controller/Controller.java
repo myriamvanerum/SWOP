@@ -6,6 +6,7 @@ import model.Interaction;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
+import view.SubWindow;
 
 public class Controller {
 	MainWindow mainWindow;
@@ -46,8 +47,17 @@ public class Controller {
 		// TODO
 	}
 
-	public void closeClickedSubwindow() {
-		// TODO Auto-generated method stub
+	public void closeClickedSubwindow(SubWindow subwindow) {		
+		mainWindow.getSubWindows().remove(subwindow);
+
+		if (subwindow == mainWindow.getActiveWindow()) {
+			int index = mainWindow.getSubWindows().size();
+			
+			if (index <= 0)
+				mainWindow.setActiveWindow(null);
+			else
+				mainWindow.setActiveWindow(mainWindow.getSubWindows().get(index-1));
+		}
 	}
 	
 	public void changePartyType() {

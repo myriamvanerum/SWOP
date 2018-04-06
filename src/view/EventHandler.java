@@ -127,20 +127,43 @@ public class EventHandler {
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			SubWindow subwindow = mainwindow.getActiveWindow();
-
-			if (clickOutsideActiveSubwindow(x, y, subwindow)) {
+			SubWindow closeWindow = checkCloseButtons(x,y, mainwindow.getSubWindows());
+						
+			if (clickCloseButton(x, y, subwindow)) {
+				controller.closeClickedSubwindow(subwindow);
+			} else if (closeWindow != null) {
+				controller.closeClickedSubwindow(closeWindow);
+			} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 				controller.findClickedSubwindow();
-			} else if (clickCloseButton(x, y, subwindow)) {
-				controller.closeClickedSubwindow();
 			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
 				controller.changePartyType();
-			} else if (clickCount == 2 && clickEmptySpace(x, y, subwindow)) {
+			} else {
 				controller.createParty();
 			}
 
 			// TODO Label/Lifeline clicked
 			break;
 		}
+	}
+
+	/**
+	 * Checks if the close button of a subwindow that isn't the active subwindow is clicked
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subWindows
+	 * 			  ArrayList of all subwindows
+	 * @return 	  Null if no close button is clicked
+	 * 			  The Subwindow of which the close button was clicked
+	 */
+	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows) {
+		 for (int i = subWindows.size() - 1; i >= 0; i--) {			 
+			    if (clickCloseButton(x, y,subWindows.get(i)))
+			    	return subWindows.get(i);
+			 }
+		
+		return null;
 	}
 
 	/**
@@ -153,7 +176,8 @@ public class EventHandler {
 	 * @param subwindow
 	 *            The current active subwindow
 	 * @return Null if there is no party on the position given by the coordinates x
-	 *         and y The ViewParty that is on the position given by the coordinates
+	 *         and y 
+	 *         The ViewParty that is on the position given by the coordinates
 	 *         x and y
 	 */
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
@@ -166,37 +190,21 @@ public class EventHandler {
 	}
 
 	/**
-	 * Checks if the closebutton is clicked
+	 * Checks if the close button of a subwindow is clicked
 	 * 
 	 * @param x
 	 *            The x coordinate of the clicked position
 	 * @param y
 	 *            The y coordinate of the clicked position
 	 * @param subwindow
-	 *            The current active subwindow
-	 * @return True if the close button of the active subwindow is clicked False if
-	 *         the close butten of the active subwindow isn't clicked
+	 *            The subwindow that has to be checked
+	 * @return 	True if the close button of the subwindow is clicked 
+	 * 			False if the close butten of the subwindow isn't clicked
 	 */
 	private boolean clickCloseButton(int x, int y, SubWindow subwindow) {
 		return subwindow != null && x >= subwindow.getX() + (subwindow.getWidth() - subwindow.getHeightTitlebar())
 				&& x <= subwindow.getX() + subwindow.getWidth() && y >= subwindow.getY()
 				&& y <= (subwindow.getY() + subwindow.getHeightTitlebar());
-	}
-
-	/**
-	 * Checks if an empty space is clicked
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return
-	 */
-	private boolean clickEmptySpace(int x, int y, SubWindow subwindow) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	/**
