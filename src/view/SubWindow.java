@@ -25,8 +25,13 @@ public class SubWindow implements State {
 	private SeqState seqState = new SeqState();
 	private ComState comState = new ComState();
 	
+	/**
+	 * Create a new SubWinow for a new Interaction
+	 * @param interaction
+	 * @param x
+	 * @param y
+	 */
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
-		// ctrl n -> nieuwe, lege interaction
 		setInteraction(interaction);
 		
 		setViewParties(new ArrayList<>());
@@ -37,6 +42,12 @@ public class SubWindow implements State {
 		setState(seqState);
 	}
 	
+	/**
+	 * Create a new SubWindow by duplicating another SubWindow
+	 * @param activeWindow
+	 * @param x
+	 * @param y
+	 */
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
@@ -55,7 +66,7 @@ public class SubWindow implements State {
 		
 		setX(x);
 		setY(y);
-		setState(seqState);
+		setState(activeWindow.getState());
 	}
 	
 	public void draw(Graphics2D g) {
