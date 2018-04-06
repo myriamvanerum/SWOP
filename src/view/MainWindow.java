@@ -35,29 +35,10 @@ public class MainWindow extends CanvasWindow {
 			y = lowestSubWindow.getY() + 10;
 		}
 		
-		subWindow = new SubWindow(interaction, x, y);
-		
-		subWindows.add(subWindow);
-		setActiveWindow(subWindow);
-	}
-	
-	/**
-	 * Method to duplicate the active window
-	 * @param interaction
-	 */
-	public void duplicateSubWindow() {
-		SubWindow subWindow;
-		Integer x = 5;
-		Integer y = 5;
-		
-		// find lowest SubWindow
-		if (getSubWindows().size() > 0) {
-			SubWindow lowestSubWindow =  Collections.max(getSubWindows(), Comparator.comparing(s -> s.getY()));
-			x = lowestSubWindow.getX() + 10;
-			y = lowestSubWindow.getY() + 10;
-		}
-		
-		subWindow = new SubWindow(getActiveWindow(), x, y);
+		if (interaction != null)
+			subWindow = new SubWindow(interaction, x, y);
+		else
+			subWindow = new SubWindow(getActiveWindow(), x, y);
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);
