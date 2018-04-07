@@ -12,8 +12,11 @@ public class ViewObject extends ViewParty{
 	}
 
 	private Point2D position;
+	private Point2D positionCom; 
+	private Point2D positionSeq;
 	private ViewLabel viewLabel = new ViewLabel();
-	private int width, height;
+	private int width = 80, height = 80;
+	private Party party;
 	
 	/**
 	 * This method paints an object on the window
@@ -27,20 +30,18 @@ public class ViewObject extends ViewParty{
 	 * @throws IllegalArgumentException
 	 * 			  Illegal object, coordinates or size
 	 */
-	public void draw(Graphics2D g, int size, String label) {
-		if (position.getX() < 0 || position.getY() < 0 || size < 0 || label == null )
+	@Override
+	public void draw(Graphics2D g) {
+		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-		
-		setWidth(size);
-		setHeight(size);
 
 		// label width dynamisch maken met label width
-		int labelWidth = g.getFontMetrics().stringWidth(label);
-		if (labelWidth > size)
+		int labelWidth = g.getFontMetrics().stringWidth(party.getLabel());
+		if (labelWidth > width)
 			setWidth(labelWidth + 10);
 		
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), width, height);
-		viewLabel.draw(g, label, new Point2D.Double((position.getX() + (width/2)-(labelWidth/2)), position.getY() + (height/2)));
+		viewLabel.draw(g, party.getLabel(), new Point2D.Double((position.getX() + (width/2)-(labelWidth/2)), position.getY() + (height/2)));
 		g.draw(r);
 	}
 	

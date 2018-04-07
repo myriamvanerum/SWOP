@@ -10,6 +10,7 @@ public class ViewActor extends ViewParty {
 	private Point2D position;
 	private ViewLabel viewLabel = new ViewLabel();
 	private int size = 20;
+	private Party party;
 
 	public ViewActor(Party party) {
 		super(party);
@@ -27,10 +28,7 @@ public class ViewActor extends ViewParty {
 	 * @throws IllegalArgumentException
 	 *             Illegal actor, coordinates or size
 	 */
-	public void draw(Graphics2D g, String label) {
-		if (g == null || label == null)
-			throw new IllegalArgumentException();
-
+	public void draw(Graphics2D g) {
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -47,8 +45,8 @@ public class ViewActor extends ViewParty {
 		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20,
 				position.getY() + size + 70));
 
-		int labelWidth = g.getFontMetrics().stringWidth(label);
-		viewLabel.draw(g, label, new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
+		int labelWidth = g.getFontMetrics().stringWidth(party.getLabel());
+		viewLabel.draw(g, party.getLabel(), new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
 	}
 
 	/**

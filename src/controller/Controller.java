@@ -30,7 +30,8 @@ public class Controller {
 	
 	public void duplicateActiveWindow() {
 		// make new subwindow
-		mainWindow.createNewSubWindow(null);
+		if (mainWindow.getActiveWindow() != null)
+			mainWindow.createNewSubWindow(null);
 	}
 	
 	public void createParty() {

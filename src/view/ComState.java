@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 public class ComState  implements State {
 
@@ -10,9 +11,13 @@ public class ComState  implements State {
 	}
 
 	@Override
-	public void drawContents() {
-		// TODO Auto-generated method stub
-		
+	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+		for (ViewParty viewParty : viewParties) {
+	        viewParty.drawCom(g);
+	    }
+	    for (ViewMessage viewMessage : viewMessages) {
+	    	viewMessage.drawCom(g);
+	    }		
 	}
 
 }

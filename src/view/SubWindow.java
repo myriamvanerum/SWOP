@@ -71,9 +71,16 @@ public class SubWindow implements State {
 		setState(activeWindow.getState());
 	}
 	
-	public void draw(Graphics2D g) {
+	/**
+	 * Method to draw a SubWindow and all its contents
+	 * @param gOrig
+	 */
+	public void draw(Graphics2D gOrig) {
 		Integer padding = 7;
 		Integer paddingBig = padding + 10;
+		
+		// Create a new Graphics object so clip can be used to only clip contents for this SubWindow
+		Graphics2D g = (Graphics2D) gOrig.create();
 		
 		// Draw white field
 		g.setColor(Color.WHITE);
@@ -104,8 +111,11 @@ public class SubWindow implements State {
 		g.draw(r);
 		
 		// Draw contents
-		// ! only draw contents inside the window !
-		// Plan: overal twee verschillende methodes (indien nodig), drawSeq en drawCom. elke state roept zijn eigen methodes op
+		drawContents(g, getViewParties(), getViewMessages());
+		
+		// Only draw within SubWindow limits (minus 1 px for border)
+		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
+		g.dispose();
 	}
 	
 	public void changeState() {
@@ -190,10 +200,9 @@ public class SubWindow implements State {
 	public void drawTitle(Graphics2D g, Integer x, Integer y) {
 		getState().drawTitle(g, x, y);
 	}
-	
 
 	@Override
-	public void drawContents() {
-		getState().drawContents();
+	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+		getState().drawContents(g, viewParties, viewMessages);
 	}
 }
