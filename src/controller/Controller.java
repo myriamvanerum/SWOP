@@ -49,8 +49,9 @@ public class Controller {
 		System.out.println("Create New Party.");
 	}
 
-	public void findClickedSubwindow() {
-		// TODO
+	public void changeActiveSubwindow(SubWindow subwindow) {
+		System.out.println("Change Active Window");
+		mainWindow.setActiveWindow(subwindow);
 	}
 
 	public void closeClickedSubwindow(SubWindow subwindow) {		

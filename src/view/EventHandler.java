@@ -125,14 +125,16 @@ public class EventHandler {
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			SubWindow subwindow = mainwindow.getActiveWindow();
-			SubWindow closeWindow = checkCloseButtons(x,y, mainwindow.getSubWindows());
+			SubWindow closeWindow = checkCloseButtons(x,y,mainwindow.getSubWindows());
 						
 			if (clickCloseButton(x, y, subwindow)) {
 				controller.closeClickedSubwindow(subwindow);
 			} else if (closeWindow != null) {
 				controller.closeClickedSubwindow(closeWindow);
-			} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
-				controller.findClickedSubwindow();
+			} else if (clickOutsideActiveSubwindow(x, y,subwindow)) {
+				SubWindow sub = findClickedSubwindow(x,y,subwindow,mainwindow.getSubWindows());
+				if (sub != null)
+					controller.changeActiveSubwindow(sub);
 			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
 				controller.changePartyType();
 			} else {
@@ -219,5 +221,21 @@ public class EventHandler {
 	private boolean clickOutsideActiveSubwindow(int x, int y, SubWindow subwindow) {
 		return x < subwindow.getX() || y < subwindow.getY() || x > subwindow.getX() + subwindow.getWidth()
 				|| y > subwindow.getY() + subwindow.getHeight();
+	}
+
+	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
+		for (int i = subWindows.size() - 1; i >= 0; i--) {			 
+		    if (subWindows.get(i) != subwindow) {
+		    	int xSub = subWindows.get(i).getX();
+		    	int ySub = subWindows.get(i).getY();
+		    	int width = subWindows.get(i).getWidth();
+		    	int height = subWindows.get(i).getHeight();
+		    	
+		    	if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
+		    		return subWindows.get(i);
+		    }
+		}
+		
+		return null;
 	}
 }
