@@ -7,10 +7,7 @@ import java.awt.geom.*;
 import model.Party;
 
 public class ViewActor extends ViewParty {
-	private Point2D position;
-	private ViewLabel viewLabel = new ViewLabel();
 	private int size = 20;
-	private Party party;
 
 	public ViewActor(Party party) {
 		super(party);
@@ -28,7 +25,8 @@ public class ViewActor extends ViewParty {
 	 * @throws IllegalArgumentException
 	 *             Illegal actor, coordinates or size
 	 */
-	public void draw(Graphics2D g) {
+	@Override
+	public void draw(Graphics2D g, Point2D position) {
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -45,8 +43,8 @@ public class ViewActor extends ViewParty {
 		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20,
 				position.getY() + size + 70));
 
-		int labelWidth = g.getFontMetrics().stringWidth(party.getLabel());
-		viewLabel.draw(g, party.getLabel(), new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
+		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
+		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
 	}
 
 	/**
@@ -57,19 +55,12 @@ public class ViewActor extends ViewParty {
 	 */
 	@Override
 	public boolean checkCoordinates(Point2D coordinates) {
-		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
-			coordinates.getX() == position.getX() && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 ||							// body actor
-			new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(), position.getY() + size + 5).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
-			new Line2D.Double(position.getX(), position.getY() + size + 5, position.getX() + 20, position.getY() + size + 25).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
-			new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50).contains(coordinates.getX(), coordinates.getY()) ||	// legs actor
-			new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
-	}
-
-	public Point2D getPosition() {
-		return position;
-	}
-
-	public void setPosition(Point2D position) {
-		this.position = position;
+//		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
+//			coordinates.getX() == position.getX() && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 ||							// body actor
+//			new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(), position.getY() + size + 5).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
+//			new Line2D.Double(position.getX(), position.getY() + size + 5, position.getX() + 20, position.getY() + size + 25).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
+//			new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50).contains(coordinates.getX(), coordinates.getY()) ||	// legs actor
+//			new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
+		return false;
 	}
 }

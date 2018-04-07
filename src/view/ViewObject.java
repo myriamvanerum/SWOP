@@ -11,12 +11,7 @@ public class ViewObject extends ViewParty{
 		super(party);
 	}
 
-	private Point2D position;
-	private Point2D positionCom; 
-	private Point2D positionSeq;
-	private ViewLabel viewLabel = new ViewLabel();
 	private int width = 80, height = 80;
-	private Party party;
 	
 	/**
 	 * This method paints an object on the window
@@ -31,17 +26,17 @@ public class ViewObject extends ViewParty{
 	 * 			  Illegal object, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g) {
+	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 
 		// label width dynamisch maken met label width
-		int labelWidth = g.getFontMetrics().stringWidth(party.getLabel());
+		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
 		if (labelWidth > width)
 			setWidth(labelWidth + 10);
 		
-		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), width, height);
-		viewLabel.draw(g, party.getLabel(), new Point2D.Double((position.getX() + (width/2)-(labelWidth/2)), position.getY() + (height/2)));
+		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
+		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(labelWidth/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
 	}
 	
@@ -52,18 +47,11 @@ public class ViewObject extends ViewParty{
 	 */
 	@Override
 	public boolean checkCoordinates(Point2D coordinates) {
-		return coordinates.getX() >= position.getX() && 
-			coordinates.getX() <= position.getX() + getWidth() && 
-			coordinates.getY() >= position.getY() &&
-			coordinates.getY() <= position.getY() + getHeight();
-	}
-
-	public Point2D getPosition() {
-		return position;
-	}
-
-	public void setPosition(Point2D position) {
-		this.position = position;
+//		return coordinates.getX() >= position.getX() && 
+//			coordinates.getX() <= position.getX() + getWidth() && 
+//			coordinates.getY() >= position.getY() &&
+//			coordinates.getY() <= position.getY() + getHeight();
+		return false;
 	}
 
 	public int getWidth() {

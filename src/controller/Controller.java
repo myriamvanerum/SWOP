@@ -15,6 +15,7 @@ public class Controller {
 	public Controller(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
 		this.partyFactory = new PartyFactory();
+		System.out.println("Starting Interactr.");
 	}
 	
 	public ArrayList<Interaction> interactions = new ArrayList<>();
@@ -26,12 +27,15 @@ public class Controller {
 		
 		// make new subwindow
 		mainWindow.createNewSubWindow(interaction);
+		System.out.println("Create New Interaction.");
 	}
 	
 	public void duplicateActiveWindow() {
 		// make new subwindow
 		if (mainWindow.getActiveWindow() != null)
 			mainWindow.createNewSubWindow(null);
+		System.out.println("Duplicate SubWindow.");
+		
 	}
 	
 	public void createParty() {
@@ -42,6 +46,7 @@ public class Controller {
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		currentInteraction.getParties().add(party);
+		System.out.println("Create New Party.");
 	}
 
 	public void findClickedSubwindow() {
@@ -59,13 +64,16 @@ public class Controller {
 			else
 				mainWindow.setActiveWindow(mainWindow.getSubWindows().get(index-1));
 		}
+		System.out.println("Close SubWindow.");
 	}
 	
 	public void changePartyType() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub	
+		System.out.println("Change Party Type.");
 	}
 
 	public void switchDiagramType() {
 		mainWindow.getActiveWindow().changeState();
+		System.out.println("Change Diagram Type.");
 	}
 }
