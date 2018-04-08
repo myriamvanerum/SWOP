@@ -46,12 +46,11 @@ public class ViewObject extends ViewParty{
 	 * 			The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates) {
-//		return coordinates.getX() >= position.getX() && 
-//			coordinates.getX() <= position.getX() + getWidth() && 
-//			coordinates.getY() >= position.getY() &&
-//			coordinates.getY() <= position.getY() + getHeight();
-		return false;
+	public boolean checkCoordinates(Point2D coordinates, Point2D position) {
+		return coordinates.getX() >= position.getX() && 
+			coordinates.getX() <= position.getX() + getWidth() && 
+			coordinates.getY() >= position.getY() &&
+			coordinates.getY() <= position.getY() + getHeight();
 	}
 
 	public int getWidth() {

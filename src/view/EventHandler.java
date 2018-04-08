@@ -183,8 +183,14 @@ public class EventHandler {
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
-			if (party.checkCoordinates(new Point2D.Double(x, y)))
-				return party;
+			if (subwindow.getState() instanceof SeqState) {
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq()))
+					return party;
+			} else {
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom()))
+					return party;
+			}
+				
 		}
 		return null;
 	}

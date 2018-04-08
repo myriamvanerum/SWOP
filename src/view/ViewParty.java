@@ -24,7 +24,7 @@ public class ViewParty {
 	}
 	
 	// TODO "hook" --> template pattern
-	public boolean checkCoordinates(Point2D coordinates) { 
+	public boolean checkCoordinates(Point2D coordinates, Point2D position) { 
 		return false;
 	}
 	
