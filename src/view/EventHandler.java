@@ -183,6 +183,7 @@ public class EventHandler {
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
+			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter kan?
 			if (subwindow.getState() instanceof SeqState) {
 				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq()))
 					return party;

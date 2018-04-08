@@ -11,7 +11,7 @@ public class ViewMessage {
 	}
 
 	public ViewMessage(ViewMessage viewMessage) {
-		// copy all parameters from viewMessage into new viewMessage
+		// TODO copy all parameters from viewMessage into new viewMessage
 	}
 
 	public void drawCom(Graphics2D g) {

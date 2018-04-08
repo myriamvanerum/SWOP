@@ -20,7 +20,7 @@ public class ViewParty {
 	}
 	
 	public ViewParty(ViewParty viewParty) {
-		// copy all parameters from viewParty into new viewParty
+		// TODO copy all parameters from viewParty into new viewParty
 	}
 	
 	// TODO "hook" --> template pattern
@@ -34,7 +34,7 @@ public class ViewParty {
 	
 	public void drawSeq(Graphics2D g) {
 		draw(g, positionSeq);
-		// draw lifeline
+		// TODO draw lifeline
 	}
 	
 	public void draw(Graphics2D g, Point2D position) {}
