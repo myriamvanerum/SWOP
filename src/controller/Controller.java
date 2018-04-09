@@ -1,13 +1,13 @@
 package controller;
 
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 import model.Interaction;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
 import view.SubWindow;
+import view.ViewObject;
 import view.ViewParty;
 
 public class Controller {
@@ -51,7 +51,7 @@ public class Controller {
 		
 		SubWindow subwindow = mainWindow.getActiveWindow();
 		Point2D windowPosition = new Point2D.Double(subwindow.getX(), subwindow.getY());
-		ViewParty viewParty = new ViewParty(party, position, windowPosition);
+		ViewParty viewParty = new ViewObject(party, position, windowPosition);
 		subwindow.getViewParties().add(viewParty);
 		
 		System.out.println("Create New Party.");
