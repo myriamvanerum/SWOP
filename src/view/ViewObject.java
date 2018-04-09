@@ -10,7 +10,6 @@ public class ViewObject extends ViewParty{
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
 		viewLifeLine.setPosition((int) positionSeq.getX() + (width/2), (int) positionSeq.getY() + (height + 5), 300);
-		
 	}
 
 	private int width = 80, height = 80;
@@ -28,9 +27,7 @@ public class ViewObject extends ViewParty{
 	 * 			  Illegal object, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {
-		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
-		
+	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
@@ -51,9 +48,7 @@ public class ViewObject extends ViewParty{
 	 * 			The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
-		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
-		
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {	
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&

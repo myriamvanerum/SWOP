@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import model.Interaction;
 
-public class SubWindow implements State {
+public class SubWindow {
 	private Interaction interaction;
 	
 	private ArrayList<ViewParty> viewParties;
@@ -112,8 +112,7 @@ public class SubWindow implements State {
 		g.draw(r);
 		
 		// Draw contents
-		Point2D position = new Point2D.Double(getX(), getY() + getHeightTitlebar());
-		drawContents(g, position, getViewParties(), getViewMessages());
+		drawContents(g, getViewParties(), getViewMessages());
 		
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
@@ -198,13 +197,11 @@ public class SubWindow implements State {
 		this.windowState = windowState;
 	}
 
-	@Override
 	public void drawTitle(Graphics2D g, Integer x, Integer y) {
 		getState().drawTitle(g, x, y);
 	}
 
-	@Override
-	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, windowPosition, viewParties, viewMessages);
+	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
 }

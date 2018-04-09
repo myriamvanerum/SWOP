@@ -14,6 +14,7 @@ public class ViewParty {
 	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
 	Point2D positionCom; 
 	Point2D positionSeq;
+	Point2D drawPosition;
 	
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
@@ -40,16 +41,18 @@ public class ViewParty {
 		return false;
 	}
 	
-	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		draw(g, getPositionCom(), windowPosition);
+	public void drawCom(Graphics2D g, Point2D windowPosition) {		
+		setDrawPosition(new Point2D.Double(getPositionCom().getX() + windowPosition.getX(), getPositionCom().getY() + windowPosition.getY()));
+		draw(g, getPositionCom());
 	}
 	
-	public void drawSeq(Graphics2D g,  Point2D windowPosition) {
-		draw(g, getPositionSeq(), windowPosition);
+	public void drawSeq(Graphics2D g, Point2D windowPosition) {
+		setDrawPosition(new Point2D.Double(getPositionSeq().getX() + windowPosition.getX(), getPositionSeq().getY() + windowPosition.getY()));
+		draw(g, getPositionSeq());
 		viewLifeLine.draw(g);
 	}
 	
-	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {}
+	public void draw(Graphics2D g, Point2D position) {}
 
 	public Party getParty() {
 		return party;
@@ -81,5 +84,13 @@ public class ViewParty {
 
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
+	}
+
+	public Point2D getDrawPosition() {
+		return drawPosition;
+	}
+
+	public void setDrawPosition(Point2D drawPosition) {
+		this.drawPosition = drawPosition;
 	}	
 }
