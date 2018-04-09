@@ -112,8 +112,7 @@ public class SubWindow implements State {
 		g.draw(r);
 		
 		// Draw contents
-		Point2D position = new Point2D.Double();
-		position.setLocation(getX(), getY() + getHeightTitlebar());
+		Point2D position = new Point2D.Double(getX(), getY() + getHeightTitlebar());
 		drawContents(g, position, getViewParties(), getViewMessages());
 		
 		// Only draw within SubWindow limits (minus 1 px for border)
