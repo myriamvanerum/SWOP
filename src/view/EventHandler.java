@@ -138,6 +138,7 @@ public class EventHandler {
 			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
 				controller.changePartyType();
 			} else {
+				// TODO clicked empty spot
 				controller.createParty(new Point2D.Double(x,y));
 			}
 

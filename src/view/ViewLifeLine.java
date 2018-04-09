@@ -7,21 +7,61 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 public class ViewLifeLine {
+	ViewParty viewParty;
+	int x, startY,  endY;
+		
+	public ViewLifeLine(ViewParty viewParty) {
+		super();
+		this.viewParty = viewParty;
+	}
+
+	public ViewParty getViewParty() {
+		return viewParty;
+	}
+
+	public void setViewParty(ViewParty viewParty) {
+		this.viewParty = viewParty;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getStartY() {
+		return startY;
+	}
+
+	public void setStartY(int startY) {
+		this.startY = startY;
+	}
+
+	public int getEndY() {
+		return endY;
+	}
+
+	public void setEndY(int endY) {
+		this.endY = endY;
+	}
+	
+	public void setPosition(int x, int startY, int endY) {
+		this.setX(x);
+		this.setStartY(startY);
+		this.setEndY(endY);
+	}
+
 	/**
 	 * This method draws a lifeline underneath parties in the sequence diagram
 	 * 
 	 * @param g
 	 *            The graphics library used
-	 * @param x
-	 *            The x coordinate of the party
-	 * @param startY
-	 *            The start y value for the lifeline
-	 * @param endY
-	 *            The end y value for the lifeline
 	 * @throws IllegalArgumentException
 	 * 			  Illegal coordinates or size
 	 */
-	public void draw(Graphics g, int x, int startY, int endY) {
+	public void draw(Graphics g) {
 		if (x < 0 || startY < 0 || endY < 0)
 			throw new IllegalArgumentException();
 		Graphics2D g2d = (Graphics2D) g.create();
