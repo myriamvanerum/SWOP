@@ -32,7 +32,7 @@ public class ViewParty {
 	}
 	
 	// TODO "hook" --> template pattern
-	public boolean checkCoordinates(Point2D coordinates, Point2D position) { 
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosiion) { 
 		return false;
 	}
 	
@@ -41,15 +41,15 @@ public class ViewParty {
 	}
 	
 	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		draw(g, getPositionCom());
+		draw(g, getPositionCom(), windowPosition);
 	}
 	
 	public void drawSeq(Graphics2D g,  Point2D windowPosition) {
-		draw(g, getPositionSeq());
+		draw(g, getPositionSeq(), windowPosition);
 		viewLifeLine.draw(g);
 	}
 	
-	public void draw(Graphics2D g, Point2D position) {}
+	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {}
 
 	public Party getParty() {
 		return party;

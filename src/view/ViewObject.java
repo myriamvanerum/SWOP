@@ -28,8 +28,9 @@ public class ViewObject extends ViewParty{
 	 * 			  Illegal object, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g, Point2D position) {
-		// TODO moet getekend worden binnen het window, dus plus windowX en windowY
+	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {
+		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+		
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
@@ -50,7 +51,9 @@ public class ViewObject extends ViewParty{
 	 * 			The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position) {
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
+		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+		
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&
