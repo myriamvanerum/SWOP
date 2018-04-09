@@ -187,10 +187,10 @@ public class EventHandler {
 		for (ViewParty party : parties) {
 			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter kan?
 			if (subwindow.getState() instanceof SeqState) {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq()))
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY())))
 					return party;
 			} else {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom()))
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom(), new Point2D.Double(subwindow.getX(), subwindow.getY())))
 					return party;
 			}
 				

@@ -52,7 +52,9 @@ public class ViewActor extends ViewParty {
 	 *            The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position) {
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
+		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+		
 		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
 			coordinates.getX() == position.getX() && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 ||							// body actor
 			new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(), position.getY() + size + 5).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
