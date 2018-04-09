@@ -36,12 +36,12 @@ public class ViewParty {
 		return false;
 	}
 	
-	public void drawCom(Graphics2D g, Integer windowX, Integer windowY) {
+	public void drawCom(Graphics2D g, Point2D windowPosition) {
 		draw(g, getPositionCom());
 	}
 	
-	public void drawSeq(Graphics2D g, Integer windowX, Integer windowY) { 
-		draw(g, getPositionCom());
+	public void drawSeq(Graphics2D g,  Point2D windowPosition) {
+		draw(g, getPositionSeq());
 		viewLifeLine.draw(g);
 	}
 	

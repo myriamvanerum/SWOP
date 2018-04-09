@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class SeqState implements State {
@@ -11,9 +12,9 @@ public class SeqState implements State {
 	}
 
 	@Override
-	public void drawContents(Graphics2D g, Integer x, Integer y, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.drawSeq(g, x, y);
+	        viewParty.drawSeq(g, windowPosition);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
 	    	viewMessage.drawSeq(g);
