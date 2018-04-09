@@ -50,8 +50,8 @@ public class Controller {
 		currentInteraction.getParties().add(party);
 		
 		SubWindow subwindow = mainWindow.getActiveWindow();
-		Point2D windowPosition = new Point2D.Double(subwindow.getX(), subwindow.getY();
-		ViewParty viewParty = new ViewParty(party, position, windowPosition));
+		Point2D windowPosition = new Point2D.Double(subwindow.getX(), subwindow.getY());
+		ViewParty viewParty = new ViewParty(party, position, windowPosition);
 		subwindow.getViewParties().add(viewParty);
 		
 		System.out.println("Create New Party.");

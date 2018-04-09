@@ -43,7 +43,7 @@ public class ViewObject extends ViewParty{
 	
 	
 	@Override
-	public void drawSeq(Graphics2D g) {
+	public void drawSeq(Graphics2D g, Integer windowX, Integer windowY) {
 		this.draw(g, getPositionSeq());
 		// object
 		ViewLifeLine lifeline = new ViewLifeLine();

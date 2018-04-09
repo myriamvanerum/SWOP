@@ -41,7 +41,7 @@ public class ViewParty {
 		draw(g, getPositionCom());
 	}
 	
-	public void drawSeq(Graphics2D g) { }
+	public void drawSeq(Graphics2D g, Integer windowX, Integer windowY) { }
 	
 	public void draw(Graphics2D g, Point2D position) {}
 

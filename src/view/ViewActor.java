@@ -49,7 +49,7 @@ public class ViewActor extends ViewParty {
 	}
 	
 	@Override
-	public void drawSeq(Graphics2D g) {
+	public void drawSeq(Graphics2D g, Integer windowX, Integer windowY) {
 		this.draw(g, getPositionSeq());
 		ViewLifeLine lifeline = new ViewLifeLine();
 		lifeline.draw(g, (int) positionSeq.getX(), (int) positionSeq.getY() + 115, 300);
