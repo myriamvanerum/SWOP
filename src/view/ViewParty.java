@@ -19,11 +19,8 @@ public class ViewParty {
 		setParty(party);
 		viewLabel = new ViewLabel();
 		viewLifeLine = new ViewLifeLine(this);
-		Point2D positionInWindow = clickPosition;
-		positionInWindow.setLocation(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY());
-		setPositionCom(positionInWindow);
-		positionInWindow.setLocation(clickPosition.getX() - windowPosition.getX(), 40);
-		setPositionSeq(positionInWindow);
+		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY()));
+		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
 	}
 	
 	public ViewParty(ViewParty viewParty) {
@@ -80,7 +77,5 @@ public class ViewParty {
 
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
-	}
-	
-	
+	}	
 }
