@@ -32,10 +32,7 @@ public class ViewParty {
 		draw(g, getPositionCom());
 	}
 	
-	public void drawSeq(Graphics2D g) {
-		draw(g, getPositionSeq());
-		// TODO draw lifeline
-	}
+	public void drawSeq(Graphics2D g) { }
 	
 	public void draw(Graphics2D g, Point2D position) {}
 
@@ -70,4 +67,6 @@ public class ViewParty {
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
 	}
+	
+	
 }

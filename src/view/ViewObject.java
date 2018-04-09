@@ -40,6 +40,15 @@ public class ViewObject extends ViewParty{
 		g.draw(r);
 	}
 	
+	
+	@Override
+	public void drawSeq(Graphics2D g) {
+		this.draw(g, getPositionSeq());
+		// object
+		ViewLifeLine lifeline = new ViewLifeLine();
+		lifeline.draw(g, (int) positionSeq.getX() + (width/2), (int) positionSeq.getY() + (height + 5), 300);
+	}
+	
 	/**
 	 * Checks if the object is positioned at the clicked coordinates
 	 * @param coordinates

@@ -46,6 +46,13 @@ public class ViewActor extends ViewParty {
 		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
 		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
 	}
+	
+	@Override
+	public void drawSeq(Graphics2D g) {
+		this.draw(g, getPositionSeq());
+		ViewLifeLine lifeline = new ViewLifeLine();
+		lifeline.draw(g, (int) positionSeq.getX(), (int) positionSeq.getY() + 115, 300);
+	}
 
 	/**
 	 * Checks if the actor is positioned at the clicked coordinates
