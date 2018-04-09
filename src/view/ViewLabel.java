@@ -5,6 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.geom.*;
 
 public class ViewLabel {
+	public ViewLabel() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ViewLabel(ViewLabel viewLabel) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * This method draws a label for the components
 	 * @param g

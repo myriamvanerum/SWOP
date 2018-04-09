@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import model.Message;
 
 public class ViewMessage {
+	ViewParty sender;
+	ViewParty receiver;
 
 	public ViewMessage(Message message) {
 		// TODO Auto-generated constructor stub
@@ -20,7 +22,6 @@ public class ViewMessage {
 	
 	public void drawSeq(Graphics2D g) {
 		draw(g);
-		// TODO draw lifeline
 	}
 	
 	public void draw(Graphics2D g) {}

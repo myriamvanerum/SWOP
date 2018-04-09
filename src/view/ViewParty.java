@@ -21,6 +21,10 @@ public class ViewParty {
 	
 	public ViewParty(ViewParty viewParty) {
 		// TODO copy all parameters from viewParty into new viewParty
+		setParty(viewParty.getParty());
+		viewLabel = new ViewLabel(viewParty.getViewLabel());
+		setPositionCom(viewParty.getPositionCom());
+		setPositionSeq(viewParty.getPositionSeq());
 	}
 	
 	// TODO "hook" --> template pattern
