@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import model.Interaction;
@@ -111,7 +112,9 @@ public class SubWindow implements State {
 		g.draw(r);
 		
 		// Draw contents
-		drawContents(g, getX(), getY(), getViewParties(), getViewMessages());
+		Point2D position = new Point2D.Double();
+		position.setLocation(getX(), getY() + getHeightTitlebar());
+		drawContents(g, position, getViewParties(), getViewMessages());
 		
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
@@ -202,7 +205,7 @@ public class SubWindow implements State {
 	}
 
 	@Override
-	public void drawContents(Graphics2D g, Integer x, Integer y, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, x, y, viewParties, viewMessages);
+	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+		getState().drawContents(g, windowPosition, viewParties, viewMessages);
 	}
 }
