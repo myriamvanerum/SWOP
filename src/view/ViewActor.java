@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.*;
@@ -27,7 +28,7 @@ public class ViewActor extends ViewParty {
 	 *             Illegal actor, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g, Point2D position) {
+	public void draw(Graphics2D g, Point2D position) {		
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor

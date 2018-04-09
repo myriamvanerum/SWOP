@@ -1,13 +1,14 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import model.Party;
 
-public class ViewParty {
+public class ViewParty implements Selectable{
 	private Party party;
-	
+	public boolean isSelected;
 	protected ViewLabel viewLabel;
 	protected ViewLifeLine viewLifeLine;
 	
@@ -43,11 +44,19 @@ public class ViewParty {
 	
 	public void drawCom(Graphics2D g, Point2D windowPosition) {		
 		setDrawPosition(new Point2D.Double(getPositionCom().getX() + windowPosition.getX(), getPositionCom().getY() + windowPosition.getY()));
+	
+		if (isSelected)
+			g.setColor(Color.BLUE);
+		
 		draw(g, getPositionCom());
 	}
 	
 	public void drawSeq(Graphics2D g, Point2D windowPosition) {
 		setDrawPosition(new Point2D.Double(getPositionSeq().getX() + windowPosition.getX(), getPositionSeq().getY() + windowPosition.getY()));
+
+		if (isSelected)
+			g.setColor(Color.BLUE);
+		
 		draw(g, getPositionSeq());
 		viewLifeLine.draw(g);
 	}
@@ -93,4 +102,19 @@ public class ViewParty {
 	public void setDrawPosition(Point2D drawPosition) {
 		this.drawPosition = drawPosition;
 	}	
+	
+	@Override
+	public boolean selected() {
+		return isSelected;
+	}
+
+	@Override
+	public void select() {
+		isSelected = true;
+	}
+
+	@Override
+	public void unselect() {
+		isSelected = false;
+	}
 }

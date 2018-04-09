@@ -9,7 +9,7 @@ public class ViewLabel {
 	int width, height;
 	
 	public ViewLabel() {
-		this.editState = true;
+		this.editState = false;
 	}
 	
 	/**
@@ -38,7 +38,6 @@ public class ViewLabel {
 		}
 			
 		g.drawString(label, (int)position.getX(), (int)position.getY());
-		g.setColor(new Color(0,0,0));
 	}
 	
 	public boolean correctSyntax(String input) {

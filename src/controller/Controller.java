@@ -81,8 +81,7 @@ public class Controller {
 	}
 	
 	public void changePartyType() {
-		// TODO Auto-generated method stub	
-		// Vraag: dit moet gebeuren in alle subwindows voor die interactie? 
+		// TODO	Vraag: dit moet gebeuren in alle subwindows voor die interactie? 
 		// Observer pattern?
 		System.out.println("Change Party Type.");
 	}
@@ -90,5 +89,18 @@ public class Controller {
 	public void switchDiagramType() {
 		mainWindow.getActiveWindow().changeState();
 		System.out.println("Change Diagram Type.");
+	}
+
+	public void selectParty(ViewParty viewParty) {
+		System.out.println("Select party.");
+		
+		if (viewParty.selected())
+			viewParty.unselect();
+		else
+			viewParty.select();
+	}
+
+	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
+		activeWindow.getViewParties().remove(viewParty);
 	}
 }
