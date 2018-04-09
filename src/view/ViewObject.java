@@ -30,15 +30,17 @@ public class ViewObject extends ViewParty{
 	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-		
-		// TODO label width + heigth
+
+		String label = getParty().getLabel();
+		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
+		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
 
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > width)
 			setWidth(viewLabel.getWidth() + 10);
 				
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
-		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
+		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
 	}
 		
