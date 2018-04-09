@@ -111,7 +111,7 @@ public class SubWindow implements State {
 		g.draw(r);
 		
 		// Draw contents
-		drawContents(g, getViewParties(), getViewMessages());
+		drawContents(g, getX(), getY(), getViewParties(), getViewMessages());
 		
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
@@ -202,7 +202,7 @@ public class SubWindow implements State {
 	}
 
 	@Override
-	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, viewParties, viewMessages);
+	public void drawContents(Graphics2D g, Integer x, Integer y, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+		getState().drawContents(g, x, y, viewParties, viewMessages);
 	}
 }

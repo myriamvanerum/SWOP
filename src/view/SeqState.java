@@ -11,9 +11,9 @@ public class SeqState implements State {
 	}
 
 	@Override
-	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+	public void drawContents(Graphics2D g, Integer x, Integer y, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.drawSeq(g);
+	        viewParty.drawSeq(g, x, y);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
 	    	viewMessage.drawSeq(g);

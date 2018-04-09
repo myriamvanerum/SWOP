@@ -9,8 +9,8 @@ import model.Party;
 public class ViewActor extends ViewParty {
 	private int size = 20;
 
-	public ViewActor(Party party) {
-		super(party);
+	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
+		super(party, clickPosition, windowPosition);
 	}
 
 	/**
@@ -27,6 +27,7 @@ public class ViewActor extends ViewParty {
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {
+		// TODO moet getekend worden binnen het window, dus plus windowX en windowY
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
