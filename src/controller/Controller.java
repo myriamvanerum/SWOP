@@ -47,7 +47,10 @@ public class Controller {
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		currentInteraction.getParties().add(party);
 		System.out.println("Create New Party.");
-		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren. Vraag: waar moet die code? Vraag: dit moet gebeuren in alle subwindows voor die interactie?
+		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren. 
+		// Vraag: waar moet die code? 
+		// Vraag: dit moet gebeuren in alle subwindows voor die interactie? 
+		// Observer pattern?
 	}
 
 	public void changeActiveSubwindow(SubWindow subwindow) {
@@ -71,6 +74,8 @@ public class Controller {
 	
 	public void changePartyType() {
 		// TODO Auto-generated method stub	
+		// Vraag: dit moet gebeuren in alle subwindows voor die interactie? 
+		// Observer pattern?
 		System.out.println("Change Party Type.");
 	}
 

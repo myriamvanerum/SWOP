@@ -29,11 +29,11 @@ public class ViewParty {
 	}
 	
 	public void drawCom(Graphics2D g) {
-		draw(g, positionCom);
+		draw(g, getPositionCom());
 	}
 	
 	public void drawSeq(Graphics2D g) {
-		draw(g, positionSeq);
+		draw(g, getPositionSeq());
 		// TODO draw lifeline
 	}
 	

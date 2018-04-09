@@ -142,6 +142,7 @@ public class EventHandler {
 			}
 
 			// TODO Label/Lifeline clicked
+			// TODO Message clicked?
 			break;
 		}
 	}
