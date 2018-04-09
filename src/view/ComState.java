@@ -11,9 +11,9 @@ public class ComState  implements State {
 	}
 
 	@Override
-	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
+	public void drawContents(Graphics2D g, Integer x, Integer y, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.drawCom(g);
+	        viewParty.drawCom(g, x, y);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
 	    	viewMessage.drawCom(g);

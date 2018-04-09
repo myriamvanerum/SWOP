@@ -37,11 +37,11 @@ public class ViewParty {
 		return false;
 	}
 	
-	public void drawCom(Graphics2D g) {
+	public void drawCom(Graphics2D g, Integer windowX, Integer windowY) {
 		draw(g, getPositionCom());
 	}
 	
-	public void drawSeq(Graphics2D g) {
+	public void drawSeq(Graphics2D g, Integer windowX, Integer windowY) {
 		draw(g, getPositionSeq());
 		// TODO draw lifeline
 	}

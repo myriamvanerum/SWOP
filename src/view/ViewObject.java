@@ -7,8 +7,8 @@ import java.awt.geom.Point2D;
 import model.Party;
 
 public class ViewObject extends ViewParty{
-	public ViewObject(Party party) {
-		super(party);
+	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
+		super(party, clickPosition, windowPosition);
 	}
 
 	private int width = 80, height = 80;
@@ -27,6 +27,7 @@ public class ViewObject extends ViewParty{
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {
+		// TODO moet getekend worden binnen het window, dus plus windowX en windowY
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 
