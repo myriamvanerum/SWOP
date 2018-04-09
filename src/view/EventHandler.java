@@ -137,15 +137,35 @@ public class EventHandler {
 					controller.changeActiveSubwindow(sub);
 			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
 				controller.changePartyType();
-			} else {
-				// TODO clicked empty spot
+			} else if (clickLabel(x, y, subwindow) != null) {
+				System.err.println("label clicked");
+				// TODO	edit label
+	
+			} else if (clickCount == 2 ){
+				// TODO clicked empty area
 				controller.createParty(new Point2D.Double(x,y));
 			}
 
-			// TODO Label/Lifeline clicked
-			// TODO Message clicked?
+			// TODO Lifeline clicked
 			break;
 		}
+	}
+
+	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
+		ArrayList<ViewParty> parties = subwindow.getViewParties();
+		for (ViewParty party : parties) {
+			if (subwindow.getState() instanceof SeqState) {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq()))
+					return party.getViewLabel();
+			} else {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom()))
+					return party.getViewLabel();
+			}
+		}
+		
+		// TODO click label invocation messages
+		
+		return null;
 	}
 
 	/**

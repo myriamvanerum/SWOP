@@ -32,14 +32,15 @@ public class ViewObject extends ViewParty{
 		// TODO moet getekend worden binnen het window, dus plus windowX en windowY
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-
-		// label width dynamisch maken met label width
-		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
-		if (labelWidth > width)
-			setWidth(labelWidth + 10);
 		
+		// TODO label width + heigth
+
+		// label width dynamisch maken met label width				
+		if (viewLabel.getWidth() > width)
+			setWidth(viewLabel.getWidth() + 10);
+				
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
-		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(labelWidth/2)), position.getY() + (getHeight()/2)));
+		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
 	}
 		
@@ -53,7 +54,19 @@ public class ViewObject extends ViewParty{
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&
-			coordinates.getY() <= position.getY() + getHeight();
+			coordinates.getY() <= position.getY() + getHeight() &&
+			!checkLabelPosition(coordinates, position);
+	}
+	
+	@Override
+	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
+		double startPositionLabel = position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2);
+		double yPositionLabel = position.getY() + (getHeight()/2);
+		
+		return coordinates.getX() >= startPositionLabel && 
+			   coordinates.getX() <= (startPositionLabel + viewLabel.getWidth()) &&
+			   coordinates.getY() >= yPositionLabel - viewLabel.getHeight() &&
+			   coordinates.getY() <= yPositionLabel;
 	}
 
 	public int getWidth() {

@@ -8,8 +8,8 @@ import model.Party;
 public class ViewParty {
 	private Party party;
 	
-	private ViewLabel viewLabel;
-	ViewLifeLine viewLifeLine;
+	protected ViewLabel viewLabel;
+	protected ViewLifeLine viewLifeLine;
 	
 	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
 	Point2D positionCom; 
@@ -26,13 +26,17 @@ public class ViewParty {
 	public ViewParty(ViewParty viewParty) {
 		// TODO copy all parameters from viewParty into new viewParty
 		setParty(viewParty.getParty());
-		viewLabel = new ViewLabel(viewParty.getViewLabel());
+		viewLabel = new ViewLabel();
 		setPositionCom(viewParty.getPositionCom());
 		setPositionSeq(viewParty.getPositionSeq());
 	}
 	
 	// TODO "hook" --> template pattern
 	public boolean checkCoordinates(Point2D coordinates, Point2D position) { 
+		return false;
+	}
+	
+	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
 		return false;
 	}
 	

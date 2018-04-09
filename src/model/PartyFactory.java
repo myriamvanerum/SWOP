@@ -14,9 +14,9 @@ public class PartyFactory {
 			throw new IllegalArgumentException();
 		
 		if (partyType.equalsIgnoreCase("ACTOR")) {
-			return new Actor("|");
+			return new Actor("|testtest");
 		} else if (partyType.equalsIgnoreCase("Object")){
-			return new Object("|");
+			return new Object("|testtest");
 		} 
 		return null;
 	}
