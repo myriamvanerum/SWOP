@@ -9,6 +9,8 @@ import model.Party;
 public class ViewObject extends ViewParty{
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
+		viewLifeLine.setPosition((int) positionSeq.getX() + (width/2), (int) positionSeq.getY() + (height + 5), 300);
+		
 	}
 
 	private int width = 80, height = 80;
@@ -40,7 +42,7 @@ public class ViewObject extends ViewParty{
 		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(labelWidth/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
 	}
-	
+		
 	/**
 	 * Checks if the object is positioned at the clicked coordinates
 	 * @param coordinates

@@ -9,6 +9,7 @@ public class ViewParty {
 	private Party party;
 	
 	private ViewLabel viewLabel;
+	ViewLifeLine viewLifeLine;
 	
 	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
 	Point2D positionCom; 
@@ -17,6 +18,7 @@ public class ViewParty {
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
 		viewLabel = new ViewLabel();
+		viewLifeLine = new ViewLifeLine(this);
 		Point2D positionInWindow = clickPosition;
 		positionInWindow.setLocation(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY());
 		setPositionCom(positionInWindow);
@@ -43,7 +45,7 @@ public class ViewParty {
 	
 	public void drawSeq(Graphics2D g,  Point2D windowPosition) {
 		draw(g, getPositionSeq());
-		// TODO draw lifeline
+		viewLifeLine.draw(g);
 	}
 	
 	public void draw(Graphics2D g, Point2D position) {}
@@ -79,4 +81,6 @@ public class ViewParty {
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
 	}
+	
+	
 }

@@ -138,7 +138,8 @@ public class EventHandler {
 			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
 				controller.changePartyType();
 			} else {
-				controller.createParty();
+				// TODO clicked empty spot
+				controller.createParty(new Point2D.Double(x,y));
 			}
 
 			// TODO Label/Lifeline clicked

@@ -11,6 +11,7 @@ public class ViewActor extends ViewParty {
 
 	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
+		viewLifeLine.setPosition((int) positionSeq.getX(), (int) positionSeq.getY() + 115, 300);
 	}
 
 	/**
@@ -47,7 +48,7 @@ public class ViewActor extends ViewParty {
 		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
 		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double(position.getX() - (labelWidth / 2), position.getY() + 115));
 	}
-
+	
 	/**
 	 * Checks if the actor is positioned at the clicked coordinates
 	 * 
