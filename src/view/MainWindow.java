@@ -95,7 +95,7 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        eventHandler.handleKeyEvent(id, keyCode, keyChar);
+        eventHandler.handleKeyEvent(id, keyCode, keyChar, this);
         repaint();
     }
 

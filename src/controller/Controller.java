@@ -89,4 +89,17 @@ public class Controller {
 		mainWindow.getActiveWindow().changeState();
 		System.out.println("Change Diagram Type.");
 	}
+
+	public void selectParty(ViewParty viewParty) {
+		System.out.println("Select party.");
+		
+		if (viewParty.selected())
+			viewParty.unselect();
+		else
+			viewParty.select();
+	}
+
+	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
+		activeWindow.getViewParties().remove(viewParty);
+	}
 }

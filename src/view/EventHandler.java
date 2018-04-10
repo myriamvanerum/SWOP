@@ -9,6 +9,7 @@ import controller.Controller;
 
 public class EventHandler {
 	Controller controller;
+	ViewParty viewParty;
 
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
@@ -20,75 +21,77 @@ public class EventHandler {
 	 * versa, if delete is pressed (or backspace on a mac, which doesn't have a
 	 * deletebutton) the focused party gets deleted.
 	 * 
-	 * @param id 
-	 * 		keyEvent id
+	 * @param id
+	 *            keyEvent id
 	 * @param keyCode:
-	 * 		Keyboard key pressed
+	 *            Keyboard key pressed
 	 * @param keyChar:
-	 * 		keyboard key pressed keyChar
+	 *            keyboard key pressed keyChar
 	 * @throws IllegalArgumentException
-	 * 			  Illegal id or keyCode
+	 *             Illegal id or keyCode
 	 */
-	public void handleKeyEvent(int id, int keyCode, char keyChar) {
+	public void handleKeyEvent(int id, int keyCode, char keyChar, MainWindow mainwindow) {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-//		if (inputMode == true)
-//		{
-//			int index = parties.indexOf(currentComponent);
-//			String inputLabel = currentComponent.getLabel().getText();
-//			
-//			// Enkel letters (hoofdletters & kleineletters)
-//	        // 513 is de keyCode voor ":"
-//	        // 65-90 zijn de keyCodes voor alle letters
-//	        // 8 is de keyCode voor backspace
-//	        // 10 is de keyCode voor enter		
-//	        if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) { 	        	
-//	        		    			    		    		
-//	        	if (keyCode == 8 && inputLabel.length() > 1)
-//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 2) + "|");
-//	        	else if (inputLabel != null && inputLabel.length() > 0) {
-//	        		currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1)  +  keyChar + "|");
-//	    	    }    	
-//	        }   
-//	        
-//	        if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
-//	        	currentComponent.getLabel().setText(inputLabel.substring(0, inputLabel.length() - 1));
-//		        setInputMode(false);
-//	        	currentComponent = null;  
-//	        }  	     
-//
-//        	if (currentComponent instanceof Party)       		        	
-//        		parties.set(index, (Party)currentComponent);
-//        	if (currentComponent instanceof Message)
-//        		messages.set(index, (Message)currentComponent);
-//        	
-//		} else {
-		
-			switch (keyCode) {
+		// if (inputMode == true)
+		// {
+		// int index = parties.indexOf(currentComponent);
+		// String inputLabel = currentComponent.getLabel().getText();
+		//
+		// // Enkel letters (hoofdletters & kleineletters)
+		// // 513 is de keyCode voor ":"
+		// // 65-90 zijn de keyCodes voor alle letters
+		// // 8 is de keyCode voor backspace
+		// // 10 is de keyCode voor enter
+		// if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode
+		// == 8) {
+		//
+		// if (keyCode == 8 && inputLabel.length() > 1)
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 2) + "|");
+		// else if (inputLabel != null && inputLabel.length() > 0) {
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 1) + keyChar + "|");
+		// }
+		// }
+		//
+		// if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
+		// currentComponent.getLabel().setText(inputLabel.substring(0,
+		// inputLabel.length() - 1));
+		// setInputMode(false);
+		// currentComponent = null;
+		// }
+		//
+		// if (currentComponent instanceof Party)
+		// parties.set(index, (Party)currentComponent);
+		// if (currentComponent instanceof Message)
+		// messages.set(index, (Message)currentComponent);
+		//
+		// } else {
 
-			case KeyEvent.VK_TAB:
-				controller.switchDiagramType();
-				break;
+		switch (keyCode) {
 
-			case KeyEvent.VK_DELETE:
-//				if (labelClickedOnce) {
-//					deleteFocused();
-//					labelClickedOnce = false;
-//				}
-				break;
-			case KeyEvent.VK_N:
-				if (keyChar == '' /*keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ'*/) {
-					controller.createNewInteraction();
-				}
-				break;
-			case KeyEvent.VK_D:
-				if (keyChar == '' /*keyChar != 'd' && keyChar != 'D' && keyChar != 'ð'*/) {
-					controller.duplicateActiveWindow();
-				}
-				break;
-			}	
-//		}
+		case KeyEvent.VK_TAB:
+			controller.switchDiagramType();
+			break;
+
+		case KeyEvent.VK_DELETE:
+				if (viewParty != null)
+					controller.deleteParty(viewParty, mainwindow.activeWindow);
+			break;
+		case KeyEvent.VK_N:
+			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
+				controller.createNewInteraction();
+			}
+			break;
+		case KeyEvent.VK_D:
+			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
+				controller.duplicateActiveWindow();
+			}
+			break;
+		}
+		// }
 	}
 
 	/**
@@ -125,46 +128,75 @@ public class EventHandler {
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			SubWindow subwindow = mainwindow.getActiveWindow();
-			SubWindow closeWindow = checkCloseButtons(x,y,mainwindow.getSubWindows());
-						
+			SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows());
+			ViewLabel viewLabel = null;
+
 			if (clickCloseButton(x, y, subwindow)) {
 				controller.closeClickedSubwindow(subwindow);
 			} else if (closeWindow != null) {
 				controller.closeClickedSubwindow(closeWindow);
-			} else if (clickOutsideActiveSubwindow(x, y,subwindow)) {
-				SubWindow sub = findClickedSubwindow(x,y,subwindow,mainwindow.getSubWindows());
+			} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
+				SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
 				if (sub != null)
 					controller.changeActiveSubwindow(sub);
-			} else if (clickCount == 2 && clickParty(x, y, subwindow) != null) {
-				controller.changePartyType();
-			} else {
-				// TODO clicked empty spot
-				controller.createParty(new Point2D.Double(x,y));
+			} else if ((viewParty = clickParty(x, y, subwindow)) != null) {
+				if (clickCount == 2)
+					controller.changePartyType();
+			} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
+				System.out.println("label clicked");
+				if (clickCount == 1)
+					controller.selectParty(viewParty);
+				// TODO edit label
+			} else if (clickCount == 2) {
+				// TODO clicked empty area
+				controller.createParty(new Point2D.Double(x, y));
 			}
 
-			// TODO Label/Lifeline clicked
-			// TODO Message clicked?
+			// TODO Lifeline clicked
 			break;
 		}
 	}
 
+	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
+		ArrayList<ViewParty> parties = subwindow.getViewParties();
+		for (ViewParty party : parties) {
+			if (subwindow.getState() instanceof SeqState) {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq())) {
+					viewParty = party;
+					return party.getViewLabel();
+				}
+			} else {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom())) {
+					viewParty = party;
+					return party.getViewLabel();
+				}
+			}
+		}
+
+		// TODO click label invocation messages
+
+		return null;
+	}
+
 	/**
-	 * Checks if the close button of a subwindow that isn't the active subwindow is clicked
+	 * Checks if the close button of a subwindow that isn't the active subwindow is
+	 * clicked
+	 * 
 	 * @param x
 	 *            The x coordinate of the clicked position
 	 * @param y
 	 *            The y coordinate of the clicked position
 	 * @param subWindows
-	 * 			  ArrayList of all subwindows
-	 * @return 	  Null if no close button is clicked
-	 * 			  The Subwindow of which the close button was clicked
+	 *            ArrayList of all subwindows
+	 * @return Null if no close button is clicked The Subwindow of which the close
+	 *         button was clicked
 	 */
 	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows) {
-		 for (int i = subWindows.size() - 1; i >= 0; i--) {			 
-			    if (clickCloseButton(x, y,subWindows.get(i)))
-			    	return subWindows.get(i);
-			 }
-		
+		for (int i = subWindows.size() - 1; i >= 0; i--) {
+			if (clickCloseButton(x, y, subWindows.get(i)))
+				return subWindows.get(i);
+		}
+
 		return null;
 	}
 
@@ -178,22 +210,24 @@ public class EventHandler {
 	 * @param subwindow
 	 *            The current active subwindow
 	 * @return Null if there is no party on the position given by the coordinates x
-	 *         and y 
-	 *         The ViewParty that is on the position given by the coordinates
+	 *         and y The ViewParty that is on the position given by the coordinates
 	 *         x and y
 	 */
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
-			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter kan?
+			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter
+			// kan?
 			if (subwindow.getState() instanceof SeqState) {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY())))
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY())))
 					return party;
 			} else {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom(), new Point2D.Double(subwindow.getX(), subwindow.getY())))
+				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY())))
 					return party;
 			}
-				
+
 		}
 		return null;
 	}
@@ -207,8 +241,8 @@ public class EventHandler {
 	 *            The y coordinate of the clicked position
 	 * @param subwindow
 	 *            The subwindow that has to be checked
-	 * @return 	True if the close button of the subwindow is clicked 
-	 * 			False if the close butten of the subwindow isn't clicked
+	 * @return True if the close button of the subwindow is clicked False if the
+	 *         close butten of the subwindow isn't clicked
 	 */
 	private boolean clickCloseButton(int x, int y, SubWindow subwindow) {
 		return subwindow != null && x >= subwindow.getX() + (subwindow.getWidth() - subwindow.getHeightTitlebar())
@@ -233,18 +267,18 @@ public class EventHandler {
 	}
 
 	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
-		for (int i = subWindows.size() - 1; i >= 0; i--) {			 
-		    if (subWindows.get(i) != subwindow) {
-		    	int xSub = subWindows.get(i).getX();
-		    	int ySub = subWindows.get(i).getY();
-		    	int width = subWindows.get(i).getWidth();
-		    	int height = subWindows.get(i).getHeight();
-		    	
-		    	if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
-		    		return subWindows.get(i);
-		    }
+		for (int i = subWindows.size() - 1; i >= 0; i--) {
+			if (subWindows.get(i) != subwindow) {
+				int xSub = subWindows.get(i).getX();
+				int ySub = subWindows.get(i).getY();
+				int width = subWindows.get(i).getWidth();
+				int height = subWindows.get(i).getHeight();
+
+				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
+					return subWindows.get(i);
+			}
 		}
-		
+
 		return null;
 	}
 }

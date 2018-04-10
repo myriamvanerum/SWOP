@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -10,7 +11,6 @@ public class ViewObject extends ViewParty{
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
 		viewLifeLine.setPosition((int) positionSeq.getX() + (width/2), (int) positionSeq.getY() + (height + 5), 300);
-		
 	}
 
 	private int width = 80, height = 80;
@@ -28,19 +28,20 @@ public class ViewObject extends ViewParty{
 	 * 			  Illegal object, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {
-		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
-		
+	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-
-		// label width dynamisch maken met label width
-		int labelWidth = g.getFontMetrics().stringWidth(getParty().getLabel());
-		if (labelWidth > width)
-			setWidth(labelWidth + 10);
 		
+		String label = getParty().getLabel();
+		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
+		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
+
+		// label width dynamisch maken met label width				
+		if (viewLabel.getWidth() > width)
+			setWidth(viewLabel.getWidth() + 10);
+								
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
-		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(labelWidth/2)), position.getY() + (getHeight()/2)));
+		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
 	}
 		
@@ -50,13 +51,23 @@ public class ViewObject extends ViewParty{
 	 * 			The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
-		position.setLocation(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
-		
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {	
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&
-			coordinates.getY() <= position.getY() + getHeight();
+			coordinates.getY() <= position.getY() + getHeight() &&
+			!checkLabelPosition(coordinates, position);
+	}
+	
+	@Override
+	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
+		double startPositionLabel = position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2);
+		double yPositionLabel = position.getY() + (getHeight()/2);
+		
+		return coordinates.getX() >= startPositionLabel && 
+			   coordinates.getX() <= (startPositionLabel + viewLabel.getWidth()) &&
+			   coordinates.getY() >= yPositionLabel - viewLabel.getHeight() &&
+			   coordinates.getY() <= yPositionLabel;
 	}
 
 	public int getWidth() {

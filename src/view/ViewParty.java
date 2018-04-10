@@ -1,19 +1,21 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import model.Party;
 
-public class ViewParty {
+public class ViewParty implements Selectable{
 	private Party party;
-	
-	private ViewLabel viewLabel;
-	ViewLifeLine viewLifeLine;
+	public boolean isSelected;
+	protected ViewLabel viewLabel;
+	protected ViewLifeLine viewLifeLine;
 	
 	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
 	Point2D positionCom; 
 	Point2D positionSeq;
+	Point2D drawPosition;
 	
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
@@ -26,7 +28,7 @@ public class ViewParty {
 	public ViewParty(ViewParty viewParty) {
 		// TODO copy all parameters from viewParty into new viewParty
 		setParty(viewParty.getParty());
-		viewLabel = new ViewLabel(viewParty.getViewLabel());
+		viewLabel = new ViewLabel();
 		setPositionCom(viewParty.getPositionCom());
 		setPositionSeq(viewParty.getPositionSeq());
 	}
@@ -36,16 +38,30 @@ public class ViewParty {
 		return false;
 	}
 	
-	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		draw(g, getPositionCom(), windowPosition);
+	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
+		return false;
 	}
 	
-	public void drawSeq(Graphics2D g,  Point2D windowPosition) {
-		draw(g, getPositionSeq(), windowPosition);
+	public void drawCom(Graphics2D g, Point2D windowPosition) {		
+		setDrawPosition(new Point2D.Double(getPositionCom().getX() + windowPosition.getX(), getPositionCom().getY() + windowPosition.getY()));
+	
+		if (isSelected)
+			g.setColor(Color.BLUE);
+		
+		draw(g, getPositionCom());
+	}
+	
+	public void drawSeq(Graphics2D g, Point2D windowPosition) {
+		setDrawPosition(new Point2D.Double(getPositionSeq().getX() + windowPosition.getX(), getPositionSeq().getY() + windowPosition.getY()));
+
+		if (isSelected)
+			g.setColor(Color.BLUE);
+		
+		draw(g, getPositionSeq());
 		viewLifeLine.draw(g);
 	}
 	
-	public void draw(Graphics2D g, Point2D position, Point2D windowPosition) {}
+	public void draw(Graphics2D g, Point2D position) {}
 
 	public Party getParty() {
 		return party;
@@ -77,5 +93,28 @@ public class ViewParty {
 
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
+	}
+
+	public Point2D getDrawPosition() {
+		return drawPosition;
+	}
+
+	public void setDrawPosition(Point2D drawPosition) {
+		this.drawPosition = drawPosition;
 	}	
+	
+	@Override
+	public boolean selected() {
+		return isSelected;
+	}
+
+	@Override
+	public void select() {
+		isSelected = true;
+	}
+
+	@Override
+	public void unselect() {
+		isSelected = false;
+	}
 }
