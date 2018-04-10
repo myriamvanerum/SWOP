@@ -21,4 +21,9 @@ public class ComState  implements State {
 	    }		
 	}
 
+	@Override
+	public String getCurrentState() {
+		return "COM";
+	}
+
 }

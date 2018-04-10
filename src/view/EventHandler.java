@@ -160,8 +160,10 @@ public class EventHandler {
 	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
-			if (subwindow.getState() instanceof SeqState) {
+			State state = subwindow.getState();
+			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+										
 					viewParty = party;
 					return party.getViewLabel();
 				}
@@ -218,7 +220,8 @@ public class EventHandler {
 		for (ViewParty party : parties) {
 			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter
 			// kan?
-			if (subwindow.getState() instanceof SeqState) {
+			State state = subwindow.getState();
+			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),
 						new Point2D.Double(subwindow.getX(), subwindow.getY())))
 					return party;

@@ -20,4 +20,9 @@ public class SeqState implements State {
 	    	viewMessage.drawSeq(g);
 	    }		
 	}
+
+	@Override
+	public String getCurrentState() {
+		return "SEQ";
+	}
 }
