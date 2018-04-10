@@ -6,25 +6,26 @@ import java.awt.geom.Point2D;
 
 import model.Party;
 
-public class ViewParty implements Selectable{
+public class ViewParty implements Selectable {
 	private Party party;
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
 	protected ViewLifeLine viewLifeLine;
-	
-	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij het gemakkelijkste
-	Point2D positionCom; 
+
+	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij
+	// het gemakkelijkste
+	Point2D positionCom;
 	Point2D positionSeq;
-	Point2D drawPosition;
-	
+
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
 		viewLabel = new ViewLabel();
 		viewLifeLine = new ViewLifeLine(this);
-		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY()));
+		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
+				clickPosition.getY() - windowPosition.getY()));
 		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
 	}
-	
+
 	public ViewParty(ViewParty viewParty) {
 		// TODO copy all parameters from viewParty into new viewParty
 		setParty(viewParty.getParty());
@@ -32,36 +33,37 @@ public class ViewParty implements Selectable{
 		setPositionCom(viewParty.getPositionCom());
 		setPositionSeq(viewParty.getPositionSeq());
 	}
-	
-	// TODO "hook" --> template pattern
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosiion) { 
-		return false;
-	}
-	
-	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
-		return false;
-	}
-	
-	public void drawCom(Graphics2D g, Point2D windowPosition) {		
-		setDrawPosition(new Point2D.Double(getPositionCom().getX() + windowPosition.getX(), getPositionCom().getY() + windowPosition.getY()));
-	
-		if (isSelected)
-			g.setColor(Color.BLUE);
-		
-		draw(g, getPositionCom());
-	}
-	
-	public void drawSeq(Graphics2D g, Point2D windowPosition) {
-		setDrawPosition(new Point2D.Double(getPositionSeq().getX() + windowPosition.getX(), getPositionSeq().getY() + windowPosition.getY()));
 
+	// TODO "hook" --> template pattern
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosiion) {
+		return false;
+	}
+
+	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
+		return false;
+	}
+
+	public void drawCom(Graphics2D g, Point2D windowPosition) {
 		if (isSelected)
 			g.setColor(Color.BLUE);
-		
-		draw(g, getPositionSeq());
+
+		draw(g, positionWindow(getPositionCom(), windowPosition));
+	}
+
+	public void drawSeq(Graphics2D g, Point2D windowPosition) {
+		if (isSelected)
+			g.setColor(Color.BLUE);
+
+		draw(g, positionWindow(getPositionSeq(), windowPosition));
 		viewLifeLine.draw(g);
 	}
-	
-	public void draw(Graphics2D g, Point2D position) {}
+
+	public Point2D positionWindow(Point2D position, Point2D windowPosition) {
+		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+	}
+
+	public void draw(Graphics2D g, Point2D position) {
+	}
 
 	public Party getParty() {
 		return party;
@@ -95,14 +97,6 @@ public class ViewParty implements Selectable{
 		this.viewLabel = viewLabel;
 	}
 
-	public Point2D getDrawPosition() {
-		return drawPosition;
-	}
-
-	public void setDrawPosition(Point2D drawPosition) {
-		this.drawPosition = drawPosition;
-	}	
-	
 	@Override
 	public boolean selected() {
 		return isSelected;

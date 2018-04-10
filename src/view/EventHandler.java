@@ -152,7 +152,7 @@ public class EventHandler {
 				controller.createParty(new Point2D.Double(x, y));
 			}
 
-			// TODO Lifeline clicked
+			// TODO Lifeline + (invocation) message clicked
 			break;
 		}
 	}
@@ -161,12 +161,12 @@ public class EventHandler {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
 			if (subwindow.getState() instanceof SeqState) {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq())) {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
 					viewParty = party;
 					return party.getViewLabel();
 				}
 			} else {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom())) {
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
 					viewParty = party;
 					return party.getViewLabel();
 				}

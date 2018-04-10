@@ -10,7 +10,6 @@ import model.Party;
 public class ViewObject extends ViewParty{
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
-		viewLifeLine.setPosition((int) positionSeq.getX() + (width/2), (int) positionSeq.getY() + (height + 5), 300);
 	}
 
 	private int width = 80, height = 80;
@@ -31,7 +30,9 @@ public class ViewObject extends ViewParty{
 	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-		
+		// TODO lifeline andere plaats
+		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 300);
+				
 		String label = getParty().getLabel();
 		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
@@ -51,16 +52,20 @@ public class ViewObject extends ViewParty{
 	 * 			The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {	
+	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {	
+		Point2D position = positionWindow(positionState, windowPosition);
+		
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&
 			coordinates.getY() <= position.getY() + getHeight() &&
-			!checkLabelPosition(coordinates, position);
+			!checkLabelPosition(coordinates, position, windowPosition);
 	}
 	
 	@Override
-	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
+	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) { 
+		Point2D position = positionWindow(positionState, windowPosition);
+		
 		double startPositionLabel = position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2);
 		double yPositionLabel = position.getY() + (getHeight()/2);
 		

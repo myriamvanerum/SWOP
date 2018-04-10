@@ -12,7 +12,6 @@ public class ViewActor extends ViewParty {
 
 	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
-		viewLifeLine.setPosition((int) positionSeq.getX(), (int) positionSeq.getY() + 115, 300);
 	}
 
 	/**
@@ -28,7 +27,10 @@ public class ViewActor extends ViewParty {
 	 *             Illegal actor, coordinates or size
 	 */
 	@Override
-	public void draw(Graphics2D g, Point2D position) {		
+	public void draw(Graphics2D g, Point2D position) {	
+		// TODO lifeline andere plaats
+		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 115, 300);
+		
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		// Draw body actor
@@ -50,7 +52,9 @@ public class ViewActor extends ViewParty {
 	 *            The coordinates of a click event
 	 */
 	@Override
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
+	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
+		Point2D position = positionWindow(positionState, windowPosition);
+				
 		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
 			coordinates.getX() == position.getX() && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 ||							// body actor
 			new Line2D.Double(position.getX() - 20, position.getY() + size + 25, position.getX(), position.getY() + size + 5).contains(coordinates.getX(), coordinates.getY()) ||	// arms actor
@@ -60,7 +64,9 @@ public class ViewActor extends ViewParty {
 	}
 	
 	@Override
-	public boolean checkLabelPosition(Point2D coordinates, Point2D position) { 
+	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
+		Point2D position = positionWindow(positionState, windowPosition);
+		
 		double positionX = position.getX() - (viewLabel.getWidth() / 2);
 		double positionY = position.getY() + 115;
 		
