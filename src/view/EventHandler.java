@@ -9,7 +9,7 @@ import controller.Controller;
 
 public class EventHandler {
 	Controller controller;
-	ViewParty viewParty;
+	ViewParty selectedViewParty;
 
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
@@ -77,8 +77,8 @@ public class EventHandler {
 			break;
 
 		case KeyEvent.VK_DELETE:
-				if (viewParty != null)
-					controller.deleteParty(viewParty, mainwindow.activeWindow);
+				if (selectedViewParty != null)
+					controller.deleteParty(selectedViewParty, mainwindow.activeWindow);
 			break;
 		case KeyEvent.VK_N:
 			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
@@ -125,6 +125,8 @@ public class EventHandler {
 			// moveComponent((Party) getFocusedObject(), x, y);
 			// }
 			// getFocusedObject().unfocus();
+			if (selectedViewParty != null)
+				controller.moveComponent(selectedViewParty);
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			SubWindow subwindow = mainwindow.getActiveWindow();
@@ -139,13 +141,13 @@ public class EventHandler {
 				SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
 				if (sub != null)
 					controller.changeActiveSubwindow(sub);
-			} else if ((viewParty = clickParty(x, y, subwindow)) != null) {
+			} else if ((selectedViewParty = clickParty(x, y, subwindow)) != null) {
 				if (clickCount == 2)
 					controller.changePartyType();
 			} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
 				System.out.println("label clicked");
 				if (clickCount == 1)
-					controller.selectParty(viewParty);
+					controller.selectParty(selectedViewParty);
 				// TODO edit label
 			} else if (clickCount == 2) {
 				// TODO clicked empty area
@@ -162,14 +164,13 @@ public class EventHandler {
 		for (ViewParty party : parties) {
 			State state = subwindow.getState();
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-										
-					viewParty = party;
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY()))) {		
+					selectedViewParty = party;
 					return party.getViewLabel();
 				}
 			} else {
 				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					viewParty = party;
+					selectedViewParty = party;
 					return party.getViewLabel();
 				}
 			}
@@ -283,5 +284,9 @@ public class EventHandler {
 		}
 
 		return null;
+	}
+	
+	private void clickLifeline(int x, int y) {
+		// TODO
 	}
 }

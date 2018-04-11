@@ -102,4 +102,9 @@ public class Controller {
 	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
 		activeWindow.getViewParties().remove(viewParty);
 	}
+
+	public void moveComponent(ViewParty selectedViewParty) {
+		// TODO Auto-generated method stub
+		
+	}
 }

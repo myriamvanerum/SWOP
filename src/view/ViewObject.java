@@ -30,6 +30,7 @@ public class ViewObject extends ViewParty{
 	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
+								
 		// TODO lifeline andere plaats
 		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 300);
 				
@@ -42,8 +43,8 @@ public class ViewObject extends ViewParty{
 			setWidth(viewLabel.getWidth() + 10);
 								
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
-		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 		g.draw(r);
+		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 	}
 		
 	/**
@@ -55,20 +56,26 @@ public class ViewObject extends ViewParty{
 	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {	
 		Point2D position = positionWindow(positionState, windowPosition);
 		
+		// TODO waarom terug + 25???
 		return coordinates.getX() >= position.getX() && 
 			coordinates.getX() <= position.getX() + getWidth() && 
 			coordinates.getY() >= position.getY() &&
-			coordinates.getY() <= position.getY() + getHeight() &&
-			!checkLabelPosition(coordinates, position, windowPosition);
+			coordinates.getY() <= position.getY() + getHeight() + 25 &&
+			!checkLabelPosition(coordinates, position, null);
 	}
 	
 	@Override
 	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) { 
-		Point2D position = positionWindow(positionState, windowPosition);
+		Point2D position;
+		if (windowPosition != null)
+			position = positionWindow(positionState, windowPosition);
+		else position = positionState;
+		
+		position.setLocation(position.getX(), position.getY() + 25); 
 		
 		double startPositionLabel = position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2);
 		double yPositionLabel = position.getY() + (getHeight()/2);
-		
+				
 		return coordinates.getX() >= startPositionLabel && 
 			   coordinates.getX() <= (startPositionLabel + viewLabel.getWidth()) &&
 			   coordinates.getY() >= yPositionLabel - viewLabel.getHeight() &&

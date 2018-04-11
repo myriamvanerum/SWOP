@@ -58,8 +58,9 @@ public class ViewParty implements Selectable {
 		viewLifeLine.draw(g);
 	}
 
-	public Point2D positionWindow(Point2D position, Point2D windowPosition) {
-		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
+		// TODO 25 = titlebar height
+		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY() - 25);
 	}
 
 	public void draw(Graphics2D g, Point2D position) {
