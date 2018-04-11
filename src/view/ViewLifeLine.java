@@ -7,20 +7,10 @@ import java.awt.Stroke;
 import java.awt.geom.Line2D;
 
 public class ViewLifeLine {
-	ViewParty viewParty;
 	int x, startY,  endY;
 		
 	public ViewLifeLine(ViewParty viewParty) {
 		super();
-		this.viewParty = viewParty;
-	}
-
-	public ViewParty getViewParty() {
-		return viewParty;
-	}
-
-	public void setViewParty(ViewParty viewParty) {
-		this.viewParty = viewParty;
 	}
 
 	public int getX() {

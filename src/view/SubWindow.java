@@ -55,17 +55,15 @@ public class SubWindow {
 		setInteraction(activeWindow.getInteraction());
 		
 		// maak kopie van alle onderdelen van subwindow
-		ArrayList<ViewParty> parties = new ArrayList<ViewParty>(activeWindow.getViewParties().size());
+		/*ArrayList<ViewParty> parties = new ArrayList<ViewParty>(activeWindow.getViewParties().size());
 	    for (ViewParty viewParty : activeWindow.getViewParties()) {
 	        parties.add(new ViewParty(viewParty));
-	    }
-	    setViewParties(parties);
-	    ArrayList<ViewMessage> messages = new ArrayList<ViewMessage>(activeWindow.getViewMessages().size());
-	    for (ViewMessage viewMessage : activeWindow.getViewMessages()) {
-	    	messages.add(new ViewMessage(viewMessage));
-	    }
-		setViewMessages(messages);
+	    }*/
+		ArrayList<ViewParty> parties = activeWindow.getViewParties();
+		ArrayList<ViewMessage> messages = activeWindow.getViewMessages();
 		
+	    setViewParties((ArrayList<ViewParty>) parties.clone());
+		setViewMessages((ArrayList<ViewMessage>) messages.clone());
 		setX(x);
 		setY(y);
 		

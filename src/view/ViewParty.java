@@ -29,9 +29,10 @@ public class ViewParty implements Selectable {
 	public ViewParty(ViewParty viewParty) {
 		// TODO copy all parameters from viewParty into new viewParty
 		setParty(viewParty.getParty());
-		viewLabel = new ViewLabel();
+		setViewLabel(viewParty.getViewLabel());
 		setPositionCom(viewParty.getPositionCom());
 		setPositionSeq(viewParty.getPositionSeq());
+		setViewLifeLine(viewParty.getViewLifeLine());
 	}
 
 	// TODO "hook" --> template pattern
@@ -55,6 +56,7 @@ public class ViewParty implements Selectable {
 			g.setColor(Color.BLUE);
 		
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
+			
 		viewLifeLine.draw(g);
 	}
 
@@ -95,6 +97,14 @@ public class ViewParty implements Selectable {
 
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
+	}
+
+	public ViewLifeLine getViewLifeLine() {
+		return viewLifeLine;
+	}
+
+	public void setViewLifeLine(ViewLifeLine viewLifeLine) {
+		this.viewLifeLine = viewLifeLine;
 	}
 
 	@Override
