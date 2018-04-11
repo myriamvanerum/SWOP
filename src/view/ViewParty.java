@@ -22,7 +22,7 @@ public class ViewParty implements Selectable {
 		viewLabel = new ViewLabel();
 		viewLifeLine = new ViewLifeLine(this);
 		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
-				clickPosition.getY() - windowPosition.getY()));
+				clickPosition.getY() - windowPosition.getY() - 25));
 		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
 	}
 
@@ -46,21 +46,20 @@ public class ViewParty implements Selectable {
 	public void drawCom(Graphics2D g, Point2D windowPosition) {
 		if (isSelected)
 			g.setColor(Color.BLUE);
-
+				
 		draw(g, positionWindow(getPositionCom(), windowPosition));
 	}
 
 	public void drawSeq(Graphics2D g, Point2D windowPosition) {
 		if (isSelected)
 			g.setColor(Color.BLUE);
-
+		
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
 		viewLifeLine.draw(g);
 	}
 
 	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
-		// TODO 25 = titlebar height
-		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY() - 25);
+		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
 	}
 
 	public void draw(Graphics2D g, Point2D position) {

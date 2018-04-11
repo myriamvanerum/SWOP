@@ -41,7 +41,7 @@ public class ViewObject extends ViewParty{
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > width)
 			setWidth(viewLabel.getWidth() + 10);
-								
+										
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
 		g.draw(r);
 		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
@@ -56,10 +56,10 @@ public class ViewObject extends ViewParty{
 	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {	
 		Point2D position = positionWindow(positionState, windowPosition);
 		
-		// TODO waarom terug + 25???
-		return coordinates.getX() >= position.getX() && 
-			coordinates.getX() <= position.getX() + getWidth() && 
-			coordinates.getY() >= position.getY() &&
+		// TODO + 25???
+		return coordinates.getX() >= position.getX() - 5 && 
+			coordinates.getX() <= position.getX() - 5 + getWidth() && 
+			coordinates.getY() >= position.getY() - 5 &&
 			coordinates.getY() <= position.getY() + getHeight() + 25 &&
 			!checkLabelPosition(coordinates, position, null);
 	}
