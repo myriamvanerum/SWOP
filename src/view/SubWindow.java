@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import model.Interaction;
+import model.Party;
 
 public class SubWindow implements Observer {
 	private Interaction interaction;
@@ -110,11 +111,10 @@ public class SubWindow implements Observer {
 	    Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 		
-		// Draw contents
-		drawContents(g, getViewParties(), getViewMessages());
-		
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
+		// Draw contents
+		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
 	}
 	
@@ -205,8 +205,11 @@ public class SubWindow implements Observer {
 	}
 
 	@Override
-	public void update() {
+	public void update(Party party) {
 		// TODO Auto-generated method stub
-		
+		for (ViewParty viewParty : getViewParties()) {
+			if (viewParty.getParty().equals(party))
+				getViewParties().remove(viewParty);
+		}
 	}
 }

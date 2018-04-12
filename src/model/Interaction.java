@@ -33,7 +33,12 @@ public class Interaction implements Observable {
 	
 	public void addParty(Party party) {
 		this.parties.add(party);
-		notifyObserver();
+		//notifyObserver();
+	}
+	
+	public void removeParty(Party party) {
+		this.parties.remove(party);
+		notifyObserver(party);
 	}
 
 	@Override
@@ -47,8 +52,8 @@ public class Interaction implements Observable {
 	}
 
 	@Override
-	public void notifyObserver() {
+	public void notifyObserver(Party party) {
 		for (Observer observer : observers)
-			observer.update();
+			observer.update(party);
 	}
 }

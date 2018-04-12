@@ -102,7 +102,7 @@ public class Controller {
 	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
 		System.out.println("Delete party.");
 		// party verwijderd uit model
-		activeWindow.getInteraction().getParties().remove(viewParty.getParty());
+		activeWindow.getInteraction().removeParty(viewParty.getParty());
 		// TODO dit moet gebeuren in alle subwindows voor die interactie
 		// Observer pattern?
 	}
