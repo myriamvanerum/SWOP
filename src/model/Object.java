@@ -15,4 +15,8 @@ public class Object extends Party {
     public Object(String label) {
 		super(label);
 	}
+
+	public Object(Party party) {
+		super(party);
+	}
 }

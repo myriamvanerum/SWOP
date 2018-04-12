@@ -19,10 +19,17 @@ public abstract class Party extends Component {
     public Party(String label) {
         this.label = label;
     }
+    
+    public Party(Party party) {
+		this.label = party.label;
+		setSendingMessage(party.getSendingMessage());
+	}
 
     /* GETTERS AND SETTERS */
 
-    public Message getSendingMessage() {
+    
+
+	public Message getSendingMessage() {
         return sendingMessage;
     }
 

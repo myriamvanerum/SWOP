@@ -79,11 +79,12 @@ public class Controller {
 		System.out.println("Close SubWindow.");
 	}
 	
-	public void changePartyType() {
+	public void changePartyType(ViewParty viewParty) {
 		// TODO Auto-generated method stub	
 		// dit moet gebeuren in alle subwindows voor die interactie
 		// Observer pattern?
 		System.out.println("Change Party Type.");
+		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
 	}
 
 	public void switchDiagramType() {
@@ -104,8 +105,7 @@ public class Controller {
 		System.out.println("Delete party.");
 		// party verwijderd uit model
 		activeWindow.getInteraction().removeParty(viewParty.getParty());
-		// TODO dit moet gebeuren in alle subwindows voor die interactie
-		// Observer pattern?
+		// TODO delete messages
 	}
 
 	public void moveComponent(ViewParty selectedViewParty) {

@@ -143,7 +143,7 @@ public class EventHandler {
 					controller.changeActiveSubwindow(sub);
 			} else if ((selectedViewParty = clickParty(x, y, subwindow)) != null) {
 				if (clickCount == 2)
-					controller.changePartyType();
+					controller.changePartyType(selectedViewParty);
 			} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
 				System.out.println("label clicked");
 				if (clickCount == 1)

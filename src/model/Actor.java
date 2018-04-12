@@ -16,4 +16,8 @@ public class Actor extends Party {
     public Actor(String label) {
         super(label);
     }
+
+	public Actor(Party party) {
+		super(party);
+	}
 }
