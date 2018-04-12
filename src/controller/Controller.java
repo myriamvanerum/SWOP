@@ -47,7 +47,7 @@ public class Controller {
 			throw new IllegalArgumentException();
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
-		currentInteraction.getParties().add(party);
+		currentInteraction.addParty(party);
 		
 		SubWindow subwindow = mainWindow.getActiveWindow();
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(subwindow.getX(), subwindow.getY()));
@@ -100,7 +100,11 @@ public class Controller {
 	}
 
 	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
-		activeWindow.getViewParties().remove(viewParty);
+		System.out.println("Delete party.");
+		// party verwijderd uit model
+		activeWindow.getInteraction().getParties().remove(viewParty.getParty());
+		// TODO dit moet gebeuren in alle subwindows voor die interactie
+		// Observer pattern?
 	}
 
 	public void moveComponent(ViewParty selectedViewParty) {

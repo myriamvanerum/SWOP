@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import model.Interaction;
 
-public class SubWindow {
+public class SubWindow implements Observer {
 	private Interaction interaction;
 	
 	private ArrayList<ViewParty> viewParties;
@@ -50,6 +50,7 @@ public class SubWindow {
 	 * @param x
 	 * @param y
 	 */
+	@SuppressWarnings("unchecked")
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
@@ -201,5 +202,11 @@ public class SubWindow {
 
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }
