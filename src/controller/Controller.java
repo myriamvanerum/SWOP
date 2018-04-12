@@ -66,6 +66,7 @@ public class Controller {
 
 	public void closeClickedSubwindow(SubWindow subwindow) {		
 		mainWindow.getSubWindows().remove(subwindow);
+		subwindow.getInteraction().removeObserver(subwindow);
 
 		if (subwindow == mainWindow.getActiveWindow()) {
 			int index = mainWindow.getSubWindows().size();

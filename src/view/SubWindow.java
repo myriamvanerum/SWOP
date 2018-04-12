@@ -35,6 +35,7 @@ public class SubWindow implements Observer {
 	 */
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		setInteraction(interaction);
+		interaction.addObserver(this);
 		
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
@@ -55,6 +56,7 @@ public class SubWindow implements Observer {
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
+		interaction.addObserver(this);
 		
 		// maak kopie van alle onderdelen van subwindow
 		/*ArrayList<ViewParty> parties = new ArrayList<ViewParty>(activeWindow.getViewParties().size());
