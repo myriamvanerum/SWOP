@@ -126,7 +126,7 @@ public class EventHandler {
 			// }
 			// getFocusedObject().unfocus();
 			if (selectedViewParty != null)
-				controller.moveComponent(selectedViewParty);
+				controller.moveComponent(selectedViewParty, x, y);
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			SubWindow subwindow = mainwindow.getActiveWindow();

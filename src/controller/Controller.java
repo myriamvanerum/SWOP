@@ -6,6 +6,7 @@ import model.Interaction;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
+import view.State;
 import view.SubWindow;
 import view.ViewObject;
 import view.ViewParty;
@@ -108,8 +109,16 @@ public class Controller {
 		// TODO delete messages
 	}
 
-	public void moveComponent(ViewParty selectedViewParty) {
+	public void moveComponent(ViewParty selectedViewParty, int x, int y) {
 		// TODO Auto-generated method stub
-		
+		if (selectedViewParty == null || x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		SubWindow activeWindow = mainWindow.getActiveWindow();
+		State state = activeWindow.getState();
+		if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
+			selectedViewParty.setPositionSeq(new Point2D.Double(x - activeWindow.getX(), 40));
+		} else {
+			selectedViewParty.setPositionCom(new Point2D.Double(x - activeWindow.getX(), y - activeWindow.getY() - 25));
+		}
 	}
 }
