@@ -7,6 +7,7 @@ import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
 import view.SubWindow;
+import view.ViewComponent;
 import view.ViewObject;
 import view.ViewParty;
 
@@ -40,7 +41,7 @@ public class Controller {
 		
 	}
 	
-	public void createParty(Point2D position) {
+	public ViewParty createParty(Point2D position) {
 		Party party = partyFactory.createParty("object");
 		
 		if (party == null)
@@ -54,6 +55,7 @@ public class Controller {
 		subwindow.getViewParties().add(viewParty);
 		
 		System.out.println("Create New Party.");
+		return viewParty;
 		
 		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren in andere subwindows. 
 		// Observer pattern?
@@ -92,24 +94,29 @@ public class Controller {
 		System.out.println("Change Diagram Type.");
 	}
 
-	public void selectParty(ViewParty viewParty) {
+	public void selectComponent(ViewComponent viewComponent) {
 		System.out.println("Select party.");
 		
-		if (viewParty.selected())
-			viewParty.unselect();
+		if (viewComponent.selected())
+			viewComponent.unselect();
 		else
-			viewParty.select();
+			viewComponent.select();
 	}
 
-	public void deleteParty(ViewParty viewParty, SubWindow activeWindow) {
-		System.out.println("Delete party.");
+	public void deleteComponent(ViewComponent viewComponent, SubWindow activeWindow) {
+		System.out.println("Delete component.");
 		// party verwijderd uit model
-		activeWindow.getInteraction().removeParty(viewParty.getParty());
+		if (viewComponent instanceof ViewParty)
+			activeWindow.getInteraction().removeParty((Party)viewComponent.getComponent());
 		// TODO delete messages
 	}
 
-	public void moveComponent(ViewParty selectedViewParty) {
+	public void moveComponent(ViewComponent selectedViewComponent) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/*public void activateInputMode() {
+		mainWindow.repaint();
+	}*/
 }

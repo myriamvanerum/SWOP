@@ -6,13 +6,18 @@ import java.awt.geom.*;
 import java.util.ArrayList;
 
 import controller.Controller;
+import model.Component;
 
 public class EventHandler {
 	Controller controller;
-	ViewParty selectedViewParty;
+	ViewComponent selectedComponent;
+	LabelMode labelMode;
+	int labelClicked;
 
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
+		labelMode = LabelMode.SHOW;
+		labelClicked = 0;
 	}
 
 	/**
@@ -34,64 +39,50 @@ public class EventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		// if (inputMode == true)
-		// {
-		// int index = parties.indexOf(currentComponent);
-		// String inputLabel = currentComponent.getLabel().getText();
-		//
-		// // Enkel letters (hoofdletters & kleineletters)
-		// // 513 is de keyCode voor ":"
-		// // 65-90 zijn de keyCodes voor alle letters
-		// // 8 is de keyCode voor backspace
-		// // 10 is de keyCode voor enter
-		// if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode
-		// == 8) {
-		//
-		// if (keyCode == 8 && inputLabel.length() > 1)
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 2) + "|");
-		// else if (inputLabel != null && inputLabel.length() > 0) {
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 1) + keyChar + "|");
-		// }
-		// }
-		//
-		// if (currentComponent.getLabel().correctSyntax() && keyCode == 10) {
-		// currentComponent.getLabel().setText(inputLabel.substring(0,
-		// inputLabel.length() - 1));
-		// setInputMode(false);
-		// currentComponent = null;
-		// }
-		//
-		// if (currentComponent instanceof Party)
-		// parties.set(index, (Party)currentComponent);
-		// if (currentComponent instanceof Message)
-		// messages.set(index, (Message)currentComponent);
-		//
-		// } else {
+		if (labelMode == LabelMode.INPUT) {
+			if (selectedComponent == null)
+				throw new IllegalArgumentException("No component found!");
 
-		switch (keyCode) {
+			Component currentComponent = selectedComponent.getComponent();
+			String label = currentComponent.getLabel();
+			ViewLabel viewLabel = selectedComponent.getViewLabel();
+			viewLabel.setLabelMode(LabelMode.INPUT);
 
-		case KeyEvent.VK_TAB:
-			controller.switchDiagramType();
-			break;
-
-		case KeyEvent.VK_DELETE:
-				if (selectedViewParty != null)
-					controller.deleteParty(selectedViewParty, mainwindow.activeWindow);
-			break;
-		case KeyEvent.VK_N:
-			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
-				controller.createNewInteraction();
+			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) {
+				if (keyCode == 8 && label.length() > 1)
+					currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
+				else if (label != null && label.length() > 0)
+					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
 			}
-			break;
-		case KeyEvent.VK_D:
-			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
-				controller.duplicateActiveWindow();
+
+			if (keyCode == 10 && viewLabel.correctSyntax(label)) {
+				currentComponent.setLabel(label.substring(0, label.length() - 1));
+				labelMode = LabelMode.SHOW;
+				viewLabel.setLabelMode(LabelMode.SHOW);
 			}
-			break;
 		}
-		// }
+
+		if (labelMode == LabelMode.SHOW) {
+			switch (keyCode) {
+			case KeyEvent.VK_TAB:
+				controller.switchDiagramType();
+				break;
+			case KeyEvent.VK_DELETE:
+				if (selectedComponent != null)
+					controller.deleteComponent(selectedComponent, mainwindow.activeWindow);
+				break;
+			case KeyEvent.VK_N:
+				if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
+					controller.createNewInteraction();
+				}
+				break;
+			case KeyEvent.VK_D:
+				if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
+					controller.duplicateActiveWindow();
+				}
+				break;
+			}
+		}
 	}
 
 	/**
@@ -115,47 +106,62 @@ public class EventHandler {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0 || mainwindow.getActiveWindow() == null)
 			throw new IllegalArgumentException();
 
-		// if ( inputMode == false) {
-		switch (id) {
-		case MouseEvent.MOUSE_PRESSED:
-			// checkAndFocus(x, y);
-			break;
-		case MouseEvent.MOUSE_DRAGGED:
-			// if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
-			// moveComponent((Party) getFocusedObject(), x, y);
-			// }
-			// getFocusedObject().unfocus();
-			if (selectedViewParty != null)
-				controller.moveComponent(selectedViewParty);
-			break;
-		case MouseEvent.MOUSE_CLICKED:
-			SubWindow subwindow = mainwindow.getActiveWindow();
-			SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows());
-			ViewLabel viewLabel = null;
+		if (labelMode == LabelMode.SHOW) {
+			switch (id) {
+			case MouseEvent.MOUSE_PRESSED:
+				// checkAndFocus(x, y);
+				break;
+			case MouseEvent.MOUSE_DRAGGED:
+				// if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
+				// moveComponent((Party) getFocusedObject(), x, y);
+				// }
+				// getFocusedObject().unfocus();
+				if (selectedComponent != null)
+					controller.moveComponent(selectedComponent);
+				break;
+			case MouseEvent.MOUSE_CLICKED:
+				SubWindow subwindow = mainwindow.getActiveWindow();
+				SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows());
+				ViewLabel viewLabel = null;
+				selectedComponent = null;
 
-			if (clickCloseButton(x, y, subwindow)) {
-				controller.closeClickedSubwindow(subwindow);
-			} else if (closeWindow != null) {
-				controller.closeClickedSubwindow(closeWindow);
-			} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
-				SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
-				if (sub != null)
-					controller.changeActiveSubwindow(sub);
-			} else if ((selectedViewParty = clickParty(x, y, subwindow)) != null) {
-				if (clickCount == 2)
-					controller.changePartyType(selectedViewParty);
-			} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
-				System.out.println("label clicked");
-				if (clickCount == 1)
-					controller.selectParty(selectedViewParty);
-				// TODO edit label
-			} else if (clickCount == 2) {
-				// TODO clicked empty area
-				controller.createParty(new Point2D.Double(x, y));
+				if (clickCloseButton(x, y, subwindow)) {
+					controller.closeClickedSubwindow(subwindow);
+				} else if (closeWindow != null) {
+					controller.closeClickedSubwindow(closeWindow);
+				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
+					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
+					if (sub != null)
+						controller.changeActiveSubwindow(sub);
+				} else if ((selectedComponent = clickParty(x, y, subwindow)) != null) {
+					if (clickCount == 2)
+						controller.changePartyType((ViewParty) selectedComponent);
+				} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
+					System.out.println("label clicked");
+					if (clickCount == 1) {
+						controller.selectComponent(selectedComponent);
+						labelClicked += 1;
+					}
+					
+					if (labelClicked == 2) {
+						labelMode = LabelMode.INPUT;
+						viewLabel.setLabelMode(LabelMode.INPUT);
+						labelClicked = 0;
+						Component currentComponent = selectedComponent.getComponent();
+						String label = currentComponent.getLabel() + "|";
+						currentComponent.setLabel(label);						
+					}
+						
+				} else if (clickCount == 2) {
+					// TODO clicked empty area
+					selectedComponent = controller.createParty(new Point2D.Double(x, y));
+					labelMode = LabelMode.INPUT;
+				}
+
+				// TODO Lifeline + (invocation) message clicked
+				// selectedComponent = controller.createMessage();
+				break;
 			}
-
-			// TODO Lifeline + (invocation) message clicked
-			break;
 		}
 	}
 
@@ -164,13 +170,15 @@ public class EventHandler {
 		for (ViewParty party : parties) {
 			State state = subwindow.getState();
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(), new Point2D.Double(subwindow.getX(), subwindow.getY()))) {		
-					selectedViewParty = party;
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+					selectedComponent = party;
 					return party.getViewLabel();
 				}
 			} else {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					selectedViewParty = party;
+				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+					selectedComponent = party;
 					return party.getViewLabel();
 				}
 			}
@@ -270,6 +278,14 @@ public class EventHandler {
 				|| y > subwindow.getY() + subwindow.getHeight();
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param subwindow
+	 * @param subWindows
+	 * @return
+	 */
 	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
 		for (int i = subWindows.size() - 1; i >= 0; i--) {
 			if (subWindows.get(i) != subwindow) {
@@ -285,7 +301,12 @@ public class EventHandler {
 
 		return null;
 	}
-	
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	private void clickLifeline(int x, int y) {
 		// TODO
 	}

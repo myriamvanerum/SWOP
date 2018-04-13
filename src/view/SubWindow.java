@@ -208,7 +208,6 @@ public class SubWindow implements Observer {
 
 	@Override
 	public void onDeleteParty(Party party) {
-		// TODO Auto-generated method stub
 		for (ViewParty viewParty : getViewParties()) {
 			if (viewParty.getParty().equals(party))
 				getViewParties().remove(viewParty);

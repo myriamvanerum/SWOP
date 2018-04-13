@@ -5,11 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.*;
 
 public class ViewLabel {
-	boolean editState;
 	int width, height;
+	LabelMode labelMode;
 	
 	public ViewLabel() {
-		this.editState = false;
+		labelMode = LabelMode.SHOW;
 	}
 	
 	/**
@@ -25,19 +25,20 @@ public class ViewLabel {
 	 */
 	protected void draw(Graphics2D g, String label, Point2D position) {
 		if (label == null || position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException();		
 		
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		setWidth(g.getFontMetrics().stringWidth(label));
 
 		// TODO check label state
-		if (editState && correctSyntax(label)) {
-			g.setColor(new Color(0,255,0));
-		} else if (editState && !correctSyntax(label)) {
-			g.setColor(new Color(255,0,0));
+		if (labelMode == LabelMode.INPUT) {
+			if (correctSyntax(label))
+				g.setColor(new Color(0,255,0));
+			else g.setColor(new Color(255,0,0));
 		}
 			
 		g.drawString(label, (int)position.getX(), (int)position.getY());
+		g.setColor(new Color(0,0,0));
 	}
 	
 	public boolean correctSyntax(String input) {
@@ -66,5 +67,13 @@ public class ViewLabel {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public LabelMode getLabelMode() {
+		return labelMode;
+	}
+
+	public void setLabelMode(LabelMode labelMode) {
+		this.labelMode = labelMode;
 	}
 }

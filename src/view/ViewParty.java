@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
+import model.Component;
 import model.Party;
 
-public class ViewParty implements Selectable {
+public class ViewParty extends ViewComponent {
 	private Party party;
-	public boolean isSelected;
-	protected ViewLabel viewLabel;
 	protected ViewLifeLine viewLifeLine;
 
 	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij
@@ -45,18 +44,13 @@ public class ViewParty implements Selectable {
 	}
 
 	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		if (isSelected)
-			g.setColor(Color.BLUE);
-				
+		setColor(this, g);
 		draw(g, positionWindow(getPositionCom(), windowPosition));
 	}
 
 	public void drawSeq(Graphics2D g, Point2D windowPosition) {
-		if (isSelected)
-			g.setColor(Color.BLUE);
-		
+		setColor(this, g);
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
-			
 		viewLifeLine.draw(g);
 	}
 
@@ -91,14 +85,6 @@ public class ViewParty implements Selectable {
 		this.positionSeq = positionSeq;
 	}
 
-	public ViewLabel getViewLabel() {
-		return viewLabel;
-	}
-
-	public void setViewLabel(ViewLabel viewLabel) {
-		this.viewLabel = viewLabel;
-	}
-
 	public ViewLifeLine getViewLifeLine() {
 		return viewLifeLine;
 	}
@@ -106,19 +92,9 @@ public class ViewParty implements Selectable {
 	public void setViewLifeLine(ViewLifeLine viewLifeLine) {
 		this.viewLifeLine = viewLifeLine;
 	}
-
-	@Override
-	public boolean selected() {
-		return isSelected;
-	}
-
-	@Override
-	public void select() {
-		isSelected = true;
-	}
-
-	@Override
-	public void unselect() {
-		isSelected = false;
+	
+	@Override 
+	public Component getComponent() {
+		return this.getParty();
 	}
 }
