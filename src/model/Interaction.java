@@ -32,24 +32,25 @@ public class Interaction implements Observable {
 	}
 	
 	public void addParty(Party party) {
-		this.parties.add(party);
+		
 		//notifyObserver();
 	}
 	
 	public void removeParty(Party party) {
 		this.parties.remove(party);
-		notify(party);
+		notifyDelete(party);
 	}
 	
 	public void changePartyType(Party party) {
-		removeParty(party);
+		this.parties.remove(party);
 		Party newParty;
 		if (party instanceof Actor) {
 			newParty = new Object(party);
 		} else {
 			newParty = new Actor(party);
 		}
-		addParty(newParty);
+		this.parties.add(party);
+		notifyChangeType(party, newParty);
 	}
 
 	@Override
@@ -63,8 +64,14 @@ public class Interaction implements Observable {
 	}
 
 	@Override
-	public void notify(Party party) {
+	public void notifyDelete(Party party) {
 		for (Observer observer : observers)
 			observer.onDeleteParty(party);
+	}
+	
+	@Override
+	public void notifyChangeType(Party party, Party partyNew) {
+		for (Observer observer : observers)
+			observer.onChangeParty(party, partyNew);
 	}
 }

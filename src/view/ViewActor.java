@@ -13,6 +13,10 @@ public class ViewActor extends ViewParty {
 	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
 	}
+	
+	public ViewActor(ViewParty viewParty) {
+		super(viewParty);
+	}
 
 	/**
 	 * This method paints an actor on the window
