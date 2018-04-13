@@ -33,7 +33,7 @@ public class ViewActor extends ViewParty {
 	@Override
 	public void draw(Graphics2D g, Point2D position) {	
 		// TODO lifeline andere plaats
-		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 115, 300);
+		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 115, 375);
 		
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);

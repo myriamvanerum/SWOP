@@ -10,4 +10,6 @@ public interface Observable {
 	public void notifyDelete(Party party);
 	public void notifyChangeType(Party party, Party partyNew);
 	public void notifyAdd(Party party, Point2D position);
+	public void notifyDelete(Message message);
+	public void notifyAdd(Message message, Point2D position);
 }

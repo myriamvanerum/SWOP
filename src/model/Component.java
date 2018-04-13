@@ -8,7 +8,7 @@ package model;
  */
 public class Component {
 
-    protected String label;
+    public String label;
    
 
     public String getLabel(){

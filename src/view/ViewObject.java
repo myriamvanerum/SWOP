@@ -36,7 +36,7 @@ public class ViewObject extends ViewParty {
 			throw new IllegalArgumentException();
 								
 		// TODO lifeline andere plaats
-		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 300);
+		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 375);
 				
 		String label = getParty().getLabel();
 		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());

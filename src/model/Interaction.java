@@ -40,9 +40,19 @@ public class Interaction implements Observable {
 		notifyAdd(party, position);
 	}
 	
+	public void addMessage(Message message, Point2D position) {
+		this.messages.add(message);
+		notifyAdd(message, position);
+	}
+	
 	public void removeParty(Party party) {
 		this.parties.remove(party);
 		notifyDelete(party);
+	}
+	
+	public void removeParty(Message message) {
+		this.messages.remove(message);
+		notifyDelete(message);
 	}
 	
 	public void changePartyType(Party party) {
@@ -74,6 +84,12 @@ public class Interaction implements Observable {
 	}
 	
 	@Override
+	public void notifyDelete(Message message) {
+		for (Observer observer : observers)
+			observer.onDeleteMessage(message);
+	}
+	
+	@Override
 	public void notifyChangeType(Party party, Party partyNew) {
 		for (Observer observer : observers)
 			observer.onChangeParty(party, partyNew);
@@ -83,5 +99,11 @@ public class Interaction implements Observable {
 	public void notifyAdd(Party party, Point2D position) {
 		for (Observer observer : observers)
 			observer.onAddParty(party, position);
+	}
+	
+	@Override
+	public void notifyAdd(Message message, Point2D position) {
+		for (Observer observer : observers)
+			observer.onAddMessage(message, position);
 	}
 }

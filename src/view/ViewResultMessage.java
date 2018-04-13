@@ -3,8 +3,16 @@ package view;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.geom.Point2D;
 
-public class ViewResultMessage {
+import model.Message;
+
+public class ViewResultMessage extends ViewMessage {
+	
+	public ViewResultMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver ) {
+		super(message, position, windowPosition, receiver, receiver);
+	}
+	
 	/**
 	 * This method draws a result message on the window
 	 * 

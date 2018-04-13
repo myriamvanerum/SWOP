@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import model.Actor;
 import model.Interaction;
+import model.InvocationMessage;
+import model.Message;
 import model.Object;
 import model.Party;
 
@@ -246,5 +248,36 @@ public class SubWindow implements Observer {
 	public void onAddParty(Party party, Point2D position) {
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
 		getViewParties().add(viewParty);
+	}
+
+	@Override
+	public void onDeleteMessage(Message message) {
+		for (ViewMessage viewMessage : getViewMessages()) {
+			if (viewMessage.getMessage().equals(message))
+				getViewMessages().remove(viewMessage);
+		}
+	}
+
+	@Override
+	public void onAddMessage(Message message, Point2D position) {
+		ViewParty sender = findViewParty(message.getSender());
+		ViewParty receiver = findViewParty(message.getReceiver());
+		ViewMessage viewMessage;
+		
+		// TODO
+		if (message instanceof InvocationMessage)		
+			viewMessage = new ViewInvocationMessage(message, position, new Point2D.Double(getX(), getY()), sender, receiver);
+		else 
+			viewMessage = new ViewResultMessage(message, position, new Point2D.Double(getX(), getY()), sender, receiver);
+		
+		getViewMessages().add(viewMessage);
+	}
+	
+	public ViewParty findViewParty(Party party) {
+		for (ViewParty viewParty : getViewParties()) {
+			if (viewParty.getParty() == party)
+				return viewParty;
+		}
+		return null;
 	}
 }

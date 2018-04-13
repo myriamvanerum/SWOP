@@ -14,6 +14,7 @@ public class EventHandler {
 	ViewComponent selectedComponent;
 	LabelMode labelMode;
 	int labelClicked;
+	Party first, second;
 
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
@@ -60,6 +61,7 @@ public class EventHandler {
 				currentComponent.setLabel(label.substring(0, label.length() - 1));
 				labelMode = LabelMode.SHOW;
 				viewLabel.setLabelMode(LabelMode.SHOW);
+				selectedComponent = null;
 			}
 		}
 
@@ -106,15 +108,25 @@ public class EventHandler {
 	public void handleMouseEvent(int id, int x, int y, int clickCount, MainWindow mainwindow) {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0 || mainwindow.getActiveWindow() == null)
 			throw new IllegalArgumentException();
-
+		
 		if (labelMode == LabelMode.SHOW) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
-				// checkAndFocus(x, y);
+				first = clickLifeline(x, y, mainwindow.getActiveWindow());
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
 				if (selectedComponent != null)
 					controller.moveComponent(selectedComponent, x, y);
+				break;
+			case MouseEvent.MOUSE_RELEASED:
+				second = clickLifeline(x, y, mainwindow.getActiveWindow());
+				if (first != null && second != null) {
+					controller.addMessage(first, second, x, y);
+					//TODO label mode message
+					/*labelMode = LabelMode.INPUT;
+					viewLabel.setLabelMode(LabelMode.INPUT);
+					viewLabel = clickLabel(x, y, mainwindow.getActiveWindow())*/
+				}
 				break;
 			case MouseEvent.MOUSE_CLICKED:
 				SubWindow subwindow = mainwindow.getActiveWindow();
@@ -150,7 +162,7 @@ public class EventHandler {
 				} else if (clickCount == 2) {
 					// TODO clicked empty area
 					Party party  = controller.createParty(new Point2D.Double(x, y));
-					selectedComponent = findViewParty(party, subwindow);
+					selectedComponent = subwindow.findViewParty(party);
 					labelMode = LabelMode.INPUT;
 				}
 
@@ -161,18 +173,12 @@ public class EventHandler {
 		}
 	}
 
-	private ViewParty findViewParty(Party party, SubWindow subwindow) {
-		for(ViewParty viewParty : subwindow.getViewParties()) {
-			if (viewParty.getParty() == party)
-				return viewParty;
-		}
-		return null;
-	}
-
 	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
+		State state = subwindow.getState();
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
+		ArrayList<ViewMessage> messages = subwindow.getViewMessages();
+		
 		for (ViewParty party : parties) {
-			State state = subwindow.getState();
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(),
 						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
@@ -189,6 +195,21 @@ public class EventHandler {
 		}
 
 		// TODO click label invocation messages
+		for (ViewMessage message : messages) {
+			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
+				/*if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionSeq(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+					selectedComponent = message;
+					return message.getViewLabel();
+				}*/
+			} else {
+				/*if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),
+						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+					selectedComponent = party;
+					return party.getViewLabel();
+				}*/
+			}
+		}
 
 		return null;
 	}
@@ -311,7 +332,15 @@ public class EventHandler {
 	 * @param x
 	 * @param y
 	 */
-	private void clickLifeline(int x, int y) {
-		// TODO
+	private Party clickLifeline(int x, int y, SubWindow subwindow) {
+		for (ViewParty party : subwindow.getViewParties())
+		{
+			ViewLifeLine lifeline = party.getViewLifeLine();
+			if (x >= lifeline.getX()-3 && x <= lifeline.getX()+3 && 
+				y >= lifeline.getStartY() && y <= lifeline.getEndY())
+				return party.getParty();
+		}
+		
+		return null;
 	}
 }

@@ -3,6 +3,7 @@ package controller;
 import java.awt.geom.Point2D;
 
 import model.Interaction;
+import model.InvocationMessage;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
@@ -53,9 +54,6 @@ public class Controller {
 		
 		System.out.println("Create New Party.");
 		return party;
-		
-		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren in andere subwindows. 
-		// Observer pattern?
 	}
 
 	public void changeActiveSubwindow(SubWindow subwindow) {
@@ -109,7 +107,6 @@ public class Controller {
 	}
 
 	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
-		// TODO Auto-generated method stub
 		if (selectedViewComponent == null || x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		SubWindow activeWindow = mainWindow.getActiveWindow();
@@ -120,8 +117,11 @@ public class Controller {
 			selectedViewComponent.setPositionCom(new Point2D.Double(x - activeWindow.getX(), y - activeWindow.getY() - 25));
 		}
 	}
-	
-	/*public void activateInputMode() {
-		mainWindow.repaint();
-	}*/
+
+	public void addMessage(Party sender, Party receiver, int x, int y) {
+		System.out.println("Add message.");
+		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
+		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
+		currentInteraction.addMessage(invocationMessage, new Point2D.Double(x,y));	
+	}
 }

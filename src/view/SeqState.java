@@ -16,7 +16,8 @@ public class SeqState implements State {
 		for (ViewParty viewParty : viewParties) {
 	        viewParty.drawSeq(g, windowPosition);
 	    }
-	    for (ViewMessage viewMessage : viewMessages) {
+
+    	for (ViewMessage viewMessage : viewMessages) {
 	    	viewMessage.drawSeq(g);
 	    }		
 	}
