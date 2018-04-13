@@ -1,8 +1,12 @@
 package model;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.Observer;
+import view.SubWindow;
+import view.ViewObject;
+import view.ViewParty;
 
 public class Interaction implements Observable {
 	public ArrayList<Party> parties;
@@ -31,9 +35,9 @@ public class Interaction implements Observable {
 		this.messages = messages;
 	}
 	
-	public void addParty(Party party) {
-		
-		//notifyObserver();
+	public void addParty(Party party, Point2D position) {
+		this.parties.add(party);
+		notifyAdd(party, position);
 	}
 	
 	public void removeParty(Party party) {
@@ -73,5 +77,11 @@ public class Interaction implements Observable {
 	public void notifyChangeType(Party party, Party partyNew) {
 		for (Observer observer : observers)
 			observer.onChangeParty(party, partyNew);
+	}
+	
+	@Override
+	public void notifyAdd(Party party, Point2D position) {
+		for (Observer observer : observers)
+			observer.onAddParty(party, position);
 	}
 }

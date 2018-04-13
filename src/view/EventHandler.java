@@ -121,10 +121,6 @@ public class EventHandler {
 			// checkAndFocus(x, y);
 			break;
 		case MouseEvent.MOUSE_DRAGGED:
-			// if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
-			// moveComponent((Party) getFocusedObject(), x, y);
-			// }
-			// getFocusedObject().unfocus();
 			if (selectedViewParty != null)
 				controller.moveComponent(selectedViewParty, x, y);
 			break;
@@ -183,7 +179,7 @@ public class EventHandler {
 
 	/**
 	 * Checks if the close button of a subwindow that isn't the active subwindow is
-	 * clicked
+	 * clicked.
 	 * 
 	 * @param x
 	 *            The x coordinate of the clicked position

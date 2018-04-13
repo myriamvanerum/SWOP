@@ -242,4 +242,10 @@ public class SubWindow implements Observer {
 			}
 		}
 	}
+	
+	@Override
+	public void onAddParty(Party party, Point2D position) {
+		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
+		getViewParties().add(viewParty);
+	}
 }

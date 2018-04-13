@@ -48,16 +48,9 @@ public class Controller {
 			throw new IllegalArgumentException();
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
-		currentInteraction.addParty(party);
-		
-		SubWindow subwindow = mainWindow.getActiveWindow();
-		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(subwindow.getX(), subwindow.getY()));
-		subwindow.getViewParties().add(viewParty);
+		currentInteraction.addParty(party, position);
 		
 		System.out.println("Create New Party.");
-		
-		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren in andere subwindows. 
-		// Observer pattern?
 	}
 
 	public void changeActiveSubwindow(SubWindow subwindow) {
