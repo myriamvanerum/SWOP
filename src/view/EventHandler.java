@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import controller.Controller;
 import model.Component;
+import model.Party;
 
 public class EventHandler {
 	Controller controller;
@@ -112,12 +113,8 @@ public class EventHandler {
 				// checkAndFocus(x, y);
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
-				// if (getFocusedObject() != null && getFocusedObject() instanceof Party) {
-				// moveComponent((Party) getFocusedObject(), x, y);
-				// }
-				// getFocusedObject().unfocus();
 				if (selectedComponent != null)
-					controller.moveComponent(selectedComponent);
+					controller.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_CLICKED:
 				SubWindow subwindow = mainwindow.getActiveWindow();
@@ -142,7 +139,6 @@ public class EventHandler {
 						controller.selectComponent(selectedComponent);
 						labelClicked += 1;
 					}
-					
 					if (labelClicked == 2) {
 						labelMode = LabelMode.INPUT;
 						viewLabel.setLabelMode(LabelMode.INPUT);
@@ -150,11 +146,11 @@ public class EventHandler {
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
 						currentComponent.setLabel(label);						
-					}
-						
+					}						
 				} else if (clickCount == 2) {
 					// TODO clicked empty area
-					selectedComponent = controller.createParty(new Point2D.Double(x, y));
+					Party party  = controller.createParty(new Point2D.Double(x, y));
+					selectedComponent = findViewParty(party, subwindow);
 					labelMode = LabelMode.INPUT;
 				}
 
@@ -163,6 +159,14 @@ public class EventHandler {
 				break;
 			}
 		}
+	}
+
+	private ViewParty findViewParty(Party party, SubWindow subwindow) {
+		for(ViewParty viewParty : subwindow.getViewParties()) {
+			if (viewParty.getParty() == party)
+				return viewParty;
+		}
+		return null;
 	}
 
 	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
@@ -191,7 +195,7 @@ public class EventHandler {
 
 	/**
 	 * Checks if the close button of a subwindow that isn't the active subwindow is
-	 * clicked
+	 * clicked.
 	 * 
 	 * @param x
 	 *            The x coordinate of the clicked position

@@ -6,6 +6,7 @@ import model.Interaction;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
+import view.State;
 import view.SubWindow;
 import view.ViewComponent;
 import view.ViewObject;
@@ -41,21 +42,17 @@ public class Controller {
 		
 	}
 	
-	public ViewParty createParty(Point2D position) {
+	public Party createParty(Point2D position) {
 		Party party = partyFactory.createParty("object");
 		
 		if (party == null)
 			throw new IllegalArgumentException();
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
-		currentInteraction.addParty(party);
-		
-		SubWindow subwindow = mainWindow.getActiveWindow();
-		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(subwindow.getX(), subwindow.getY()));
-		subwindow.getViewParties().add(viewParty);
+		currentInteraction.addParty(party, position);
 		
 		System.out.println("Create New Party.");
-		return viewParty;
+		return party;
 		
 		// TODO dit moet ook het aanmaken van een nieuwe ViewParty triggeren in andere subwindows. 
 		// Observer pattern?
@@ -111,9 +108,17 @@ public class Controller {
 		// TODO delete messages
 	}
 
-	public void moveComponent(ViewComponent selectedViewComponent) {
+	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
 		// TODO Auto-generated method stub
-		
+		if (selectedViewComponent == null || x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		SubWindow activeWindow = mainWindow.getActiveWindow();
+		State state = activeWindow.getState();
+		if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
+			selectedViewComponent.setPositionSeq(new Point2D.Double(x - activeWindow.getX(), 40));
+		} else {
+			selectedViewComponent.setPositionCom(new Point2D.Double(x - activeWindow.getX(), y - activeWindow.getY() - 25));
+		}
 	}
 	
 	/*public void activateInputMode() {

@@ -11,11 +11,6 @@ public class ViewParty extends ViewComponent {
 	private Party party;
 	protected ViewLifeLine viewLifeLine;
 
-	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij
-	// het gemakkelijkste
-	Point2D positionCom;
-	Point2D positionSeq;
-
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
 		viewLabel = new ViewLabel();
@@ -67,22 +62,6 @@ public class ViewParty extends ViewComponent {
 
 	public void setParty(Party party) {
 		this.party = party;
-	}
-
-	public Point2D getPositionCom() {
-		return positionCom;
-	}
-
-	public void setPositionCom(Point2D positionCom) {
-		this.positionCom = positionCom;
-	}
-
-	public Point2D getPositionSeq() {
-		return positionSeq;
-	}
-
-	public void setPositionSeq(Point2D positionSeq) {
-		this.positionSeq = positionSeq;
 	}
 
 	public ViewLifeLine getViewLifeLine() {

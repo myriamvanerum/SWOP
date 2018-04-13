@@ -7,9 +7,13 @@ import java.awt.geom.Point2D;
 
 import model.Party;
 
-public class ViewObject extends ViewParty{
+public class ViewObject extends ViewParty {
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
+	}
+	
+	public ViewObject(ViewParty viewParty) {
+		super(viewParty);
 	}
 
 	private int width = 80, height = 80;

@@ -2,12 +2,19 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 import model.Component;
 
 public class ViewComponent implements Selectable {
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
+
+	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij
+	// het gemakkelijkste
+	Point2D positionCom;
+	Point2D positionSeq;
+	
 	/**
 	 * This method sets the color for all components. Focused components will be blue, others black.
 	 * @param focusable
@@ -37,6 +44,22 @@ public class ViewComponent implements Selectable {
 
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
+	}
+	
+	public Point2D getPositionCom() {
+		return positionCom;
+	}
+
+	public void setPositionCom(Point2D positionCom) {
+		this.positionCom = positionCom;
+	}
+
+	public Point2D getPositionSeq() {
+		return positionSeq;
+	}
+
+	public void setPositionSeq(Point2D positionSeq) {
+		this.positionSeq = positionSeq;
 	}
 	
 	@Override
