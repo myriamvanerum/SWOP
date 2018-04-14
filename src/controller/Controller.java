@@ -7,6 +7,7 @@ import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import model.PartyFactory;
+import model.ResultMessage;
 import view.MainWindow;
 import view.State;
 import view.SubWindow;
@@ -122,9 +123,13 @@ public class Controller {
 	public Message addMessage(Party sender, Party receiver, int x, int y) {
 		System.out.println("Add message.");
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
-		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
-		currentInteraction.addMessage(invocationMessage, new Point2D.Double(x,y));	
+		ResultMessage resultMessage = new ResultMessage("", sender, receiver);
 		
+		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
+		
+		currentInteraction.addMessage(invocationMessage, new Point2D.Double(x,y));	
+		currentInteraction.addMessage(resultMessage, new Point2D.Double(x,y+20));
+						
 		return invocationMessage;
 	}
 }

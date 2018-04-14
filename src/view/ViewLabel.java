@@ -31,7 +31,7 @@ public class ViewLabel {
 		setWidth(g.getFontMetrics().stringWidth(label));
 
 		// TODO check label state
-		if (labelMode == LabelMode.INPUT) {
+		if (labelMode == LabelMode.PARTY) {
 			if (correctSyntax(label))
 				g.setColor(new Color(0,255,0));
 			else g.setColor(new Color(255,0,0));
@@ -45,7 +45,9 @@ public class ViewLabel {
 		char first = input.charAt(0);
 		String parts[] = input.split(":|;");
 		
-		if ((first == ':' || first == ';') && parts.length < 3) {
+		if (input.contains(" ")) {
+			return false;
+		} else if ((first == ':' || first == ';') && parts.length < 3) {
 			return Character.isUpperCase(input.charAt(1));
 		}
 		else if ((first != ':' || first != ';') && parts.length <= 3)

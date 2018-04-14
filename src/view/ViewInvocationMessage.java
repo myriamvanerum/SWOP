@@ -37,9 +37,8 @@ public class ViewInvocationMessage extends ViewMessage {
 		Stroke full = new BasicStroke(1);
 		g.setStroke(full);
 		g.drawLine(xSender, y, xReceiver, y);
-		// TODO draw label
-		Message m = getMessage();
-		String label = m.getLabel();
+		
+		String label = getMessage().getLabel();
 		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, y-2));
 	}
