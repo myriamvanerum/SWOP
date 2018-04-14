@@ -43,13 +43,13 @@ public class ViewLabel {
 	
 	public boolean correctSyntax(String input) {
 		char first = input.charAt(0);
-		String parts[] = input.split(":");
+		String parts[] = input.split(":|;");
 		
-		if (first == ':' && parts.length < 3) {
+		if ((first == ':' || first == ';') && parts.length < 3) {
 			return Character.isUpperCase(input.charAt(1));
 		}
-		else if (first != ':' && parts.length <= 3)
-			return input.contains(":") && Character.isLowerCase(first) && Character.isUpperCase(parts[1].charAt(0));
+		else if ((first != ':' || first != ';') && parts.length <= 3)
+			return (input.contains(":") || input.contains(";")) && Character.isLowerCase(first) && Character.isUpperCase(parts[1].charAt(0));
 		else return false;
 	}
 
