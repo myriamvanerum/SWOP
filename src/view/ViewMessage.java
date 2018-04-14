@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import model.Component;
+import model.InvocationMessage;
 import model.Message;
 
 public class ViewMessage extends ViewComponent {
@@ -60,8 +61,16 @@ public class ViewMessage extends ViewComponent {
 	public void drawSeq(Graphics2D g) {
 		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
 		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
-		draw(g, senderLifeline.getX(), receiverLifeline.getX(), (int) getPositionSeq().getY());
-	//	activationBar.draw(g, (int)getSender().getPositionSeq().getY(), (int)getSender().getPositionSeq().getY() + 10, senderLifeline.getX()-10);
+		int xSender = senderLifeline.getX();
+		int xReceiver = receiverLifeline.getX();
+		int y = (int) getPositionSeq().getY();
+		
+		draw(g, xSender, xReceiver, y);
+		
+		if (this.getClass() == ViewInvocationMessage.class) {
+			activationBar.draw(g, xSender - 5, y - 5);
+			activationBar.draw(g, xReceiver - 5, y - 5);	
+		}
 	}
 	
 	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {}

@@ -37,8 +37,8 @@ public class ViewResultMessage extends ViewMessage {
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		g.drawLine(xSender, y, xReceiver, y);
-		
+		g.drawLine(xSender+7, y, xReceiver-2, y);
+				
 		String label = getMessage().getLabel();
 		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, y+12));
