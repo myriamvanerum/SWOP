@@ -51,17 +51,17 @@ public class ViewMessage extends ViewComponent {
 		this.receiver = receiver;
 	}
 
-	public void drawCom(Graphics2D g) {
+	public void drawCom(Graphics2D g, Point2D windowPosition) {
 		Point2D sender = getSender().getPositionCom();
 		Point2D receiver = getReceiver().getPositionCom();
-		draw(g, (int) sender.getX() + 80, (int) receiver.getX(), (int) sender.getY());
+		draw(g, (int) (sender.getX() + windowPosition.getX() +  80), (int) (receiver.getX()+ windowPosition.getX()), (int) (sender.getY() + windowPosition.getY() + 25));
 	}
 	
 	public void drawSeq(Graphics2D g) {
 		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
 		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
 		draw(g, senderLifeline.getX(), receiverLifeline.getX(), (int) getPositionSeq().getY());
-		activationBar.draw(g, (int)getSender().getPositionSeq().getY(), (int)getSender().getPositionSeq().getY() + 10, senderLifeline.getX()-10);
+	//	activationBar.draw(g, (int)getSender().getPositionSeq().getY(), (int)getSender().getPositionSeq().getY() + 10, senderLifeline.getX()-10);
 	}
 	
 	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {}
