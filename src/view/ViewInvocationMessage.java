@@ -31,16 +31,17 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party coordinates
 	 */
-	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {
-		if (y < 0 || xSender < 0 || xReceiver < 0)
+	public void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver) {
+		if (xSender < 0 || xReceiver < 0 || ySender < 0 || yReceiver < 0)
 			throw new IllegalArgumentException();
+		
 		Stroke full = new BasicStroke(1);
 		g.setStroke(full);
-		g.drawLine(xSender, y, xReceiver, y);
+		g.drawLine(xSender, ySender, xReceiver, yReceiver);
 		
 		String label = getMessage().getLabel();
-		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
-		getViewLabel().draw(g, label, new Point2D.Double(labelX, y-2));
+		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
+		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender-2));
 	}
 
 	/**

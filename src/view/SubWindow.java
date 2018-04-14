@@ -12,7 +12,6 @@ import model.Actor;
 import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
-import model.Object;
 import model.Party;
 /**
  * SubWindow class

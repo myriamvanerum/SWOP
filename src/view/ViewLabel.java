@@ -30,7 +30,6 @@ public class ViewLabel {
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		setWidth(g.getFontMetrics().stringWidth(label));
 
-		// TODO check label state
 		if (labelMode == LabelMode.PARTY) {
 			if (correctSyntax(label))
 				g.setColor(new Color(0,255,0));

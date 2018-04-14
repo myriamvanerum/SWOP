@@ -31,17 +31,18 @@ public class ViewResultMessage extends ViewMessage {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party coordinates
 	 */
-	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {
-		if (xSender < 0 || xReceiver < 0 || y < 0)
+	public void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver) {
+		if (xSender < 0 || xReceiver < 0 || ySender < 0 || yReceiver < 0)
 			throw new IllegalArgumentException();
+		
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		g.drawLine(xSender+7, y, xReceiver-2, y);
+		g.drawLine(xSender+7, ySender, xReceiver-2, yReceiver);
 				
 		String label = getMessage().getLabel();
-		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
-		getViewLabel().draw(g, label, new Point2D.Double(labelX, y+12));
+		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
+		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender+12));
 	}
 
 	/**
