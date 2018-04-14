@@ -10,7 +10,7 @@ import model.Message;
 public class ViewResultMessage extends ViewMessage {
 	
 	public ViewResultMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver ) {
-		super(message, position, windowPosition, receiver, receiver);
+		super(message, position, windowPosition, sender, receiver);
 	}
 	
 	/**
@@ -31,14 +31,17 @@ public class ViewResultMessage extends ViewMessage {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party coordinates
 	 */
-	public void draw(Graphics2D g, boolean focused, double xSender, double ySender, double xReceiver,
-			double yReceiver) {
-		if (xSender < 0 || ySender < 0 || xReceiver < 0 || yReceiver < 0)
+	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {
+		if (xSender < 0 || xReceiver < 0 || y < 0)
 			throw new IllegalArgumentException();
-		Stroke dashed = new BasicStroke(getLineWidthResult(focused), BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
+		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		g.drawLine((int) xSender, (int) ySender, (int) xReceiver, (int) yReceiver);
+		g.drawLine(xSender, y, xReceiver, y);
+		
+		String label = getMessage().getLabel();
+		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
+		getViewLabel().draw(g, label, new Point2D.Double(labelX, y+12));
 	}
 
 	/**

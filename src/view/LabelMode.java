@@ -1,5 +1,5 @@
 package view;
 
 public enum LabelMode {
-	SHOW, INPUT
+	SHOW, PARTY, MESSAGE
 }

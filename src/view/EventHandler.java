@@ -42,23 +42,24 @@ public class EventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		if (labelMode == LabelMode.INPUT) {
+		if (labelMode == LabelMode.PARTY || labelMode == LabelMode.MESSAGE) {
 			if (selectedComponent == null)
 				throw new IllegalArgumentException("No component found!");
 
 			Component currentComponent = selectedComponent.getComponent();
 			String label = currentComponent.getLabel();
 			ViewLabel viewLabel = selectedComponent.getViewLabel();
-			viewLabel.setLabelMode(LabelMode.INPUT);
+			viewLabel.setLabelMode(labelMode);
 
-			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8) {
+			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8 || keyCode == KeyEvent.VK_SPACE) {
 				if (keyCode == 8 && label.length() > 1)
 					currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
 				else if (label != null && label.length() > 0)
 					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
 			}
 
-			if (keyCode == 10 && viewLabel.correctSyntax(label)) {
+			if (keyCode == 10) {
+				if (labelMode == LabelMode.PARTY && viewLabel.correctSyntax(label) || labelMode == LabelMode.MESSAGE)
 				currentComponent.setLabel(label.substring(0, label.length() - 1));
 				labelMode = LabelMode.SHOW;
 				viewLabel.setLabelMode(LabelMode.SHOW);
@@ -125,8 +126,8 @@ public class EventHandler {
 					Message message = controller.addMessage(first, second, x, y);
 					ViewMessage viewMessage = mainwindow.getActiveWindow().findViewMessage(message);
 					//TODO label mode message
-					labelMode = LabelMode.INPUT;
-					viewMessage.getViewLabel().setLabelMode(LabelMode.INPUT);
+					labelMode = LabelMode.MESSAGE;
+					viewMessage.getViewLabel().setLabelMode(LabelMode.MESSAGE);
 					selectedComponent = viewMessage;
 				}
 				break;
@@ -154,8 +155,9 @@ public class EventHandler {
 						labelClicked += 1;
 					}
 					if (labelClicked == 2) {
-						labelMode = LabelMode.INPUT;
-						viewLabel.setLabelMode(LabelMode.INPUT);
+						// TODO message / party
+						labelMode = LabelMode.PARTY;
+						viewLabel.setLabelMode(labelMode);
 						labelClicked = 0;
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
@@ -165,7 +167,7 @@ public class EventHandler {
 					// TODO clicked empty area
 					Party party  = controller.createParty(new Point2D.Double(x, y));
 					selectedComponent = subwindow.findViewParty(party);
-					labelMode = LabelMode.INPUT;
+					labelMode = LabelMode.PARTY;
 				}
 
 				// TODO Lifeline + (invocation) message clicked
