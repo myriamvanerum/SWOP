@@ -10,6 +10,7 @@ public class ViewMessage extends ViewComponent {
 	Message message;
 	ViewParty sender;
 	ViewParty receiver;
+	ViewActivationBar activationBar;
 
 	public ViewMessage(Message message) {
 		// TODO Auto-generated constructor stub
@@ -17,6 +18,7 @@ public class ViewMessage extends ViewComponent {
 	
 	public ViewMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver) {
 		viewLabel = new ViewLabel();
+		activationBar = new ViewActivationBar();
 		// TODO
 		setMessage(message);
 		setPositionCom(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()+25));
@@ -59,6 +61,7 @@ public class ViewMessage extends ViewComponent {
 		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
 		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
 		draw(g, senderLifeline.getX(), receiverLifeline.getX(), (int) getPositionSeq().getY());
+		activationBar.draw(g, (int)getSender().getPositionSeq().getY(), (int)getSender().getPositionSeq().getY() + 10, senderLifeline.getX()-10);
 	}
 	
 	public void draw(Graphics2D g, int xSender, int xReceiver, int y) {}
