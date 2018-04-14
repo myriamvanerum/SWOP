@@ -15,28 +15,40 @@ import view.ViewComponent;
 import view.ViewObject;
 import view.ViewParty;
 
+/**
+ * A Controller Class
+ * @author groep 03
+ */
 public class Controller {
 	MainWindow mainWindow;
 	PartyFactory partyFactory;
 	
+	/**
+	 * Controller constructor
+	 * @param mainWindow
+	 * 		Canvas for this controller
+	 */
 	public Controller(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
 		this.partyFactory = new PartyFactory();
 		System.out.println("Starting Interactr.");
 	}
 	
-	//public ArrayList<Interaction> interactions = new ArrayList<>();
-	
+	/**
+	 * Create a new Interaction and make a new SubWindow for this Interaction
+	 */
 	public void createNewInteraction() {
 		// tell model to make new interaction
 		Interaction interaction = new Interaction();
-	//	interactions.add(interaction);
 		
 		// make new subwindow
 		mainWindow.createNewSubWindow(interaction);
 		System.out.println("Create New Interaction.");
 	}
 	
+	/**
+	 * Create a new SubWindow for an Interaction
+	 */
 	public void duplicateActiveWindow() {
 		// make new subwindow
 		if (mainWindow.getActiveWindow() != null)
@@ -45,7 +57,16 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Create a new Party in the active Interaction
+	 * @param position
+	 * 		The clicked position, where the party must be placed on the screen
+	 * @return the created Party
+	 */
 	public Party createParty(Point2D position) {
+		if (position == null || position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();
+		
 		Party party = partyFactory.createParty("object");
 		
 		if (party == null)
@@ -58,12 +79,28 @@ public class Controller {
 		return party;
 	}
 
+	/**
+	 * Set a new active SubWindow, to be placed at the front
+	 * @param subwindow
+	 * 		the SubWindow to be placed at the front
+	 */
 	public void changeActiveSubwindow(SubWindow subwindow) {
+		if (subwindow == null)
+			throw new IllegalArgumentException();
+		
 		System.out.println("Change Active Window");
 		mainWindow.setActiveWindow(subwindow);
 	}
 
-	public void closeClickedSubwindow(SubWindow subwindow) {		
+	/**
+	 * Close a SubWindow
+	 * @param subwindow
+	 * 		the SubWindow to be closed
+	 */
+	public void closeClickedSubwindow(SubWindow subwindow) {	
+		if (subwindow == null)
+			throw new IllegalArgumentException();
+		
 		mainWindow.getSubWindows().remove(subwindow);
 		subwindow.getInteraction().removeObserver(subwindow);
 
@@ -78,20 +115,36 @@ public class Controller {
 		System.out.println("Close SubWindow.");
 	}
 	
+	/**
+	 * Change the type of a Party. An Actor becomes an Object and vice versa
+	 * @param viewParty
+	 * 		The ViewParty that was clicked
+	 */
 	public void changePartyType(ViewParty viewParty) {
-		// TODO Auto-generated method stub	
-		// dit moet gebeuren in alle subwindows voor die interactie
-		// Observer pattern?
+		if (viewParty == null)
+			throw new IllegalArgumentException();
+		
 		System.out.println("Change Party Type.");
 		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
 	}
 
+	/**
+	 * Switch a SubWindow from Sequence View to Communication View or vice versa
+	 */
 	public void switchDiagramType() {
 		mainWindow.getActiveWindow().changeState();
 		System.out.println("Change Diagram Type.");
 	}
 
+	/** 
+	 * Select a Party or Message
+	 * @param viewComponent
+	 * 		The Party or Message to select
+	 */
 	public void selectComponent(ViewComponent viewComponent) {
+		if (viewComponent == null)
+			throw new IllegalArgumentException();
+		
 		System.out.println("Select party.");
 		
 		if (viewComponent.selected())
@@ -100,7 +153,17 @@ public class Controller {
 			viewComponent.select();
 	}
 
+	/**
+	 * Delete a Party or Message from an Interaction
+	 * @param viewComponent
+	 * 		The Party or Message to delete
+	 * @param activeWindow
+	 * 		The active SubWindow
+	 */
 	public void deleteComponent(ViewComponent viewComponent, SubWindow activeWindow) {
+		if (viewComponent == null || activeWindow == null)
+			throw new IllegalArgumentException();
+		
 		System.out.println("Delete component.");
 		// party verwijderd uit model
 		if (viewComponent instanceof ViewParty)
@@ -108,9 +171,19 @@ public class Controller {
 		// TODO delete messages
 	}
 
+	/**
+	 * Move a Party on the screen
+	 * @param selectedViewComponent
+	 * 		The Party to move
+	 * @param x
+	 * 		The new x coordinates
+	 * @param y
+	 * 		The new y coordinates
+	 */
 	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
 		if (selectedViewComponent == null || x < 0 || y < 0)
 			throw new IllegalArgumentException();
+		
 		SubWindow activeWindow = mainWindow.getActiveWindow();
 		State state = activeWindow.getState();
 		if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
@@ -120,7 +193,23 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Add a new Message between Parties in an Interaction
+	 * @param sender
+	 * 		The Message sender
+	 * @param receiver
+	 * 		The Message receiver
+	 * @param x
+	 * 		The clicked x coordinates
+	 * @param y
+	 * 		The clicked y coordinates
+	 * @return
+	 * 		The created Message
+	 */
 	public Message addMessage(Party sender, Party receiver, int x, int y) {
+		if (sender == null || receiver == null || x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		System.out.println("Add message.");
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
 		ResultMessage resultMessage = new ResultMessage("", sender, receiver);

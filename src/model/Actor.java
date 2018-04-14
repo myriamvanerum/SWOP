@@ -1,11 +1,8 @@
 package model;
 
 /**
- * An Actor class. An actor is a kind of party
- * 
+ * An Actor class. An Actor is a kind of Party
  * @author groep 03
- * 
- *
  */
 public class Actor extends Party {
 	/**
@@ -17,6 +14,10 @@ public class Actor extends Party {
         super(label);
     }
 
+    /**
+     * Copy Constructor
+     * @param party
+     */
 	public Actor(Party party) {
 		super(party);
 	}

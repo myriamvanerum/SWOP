@@ -4,9 +4,7 @@ import view.MainWindow;
 
 /**
  * The Main class creates a window for the user to be able to use the application
- * 
  * @author groep 03
- *
  */
 public class Main {
 

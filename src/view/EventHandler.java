@@ -51,7 +51,7 @@ public class EventHandler {
 			ViewLabel viewLabel = selectedComponent.getViewLabel();
 			viewLabel.setLabelMode(labelMode);
 
-			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == 8 || keyCode == KeyEvent.VK_SPACE) {
+			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == KeyEvent.VK_SEMICOLON || keyCode == 8 || keyCode == KeyEvent.VK_SPACE) {
 				if (keyCode == 8 && label.length() > 1)
 					currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
 				else if (label != null && label.length() > 0)

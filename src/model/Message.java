@@ -6,7 +6,6 @@ package model;
  * invocation message (continuous line) or a result message (dashed line)
  * 
  * @author groep 03
- *
  */
 public abstract class Message extends Component {
     private Party sender;
@@ -29,7 +28,6 @@ public abstract class Message extends Component {
 
     /**
      * Gets the sender of the message.
-     * 
      * @return a party
      */
     public Party getSender() {
@@ -38,7 +36,6 @@ public abstract class Message extends Component {
 
     /**
      * Gets the receiver of the message
-     * 
      * @return a party
      */
     public Party getReceiver() {
