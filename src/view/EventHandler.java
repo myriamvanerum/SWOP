@@ -328,12 +328,17 @@ public class EventHandler {
 	}
 
 	/**
-	 * 
+	 * Find the SubWindow that was clicked. Ths method loops over all the subwindows 
+	 * except the active window, from the front to the back 
 	 * @param x
+	 * 		The clicked x coordinates
 	 * @param y
+	 * 		The clicked y coordinates
 	 * @param subwindow
+	 * 		The active subwindow
 	 * @param subWindows
-	 * @return
+	 * 		The list of all subwindows
+	 * @return	The clicked subwindow, or null
 	 */
 	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
 		for (int i = subWindows.size() - 1; i >= 0; i--) {
@@ -352,9 +357,11 @@ public class EventHandler {
 	}
 
 	/**
-	 * 
+	 * Checks if a LifeLine was clicked
 	 * @param x
+	 * 		The clicked x coordinates
 	 * @param y
+	 * 		The clicked y coordinates
 	 */
 	private Party clickLifeline(int x, int y, SubWindow subwindow) {
 		for (ViewParty party : subwindow.getViewParties())

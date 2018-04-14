@@ -3,7 +3,11 @@ package model;
 import java.awt.geom.Point2D;
 
 import view.Observer;
-
+/**
+ * Observable class
+ * @author groep 03
+ *
+ */
 public interface Observable {
 	/**
 	 * Add an Observer to this Observable

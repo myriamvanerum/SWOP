@@ -14,7 +14,11 @@ import model.InvocationMessage;
 import model.Message;
 import model.Object;
 import model.Party;
-
+/**
+ * SubWindow class
+ * @author groep 03
+ *
+ */
 public class SubWindow implements Observer {
 	private Interaction interaction;
 
@@ -65,12 +69,6 @@ public class SubWindow implements Observer {
 		interaction.addObserver(this);
 
 		// maak kopie van alle onderdelen van subwindow
-		/*
-		 * ArrayList<ViewParty> parties = new
-		 * ArrayList<ViewParty>(activeWindow.getViewParties().size()); for (ViewParty
-		 * viewParty : activeWindow.getViewParties()) { parties.add(new
-		 * ViewParty(viewParty)); }
-		 */
 		ArrayList<ViewParty> parties = activeWindow.getViewParties();
 		ArrayList<ViewMessage> messages = activeWindow.getViewMessages();
 
@@ -86,6 +84,7 @@ public class SubWindow implements Observer {
 	 * Method to draw a SubWindow and all its contents
 	 * 
 	 * @param gOrig
+	 * 		Graphics class
 	 */
 	public void draw(Graphics2D gOrig) {
 		Integer padding = 7;
@@ -132,6 +131,9 @@ public class SubWindow implements Observer {
 		g.dispose();
 	}
 
+	/** 
+	 * Change the SubWindows State
+	 */
 	public void changeState() {
 		if (getState() == seqState)
 			setState(comState);
@@ -139,6 +141,8 @@ public class SubWindow implements Observer {
 			setState(seqState);
 	}
 
+	/* GETTERS AND SETTERS */
+	
 	public Interaction getInteraction() {
 		return interaction;
 	}
@@ -211,14 +215,39 @@ public class SubWindow implements Observer {
 		this.windowState = windowState;
 	}
 
+	/**
+	 * Draw the SubWindow title
+	 * @param g
+	 * 		Graphics class
+	 * @param x
+	 * 		X coordinates
+	 * @param y
+	 * 		Y coordinates
+	 */
 	public void drawTitle(Graphics2D g, Integer x, Integer y) {
 		getState().drawTitle(g, x, y);
 	}
 
+	/**
+	 * Draw the Parties and Messages in the SubWindow
+	 * @param g
+	 * 		Graphics class
+	 * @param windowPosition
+	 * 		Window top left coordinates
+	 * @param viewParties
+	 * 		The Parties in the SubWindow
+	 * @param viewMessages
+	 * 		The Messages in the SubWindow
+	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
 
+	/**
+	 * Method to be called when a Party is deleted
+	 * @param party
+	 * 		The Party that was deleted
+	 */
 	@Override
 	public void onDeleteParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {
@@ -227,6 +256,11 @@ public class SubWindow implements Observer {
 		}
 	}
 
+	/**
+	 * Method to be called when a Party type is changed
+	 * @param party
+	 * 		The Party whose type was changed
+	 */
 	@Override
 	public void onChangeParty(Party party, Party partyNew) {
 		for (ViewParty viewParty : getViewParties()) {
@@ -244,12 +278,24 @@ public class SubWindow implements Observer {
 		}
 	}
 	
+	/**
+	 * Method to be called when a Party is added
+	 * @param party
+	 * 		The Party that was added
+	 * @param position
+	 * 		The position the Party must be painted at
+	 */
 	@Override
 	public void onAddParty(Party party, Point2D position) {
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
 		getViewParties().add(viewParty);
 	}
 
+	/**
+	 * Method to be called when a Message is deleted
+	 * @param message
+	 * 		The Message that was deleted
+	 */
 	@Override
 	public void onDeleteMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
@@ -258,6 +304,13 @@ public class SubWindow implements Observer {
 		}
 	}
 
+	/**
+	 * Method to be called when a Message is added
+	 * @param message
+	 * 		The Message that was added
+	 * @param position
+	 * 		The position the Message must be painted at
+	 */
 	@Override
 	public void onAddMessage(Message message, Point2D position) {
 		ViewParty sender = findViewParty(message.getSender());
@@ -272,6 +325,7 @@ public class SubWindow implements Observer {
 		
 		getViewMessages().add(viewMessage);
 	}
+	
 	
 	public ViewParty findViewParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {

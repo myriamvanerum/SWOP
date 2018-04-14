@@ -7,7 +7,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
-
+/**
+ * MainWindow class, inherits CanvasWindow class
+ * @author groep 03
+ *
+ */
 public class MainWindow extends CanvasWindow {
 	EventHandler eventHandler;
 	public MainWindow(String title) {
@@ -51,6 +55,8 @@ public class MainWindow extends CanvasWindow {
 	/**
      * Override for the standard paint method.
      * Paints everything the user sees onto the screen.
+     * @param g
+     * 		Graphics class
      */
     @Override
     protected void paint(Graphics g) {
@@ -98,6 +104,8 @@ public class MainWindow extends CanvasWindow {
         eventHandler.handleKeyEvent(id, keyCode, keyChar, this);
         repaint();
     }
+    
+    /* GETTERS AND SETTERS */
 
 	public EventHandler getEventHandler() {
 		return eventHandler;
