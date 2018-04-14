@@ -1,5 +1,8 @@
 package model;
-
+/**
+ * Factory class for creating Parties
+ * @author groep 03
+ */
 public class PartyFactory {
 	/**
 	 * Creates a new party

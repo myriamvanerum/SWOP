@@ -25,6 +25,8 @@ public class Interaction implements Observable {
 		messages = new ArrayList<>();
 		observers = new ArrayList<>();
 	}
+	
+	/* GETTERS AND SETTERS */
 
 	public ArrayList<Party> getParties() {
 		return parties;

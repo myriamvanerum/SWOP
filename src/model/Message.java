@@ -25,6 +25,8 @@ public abstract class Message extends Component {
 
         sender.setSendingMessage(this);
     }    
+    
+    /* GETTERS AND SETTERS */
 
     /**
      * Gets the sender of the message.

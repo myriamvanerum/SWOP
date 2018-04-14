@@ -1,8 +1,7 @@
 package model;
 
 /**
- * An Object class
- * 
+ * An Object class, a type of Party
  * @author groep 03
  */
 public class Object extends Party {
@@ -16,6 +15,11 @@ public class Object extends Party {
 		super(label);
 	}
 
+    /**
+     * Copy Constructor
+     * @param party
+     * 		The Party to copy
+     */
 	public Object(Party party) {
 		super(party);
 	}
