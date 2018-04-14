@@ -17,6 +17,7 @@ public class Actor extends Party {
     /**
      * Copy Constructor
      * @param party
+     * 		The Party to copy
      */
 	public Actor(Party party) {
 		super(party);

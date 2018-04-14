@@ -9,7 +9,10 @@ import controller.Controller;
 import model.Component;
 import model.Message;
 import model.Party;
-
+/**
+ * EventHandler class. Translates user input for Controller
+ * @author groep 03
+ */
 public class EventHandler {
 	Controller controller;
 	ViewComponent selectedComponent;
@@ -17,6 +20,11 @@ public class EventHandler {
 	int labelClicked;
 	Party first, second;
 
+	/**
+	 * EventHandler Constructor
+	 * @param window
+	 * 		Main Window
+	 */
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
 		labelMode = LabelMode.SHOW;
@@ -26,8 +34,7 @@ public class EventHandler {
 	/**
 	 * When a keyevent occurs, it is handled in this method. If tab is pressed, the
 	 * view of the diagram is switched, from communication to sequence and vice
-	 * versa, if delete is pressed (or backspace on a mac, which doesn't have a
-	 * deletebutton) the focused party gets deleted.
+	 * versa, if delete is pressed the focused party gets deleted.
 	 * 
 	 * @param id
 	 *            keyEvent id
@@ -39,7 +46,7 @@ public class EventHandler {
 	 *             Illegal id or keyCode
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar, MainWindow mainwindow) {
-		if (id < 0 || keyCode < 0)
+		if (id < 0 || keyCode < 0 || mainwindow == null)
 			throw new IllegalArgumentException();
 
 		if (labelMode == LabelMode.PARTY || labelMode == LabelMode.MESSAGE) {
@@ -108,8 +115,11 @@ public class EventHandler {
 	 *             Illegal id, coordinates or clickCount
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount, MainWindow mainwindow) {
-		if (id < 0 || x < 0 || y < 0 || clickCount < 0 || mainwindow.getActiveWindow() == null)
+		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
+		
+		if (mainwindow.getActiveWindow() == null)
+			return;
 		
 		if (labelMode == LabelMode.SHOW) {
 			switch (id) {
@@ -177,6 +187,16 @@ public class EventHandler {
 		}
 	}
 
+	/**
+	 * Checks if a Label was clicked
+	 * @param x
+	 * 		Clicked x coordinates
+	 * @param y
+	 * 		Clicked y coordinates
+	 * @param subwindow
+	 * 		SubWindow that contains this Label
+	 * @return the clicked Label, if there is one, otherwise null
+	 */
 	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
 		State state = subwindow.getState();
 		ArrayList<ViewParty> parties = subwindow.getViewParties();

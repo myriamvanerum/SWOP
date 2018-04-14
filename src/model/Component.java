@@ -7,6 +7,8 @@ package model;
 public class Component {
 
     public String label;
+    
+    /* GETTERS AND SETTERS */
 
     public String getLabel(){
         return label;
