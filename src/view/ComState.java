@@ -17,7 +17,8 @@ public class ComState  implements State {
 	        viewParty.drawCom(g, windowPosition);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
-	    	viewMessage.drawCom(g);
+	    	if (viewMessage.getClass() == ViewInvocationMessage.class)
+	    		viewMessage.drawCom(g, windowPosition);
 	    }		
 	}
 
