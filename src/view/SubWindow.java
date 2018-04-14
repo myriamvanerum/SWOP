@@ -280,4 +280,12 @@ public class SubWindow implements Observer {
 		}
 		return null;
 	}
+	
+	public ViewMessage findViewMessage(Message message) {
+		for (ViewMessage viewMessage : getViewMessages()) {
+			if (viewMessage.getMessage() == message)
+				return viewMessage;
+		}
+		return null;
+	}
 }

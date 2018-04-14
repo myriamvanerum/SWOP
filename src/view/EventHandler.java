@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import controller.Controller;
 import model.Component;
+import model.Message;
 import model.Party;
 
 public class EventHandler {
@@ -121,11 +122,12 @@ public class EventHandler {
 			case MouseEvent.MOUSE_RELEASED:
 				second = clickLifeline(x, y, mainwindow.getActiveWindow());
 				if (first != null && second != null) {
-					controller.addMessage(first, second, x, y);
+					Message message = controller.addMessage(first, second, x, y);
+					ViewMessage viewMessage = mainwindow.getActiveWindow().findViewMessage(message);
 					//TODO label mode message
-					/*labelMode = LabelMode.INPUT;
-					viewLabel.setLabelMode(LabelMode.INPUT);
-					viewLabel = clickLabel(x, y, mainwindow.getActiveWindow())*/
+					labelMode = LabelMode.INPUT;
+					viewMessage.getViewLabel().setLabelMode(LabelMode.INPUT);
+					selectedComponent = viewMessage;
 				}
 				break;
 			case MouseEvent.MOUSE_CLICKED:

@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 import model.Interaction;
 import model.InvocationMessage;
+import model.Message;
 import model.Party;
 import model.PartyFactory;
 import view.MainWindow;
@@ -118,10 +119,12 @@ public class Controller {
 		}
 	}
 
-	public void addMessage(Party sender, Party receiver, int x, int y) {
+	public Message addMessage(Party sender, Party receiver, int x, int y) {
 		System.out.println("Add message.");
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		currentInteraction.addMessage(invocationMessage, new Point2D.Double(x,y));	
+		
+		return invocationMessage;
 	}
 }

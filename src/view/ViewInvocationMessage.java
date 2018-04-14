@@ -40,7 +40,7 @@ public class ViewInvocationMessage extends ViewMessage {
 		// TODO draw label
 		Message m = getMessage();
 		String label = m.getLabel();
-		int labelX = (xReceiver - xSender) - (g.getFontMetrics().stringWidth(label))/2;
+		int labelX = (xReceiver - xSender) - ((g.getFontMetrics().stringWidth(label))/2);
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, y-2));
 	}
 
