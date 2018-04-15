@@ -2,9 +2,7 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-
 import model.Component;
-import model.InvocationMessage;
 import model.Message;
 /**
  * ViewMessage class. Controls the drawing of Messages

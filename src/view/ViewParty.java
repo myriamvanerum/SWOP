@@ -60,20 +60,6 @@ public class ViewParty extends ViewComponent {
 	}
 
 	/**
-	 * Checks if the Party's Label is positioned at the clicked coordinates
-	 * 
-	 * @param coordinates
-	 *            The coordinates of a click event
-	 * @param positionState
-	 * 			  The Party's position
-	 * @param windowPosition
-	 * 			  The SubWindow's position
-	 */
-	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
-		return false;
-	}
-
-	/**
 	 * Draw a Party in a Communication diagram
 	 * @param g
 	 * 		Graphics class
@@ -96,18 +82,6 @@ public class ViewParty extends ViewComponent {
 		setColor(this, g);
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
 		viewLifeLine.draw(g);
-	}
-
-	/**
-	 * Add the Party position and SubWindow position to get new coordinates
-	 * @param position
-	 * 		Party position
-	 * @param windowPosition
-	 * 		SubWindow position
-	 * @return added coordinates
-	 */
-	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
-		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
 	}
 
 	/**

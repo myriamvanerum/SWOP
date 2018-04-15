@@ -169,8 +169,11 @@ public class EventHandler {
 						labelClicked += 1;
 					}
 					if (labelClicked == 2) {
-						// TODO message / party
-						labelMode = LabelMode.PARTY;
+						if (selectedComponent instanceof ViewParty)
+							labelMode = LabelMode.PARTY;
+						else if (selectedComponent instanceof ViewMessage)
+							labelMode = LabelMode.MESSAGE;
+						
 						viewLabel.setLabelMode(labelMode);
 						labelClicked = 0;
 						Component currentComponent = selectedComponent.getComponent();
@@ -185,7 +188,6 @@ public class EventHandler {
 				}
 
 				// TODO Lifeline + (invocation) message clicked
-				// selectedComponent = controller.createMessage();
 				break;
 			}
 		}
@@ -237,22 +239,21 @@ public class EventHandler {
 			}
 		}
 
-		// TODO click label invocation messages
 		for (ViewMessage message : messages) {
-			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				/*
-				 * if (message.checkLabelPosition(new Point2D.Double(x, y),
-				 * message.getPositionSeq(), new Point2D.Double(subwindow.getX(),
-				 * subwindow.getY()))) { selectedComponent = message; return
-				 * message.getViewLabel(); }
-				 */
-			} else {
-				/*
-				 * if (party.checkLabelPosition(new Point2D.Double(x, y),
-				 * party.getPositionCom(), new Point2D.Double(subwindow.getX(),
-				 * subwindow.getY()))) { selectedComponent = party; return party.getViewLabel();
-				 * }
-				 */
+			if (message.getClass() == ViewInvocationMessage.class) {
+				if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
+					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionSeq(),
+							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+						selectedComponent = message;
+						return message.getViewLabel();
+					}
+				} else {
+					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionCom(),
+							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
+						selectedComponent = message;
+						return message.getViewLabel();
+					}
+				}
 			}
 		}
 
@@ -297,8 +298,7 @@ public class EventHandler {
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
-			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter
-			// kan?
+			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter kan?
 			State state = subwindow.getState();
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),

@@ -67,6 +67,32 @@ public class ViewComponent implements Selectable {
 	}
 	
 	/**
+	 * Checks if the Component's Label is positioned at the clicked coordinates
+	 * 
+	 * @param coordinates
+	 *            The coordinates of a click event
+	 * @param positionState
+	 * 			  The Party's position
+	 * @param windowPosition
+	 * 			  The SubWindow's position
+	 */
+	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
+		return false;
+	}
+	
+	/**
+	 * Add the Party position and SubWindow position to get new coordinates
+	 * @param position
+	 * 		Party position
+	 * @param windowPosition
+	 * 		SubWindow position
+	 * @return added coordinates
+	 */
+	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
+		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
+	}
+	
+	/**
      * This method determines if the Component is selected
 	 * @return true is selected, false if not selected
 	 */
