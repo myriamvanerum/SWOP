@@ -15,10 +15,15 @@ public class ViewInvocationMessage extends ViewMessage {
 	/**
 	 * ViewInvocationMessage Constructor
 	 * @param message
+	 * 		Message to draw
 	 * @param position
+	 * 		Mesage position
 	 * @param windowPosition
+	 * 		SubWindow position
 	 * @param sender
+	 * 		Message sender
 	 * @param receiver
+	 * 		Message receiver
 	 */
 	public ViewInvocationMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver ) {
 		super(message, position, windowPosition, sender, receiver);
@@ -54,18 +59,4 @@ public class ViewInvocationMessage extends ViewMessage {
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender-2));
 	}
-
-	/**
-	 * This method determines how wide the line for a invocation message should be
-	 * 
-	 * @param focused
-	 *            Boolean that signifies is the message is focused or not
-	 * @return The number of pixels the line width should be
-	 */
-	/*public int getLineWidthInvocation(boolean focused) {
-		if (focused) {
-			return 8;
-		}
-		return 5;
-	}*/
 }

@@ -6,9 +6,25 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import model.Message;
-
+/**
+ * ViewResultMessage class. Controls the drawing of ResultMessages
+ * @author groep 03
+ *
+ */
 public class ViewResultMessage extends ViewMessage {
-	
+	/**
+	 * ViewResultMessage Constructor
+	 * @param message
+	 * 		Message to draw
+	 * @param position
+	 * 		Mesage position
+	 * @param windowPosition
+	 * 		SubWindow position
+	 * @param sender
+	 * 		Message sender
+	 * @param receiver
+	 * 		Message receiver
+	 */
 	public ViewResultMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver ) {
 		super(message, position, windowPosition, sender, receiver);
 	}
@@ -17,9 +33,7 @@ public class ViewResultMessage extends ViewMessage {
 	 * This method draws a result message on the window
 	 * 
 	 * @param g
-	 *            The graphics library used
-	 * @param focused
-	 *            Boolean that signifies is the message is focused or not
+	 *            The graphics class
 	 * @param xSender
 	 *            The x coordinate of the message sender
 	 * @param ySender
@@ -43,19 +57,5 @@ public class ViewResultMessage extends ViewMessage {
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender+12));
-	}
-
-	/**
-	 * This method determines how wide the line for a result message should be
-	 * 
-	 * @param focused
-	 *            Boolean that signifies is the message is focused or not
-	 * @return The number of pixels the line width should be
-	 */
-	public int getLineWidthResult(boolean focused) {
-		if (focused) {
-			return 5;
-		}
-		return 3;
 	}
 }

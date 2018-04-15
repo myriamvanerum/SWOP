@@ -16,8 +16,11 @@ public class ViewActor extends ViewParty {
 	/**
 	 * ViewActor Constructor
 	 * @param party
+	 * 		Party to draw
 	 * @param clickPosition
+	 * 		Chosen position
 	 * @param windowPosition
+	 * 		SubWindow position
 	 */
 	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
@@ -26,6 +29,7 @@ public class ViewActor extends ViewParty {
 	/**
 	 * Copy Constructor
 	 * @param viewParty
+	 * 		The ViewParty to copy
 	 */
 	public ViewActor(ViewParty viewParty) {
 		super(viewParty);
@@ -36,10 +40,8 @@ public class ViewActor extends ViewParty {
 	 * 
 	 * @param g
 	 *            The graphics class
-	 * @param size
-	 *            The size of the painted stickfigure
-	 * @param label
-	 *            The text of the label
+	 * @param position
+	 * 			  The position to draw the Actor
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {	

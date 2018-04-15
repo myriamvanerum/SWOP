@@ -5,12 +5,30 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 import model.Party;
-
+/**
+ * ViewObject class. Controls the drawing of Objects
+ * @author groep 03
+ *
+ */
 public class ViewObject extends ViewParty {
+	/**
+	 * ViewObject Constructor
+	 * @param party
+	 * 		Party to draw
+	 * @param clickPosition
+	 * 		Chosen position
+	 * @param windowPosition
+	 * 		SubWindow position
+	 */
 	public ViewObject(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
 	}
 	
+	/**
+	 * Copy Constructor
+	 * @param viewParty
+	 * 		The ViewParty to copy
+	 */
 	public ViewObject(ViewParty viewParty) {
 		super(viewParty);
 	}
@@ -21,11 +39,9 @@ public class ViewObject extends ViewParty {
 	 * This method paints an object on the window
 	 * 
 	 * @param g
-	 *            The graphics library used
-	 * @param size
-	 *            The size of the rectangle to paint
-	 * @param label
-	 *            The text of the label
+	 *            The graphics class
+	 * @param position
+	 * 			  The position to draw the Object
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {
@@ -49,15 +65,18 @@ public class ViewObject extends ViewParty {
 	}
 		
 	/**
-	 * Checks if the object is positioned at the clicked coordinates
+	 * Checks if the Object is positioned at the clicked coordinates
 	 * @param coordinates
 	 * 			The coordinates of a click event
+	 * @param positionState
+	 * 			  The Object's position
+	 * @param windowPosition
+	 * 			  The SubWindow's position
 	 */
 	@Override
 	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {	
 		Point2D position = positionWindow(positionState, windowPosition);
 		
-		// TODO + 25???
 		return coordinates.getX() >= position.getX() - 5 && 
 			coordinates.getX() <= position.getX() - 5 + getWidth() && 
 			coordinates.getY() >= position.getY() - 5 &&
@@ -65,6 +84,16 @@ public class ViewObject extends ViewParty {
 			!checkLabelPosition(coordinates, position, null);
 	}
 	
+	/**
+	 * Checks if the Object's Label is positioned at the clicked coordinates
+	 * 
+	 * @param coordinates
+	 *            The coordinates of a click event
+	 * @param positionState
+	 * 			  The Object's position
+	 * @param windowPosition
+	 * 			  The SubWindow's position
+	 */
 	@Override
 	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) { 
 		Point2D position;
@@ -82,6 +111,8 @@ public class ViewObject extends ViewParty {
 			   coordinates.getY() >= yPositionLabel - viewLabel.getHeight() &&
 			   coordinates.getY() <= yPositionLabel;
 	}
+	
+	/* GETTERS AND SETTERS */
 
 	public int getWidth() {
 		return width;
