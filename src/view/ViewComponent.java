@@ -5,22 +5,24 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import model.Component;
-
+/**
+ * ViewComponent class. Controls the drawing of Components
+ * @author groep 03
+ *
+ */
 public class ViewComponent implements Selectable {
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
 
-	// ik zou de positie relatief tegenover het subwindow bijhouden, dat lijkt mij
-	// het gemakkelijkste
 	Point2D positionCom;
 	Point2D positionSeq;
 	
 	/**
-	 * This method sets the color for all components. Focused components will be blue, others black.
-	 * @param focusable
+	 * This method sets the color for all components. Selected components will be blue, others black.
+	 * @param selectable
 	 * 		The component to be painted
 	 * @param g
-	 * 		The graphics library used
+	 * 		The graphics class
 	 * @throws IllegalArgumentException
 	 * 		Illegal party
 	 */
@@ -33,6 +35,8 @@ public class ViewComponent implements Selectable {
 			g.setPaint(new Color(0, 0, 0));
 		}
 	}
+	
+	/* GETTERS AND SETTERS */
 	
 	public Component getComponent() {
 		return null;
@@ -62,16 +66,26 @@ public class ViewComponent implements Selectable {
 		this.positionSeq = positionSeq;
 	}
 	
+	/**
+     * This method determines if the Component is selected
+	 * @return true is selected, false if not selected
+	 */
 	@Override
 	public boolean selected() {
 		return isSelected;
 	}
 
+	/**
+     * This method selects a Component
+     */
 	@Override
 	public void select() {
 		isSelected = true;
 	}
 
+	/**
+     * This method unselects a Component
+     */
 	@Override
 	public void unselect() {
 		isSelected = false;

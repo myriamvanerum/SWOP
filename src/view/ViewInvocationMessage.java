@@ -6,9 +6,20 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import model.Message;
-
+/**
+ * ViewInvocationMessage class. Controls the drawing of InvocationMessages
+ * @author groep 03
+ *
+ */
 public class ViewInvocationMessage extends ViewMessage {
-	
+	/**
+	 * ViewInvocationMessage Constructor
+	 * @param message
+	 * @param position
+	 * @param windowPosition
+	 * @param sender
+	 * @param receiver
+	 */
 	public ViewInvocationMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver ) {
 		super(message, position, windowPosition, sender, receiver);
 	}
@@ -17,7 +28,7 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * This method draws an invocation message on the window
 	 * 
 	 * @param g
-	 *            The graphics library used
+	 *            The graphics class
 	 * @param focused
 	 *            Boolean that signifies is the message is focused or not
 	 * @param xSender

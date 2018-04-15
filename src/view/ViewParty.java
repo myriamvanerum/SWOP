@@ -14,7 +14,7 @@ public class ViewParty extends ViewComponent {
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
 		viewLabel = new ViewLabel();
-		viewLifeLine = new ViewLifeLine(this);
+		viewLifeLine = new ViewLifeLine();
 		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
 				clickPosition.getY() - windowPosition.getY() - 25));
 		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));

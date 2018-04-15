@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -27,8 +26,6 @@ public class ViewObject extends ViewParty {
 	 *            The size of the rectangle to paint
 	 * @param label
 	 *            The text of the label
-	 * @throws IllegalArgumentException
-	 * 			  Illegal object, coordinates or size
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {

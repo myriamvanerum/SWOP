@@ -3,11 +3,18 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.*;
-
+/**
+ * ViewLabel class. Controls the drawing of Labels
+ * @author groep 03
+ *
+ */
 public class ViewLabel {
 	int width, height;
 	LabelMode labelMode;
 	
+	/**
+	 * ViewLabel Constructor
+	 */
 	public ViewLabel() {
 		labelMode = LabelMode.SHOW;
 	}
@@ -15,7 +22,7 @@ public class ViewLabel {
 	/**
 	 * This method draws a label for the components
 	 * @param g
-	 * 		The graphics librar.getY() used
+	 * 		The graphics class
 	 * @param label
 	 * 		The text of the label
 	 * @param position
@@ -40,6 +47,12 @@ public class ViewLabel {
 		g.setColor(new Color(0,0,0));
 	}
 	
+	/**
+	 * Checks if the Label's syntax is correct.
+	 * @param input
+	 * 		The label input
+	 * @return true if correct, false if not
+	 */
 	public boolean correctSyntax(String input) {
 		char first = input.charAt(0);
 		String parts[] = input.split(":|;");
@@ -53,6 +66,8 @@ public class ViewLabel {
 			return (input.contains(":") || input.contains(";")) && Character.isLowerCase(first) && Character.isUpperCase(parts[1].charAt(0));
 		else return false;
 	}
+	
+	/* GETTERS AND SETTERS */
 
 	public int getWidth() {
 		return width;

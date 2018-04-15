@@ -1,19 +1,32 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.*;
 
 import model.Party;
-
+/**
+ * ViewActor class. Controls the drawing of Actors
+ * @author groep 03
+ *
+ */
 public class ViewActor extends ViewParty {
 	private int size = 20;
 
+	/**
+	 * ViewActor Constructor
+	 * @param party
+	 * @param clickPosition
+	 * @param windowPosition
+	 */
 	public ViewActor(Party party, Point2D clickPosition, Point2D windowPosition) {
 		super(party, clickPosition, windowPosition);
 	}
 	
+	/**
+	 * Copy Constructor
+	 * @param viewParty
+	 */
 	public ViewActor(ViewParty viewParty) {
 		super(viewParty);
 	}
@@ -22,13 +35,11 @@ public class ViewActor extends ViewParty {
 	 * This method paints an actor on the window
 	 * 
 	 * @param g
-	 *            The graphics library used
+	 *            The graphics class
 	 * @param size
 	 *            The size of the painted stickfigure
 	 * @param label
 	 *            The text of the label
-	 * @throws IllegalArgumentException
-	 *             Illegal actor, coordinates or size
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {	
@@ -54,6 +65,10 @@ public class ViewActor extends ViewParty {
 	 * 
 	 * @param coordinates
 	 *            The coordinates of a click event
+	 * @param positionState
+	 * 			  The Actor's position
+	 * @param windowPosition
+	 * 			  The SubWindow's position
 	 */
 	@Override
 	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
@@ -67,6 +82,16 @@ public class ViewActor extends ViewParty {
 			new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
 	}
 	
+	/**
+	 * Checks if the Actor's Label is positioned at the clicked coordinates
+	 * 
+	 * @param coordinates
+	 *            The coordinates of a click event
+	 * @param positionState
+	 * 			  The Actor's position
+	 * @param windowPosition
+	 * 			  The SubWindow's position
+	 */
 	@Override
 	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
 		Point2D position = positionWindow(positionState, windowPosition);
