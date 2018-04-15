@@ -23,8 +23,13 @@ public abstract class Party extends Component {
      * Copy Constructor
      * @param party
      * 		The Party to copy
+     * @throws NullPointerException
+	 * 		No party supplied
      */
     public Party(Party party) {
+    	if (party == null)
+    		throw new NullPointerException();
+    	
 		this.label = party.label;
 		setSendingMessage(party.getSendingMessage());
 	}

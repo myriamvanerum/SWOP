@@ -27,8 +27,13 @@ public class Controller {
 	 * Controller constructor
 	 * @param mainWindow
 	 * 		Canvas for this controller
+	 * @throws NullPointerException
+	 * 		No window supplied
 	 */
 	public Controller(MainWindow mainWindow) {
+		if (mainWindow == null)
+			throw new NullPointerException();
+		
 		this.mainWindow = mainWindow;
 		this.partyFactory = new PartyFactory();
 		System.out.println("Starting Interactr.");
@@ -62,9 +67,15 @@ public class Controller {
 	 * @param position
 	 * 		The clicked position, where the party must be placed on the screen
 	 * @return the created Party
+	 * @throws NullPointerException
+	 * 		No position supplied
+	 * @throws IllegalArgumentException
+	 * 		Illegal position
 	 */
 	public Party createParty(Point2D position) {
-		if (position == null || position.getX() < 0 || position.getY() < 0)
+		if (position == null)
+			throw new NullPointerException();
+		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
 		Party party = partyFactory.createParty("object");
@@ -83,10 +94,12 @@ public class Controller {
 	 * Set a new active SubWindow, to be placed at the front
 	 * @param subwindow
 	 * 		the SubWindow to be placed at the front
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
 	 */
 	public void changeActiveSubwindow(SubWindow subwindow) {
 		if (subwindow == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		System.out.println("Change Active Window");
 		mainWindow.setActiveWindow(subwindow);
@@ -96,10 +109,12 @@ public class Controller {
 	 * Close a SubWindow
 	 * @param subwindow
 	 * 		the SubWindow to be closed
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
 	 */
 	public void closeClickedSubwindow(SubWindow subwindow) {	
 		if (subwindow == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		mainWindow.getSubWindows().remove(subwindow);
 		subwindow.getInteraction().removeObserver(subwindow);
@@ -119,10 +134,12 @@ public class Controller {
 	 * Change the type of a Party. An Actor becomes an Object and vice versa
 	 * @param viewParty
 	 * 		The ViewParty that was clicked
+	 * @throws NullPointerException
+	 * 		No ViewParty supplied
 	 */
 	public void changePartyType(ViewParty viewParty) {
 		if (viewParty == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		System.out.println("Change Party Type.");
 		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
@@ -140,10 +157,12 @@ public class Controller {
 	 * Select a Party or Message
 	 * @param viewComponent
 	 * 		The Party or Message to select
+	 * @throws NullPointerException
+	 * 		No ViewComponent supplied
 	 */
 	public void selectComponent(ViewComponent viewComponent) {
 		if (viewComponent == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		System.out.println("Select party.");
 		
@@ -159,10 +178,12 @@ public class Controller {
 	 * 		The Party or Message to delete
 	 * @param activeWindow
 	 * 		The active SubWindow
+	 * @throws NullPointerException
+	 * 		No ViewComponent or SubWindow supplied
 	 */
 	public void deleteComponent(ViewComponent viewComponent, SubWindow activeWindow) {
 		if (viewComponent == null || activeWindow == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
 		// party verwijderd uit model
@@ -179,9 +200,15 @@ public class Controller {
 	 * 		The new x coordinates
 	 * @param y
 	 * 		The new y coordinates
+	 * @throws NullPointerException
+	 * 		No ViewComponent supplied
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
-		if (selectedViewComponent == null || x < 0 || y < 0)
+		if (selectedViewComponent == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
 		SubWindow activeWindow = mainWindow.getActiveWindow();
@@ -205,9 +232,15 @@ public class Controller {
 	 * 		The clicked y coordinates
 	 * @return
 	 * 		The created Message
+	 * @throws NullPointerException
+	 * 		No sender or receiver supplied
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	public Message addMessage(Party sender, Party receiver, int x, int y) {
-		if (sender == null || receiver == null || x < 0 || y < 0)
+		if (sender == null || receiver == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
 		System.out.println("Add message.");

@@ -26,9 +26,9 @@ public class ViewLabel {
 	 * @param label
 	 * 		The text of the label
 	 * @param position
-	 * 		The color to draw the label in
+	 * 		The position to draw the label at
 	 * @throws IllegalArgumentException
-	 * 		Illegal label or color
+	 * 		Illegal label or position
 	 */
 	protected void draw(Graphics2D g, String label, Point2D position) {
 		if (label == null || position.getX() < 0 || position.getY() < 0)

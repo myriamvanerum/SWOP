@@ -9,12 +9,12 @@ public class PartyFactory {
 	 * @param partyType
 	 * 			string contains a party type, depending on what kind of party needs to be created
 	 * @return a new party object (actor or object)
-	 * @throws IllegalArgumentException
+	 * @throws NullPointerException
 	 * 			  Illegal party type
 	 */
 	public Party createParty(String partyType) {
 		if (partyType == null)
-			throw new IllegalArgumentException();
+			throw new NullPointerException();
 		
 		if (partyType.equalsIgnoreCase("ACTOR")) {
 			return new Actor("|");

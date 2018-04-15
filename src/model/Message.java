@@ -14,9 +14,12 @@ public abstract class Message extends Component {
     /**
      * Constructor of Message.
      * 
-     * @param label: the label of the message.
-     * @param sender: the sender of the message.
-     * @param receiver: the receiver of the message.
+     * @param label
+     * 		the label of the message.
+     * @param sender
+     * 		the sender of the message.
+     * @param receiver
+     * 		the receiver of the message.
      */
     public Message(String label, Party sender, Party receiver) {
         this.label = label;
