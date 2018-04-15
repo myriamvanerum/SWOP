@@ -17,6 +17,7 @@ import model.Party;
  */
 public class EventHandler {
 	Controller controller;
+	MainWindow mainwindow;
 	ViewComponent selectedComponent;
 	LabelMode labelMode;
 	int labelClicked;
@@ -30,6 +31,7 @@ public class EventHandler {
 	 */
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
+		this.mainwindow = window;
 		labelMode = LabelMode.SHOW;
 		labelClicked = 0;
 	}
@@ -41,15 +43,15 @@ public class EventHandler {
 	 * 
 	 * @param id
 	 *            keyEvent id
-	 * @param keyCode:
+	 * @param keyCode
 	 *            Keyboard key pressed
-	 * @param keyChar:
+	 * @param keyChar
 	 *            keyboard key pressed keyChar
 	 * @throws IllegalArgumentException
-	 *             Illegal id or keyCode
+	 *            Illegal id or keyCode
 	 */
-	public void handleKeyEvent(int id, int keyCode, char keyChar, MainWindow mainwindow) {
-		if (id < 0 || keyCode < 0 || mainwindow == null)
+	public void handleKeyEvent(int id, int keyCode, char keyChar) {
+		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
 		if (labelMode == LabelMode.PARTY || labelMode == LabelMode.MESSAGE) {
@@ -85,7 +87,7 @@ public class EventHandler {
 				break;
 			case KeyEvent.VK_DELETE:
 				if (selectedComponent != null)
-					controller.deleteComponent(selectedComponent, mainwindow.activeWindow);
+					controller.deleteComponent(selectedComponent);
 				break;
 			case KeyEvent.VK_N:
 				if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
@@ -109,16 +111,16 @@ public class EventHandler {
 	 * 
 	 * @param id
 	 *            mouseEvent id
-	 * @param x:
+	 * @param x
 	 *            coordinate x
-	 * @param y:
+	 * @param y
 	 *            coordinate y
-	 * @param clickCount:
+	 * @param clickCount
 	 *            the number of times the mouse has clicked.
 	 * @throws IllegalArgumentException
 	 *             Illegal id, coordinates or clickCount
 	 */
-	public void handleMouseEvent(int id, int x, int y, int clickCount, MainWindow mainwindow) {
+	public void handleMouseEvent(int id, int x, int y, int clickCount) {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
@@ -192,13 +194,21 @@ public class EventHandler {
 	}
 
 	/**
-	 * 
+	 * Check the Message Call Stack
 	 * @param sender
+	 * 		Message sender
 	 * @param receiver
+	 * 		Message receiver
 	 * @param subwindow
-	 * @return
+	 * 		SubWindow that contains the Message
+	 * @return true if the call stack is correct
+	 * @throws NullPointerException
+	 * 		No sender, receiver or subwindow supplied
 	 */
 	private boolean checkCallStack(Party sender, Party receiver, SubWindow subwindow) {
+		if (sender == null || receiver == null || subwindow == null)
+			throw new NullPointerException();
+		
 		ViewParty first = subwindow.findViewParty(sender);
 		ViewParty second = subwindow.findViewParty(receiver);
 
@@ -215,8 +225,17 @@ public class EventHandler {
 	 * @param subwindow
 	 *            SubWindow that contains this Label
 	 * @return the clicked Label, if there is one, otherwise null
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
+		if (subwindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		State state = subwindow.getState();
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		ArrayList<ViewMessage> messages = subwindow.getViewMessages();
@@ -271,8 +290,17 @@ public class EventHandler {
 	 *            ArrayList of all subwindows
 	 * @return Null if no close button is clicked The Subwindow of which the close
 	 *         button was clicked
+	 * @throws NullPointerException
+	 * 		No subwindows supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows) {
+		if (subWindows.size() == 0)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		for (int i = subWindows.size() - 1; i >= 0; i--) {
 			if (clickCloseButton(x, y, subWindows.get(i)))
 				return subWindows.get(i);
@@ -293,12 +321,19 @@ public class EventHandler {
 	 * @return Null if there is no party on the position given by the coordinates x
 	 *         and y The ViewParty that is on the position given by the coordinates
 	 *         x and y
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
+		if (subwindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		ArrayList<ViewParty> parties = subwindow.getViewParties();
 		for (ViewParty party : parties) {
-			// TODO ik ben geen fan van deze code (instanceof), mss eens kijken of dit beter
-			// kan?
 			State state = subwindow.getState();
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),
@@ -325,8 +360,17 @@ public class EventHandler {
 	 *            The subwindow that has to be checked
 	 * @return True if the close button of the subwindow is clicked False if the
 	 *         close butten of the subwindow isn't clicked
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private boolean clickCloseButton(int x, int y, SubWindow subwindow) {
+		if (subwindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		return subwindow != null && x >= subwindow.getX() + (subwindow.getWidth() - subwindow.getHeightTitlebar())
 				&& x <= subwindow.getX() + subwindow.getWidth() && y >= subwindow.getY()
 				&& y <= (subwindow.getY() + subwindow.getHeightTitlebar());
@@ -341,9 +385,18 @@ public class EventHandler {
 	 *            The y coordinate of the clicked position
 	 * @param subwindow
 	 *            The current active subwindow
-	 * @return
+	 * @return true if the clickevent occured outside of the active subwindow
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private boolean clickOutsideActiveSubwindow(int x, int y, SubWindow subwindow) {
+		if (subwindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		return x < subwindow.getX() || y < subwindow.getY() || x > subwindow.getX() + subwindow.getWidth()
 				|| y > subwindow.getY() + subwindow.getHeight();
 	}
@@ -361,8 +414,17 @@ public class EventHandler {
 	 * @param subWindows
 	 *            The list of all subwindows
 	 * @return The clicked subwindow, or null
+	 * @throws NullPointerException
+	 * 		No subwindow or list of subwindows supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
+		if (subwindow == null || subWindows.size() == 0)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		for (int i = subWindows.size() - 1; i >= 0; i--) {
 			if (subWindows.get(i) != subwindow) {
 				int xSub = subWindows.get(i).getX();
@@ -385,8 +447,18 @@ public class EventHandler {
 	 *            The clicked x coordinates
 	 * @param y
 	 *            The clicked y coordinates
+	 * @return the clicked LifeLine or null
+	 * @throws NullPointerException
+	 * 		No subwindow or list of subwindows supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
 	 */
 	private Party clickLifeline(int x, int y, SubWindow subwindow) {
+		if (subwindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		for (ViewParty party : subwindow.getViewParties()) {
 			ViewLifeLine lifeline = party.getViewLifeLine();
 			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()

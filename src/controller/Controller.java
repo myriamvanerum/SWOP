@@ -176,19 +176,17 @@ public class Controller {
 	 * Delete a Party or Message from an Interaction
 	 * @param viewComponent
 	 * 		The Party or Message to delete
-	 * @param activeWindow
-	 * 		The active SubWindow
 	 * @throws NullPointerException
-	 * 		No ViewComponent or SubWindow supplied
+	 * 		No ViewComponent supplied
 	 */
-	public void deleteComponent(ViewComponent viewComponent, SubWindow activeWindow) {
-		if (viewComponent == null || activeWindow == null)
+	public void deleteComponent(ViewComponent viewComponent) {
+		if (viewComponent == null)
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
 		// party verwijderd uit model
 		if (viewComponent instanceof ViewParty)
-			activeWindow.getInteraction().removeParty((Party)viewComponent.getComponent());
+			mainWindow.getActiveWindow().getInteraction().removeParty((Party)viewComponent.getComponent());
 		// TODO delete messages
 	}
 
