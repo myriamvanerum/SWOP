@@ -30,7 +30,7 @@ public abstract class Party extends Component {
     	if (party == null)
     		throw new NullPointerException();
     	
-		this.label = party.label;
+		setLabel(party.label);
 		setSendingMessage(party.getSendingMessage());
 	}
 

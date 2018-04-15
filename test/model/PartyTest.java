@@ -4,7 +4,6 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,41 +12,26 @@ import org.junit.jupiter.api.Test;
  */
 class PartyTest {
 	
-//	Label label = new Label();
-//	private Party actor = new Actor(1,2,label);
-//	private Party object = new Object(3,4,label);
-//	
-//	// Communication diagram
-//	@Test
-//	void testActor() {
-//		assertEquals(1, actor.getXCom());
-//		assertEquals(2, actor.getYCom());
-//		assertEquals(label, actor.getLabel());
-//	}
-//	
-//	@Test
-//	void testObject() {		
-//		assertEquals(3, object.getXCom());
-//		assertEquals(4, object.getYCom());
-//		assertEquals(label, object.getLabel());
-//		
-//
-//		object.setXCom(5);
-//		object.setY(5);
-//		assertEquals(5, object.getXCom());
-//		assertEquals(5, object.getYCom());
-//	}
-//	
-//	// Sequence diagram
-//	@Test
-//	void testActorSeq() {		
-//		actor.setLabel(new Label(1,1,"test"));
-//		actor.setXSeq(2);
-//		actor.setY(0);
-//		
-//		assertNotEquals(0,actor.getYSeq());
-//		assertEquals(50,actor.getYSeq());
-//		assertEquals(2,actor.getXSeq());
-//		assertEquals("test",actor.getLabelText());
-//	}
+	@Test
+	void testPartyBasic() {
+		Party actor = new Actor("test");
+		Party object = new Object("test");
+		
+		Message invocation = new InvocationMessage("message", actor, object);		
+		actor.setSendingMessage(invocation);
+		
+		assertEquals("test", actor.getLabel());
+		assertEquals("test", object.getLabel());	
+		assertEquals(actor, actor.getSendingMessage().getSender());
+		assertEquals(object, actor.getSendingMessage().getReceiver());
+		assertEquals("message", actor.getSendingMessage().getLabel());
+		
+		Party newActor = new Actor(object);
+		assertEquals(object.getLabel(), newActor.getLabel());
+		assertEquals(object.getSendingMessage(), newActor.getSendingMessage());
+		
+		Party newObject = new Object(actor);
+		assertEquals(actor.getLabel(), newObject.getLabel());
+		assertEquals(actor.getSendingMessage(), newObject.getSendingMessage());
+	}
 }
