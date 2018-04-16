@@ -19,17 +19,11 @@ public class ViewComponent implements Selectable {
 	
 	/**
 	 * This method sets the color for all components. Selected components will be blue, others black.
-	 * @param selectable
-	 * 		The component to be painted
 	 * @param g
 	 * 		The graphics class
-	 * @throws IllegalArgumentException
-	 * 		Illegal party
 	 */
-	public void setColor(Selectable selectable, Graphics2D g) {
-		if (selectable == null)
-			throw new IllegalArgumentException();
-		if (selectable.selected()) {
+	public void setColor(Graphics2D g) {
+		if (this.selected()) {
 			g.setPaint(new Color(70, 170, 220));
 		} else {
 			g.setPaint(new Color(0, 0, 0));
