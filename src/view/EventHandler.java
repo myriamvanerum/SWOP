@@ -76,6 +76,10 @@ public class EventHandler {
 					currentComponent.setLabel(label.substring(0, label.length() - 1));
 				labelMode = LabelMode.SHOW;
 				viewLabel.setLabelMode(LabelMode.SHOW);
+				
+				if (selectedComponent.isSelected)
+					controller.selectComponent(selectedComponent);
+				
 				selectedComponent = null;
 			}
 		}
@@ -134,7 +138,7 @@ public class EventHandler {
 				first = clickLifeline(x, y, activeWindow);
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
-				if (selectedComponent != null)
+				if (selectedComponent != null && !selectedComponent.isSelected)
 					controller.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
@@ -155,13 +159,16 @@ public class EventHandler {
 
 				if (closeWindow != null) {
 					controller.closeClickedSubwindow(closeWindow);
+					labelClicked = 0;
 				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
 					if (sub != null)
 						controller.changeActiveSubwindow(sub);
+					labelClicked = 0;
 				} else if ((selectedComponent = clickParty(x, y, subwindow)) != null) {
 					if (clickCount == 2)
 						controller.changePartyType((ViewParty) selectedComponent);
+					labelClicked = 0;
 				} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
 					System.out.println("label clicked");
 					if (clickCount == 1) {
@@ -185,6 +192,7 @@ public class EventHandler {
 					Party party = controller.createParty(new Point2D.Double(x, y));
 					selectedComponent = subwindow.findViewParty(party);
 					labelMode = LabelMode.PARTY;
+					labelClicked = 0;
 				}
 
 				// TODO Lifeline + (invocation) message clicked

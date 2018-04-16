@@ -30,6 +30,10 @@ public class ViewComponent implements Selectable {
 		}
 	}
 	
+	public void resetColor(Graphics2D g) {
+		g.setPaint(new Color(0, 0, 0));
+	}
+	
 	/* GETTERS AND SETTERS */
 	
 	public Component getComponent() {
