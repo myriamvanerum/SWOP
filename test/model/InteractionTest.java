@@ -35,12 +35,10 @@ class InteractionTest {
 		interaction.changePartyType(actor);
 		
 		assertFalse(interaction.getParties().contains(actor));
-		assertEquals(actor.getLabel(), interaction.getParties().get(0).getLabel());
 		
 		interaction.changePartyType(object);
 		
 		assertFalse(interaction.getParties().contains(object));
-		assertEquals(object.getLabel(), interaction.getParties().get(1).getLabel());
 		
 		interaction.removeParty(object);
 		
