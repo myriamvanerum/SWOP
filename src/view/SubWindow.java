@@ -273,10 +273,8 @@ public class SubWindow implements Observer {
 	 */
 	@Override
 	public void onDeleteParty(Party party) {
-		for (ViewParty viewParty : getViewParties()) {
-			if (viewParty.getParty().equals(party))
-				getViewParties().remove(viewParty);
-		}
+		ViewParty viewParty = findViewParty(party);
+		getViewParties().remove(viewParty);
 	}
 
 	/**
@@ -286,19 +284,17 @@ public class SubWindow implements Observer {
 	 */
 	@Override
 	public void onChangeParty(Party party, Party partyNew) {
-		for (ViewParty viewParty : getViewParties()) {
-			if (viewParty.getParty().equals(party)) {
-				getViewParties().remove(viewParty);
-				
-				ViewParty newViewParty;
-				if (party instanceof Actor) {
-					newViewParty = new ViewObject(viewParty);
-				} else {
-					newViewParty = new ViewActor(viewParty);
-				}
-				getViewParties().add(newViewParty);
-			}
+		ViewParty viewParty = findViewParty(party);
+		viewParty.setParty(partyNew);
+		getViewParties().remove(viewParty);
+		
+		ViewParty newViewParty;
+		if (party instanceof Actor) {
+			newViewParty = new ViewObject(viewParty);
+		} else {
+			newViewParty = new ViewActor(viewParty);
 		}
+		getViewParties().add(newViewParty); 
 	}
 	
 	/**

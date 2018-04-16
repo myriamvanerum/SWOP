@@ -101,7 +101,7 @@ public class Controller {
 		if (subwindow == null)
 			throw new NullPointerException();
 		
-		System.out.println("Change Active Window");
+		System.out.println("Change Active Window.");
 		mainWindow.setActiveWindow(subwindow);
 	}
 
