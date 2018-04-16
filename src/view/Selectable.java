@@ -8,7 +8,7 @@ package view;
 public interface Selectable {
 	/**
      * This method determines if the object is selected
-	 * @return true is selected, false if not selected
+	 * @return true if selected, false if not selected
 	 */
 	public boolean selected();
 	

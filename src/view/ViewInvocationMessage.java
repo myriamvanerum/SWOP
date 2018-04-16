@@ -34,8 +34,6 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * 
 	 * @param g
 	 *            The graphics class
-	 * @param focused
-	 *            Boolean that signifies is the message is focused or not
 	 * @param xSender
 	 *            The x coordinate of the message sender
 	 * @param ySender

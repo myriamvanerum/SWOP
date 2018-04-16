@@ -22,6 +22,8 @@ public interface Observer {
 	 * Method to be called when a Party type is changed
 	 * @param party
 	 * 		The Party whose type was changed
+	 * @param partyNew
+	 * 		The party after the type was changed
 	 */
 	public void onChangeParty(Party party, Party partyNew);
 	

@@ -31,6 +31,7 @@ public interface State {
 	
 	/**
 	 * Get the State of this SubWindow
+	 * @return the current state
 	 */
 	public String getCurrentState();
 }

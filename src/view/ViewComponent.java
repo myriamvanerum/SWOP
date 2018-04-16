@@ -75,6 +75,7 @@ public class ViewComponent implements Selectable {
 	 * 			  The Party's position
 	 * @param windowPosition
 	 * 			  The SubWindow's position
+	 * @return true if label positioned at clicked coordinates
 	 */
 	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
 		return false;

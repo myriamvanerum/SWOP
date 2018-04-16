@@ -14,7 +14,8 @@ import model.InvocationMessage;
 import model.Message;
 import model.Party;
 /**
- * SubWindow class
+ * SubWindow class. A SubWindow contains an Interaction with Parties and Messages. 
+ * Several SubWindows can display the same Interaction in different forms.
  * @author groep 03
  *
  */
@@ -38,10 +39,18 @@ public class SubWindow implements Observer {
 	 * Create a new SubWinow for a new Interaction
 	 * 
 	 * @param interaction
+	 * 		The Interaction for this Subwindow
 	 * @param x
+	 * 		The SubWindow's x coordinate
 	 * @param y
+	 * 		The SubWindow's y coordinate
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		setInteraction(interaction);
 		interaction.addObserver(this);
 
@@ -58,11 +67,23 @@ public class SubWindow implements Observer {
 	 * Create a new SubWindow by duplicating another SubWindow
 	 * 
 	 * @param activeWindow
+	 * 		The SubWindow to duplicate
 	 * @param x
+	 * 		The SubWindow's x coordinate
 	 * @param y
+	 * 		The SubWindow's y coordinate
+	 * @throws NullPointerException
+	 * 		No SubWindow supplied
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	@SuppressWarnings("unchecked")
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
+		if (activeWindow == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
 		interaction.addObserver(this);
@@ -222,8 +243,13 @@ public class SubWindow implements Observer {
 	 * 		X coordinates
 	 * @param y
 	 * 		Y coordinates
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	public void drawTitle(Graphics2D g, Integer x, Integer y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
 		getState().drawTitle(g, x, y);
 	}
 
@@ -231,8 +257,6 @@ public class SubWindow implements Observer {
 	 * Draw the Parties and Messages in the SubWindow
 	 * @param g
 	 * 		Graphics class
-	 * @param windowPosition
-	 * 		Window top left coordinates
 	 * @param viewParties
 	 * 		The Parties in the SubWindow
 	 * @param viewMessages
@@ -283,9 +307,14 @@ public class SubWindow implements Observer {
 	 * 		The Party that was added
 	 * @param position
 	 * 		The position the Party must be painted at
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	@Override
 	public void onAddParty(Party party, Point2D position) {
+		if (position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();
+		
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
 		getViewParties().add(viewParty);
 	}
@@ -309,9 +338,14 @@ public class SubWindow implements Observer {
 	 * 		The Message that was added
 	 * @param position
 	 * 		The position the Message must be painted at
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
 	 */
 	@Override
 	public void onAddMessage(Message message, Point2D position) {
+		if (position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();
+		
 		ViewParty sender = findViewParty(message.getSender());
 		ViewParty receiver = findViewParty(message.getReceiver());
 		ViewMessage viewMessage;

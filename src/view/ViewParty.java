@@ -50,12 +50,13 @@ public class ViewParty extends ViewComponent {
 	 * Checks if the Party is positioned at the clicked coordinates
 	 * @param coordinates
 	 * 			The coordinates of a click event
-	 * @param positionState
+	 * @param position
 	 * 			  The Party's position
 	 * @param windowPosition
 	 * 			  The SubWindow's position
+	 * @return true if Party positioned at coordinates, false if not
 	 */
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosiion) {
+	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
 		return false;
 	}
 

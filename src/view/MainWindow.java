@@ -28,6 +28,7 @@ public class MainWindow extends CanvasWindow {
 	 * Is triggered with a new Interaction if Ctrl N
 	 * Is triggered with null if Ctrl D 
 	 * @param interaction
+	 * 		The Interaction to use if Ctrl D, or null if Ctrl N
 	 */
 	public void createNewSubWindow(Interaction interaction) {
 		SubWindow subWindow;
