@@ -45,7 +45,7 @@ public class ComState implements State {
 	 */
 	@Override
 	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		if (viewParties == null || viewMessages == null || viewParties.size() == 0 || viewMessages.size() == 0 || windowPosition == null)
+		if (viewParties == null || viewMessages == null || windowPosition == null)
 			throw new NullPointerException();
 		if (windowPosition.getX() < 0 || windowPosition.getY() < 0)
 			throw new IllegalArgumentException();
