@@ -149,13 +149,11 @@ public class EventHandler {
 				break;
 			case MouseEvent.MOUSE_CLICKED:
 				SubWindow subwindow = activeWindow;
-				SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows());
+				SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows(), activeWindow);
 				ViewLabel viewLabel = null;
 				selectedComponent = null;
 
-				if (clickCloseButton(x, y, subwindow)) {
-					controller.closeClickedSubwindow(subwindow);
-				} else if (closeWindow != null) {
+				if (closeWindow != null) {
 					controller.closeClickedSubwindow(closeWindow);
 				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
@@ -290,6 +288,8 @@ public class EventHandler {
 	 *            The y coordinate of the clicked position
 	 * @param subWindows
 	 *            ArrayList of all subwindows
+	 * @param active
+	 * 			  The active subwindow
 	 * @return Null if no close button is clicked The Subwindow of which the close
 	 *         button was clicked
 	 * @throws NullPointerException
@@ -297,14 +297,18 @@ public class EventHandler {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows) {
+	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows, SubWindow active) {
 		if (subWindows.size() == 0)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
+		if (clickCloseButton(x,y,active))
+			return active;
+		
 		for (int i = subWindows.size() - 1; i >= 0; i--) {
-			if (clickCloseButton(x, y, subWindows.get(i)))
+			SubWindow item = subWindows.get(i);
+			if (item != active && clickCloseButton(x, y, item))
 				return subWindows.get(i);
 		}
 
@@ -359,7 +363,7 @@ public class EventHandler {
 	 * @param y
 	 *            The y coordinate of the clicked position
 	 * @param subwindow
-	 *            The subwindow that has to be checked
+	 *            The current active subwindow
 	 * @return True if the close button of the subwindow is clicked False if the
 	 *         close butten of the subwindow isn't clicked
 	 * @throws NullPointerException
