@@ -34,4 +34,16 @@ class PartyTest {
 		assertEquals(actor.getLabel(), newObject.getLabel());
 		assertEquals(actor.getSendingMessage(), newObject.getSendingMessage());
 	}
+	
+	@Test
+	void testPartyNull() {
+		Party party = null;
+	
+		try {
+			Party newActor = new Actor(party);
+	        assert false;
+	    } catch (NullPointerException e) {
+	        assert true;
+	    }
+	}
 }
