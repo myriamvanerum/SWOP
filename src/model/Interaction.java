@@ -134,7 +134,7 @@ public class Interaction implements Observable {
 		} else {
 			newParty = new Actor(party);
 		}
-		this.parties.add(party);
+		this.parties.add(newParty);
 		notifyChangeType(party, newParty);
 	}
 

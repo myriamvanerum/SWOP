@@ -18,7 +18,6 @@ class PartyTest {
 		Party object = new Object("test");
 		
 		Message invocation = new InvocationMessage("message", actor, object);		
-		actor.setSendingMessage(invocation);
 		
 		assertEquals("test", actor.getLabel());
 		assertEquals("test", object.getLabel());	
