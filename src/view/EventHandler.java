@@ -138,6 +138,7 @@ public class EventHandler {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
 				first = clickLifeline(x, y, activeWindow);
+				selectedComponent = clickParty(x, y, activeWindow);
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
 				if (selectedComponent != null && !selectedComponent.isSelected)
