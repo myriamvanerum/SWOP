@@ -39,12 +39,6 @@ class ControllerTest {
 		assertTrue(mainwindow.getSubWindows().size() == 1);
 		
 		
-		controller.duplicateActiveWindow();
-		
-		assertTrue(mainwindow.getSubWindows().size() == 2);
-		assertEquals(mainwindow.getSubWindows().get(0).getInteraction(),mainwindow.getSubWindows().get(1).getInteraction());
-		
-		
 		Point2D position = new Point2D.Double(50,50);
 		Party party = controller.createParty(position);
 		
@@ -53,22 +47,11 @@ class ControllerTest {
 		
 		
 		controller.createNewInteraction();
-		SubWindow subwindow = mainwindow.getSubWindows().get(2);
-		controller.changeActiveSubwindow(subwindow);
-		
-		assertEquals(mainwindow.getActiveWindow(),subwindow);
-		
+		SubWindow subwindow = mainwindow.getSubWindows().get(1);
 		
 		controller.closeClickedSubwindow(subwindow);
 		
 		assertNotEquals(mainwindow.getActiveWindow(),subwindow);
-		
-		
-		State stateBefore = mainwindow.getActiveWindow().getState();
-		controller.switchDiagramType();
-		State stateAfter = mainwindow.getActiveWindow().getState();
-		
-		assertNotEquals(stateBefore, stateAfter);
 		
 		
 		controller.changePartyType(mainwindow.getActiveWindow().findViewParty(party));

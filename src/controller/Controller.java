@@ -12,6 +12,7 @@ import view.MainWindow;
 import view.State;
 import view.SubWindow;
 import view.ViewComponent;
+import view.ViewInvocationMessage;
 import view.ViewObject;
 import view.ViewParty;
 
@@ -52,17 +53,6 @@ public class Controller {
 	}
 	
 	/**
-	 * Create a new SubWindow for an Interaction
-	 */
-	public void duplicateActiveWindow() {
-		// make new subwindow
-		if (mainWindow.getActiveWindow() != null)
-			mainWindow.createNewSubWindow(null);
-		System.out.println("Duplicate SubWindow.");
-		
-	}
-	
-	/**
 	 * Create a new Party in the active Interaction
 	 * @param position
 	 * 		The clicked position, where the party must be placed on the screen
@@ -88,21 +78,6 @@ public class Controller {
 		
 		System.out.println("Create New Party.");
 		return party;
-	}
-
-	/**
-	 * Set a new active SubWindow, to be placed at the front
-	 * @param subwindow
-	 * 		the SubWindow to be placed at the front
-	 * @throws NullPointerException
-	 * 		No subwindow supplied
-	 */
-	public void changeActiveSubwindow(SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		
-		System.out.println("Change Active Window.");
-		mainWindow.setActiveWindow(subwindow);
 	}
 
 	/**
@@ -145,14 +120,6 @@ public class Controller {
 		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
 	}
 
-	/**
-	 * Switch a SubWindow from Sequence View to Communication View or vice versa
-	 */
-	public void switchDiagramType() {
-		mainWindow.getActiveWindow().changeState();
-		System.out.println("Change Diagram Type.");
-	}
-
 	/** 
 	 * Select a Party or Message
 	 * @param viewComponent
@@ -187,7 +154,8 @@ public class Controller {
 		// party verwijderd uit model
 		if (viewComponent instanceof ViewParty)
 			mainWindow.getActiveWindow().getInteraction().removeParty((Party)viewComponent.getComponent());
-		// TODO delete messages
+		else if (viewComponent instanceof ViewInvocationMessage)
+			mainWindow.getActiveWindow().getInteraction().removeMessage((Message)viewComponent.getComponent());
 	}
 
 	/**
