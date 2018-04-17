@@ -39,7 +39,8 @@ public class EventHandler {
 	/**
 	 * When a keyevent occurs, it is handled in this method. If tab is pressed, the
 	 * view of the diagram is switched, from communication to sequence and vice
-	 * versa, if delete is pressed the focused party gets deleted.
+	 * versa, if delete is pressed the focused party gets deleted. Labels can also be entered 
+	 * with this method. SubWindows can also be created.
 	 * 
 	 * @param id
 	 *            keyEvent id
@@ -63,9 +64,9 @@ public class EventHandler {
 			ViewLabel viewLabel = selectedComponent.getViewLabel();
 			viewLabel.setLabelMode(labelMode);
 
-			if (keyCode >= 65 && keyCode <= 90 || keyCode == KeyEvent.VK_COLON || keyCode == KeyEvent.VK_SEMICOLON
-					|| keyCode == 8 || keyCode == KeyEvent.VK_SPACE) {
-				if (keyCode == 8 && label.length() > 1)
+			if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || keyCode == KeyEvent.VK_COLON || keyCode == KeyEvent.VK_SEMICOLON
+					|| keyCode == KeyEvent.VK_BACK_SPACE || keyCode == KeyEvent.VK_SPACE) {
+				if (keyCode == KeyEvent.VK_BACK_SPACE && label.length() > 1)
 					currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
 				else if (label != null && label.length() > 0)
 					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
