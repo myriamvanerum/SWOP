@@ -96,13 +96,19 @@ public class Interaction implements Observable {
 	public void removeParty(Party party) {
 		if (party == null)
 			throw new NullPointerException();
+				
+		ArrayList<Message> aux = new ArrayList<>();
+		
+		for (Message message : getMessages()) {
+			if (message.getSender() != party && message.getReceiver() != party) 
+				aux.add(message);
+			else notifyDelete(message);
+		}	
+		
+		setMessages(aux);
 		
 		this.parties.remove(party);
 		notifyDelete(party);
-		
-		for (Message message : getMessages())
-			if (message.getSender() == party || message.getReceiver() == party)
-				removeMessage(message);
 	}
 	
 	/**
