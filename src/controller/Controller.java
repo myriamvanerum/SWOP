@@ -8,6 +8,7 @@ import model.Message;
 import model.Party;
 import model.PartyFactory;
 import model.ResultMessage;
+import model.SyntaxChecker;
 import view.MainWindow;
 import view.State;
 import view.SubWindow;
@@ -219,5 +220,10 @@ public class Controller {
 		currentInteraction.addMessage(resultMessage, new Point2D.Double(x,y+20));
 						
 		return invocationMessage;
+	}
+	
+	public boolean checkLabelSyntax(String label) {
+		SyntaxChecker syntaxChecker = new SyntaxChecker();
+		return syntaxChecker.correctLabelSyntax(label);
 	}
 }

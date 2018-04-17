@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
@@ -70,10 +71,16 @@ public class EventHandler {
 					currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
 				else if (label != null && label.length() > 0)
 					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
+				
+				if (labelMode == LabelMode.PARTY && controller.checkLabelSyntax(currentComponent.getLabel()))
+					viewLabel.setColor(Color.GREEN);
+				else
+					viewLabel.setColor(Color.RED);
 			}
 
 			if (keyCode == 10) {
-				if (labelMode == LabelMode.PARTY && viewLabel.correctSyntax(label) || labelMode == LabelMode.MESSAGE)
+				if (labelMode == LabelMode.PARTY && controller.checkLabelSyntax(label) || labelMode == LabelMode.MESSAGE)
+					viewLabel.setColor(Color.BLACK);
 					currentComponent.setLabel(label.substring(0, label.length() - 1));
 				labelMode = LabelMode.SHOW;
 				viewLabel.setLabelMode(LabelMode.SHOW);

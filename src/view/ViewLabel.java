@@ -11,6 +11,7 @@ import java.awt.geom.*;
 public class ViewLabel {
 	int width, height;
 	LabelMode labelMode;
+	Color color;
 	
 	/**
 	 * ViewLabel Constructor
@@ -36,36 +37,12 @@ public class ViewLabel {
 		
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		setWidth(g.getFontMetrics().stringWidth(label));
-		Color color = g.getColor();
+		Color colorOrig = g.getColor();
 
-		if (labelMode == LabelMode.PARTY) {
-			if (correctSyntax(label))
-				g.setColor(new Color(0,255,0));
-			else g.setColor(new Color(255,0,0));
-		} 
+		g.setColor(getColor());
 		
 		g.drawString(label, (int)position.getX(), (int)position.getY());
-		g.setColor(color);
-	}
-	
-	/**
-	 * Checks if the Label's syntax is correct.
-	 * @param input
-	 * 		The label input
-	 * @return true if correct, false if not
-	 */
-	public boolean correctSyntax(String input) {
-		char first = input.charAt(0);
-		String parts[] = input.split(":");
-		
-		if (input.contains(" ")) {
-			return false;
-		} else if (first == ':' && parts.length < 3) {
-			return Character.isUpperCase(input.charAt(1));
-		}
-		else if (first != ':' && parts.length <= 3)
-			return input.contains(":") && Character.isLowerCase(first) && Character.isUpperCase(parts[1].charAt(0));
-		else return false;
+		g.setColor(colorOrig);
 	}
 	
 	/* GETTERS AND SETTERS */
@@ -92,5 +69,13 @@ public class ViewLabel {
 
 	public void setLabelMode(LabelMode labelMode) {
 		this.labelMode = labelMode;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 }
