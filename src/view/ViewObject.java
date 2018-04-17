@@ -47,8 +47,7 @@ public class ViewObject extends ViewParty {
 	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-								
-		// TODO lifeline andere plaats
+										
 		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 375);
 				
 		String label = getParty().getLabel();
@@ -56,8 +55,9 @@ public class ViewObject extends ViewParty {
 		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
 
 		// label width dynamisch maken met label width				
-		if (viewLabel.getWidth() > width)
+		if (viewLabel.getWidth() > 80)
 			setWidth(viewLabel.getWidth() + 10);
+		else setWidth(80);
 										
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
 		g.draw(r);

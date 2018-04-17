@@ -70,6 +70,7 @@ public class ViewParty extends ViewComponent {
 	public void drawCom(Graphics2D g, Point2D windowPosition) {
 		this.setColor(g);
 		draw(g, positionWindow(getPositionCom(), windowPosition));
+		this.resetColor(g);
 	}
 
 	/**
@@ -83,6 +84,7 @@ public class ViewParty extends ViewComponent {
 		this.setColor(g);
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
 		viewLifeLine.draw(g);
+		this.resetColor(g);
 	}
 
 	/**

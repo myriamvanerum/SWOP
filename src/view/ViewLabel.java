@@ -36,15 +36,16 @@ public class ViewLabel {
 		
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		setWidth(g.getFontMetrics().stringWidth(label));
+		Color color = g.getColor();
 
 		if (labelMode == LabelMode.PARTY) {
 			if (correctSyntax(label))
 				g.setColor(new Color(0,255,0));
 			else g.setColor(new Color(255,0,0));
-		}
-			
+		} 
+		
 		g.drawString(label, (int)position.getX(), (int)position.getY());
-		g.setColor(new Color(0,0,0));
+		g.setColor(color);
 	}
 	
 	/**
