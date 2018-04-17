@@ -243,7 +243,7 @@ public class Controller {
 		
 		System.out.println("Add message.");
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
-		ResultMessage resultMessage = new ResultMessage("", sender, receiver);
+		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		

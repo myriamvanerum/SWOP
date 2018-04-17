@@ -322,10 +322,8 @@ public class SubWindow implements Observer {
 	 */
 	@Override
 	public void onDeleteMessage(Message message) {
-		for (ViewMessage viewMessage : getViewMessages()) {
-			if (viewMessage.getMessage().equals(message))
-				getViewMessages().remove(viewMessage);
-		}
+		ViewMessage viewMessage = findViewMessage(message);
+		getViewMessages().remove(viewMessage);
 	}
 
 	/**
@@ -346,7 +344,6 @@ public class SubWindow implements Observer {
 		ViewParty receiver = findViewParty(message.getReceiver());
 		ViewMessage viewMessage;
 		
-		// TODO
 		if (message instanceof InvocationMessage)		
 			viewMessage = new ViewInvocationMessage(message, position, new Point2D.Double(getX(), getY()), sender, receiver);
 		else 

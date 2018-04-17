@@ -99,6 +99,10 @@ public class Interaction implements Observable {
 		
 		this.parties.remove(party);
 		notifyDelete(party);
+		
+		for (Message message : getMessages())
+			if (message.getSender() == party || message.getReceiver() == party)
+				removeMessage(message);
 	}
 	
 	/**
