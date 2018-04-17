@@ -88,7 +88,7 @@ public class EventHandler {
 		if (labelMode == LabelMode.SHOW) {
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
-				controller.switchDiagramType();
+				mainwindow.getActiveWindow().changeState();
 				break;
 			case KeyEvent.VK_DELETE:
 				if (selectedComponent != null)
@@ -101,7 +101,8 @@ public class EventHandler {
 				break;
 			case KeyEvent.VK_D:
 				if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
-					controller.duplicateActiveWindow();
+					if (mainwindow.getActiveWindow() != null)
+						mainwindow.createNewSubWindow(null);
 				}
 				break;
 			}
@@ -165,7 +166,7 @@ public class EventHandler {
 				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
 					if (sub != null)
-						controller.changeActiveSubwindow(sub);
+						mainwindow.setActiveWindow(subwindow);
 					labelClicked = 0;
 				} else if ((selectedComponent = clickParty(x, y, subwindow)) != null) {
 					if (clickCount == 2)
