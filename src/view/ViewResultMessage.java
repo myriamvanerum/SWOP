@@ -52,7 +52,10 @@ public class ViewResultMessage extends ViewMessage {
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		g.drawLine(xSender+7, ySender, xReceiver-2, yReceiver);
+		g.drawLine(xSender - 7, ySender, xReceiver + 7, yReceiver);
+		// draw arrow
+		g.drawLine(xReceiver + 12, yReceiver - 5, xReceiver + 7, yReceiver);
+		g.drawLine(xReceiver + 12, yReceiver + 5, xReceiver + 7, yReceiver);
 				
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 

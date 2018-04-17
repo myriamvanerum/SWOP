@@ -52,6 +52,9 @@ public class ViewInvocationMessage extends ViewMessage {
 		Stroke full = new BasicStroke(1);
 		g.setStroke(full);
 		g.drawLine(xSender, ySender, xReceiver, yReceiver);
+		// draw arrow
+		g.drawLine(xReceiver - 10, yReceiver - 5, xReceiver - 5, yReceiver);
+		g.drawLine(xReceiver - 10, yReceiver + 5, xReceiver - 5, yReceiver);
 		
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
