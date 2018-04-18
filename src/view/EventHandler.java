@@ -65,7 +65,6 @@ public class EventHandler {
 
 				Component currentComponent = selectedComponent.getComponent();
 				ViewLabel viewLabel = selectedComponent.getViewLabel();
-				//String label = currentComponent.getLabel();
 				String label = viewLabel.getOutput();
 				viewLabel.setLabelMode(active.getLabelMode());
 
@@ -73,10 +72,8 @@ public class EventHandler {
 						|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_BACK_SPACE
 						|| keyCode == KeyEvent.VK_SPACE) {
 					if (keyCode == KeyEvent.VK_BACK_SPACE && label.length() > 1)
-						//currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
 						viewLabel.setOutput(label.substring(0, label.length() - 2) + "|");
 					else if (label != null && label.length() > 0)
-						//currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
 						viewLabel.setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
 						
 					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkLabelSyntax(viewLabel.getOutput()))
@@ -97,6 +94,7 @@ public class EventHandler {
 							mainwindow.selectComponent();
 
 						active.setSelectedComponent(null);
+						updateLabelsSubwindows(mainwindow);
 					}					
 				}
 			}
@@ -209,8 +207,8 @@ public class EventHandler {
 						
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
-						//currentComponent.setLabel(label);
 						viewLabel.setOutput(label);
+						// TODO set label for same party
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
@@ -224,6 +222,14 @@ public class EventHandler {
 				break;
 			}
 		}
+	}
+
+	private void updateLabelsSubwindows(MainWindow mainwindow) {
+		for (SubWindow subwindow : mainwindow.getSubWindows()) {
+			subwindow.setLabelMode(LabelMode.SHOW);
+			subwindow.updateLabels();
+		}
+		
 	}
 
 	/**
