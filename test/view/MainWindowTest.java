@@ -2,9 +2,14 @@ package view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.geom.Point2D;
+
 import org.junit.jupiter.api.Test;
 
+import controller.Controller;
+import model.Actor;
 import model.Interaction;
+import model.Party;
 
 
 class MainWindowTest {
@@ -56,6 +61,119 @@ class MainWindowTest {
 		assertNotEquals(firstWindow, mainwindow.getActiveWindow());
 		assertEquals(mainwindow.getSubWindows().size(), 0);
 		assertNull(mainwindow.getActiveWindow());
+	}
+	
+	@Test
+	void testControllerClosedWindowNullError() {
+		try {
+			mainwindow.closeClickedSubwindow(null);
+	        assert false;
+	    } catch (NullPointerException e) {
+	        assert true;
+	    }
+	}
+	
+	@Test
+	void testMainWindowSelectComponent() {
+		Interaction interaction = new Interaction();
+		
+		mainwindow.createNewSubWindow(interaction);
+		SubWindow activeWindow = mainwindow.getActiveWindow();
+		
+		Party party = new Actor("Actor");
+		Point2D clickPosition = new Point2D.Double(50,50);
+		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+		activeWindow.selectedComponent = viewComponent;
+		mainwindow.selectComponent();
+		
+		assertTrue(viewComponent.selected());
+		
+		mainwindow.selectComponent();
+		
+		assertFalse(viewComponent.selected());
+	}
+	
+	@Test
+	void testControllerSelectComponentNullError() {
+		Interaction interaction = new Interaction();
+		mainwindow.createNewSubWindow(interaction);
+		
+		try {
+			mainwindow.selectComponent();
+	        assert false;
+	    } catch (NullPointerException e) {
+	        assert true;
+	    }
+	}
+	
+	@Test
+	void testMainWindowMoveComponentSeq() {
+		Interaction interaction = new Interaction();
+		
+		mainwindow.createNewSubWindow(interaction);
+		SubWindow activeWindow = mainwindow.getActiveWindow();
+		
+		Party party = new Actor("Actor");
+		Point2D clickPosition = new Point2D.Double(50,50);
+		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+		
+		int x = 150, y = 200;
+		mainwindow.moveComponent(viewComponent, x, y);
+		
+		assertEquals(x, viewComponent.getPositionSeq().getX() + activeWindow.getX());
+		assertEquals(40, viewComponent.getPositionSeq().getY());
+	}
+	
+	@Test
+	void testMainWindowMoveComponentCom() {
+		Interaction interaction = new Interaction();
+		
+		mainwindow.createNewSubWindow(interaction);
+		SubWindow activeWindow = mainwindow.getActiveWindow();
+		activeWindow.changeState();
+		
+		Party party = new Actor("Actor");
+		Point2D clickPosition = new Point2D.Double(50,50);
+		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+		
+		int x = 150, y = 200;
+		mainwindow.moveComponent(viewComponent, x, y);
+		
+		assertEquals(x, viewComponent.getPositionCom().getX() + activeWindow.getX());
+		assertEquals(y, viewComponent.getPositionCom().getY() + activeWindow.getY() + activeWindow.getHeightTitlebar());
+	}
+	
+	@Test
+	void testControllerMoveComponentNullError() {
+		try {
+			int x = 150, y = 200;
+			mainwindow.moveComponent(null, x, y);
+	        assert false;
+	    } catch (NullPointerException e) {
+	        assert true;
+	    }
+	}
+	
+	@Test
+	void testControllerMoveComponentPositionError() {
+		Interaction interaction = new Interaction();
+		mainwindow.createNewSubWindow(interaction);
+		SubWindow activeWindow = mainwindow.getActiveWindow();
+		Party party = new Actor("Actor");
+		Point2D clickPosition = new Point2D.Double(50,50);
+		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+		
+		try {
+			int x = -150, y = 200; 
+			mainwindow.moveComponent(viewComponent, x, y);
+	        assert false;
+	    } catch (IllegalArgumentException e) {
+	        assert true;
+	    }
 	}
 
 }
