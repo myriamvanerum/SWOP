@@ -17,7 +17,7 @@ class RecordingTest {
 	void test() {
 		String name = "test";
 		main = new MainWindow(name);
-		main.replayRecording(directory + name + suffix, main);
+		//main.replayRecording(directory + name + suffix, main);
 	}
 
 }
