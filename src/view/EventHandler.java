@@ -149,15 +149,17 @@ public class EventHandler {
 		if (active == null)
 			return;
 
-		SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows(), active);
-		if (closeWindow != null) {
-			mainwindow.closeClickedSubwindow(closeWindow);
-			labelClicked = 0;
-		} else if (clickOutsideActiveSubwindow(x, y, active)) {
-			SubWindow sub = findClickedSubwindow(x, y, active, mainwindow.getSubWindows());
-			if (sub != null)
-				mainwindow.setActiveWindow(sub);
-			labelClicked = 0;
+		if (id == MouseEvent.MOUSE_CLICKED) {
+			SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows(), active);
+			if (closeWindow != null) {
+				mainwindow.closeClickedSubwindow(closeWindow);
+				labelClicked = 0;
+			} else if (clickOutsideActiveSubwindow(x, y, active)) {
+				SubWindow sub = findClickedSubwindow(x, y, active, mainwindow.getSubWindows());
+				if (sub != null)
+					mainwindow.setActiveWindow(sub);
+				labelClicked = 0;
+			}
 		}
 
 		if (active.getLabelMode() == LabelMode.SHOW) {
