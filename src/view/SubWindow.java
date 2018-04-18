@@ -34,7 +34,9 @@ public class SubWindow implements Observer {
 	private State windowState;
 	private SeqState seqState = new SeqState();
 	private ComState comState = new ComState();
+	
 	private LabelMode labelMode;
+	public ViewComponent selectedComponent;
 
 	/**
 	 * Create a new SubWinow for a new Interaction
@@ -63,6 +65,7 @@ public class SubWindow implements Observer {
 
 		setState(seqState);
 		setLabelMode(LabelMode.SHOW);
+		selectedComponent = null;
 	}
 
 	/**
@@ -101,6 +104,7 @@ public class SubWindow implements Observer {
 
 		setState(activeWindow.getState());
 		setLabelMode(LabelMode.SHOW);
+		selectedComponent = null;
 	}
 
 	/**
@@ -389,5 +393,13 @@ public class SubWindow implements Observer {
 
 	public void setLabelMode(LabelMode labelMode) {
 		this.labelMode = labelMode;
+	}
+
+	public ViewComponent getSelectedComponent() {
+		return selectedComponent;
+	}
+
+	public void setSelectedComponent(ViewComponent selectedComponent) {
+		this.selectedComponent = selectedComponent;
 	}
 }

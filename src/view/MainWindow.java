@@ -95,7 +95,8 @@ public class MainWindow extends CanvasWindow {
 	 * @throws NullPointerException
 	 * 		No ViewComponent supplied
 	 */
-	public void selectComponent(ViewComponent viewComponent) {
+	public void selectComponent() {
+		ViewComponent viewComponent = activeWindow.getSelectedComponent();
 		if (viewComponent == null)
 			throw new NullPointerException();
 		
