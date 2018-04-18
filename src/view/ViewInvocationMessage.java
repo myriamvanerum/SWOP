@@ -53,8 +53,9 @@ public class ViewInvocationMessage extends ViewMessage {
 		g.setStroke(full);
 		g.drawLine(xSender, ySender, xReceiver, yReceiver);
 		// draw arrow
-		g.drawLine(xReceiver - 10, yReceiver - 5, xReceiver - 5, yReceiver);
-		g.drawLine(xReceiver - 10, yReceiver + 5, xReceiver - 5, yReceiver);
+		int[] xCoord = {xReceiver - 10, xReceiver - 10, xReceiver - 5};
+		int[] yCoord = {yReceiver - 5, yReceiver + 5, yReceiver};
+		g.fillPolygon(xCoord, yCoord, 3);
 		
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
