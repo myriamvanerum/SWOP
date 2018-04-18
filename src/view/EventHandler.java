@@ -173,7 +173,7 @@ public class EventHandler {
 				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
 					if (sub != null)
-						mainwindow.setActiveWindow(subwindow);
+						mainwindow.setActiveWindow(sub);
 					labelClicked = 0;
 				} else if ((selectedComponent = clickParty(x, y, subwindow)) != null) {
 					if (clickCount == 2)
