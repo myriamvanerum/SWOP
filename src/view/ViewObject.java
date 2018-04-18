@@ -25,6 +25,17 @@ public class ViewObject extends ViewParty {
 	}
 	
 	/**
+	 * ViewObject Constructor
+	 * @param party
+	 * 		Party to draw
+	 * @param clickPosition
+	 * 		Chosen position
+	 */
+	public ViewObject(Party party, Point2D clickPosition) {
+		super(party, clickPosition);
+	}
+	
+	/**
 	 * Copy Constructor
 	 * @param viewParty
 	 * 		The ViewParty to copy
@@ -51,9 +62,16 @@ public class ViewObject extends ViewParty {
 		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 375);
         
 		String label = viewLabel.getOutput();
-		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
-		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
-
+		
+		if (viewLabel.getLabelMode() == LabelMode.SHOW) {
+			viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(getParty().getLabel(), g).getHeight());
+			viewLabel.setWidth(g.getFontMetrics().stringWidth(getParty().getLabel()));
+			} else {
+			viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
+			viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
+			
+		}
+		
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > 80)
 			setWidth(viewLabel.getWidth() + 10);

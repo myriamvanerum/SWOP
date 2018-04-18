@@ -37,8 +37,7 @@ public class ViewLabel {
 		if (label == null || position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();		
 		
-		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
-		setWidth(g.getFontMetrics().stringWidth(label));
+		
 		Color colorOrig = g.getColor();
 	
 		

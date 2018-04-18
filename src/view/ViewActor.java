@@ -27,6 +27,17 @@ public class ViewActor extends ViewParty {
 	}
 	
 	/**
+	 * ViewActor Constructor
+	 * @param party
+	 * 		Party to draw
+	 * @param clickPosition
+	 * 		Chosen position
+	 */
+	public ViewActor(Party party, Point2D clickPosition) {
+		super(party, clickPosition);
+	}
+	
+	/**
 	 * Copy Constructor
 	 * @param viewParty
 	 * 		The ViewParty to copy

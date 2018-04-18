@@ -31,6 +31,21 @@ public class ViewParty extends ViewComponent {
 				clickPosition.getY() - windowPosition.getY() - 25));
 		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
 	}
+	
+	/**
+	 * ViewParty Constructor
+	 * @param party
+	 * 		Party to draw
+	 * @param clickPosition
+	 * 		Chosen position
+	 */
+	public ViewParty(Party party, Point2D position) {
+		setParty(party);
+		viewLabel = new ViewLabel(party.getLabel());
+		viewLifeLine = new ViewLifeLine();
+		setPositionCom(new Point2D.Double(position.getX(), position.getY()));
+		setPositionSeq(new Point2D.Double(position.getX(), 40));
+	}
 
 	/**
 	 * Copy Constructor
