@@ -49,8 +49,8 @@ public class ViewObject extends ViewParty {
 			throw new IllegalArgumentException();
 										
 		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 375);
-				
-		String label = getParty().getLabel();
+        
+		String label = viewLabel.getOutput();
 		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
 
@@ -61,7 +61,7 @@ public class ViewObject extends ViewParty {
 										
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
 		g.draw(r);
-		getViewLabel().draw(g, label, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
+		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 	}
 		
 	/**

@@ -12,12 +12,14 @@ public class ViewLabel {
 	int width, height;
 	LabelMode labelMode;
 	Color color;
+	String output;
 	
 	/**
 	 * ViewLabel Constructor
 	 */
-	public ViewLabel() {
+	public ViewLabel(String label) {
 		labelMode = LabelMode.SHOW;
+		output = label;
 	}
 	
 	/**
@@ -38,10 +40,18 @@ public class ViewLabel {
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 		setWidth(g.getFontMetrics().stringWidth(label));
 		Color colorOrig = g.getColor();
-
-		g.setColor(getColor());
+	
 		
-		g.drawString(label, (int)position.getX(), (int)position.getY());
+		if (labelMode == LabelMode.SHOW) {
+			System.err.println("show label " + this);
+			g.setColor(getColor());
+			g.drawString(label, (int)position.getX(), (int)position.getY());
+		} else {
+			System.err.println("edit label " + this);
+			g.setColor(getColor());
+			g.drawString(output, (int)position.getX(), (int)position.getY());
+		}
+		
 		g.setColor(colorOrig);
 	}
 	
@@ -77,5 +87,13 @@ public class ViewLabel {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 }

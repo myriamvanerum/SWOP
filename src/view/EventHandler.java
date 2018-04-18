@@ -21,7 +21,7 @@ public class EventHandler {
 	MainWindow mainwindow;
 	SubWindow active;
 	
-	int labelClicked;
+	ViewComponent labelClickedOnce;
 	Party first, second;
 
 	/**
@@ -33,7 +33,6 @@ public class EventHandler {
 	public EventHandler(MainWindow window) {
 		controller = new Controller(window);
 		this.mainwindow = window;
-		labelClicked = 0;
 		active = null;
 	}
 
@@ -65,19 +64,22 @@ public class EventHandler {
 					throw new IllegalArgumentException("No component found!");
 
 				Component currentComponent = selectedComponent.getComponent();
-				String label = currentComponent.getLabel();
 				ViewLabel viewLabel = selectedComponent.getViewLabel();
+				//String label = currentComponent.getLabel();
+				String label = viewLabel.getOutput();
 				viewLabel.setLabelMode(active.getLabelMode());
 
 				if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || keyCode == KeyEvent.VK_COLON
 						|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_BACK_SPACE
 						|| keyCode == KeyEvent.VK_SPACE) {
 					if (keyCode == KeyEvent.VK_BACK_SPACE && label.length() > 1)
-						currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
+						//currentComponent.setLabel(label.substring(0, label.length() - 2) + "|");
+						viewLabel.setOutput(label.substring(0, label.length() - 2) + "|");
 					else if (label != null && label.length() > 0)
-						currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
-
-					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkLabelSyntax(currentComponent.getLabel()))
+						//currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
+						viewLabel.setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+						
+					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkLabelSyntax(viewLabel.getOutput()))
 						viewLabel.setColor(Color.RED);
 					else
 						viewLabel.setColor(Color.GREEN);
@@ -87,6 +89,7 @@ public class EventHandler {
 					if (active.getLabelMode() == LabelMode.PARTY && controller.checkLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
 					{	viewLabel.setColor(Color.BLACK);
 						currentComponent.setLabel(label.substring(0, label.length() - 1));
+						viewLabel.setOutput(currentComponent.getLabel());
 						active.setLabelMode(LabelMode.SHOW);
 						viewLabel.setLabelMode(LabelMode.SHOW);
 
@@ -153,12 +156,10 @@ public class EventHandler {
 			SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows(), active);
 			if (closeWindow != null) {
 				mainwindow.closeClickedSubwindow(closeWindow);
-				labelClicked = 0;
 			} else if (clickOutsideActiveSubwindow(x, y, active)) {
 				SubWindow sub = findClickedSubwindow(x, y, active, mainwindow.getSubWindows());
 				if (sub != null)
 					mainwindow.setActiveWindow(sub);
-				labelClicked = 0;
 			}
 		}
 
@@ -190,15 +191,14 @@ public class EventHandler {
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
 						controller.changePartyType((ViewParty) active.getSelectedComponent());
-					labelClicked = 0;
 				} else if ((viewLabel = clickLabel(x, y, active)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
-					if (clickCount == 1) {
+					
+					if (clickCount == 1 && labelClickedOnce == null) {
 						mainwindow.selectComponent();
-						labelClicked += 1;
-					}
-					if (labelClicked == 2) {
+						labelClickedOnce = selectedComponent;
+					} else if (selectedComponent == labelClickedOnce) {
 						if (selectedComponent instanceof ViewParty) {
 							active.setLabelMode(LabelMode.PARTY);
 							viewLabel.setLabelMode(LabelMode.PARTY);
@@ -207,16 +207,16 @@ public class EventHandler {
 							viewLabel.setLabelMode(LabelMode.MESSAGE);
 						}
 						
-						labelClicked = 0;
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
-						currentComponent.setLabel(label);
+						//currentComponent.setLabel(label);
+						viewLabel.setOutput(label);
+						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
 					// TODO clicked empty area
 					Party party = controller.createParty(new Point2D.Double(x, y));
 					active.setSelectedComponent(active.findViewParty(party));
-					labelClicked = 0;
 					active.setLabelMode(LabelMode.PARTY);
 				}
 

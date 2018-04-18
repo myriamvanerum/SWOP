@@ -25,7 +25,7 @@ public class ViewParty extends ViewComponent {
 	 */
 	public ViewParty(Party party, Point2D clickPosition, Point2D windowPosition) {
 		setParty(party);
-		viewLabel = new ViewLabel();
+		viewLabel = new ViewLabel(party.getLabel());
 		viewLifeLine = new ViewLifeLine();
 		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
 				clickPosition.getY() - windowPosition.getY() - 25));
@@ -81,10 +81,11 @@ public class ViewParty extends ViewComponent {
 	 * 		SubWindow position
 	 */
 	public void drawSeq(Graphics2D g, Point2D windowPosition) {
-		this.setColor(g);
+		setColor(g);
 		draw(g, positionWindow(getPositionSeq(), windowPosition));
+		setColor(g);
 		viewLifeLine.draw(g);
-		this.resetColor(g);
+		resetColor(g);
 	}
 
 	/**

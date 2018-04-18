@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import model.Actor;
+import model.Component;
 import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
@@ -91,20 +92,43 @@ public class SubWindow implements Observer {
 		
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
-		interaction.addObserver(this);
+		interaction.addObserver(this);		
 
-		// maak kopie van alle onderdelen van subwindow
-		ArrayList<ViewParty> parties = activeWindow.getViewParties();
-		ArrayList<ViewMessage> messages = activeWindow.getViewMessages();
-
-		setViewParties((ArrayList<ViewParty>) parties.clone());
-		setViewMessages((ArrayList<ViewMessage>) messages.clone());
 		setX(x);
 		setY(y);
+
+		// maak kopie van alle onderdelen van subwindow
+		ArrayList<ViewParty> parties = copyParties(activeWindow.getViewParties());
+		ArrayList<ViewMessage> messages = activeWindow.getViewMessages();
+
+		setViewParties(parties);
+		setViewMessages((ArrayList<ViewMessage>) messages.clone());
 
 		setState(activeWindow.getState());
 		setLabelMode(LabelMode.SHOW);
 		selectedComponent = null;
+	}
+
+	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
+		ArrayList<ViewParty> copy = new ArrayList<>();
+		
+		for (ViewParty viewParty : viewParties) {
+			Component party = viewParty.getComponent();	
+			Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
+			
+			Point2D position;
+			if (windowState == seqState) {
+				position = new Point2D.Double(viewParty.getPositionSeq().getX(), viewParty.getPositionSeq().getY());
+			} else {
+				position = new Point2D.Double(viewParty.getPositionCom().getX(), viewParty.getPositionCom().getY());
+			}
+			
+			ViewParty newViewParty = new ViewParty((Party)party, position, subwindow);
+			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
+			copy.add(newViewParty);
+		}
+		
+		return copy;
 	}
 
 	/**
@@ -154,6 +178,7 @@ public class SubWindow implements Observer {
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
 		// Draw contents
+		System.err.println("size " + getViewParties().size());
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
 	}

@@ -29,7 +29,7 @@ public class ViewMessage extends ViewComponent {
 	 * 		Message receiver
 	 */
 	public ViewMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver) {
-		viewLabel = new ViewLabel();
+		viewLabel = new ViewLabel(message.getLabel());
 		activationBar = new ViewActivationBar();
 		// TODO
 		setMessage(message);
