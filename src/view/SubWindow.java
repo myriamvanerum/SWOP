@@ -109,6 +109,7 @@ public class SubWindow implements Observer {
 		selectedComponent = null;
 	}
 
+	// TODO
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
 		ArrayList<ViewParty> copy = new ArrayList<>();
 		
@@ -123,7 +124,10 @@ public class SubWindow implements Observer {
 				position = new Point2D.Double(viewParty.getPositionCom().getX(), viewParty.getPositionCom().getY());
 			}
 			
-			ViewParty newViewParty = new ViewParty((Party)party, position, subwindow);
+			ViewParty newViewParty;
+			if (viewParty instanceof ViewObject)
+				newViewParty = new ViewObject((Party)party, position, subwindow);
+			else newViewParty = new ViewActor((Party)party, position, subwindow);
 			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
 			copy.add(newViewParty);
 		}
@@ -178,7 +182,6 @@ public class SubWindow implements Observer {
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
 		// Draw contents
-		System.err.println("size " + getViewParties().size());
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
 	}

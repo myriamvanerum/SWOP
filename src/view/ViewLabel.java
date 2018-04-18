@@ -43,11 +43,9 @@ public class ViewLabel {
 	
 		
 		if (labelMode == LabelMode.SHOW) {
-			System.err.println("show label " + this);
 			g.setColor(getColor());
 			g.drawString(label, (int)position.getX(), (int)position.getY());
 		} else {
-			System.err.println("edit label " + this);
 			g.setColor(getColor());
 			g.drawString(output, (int)position.getX(), (int)position.getY());
 		}
