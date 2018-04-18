@@ -72,10 +72,10 @@ public class EventHandler {
 				else if (label != null && label.length() > 0)
 					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
 				
-				if (labelMode == LabelMode.PARTY && controller.checkLabelSyntax(currentComponent.getLabel()))
-					viewLabel.setColor(Color.GREEN);
-				else
+				if (labelMode == LabelMode.PARTY && !controller.checkLabelSyntax(currentComponent.getLabel()))
 					viewLabel.setColor(Color.RED);
+				else
+					viewLabel.setColor(Color.GREEN);
 			}
 
 			if (keyCode == 10) {
@@ -86,7 +86,7 @@ public class EventHandler {
 				viewLabel.setLabelMode(LabelMode.SHOW);
 				
 				if (selectedComponent.isSelected)
-					controller.selectComponent(selectedComponent);
+					mainwindow.selectComponent(selectedComponent);
 				
 				selectedComponent = null;
 			}
@@ -149,7 +149,7 @@ public class EventHandler {
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
 				if (selectedComponent != null && !selectedComponent.isSelected)
-					controller.moveComponent(selectedComponent, x, y);
+					mainwindow.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
 				second = clickLifeline(x, y, activeWindow);
@@ -168,7 +168,7 @@ public class EventHandler {
 				selectedComponent = null;
 
 				if (closeWindow != null) {
-					controller.closeClickedSubwindow(closeWindow);
+					mainwindow.closeClickedSubwindow(closeWindow);
 					labelClicked = 0;
 				} else if (clickOutsideActiveSubwindow(x, y, subwindow)) {
 					SubWindow sub = findClickedSubwindow(x, y, subwindow, mainwindow.getSubWindows());
@@ -182,7 +182,7 @@ public class EventHandler {
 				} else if ((viewLabel = clickLabel(x, y, subwindow)) != null) {
 					System.out.println("label clicked");
 					if (clickCount == 1) {
-						controller.selectComponent(selectedComponent);
+						mainwindow.selectComponent(selectedComponent);
 						labelClicked += 1;
 					}
 					if (labelClicked == 2) {

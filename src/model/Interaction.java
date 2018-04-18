@@ -125,7 +125,8 @@ public class Interaction implements Observable {
 		this.messages.remove(message);
 		notifyDelete(message);
 		
-		// TODO delete bijhorende result message
+		if (message instanceof InvocationMessage)
+			removeMessage(((InvocationMessage) message).getResultMessage());
 	}
 	
 	/**

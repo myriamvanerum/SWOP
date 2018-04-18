@@ -80,31 +80,6 @@ public class Controller {
 		System.out.println("Create New Party.");
 		return party;
 	}
-
-	/**
-	 * Close a SubWindow
-	 * @param subwindow
-	 * 		the SubWindow to be closed
-	 * @throws NullPointerException
-	 * 		No subwindow supplied
-	 */
-	public void closeClickedSubwindow(SubWindow subwindow) {	
-		if (subwindow == null)
-			throw new NullPointerException();
-		
-		mainWindow.getSubWindows().remove(subwindow);
-		subwindow.getInteraction().removeObserver(subwindow);
-
-		if (subwindow == mainWindow.getActiveWindow()) {
-			int index = mainWindow.getSubWindows().size();
-			
-			if (index <= 0)
-				mainWindow.setActiveWindow(null);
-			else
-				mainWindow.setActiveWindow(mainWindow.getSubWindows().get(index-1));
-		}
-		System.out.println("Close SubWindow.");
-	}
 	
 	/**
 	 * Change the type of a Party. An Actor becomes an Object and vice versa
@@ -119,25 +94,6 @@ public class Controller {
 		
 		System.out.println("Change Party Type.");
 		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
-	}
-
-	/** 
-	 * Select a Party or Message
-	 * @param viewComponent
-	 * 		The Party or Message to select
-	 * @throws NullPointerException
-	 * 		No ViewComponent supplied
-	 */
-	public void selectComponent(ViewComponent viewComponent) {
-		if (viewComponent == null)
-			throw new NullPointerException();
-		
-		System.out.println("Select party.");
-		
-		if (viewComponent.selected())
-			viewComponent.unselect();
-		else
-			viewComponent.select();
 	}
 
 	/**
@@ -157,34 +113,6 @@ public class Controller {
 			mainWindow.getActiveWindow().getInteraction().removeParty((Party)viewComponent.getComponent());
 		else if (viewComponent instanceof ViewInvocationMessage)
 			mainWindow.getActiveWindow().getInteraction().removeMessage((Message)viewComponent.getComponent());
-	}
-
-	/**
-	 * Move a Party on the screen
-	 * @param selectedViewComponent
-	 * 		The Party to move
-	 * @param x
-	 * 		The new x coordinates
-	 * @param y
-	 * 		The new y coordinates
-	 * @throws NullPointerException
-	 * 		No ViewComponent supplied
-	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
-	 */
-	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
-		if (selectedViewComponent == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-		
-		SubWindow activeWindow = mainWindow.getActiveWindow();
-		State state = activeWindow.getState();
-		if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-			selectedViewComponent.setPositionSeq(new Point2D.Double(x - activeWindow.getX(), 40));
-		} else {
-			selectedViewComponent.setPositionCom(new Point2D.Double(x - activeWindow.getX(), y - activeWindow.getY() - 25));
-		}
 	}
 
 	/**
@@ -213,6 +141,7 @@ public class Controller {
 		System.out.println("Add message.");
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
 		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
+		invocationMessage.setResultMessage(resultMessage);
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		
@@ -222,6 +151,12 @@ public class Controller {
 		return invocationMessage;
 	}
 	
+	/**
+	 * Check the syntax of a Party's Label
+	 * @param label
+	 * 		The label to check
+	 * @return true if syntax correct
+	 */
 	public boolean checkLabelSyntax(String label) {
 		SyntaxChecker syntaxChecker = new SyntaxChecker();
 		return syntaxChecker.correctLabelSyntax(label);

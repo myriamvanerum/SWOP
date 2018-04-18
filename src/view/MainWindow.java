@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,6 +52,77 @@ public class MainWindow extends CanvasWindow {
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);
+	}
+	
+	/**
+	 * Close a SubWindow
+	 * @param subwindow
+	 * 		the SubWindow to be closed
+	 * @throws NullPointerException
+	 * 		No subwindow supplied
+	 */
+	public void closeClickedSubwindow(SubWindow subwindow) {	
+		if (subwindow == null)
+			throw new NullPointerException();
+		
+		getSubWindows().remove(subwindow);
+		subwindow.getInteraction().removeObserver(subwindow);
+
+		if (subwindow == getActiveWindow()) {
+			int index = getSubWindows().size();
+			
+			if (index <= 0)
+				setActiveWindow(null);
+			else
+				setActiveWindow(getSubWindows().get(index-1));
+		}
+		System.out.println("Close SubWindow.");
+	}
+	
+	/** 
+	 * Select a Party or Message
+	 * @param viewComponent
+	 * 		The Party or Message to select
+	 * @throws NullPointerException
+	 * 		No ViewComponent supplied
+	 */
+	public void selectComponent(ViewComponent viewComponent) {
+		if (viewComponent == null)
+			throw new NullPointerException();
+		
+		System.out.println("Select component.");
+		
+		if (viewComponent.selected())
+			viewComponent.unselect();
+		else
+			viewComponent.select();
+	}
+	
+	/**
+	 * Move a Party on the screen
+	 * @param selectedViewComponent
+	 * 		The Party to move
+	 * @param x
+	 * 		The new x coordinates
+	 * @param y
+	 * 		The new y coordinates
+	 * @throws NullPointerException
+	 * 		No ViewComponent supplied
+	 * @throws IllegalArgumentException
+	 * 		Illegal coordinates
+	 */
+	public void moveComponent(ViewComponent selectedViewComponent, int x, int y) {
+		if (selectedViewComponent == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
+		State state = activeWindow.getState();
+		if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
+			selectedViewComponent.setPositionSeq(new Point2D.Double(x - activeWindow.getX(), 40));
+		} else {
+			selectedViewComponent.setPositionCom(new Point2D.Double(x - activeWindow.getX(), y - activeWindow.getY() - 25));
+		}
 	}
 	
 	/**

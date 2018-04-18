@@ -4,8 +4,7 @@ package model;
  * A result message class
  * @author  groep 03
  */
-public class ResultMessage extends Message {
-
+public class ResultMessage extends Message {	
 	/**
 	 * Result message constructor
 	 * @param label
@@ -18,7 +17,4 @@ public class ResultMessage extends Message {
     public ResultMessage(String label, Party sender, Party receiver) {
         super(label, sender, receiver);
     }
-
-    
-
 }
