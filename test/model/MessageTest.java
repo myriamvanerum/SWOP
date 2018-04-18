@@ -18,15 +18,17 @@ class MessageTest {
 		Party actor = new Actor("test");
 		Party object = new Object("test");
 		
-		Message invocation = new InvocationMessage("message", actor, object);		
+		ResultMessage result = new ResultMessage("result", object, actor);		
+		
+		assertEquals("result", result.getLabel());
+		
+		InvocationMessage invocation = new InvocationMessage("message", actor, object, result);		
 			
 		assertEquals(invocation, actor.getSendingMessage());
 		assertEquals(actor, invocation.getSender());
 		assertEquals(object, invocation.getReceiver());
 		
-		Message result = new ResultMessage("result", object, actor);		
-			
-		assertEquals("result", result.getLabel());
+		
 	}
 	
 

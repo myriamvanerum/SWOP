@@ -72,10 +72,10 @@ public class EventHandler {
 				else if (label != null && label.length() > 0)
 					currentComponent.setLabel(label.substring(0, label.length() - 1) + keyChar + "|");
 				
-				if (labelMode == LabelMode.PARTY && controller.checkLabelSyntax(currentComponent.getLabel()))
-					viewLabel.setColor(Color.GREEN);
-				else
+				if (labelMode == LabelMode.PARTY && !controller.checkLabelSyntax(currentComponent.getLabel()))
 					viewLabel.setColor(Color.RED);
+				else
+					viewLabel.setColor(Color.GREEN);
 			}
 
 			if (keyCode == 10) {

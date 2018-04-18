@@ -46,14 +46,6 @@ class ControllerTest {
 		assertNotNull(mainwindow.getActiveWindow().findViewParty(party));
 		
 		
-		controller.createNewInteraction();
-		SubWindow subwindow = mainwindow.getSubWindows().get(1);
-		
-		controller.closeClickedSubwindow(subwindow);
-		
-		assertNotEquals(mainwindow.getActiveWindow(),subwindow);
-		
-		
 		controller.changePartyType(mainwindow.getActiveWindow().findViewParty(party));
 		
 		assertFalse(mainwindow.getActiveWindow().getInteraction().getParties().contains(party));
