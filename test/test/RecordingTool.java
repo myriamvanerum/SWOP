@@ -9,7 +9,7 @@ public class RecordingTool {
 	private static String name;
 	private static Scanner scanner = new Scanner(System.in);
 	
-	private static String directory = System.getProperty("user.dir") + File.separator + "testing" + File.separator + "recordings";
+	private static String directory = System.getProperty("user.dir") + File.separator + "test" + File.separator + "recordings";
 	
 	public static void main(String[] args) {
 		make(directory);
@@ -25,7 +25,7 @@ public class RecordingTool {
 		
 		java.awt.EventQueue.invokeLater(() -> {
 			MainWindow main = new MainWindow(file);
-			main.recordSession(directory + File.separator + "recording");
+			main.recordSession(file + File.separator + "recording");
 			main.show();
 		});
 	}
