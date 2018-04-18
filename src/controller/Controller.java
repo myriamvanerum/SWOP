@@ -71,9 +71,6 @@ public class Controller {
 		
 		Party party = partyFactory.createParty("object");
 		
-		if (party == null)
-			throw new IllegalArgumentException();
-		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		currentInteraction.addParty(party, position);
 		

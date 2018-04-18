@@ -18,7 +18,9 @@ class InteractionTest {
 		
 		Party actor = new Actor("actor");
 		Party object = new Object("object");
-		Message invocation = new InvocationMessage("message", actor, object);
+		InvocationMessage invocation = new InvocationMessage("message", actor, object);
+		ResultMessage result = new ResultMessage("message", actor, object);
+		invocation.setResultMessage(result);
 		
 		interaction.addParty(actor, new Point2D.Double(50,50));
 		interaction.addParty(object, new Point2D.Double(150,150));
