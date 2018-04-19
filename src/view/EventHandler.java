@@ -87,14 +87,11 @@ public class EventHandler {
 					{	viewLabel.setColor(Color.BLACK);
 						currentComponent.setLabel(label.substring(0, label.length() - 1));
 						viewLabel.setOutput(currentComponent.getLabel());
-						active.setLabelMode(LabelMode.SHOW);
-						viewLabel.setLabelMode(LabelMode.SHOW);
-
+						
 						if (selectedComponent.isSelected)
 							mainwindow.selectComponent();
 
-						active.setSelectedComponent(null);
-						updateLabelsSubwindows(mainwindow);
+						active.getInteraction().notifyEditLabel(currentComponent);
 					}					
 				}
 			}
@@ -208,7 +205,6 @@ public class EventHandler {
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
 						viewLabel.setOutput(label);
-						// TODO set label for same party
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
@@ -222,14 +218,6 @@ public class EventHandler {
 				break;
 			}
 		}
-	}
-
-	private void updateLabelsSubwindows(MainWindow mainwindow) {
-		for (SubWindow subwindow : mainwindow.getSubWindows()) {
-			subwindow.setLabelMode(LabelMode.SHOW);
-			subwindow.updateLabels();
-		}
-		
 	}
 
 	/**
