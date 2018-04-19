@@ -65,7 +65,9 @@ public interface Observable {
 	public void notifyAdd(Message message, Point2D position);
 	
 	/**
-	 * TODO
+	 * Notify all Observers a label has been edited
+	 * @param component
+	 *		The component that has had it's label edited
 	 */
 	public void notifyEditLabel(Component component);
 }

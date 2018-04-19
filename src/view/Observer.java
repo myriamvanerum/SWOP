@@ -54,9 +54,9 @@ public interface Observer {
 	public void onAddMessage(Message message, Point2D position);
 	
 	/**
-	 * 
+	 * Method to be called when a Component's label has been edited
 	 * @param component
-	 * @param label
+	 *		The component that has had it's label edited
 	 */
 	public void onEditLabel(Component component);
 }

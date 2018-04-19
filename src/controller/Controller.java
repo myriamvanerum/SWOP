@@ -11,11 +11,8 @@ import model.PartyFactory;
 import model.ResultMessage;
 import model.SyntaxChecker;
 import view.MainWindow;
-import view.State;
-import view.SubWindow;
 import view.ViewComponent;
 import view.ViewInvocationMessage;
-import view.ViewObject;
 import view.ViewParty;
 
 /**

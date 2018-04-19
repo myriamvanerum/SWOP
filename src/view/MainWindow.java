@@ -23,15 +23,15 @@ public class MainWindow extends CanvasWindow {
 
     }
 	
-	EventHandler eventHandler;
+	public SubWindow activeWindow = null;	
+	public ArrayList<SubWindow> subWindows = new ArrayList<>();
+	public EventHandler eventHandler;
+
 	public MainWindow(String title) {
         super(title);
         setEventHandler(new EventHandler(this));
     }
 	
-	SubWindow activeWindow = null;
-	
-	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
 	/**
 	 * Method to create a new SubWindow

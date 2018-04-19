@@ -306,6 +306,22 @@ public class SubWindow implements Observer {
 	public void setState(State windowState) {
 		this.windowState = windowState;
 	}
+	
+	public LabelMode getLabelMode() {
+		return labelMode;
+	}
+
+	public void setLabelMode(LabelMode labelMode) {
+		this.labelMode = labelMode;
+	}
+
+	public ViewComponent getSelectedComponent() {
+		return selectedComponent;
+	}
+
+	public void setSelectedComponent(ViewComponent selectedComponent) {
+		this.selectedComponent = selectedComponent;
+	}
 
 	/**
 	 * Draw the SubWindow title
@@ -451,22 +467,6 @@ public class SubWindow implements Observer {
 				return viewMessage;
 		}
 		return null;
-	}
-
-	public LabelMode getLabelMode() {
-		return labelMode;
-	}
-
-	public void setLabelMode(LabelMode labelMode) {
-		this.labelMode = labelMode;
-	}
-
-	public ViewComponent getSelectedComponent() {
-		return selectedComponent;
-	}
-
-	public void setSelectedComponent(ViewComponent selectedComponent) {
-		this.selectedComponent = selectedComponent;
 	}
 	
 	public void updateLabels(String label) {

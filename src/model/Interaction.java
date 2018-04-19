@@ -4,9 +4,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.Observer;
-import view.SubWindow;
-import view.ViewObject;
-import view.ViewParty;
 
 /**
  * An Interaction is composed of a number of Parties and Messages, and can be shown in multiple SubWindows

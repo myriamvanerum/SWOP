@@ -11,6 +11,8 @@ import model.Party;
  *
  */
 public class ViewObject extends ViewParty {
+	private int width = 80, height = 80;
+	
 	/**
 	 * ViewObject Constructor
 	 * @param party
@@ -43,8 +45,6 @@ public class ViewObject extends ViewParty {
 	public ViewObject(ViewParty viewParty) {
 		super(viewParty);
 	}
-
-	private int width = 80, height = 80;
 	
 	/**
 	 * This method paints an object on the window
