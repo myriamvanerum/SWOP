@@ -16,6 +16,8 @@ public class ViewLabel {
 	
 	/**
 	 * ViewLabel Constructor
+	 * @param label
+	 * 		The text of the label
 	 */
 	public ViewLabel(String label) {
 		labelMode = LabelMode.SHOW;
