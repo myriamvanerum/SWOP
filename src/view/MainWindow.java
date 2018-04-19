@@ -87,27 +87,7 @@ public class MainWindow extends CanvasWindow {
 		}
 		System.out.println("Close SubWindow.");
 	}
-	
-	/** 
-	 * Select a Party or Message
-	 * @param viewComponent
-	 * 		The Party or Message to select
-	 * @throws NullPointerException
-	 * 		No ViewComponent supplied
-	 */
-	public void selectComponent() {
-		ViewComponent viewComponent = activeWindow.getSelectedComponent();
-		if (viewComponent == null)
-			throw new NullPointerException();
 		
-		System.out.println("Select component.");
-		
-		if (viewComponent.selected())
-			viewComponent.unselect();
-		else
-			viewComponent.select();
-	}
-	
 	/**
 	 * Move a Party on the screen
 	 * @param selectedViewComponent

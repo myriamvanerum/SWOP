@@ -89,7 +89,7 @@ public class EventHandler {
 						viewLabel.setOutput(currentComponent.getLabel());
 						
 						if (selectedComponent.isSelected)
-							mainwindow.selectComponent();
+							active.selectComponent();
 
 						active.getInteraction().notifyEditLabel(currentComponent);
 					}					
@@ -194,7 +194,7 @@ public class EventHandler {
 					selectedComponent = active.getSelectedComponent();
 					
 					if (clickCount == 1 && labelClickedOnce == null) {
-						mainwindow.selectComponent();
+						active.selectComponent();
 						labelClickedOnce = selectedComponent;
 					} else if (selectedComponent == labelClickedOnce) {
 						if (selectedComponent instanceof ViewParty) {
@@ -211,13 +211,10 @@ public class EventHandler {
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
-					// TODO clicked empty area
 					Party party = controller.createParty(new Point2D.Double(x, y));
 					active.setSelectedComponent(active.findViewParty(party));
 					active.setLabelMode(LabelMode.PARTY);
 				}
-
-				// TODO (invocation) message clicked
 				break;
 			}
 		}
@@ -287,7 +284,6 @@ public class EventHandler {
 			}
 		}
 
-		// TODO click label invocation messages
 		for (ViewMessage message : messages) {
 			if (message.getClass() == ViewInvocationMessage.class) {
 				if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {

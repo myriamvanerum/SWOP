@@ -85,11 +85,11 @@ class MainWindowTest {
 		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
 		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
 		activeWindow.selectedComponent = viewComponent;
-		mainwindow.selectComponent();
+		activeWindow.selectComponent();
 		
 		assertTrue(viewComponent.selected());
 		
-		mainwindow.selectComponent();
+		activeWindow.selectComponent();
 		
 		assertFalse(viewComponent.selected());
 	}
@@ -100,7 +100,7 @@ class MainWindowTest {
 		mainwindow.createNewSubWindow(interaction);
 		
 		try {
-			mainwindow.selectComponent();
+			mainwindow.getActiveWindow().selectComponent();
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;

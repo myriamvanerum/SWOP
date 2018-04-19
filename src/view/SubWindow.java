@@ -489,4 +489,24 @@ public class SubWindow implements Observer {
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
 	}
+	
+	/** 
+	 * Select a Party or Message
+	 * @param viewComponent
+	 * 		The Party or Message to select
+	 * @throws NullPointerException
+	 * 		No ViewComponent supplied
+	 */
+	public void selectComponent() {
+		ViewComponent viewComponent = getSelectedComponent();
+		if (viewComponent == null)
+			throw new NullPointerException();
+		
+		System.out.println("Select component.");
+		
+		if (viewComponent.selected())
+			viewComponent.unselect();
+		else
+			viewComponent.select();
+	}
 }
