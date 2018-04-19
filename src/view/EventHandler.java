@@ -160,6 +160,9 @@ public class EventHandler {
 					mainwindow.setActiveWindow(sub);
 			}
 		}
+		
+		if (clickOutsideActiveSubwindow(x, y, active))
+			return;
 
 		if (active.getLabelMode() == LabelMode.SHOW) {
 			switch (id) {
