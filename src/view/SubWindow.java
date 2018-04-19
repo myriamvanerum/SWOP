@@ -118,11 +118,9 @@ public class SubWindow implements Observer {
 			
 			for (ViewParty viewParty: getViewParties()) {				
 				if ( viewMessage.getSender().getParty() == viewParty.getParty()) {
-					System.err.println("jup s");
 					sender = viewMessage.getSender();
 				}
 				if ( viewMessage.getReceiver().getParty() == viewParty.getParty()) {
-					System.err.println("jup r");
 					receiver = viewMessage.getReceiver();
 				}
 			}
