@@ -30,6 +30,21 @@ public class ViewResultMessage extends ViewMessage {
 	}
 	
 	/**
+	 * ViewResultMessage Constructor
+	 * @param message
+	 * 		Message to draw
+	 * @param position
+	 * 		Mesage position
+	 * @param sender
+	 * 		Message sender
+	 * @param receiver
+	 * 		Message receiver
+	 */
+	public ViewResultMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver ) {
+		super(message, position, sender, receiver);
+	}
+	
+	/**
 	 * This method draws a result message on the window
 	 * 
 	 * @param g
