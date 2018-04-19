@@ -10,7 +10,6 @@ package model;
 public abstract class Message extends Component {
     private Party sender;
     private Party receiver;
-    private String number;
 
     /**
      * Constructor of Message.
@@ -47,12 +46,4 @@ public abstract class Message extends Component {
     public Party getReceiver() {
         return receiver;
     }
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
 }

@@ -60,6 +60,7 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * @throws IllegalArgumentException
 	 * 			  Illegal party coordinates
 	 */
+	@Override
 	public void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver) {
 		if (xSender < 0 || xReceiver < 0 || ySender < 0 || yReceiver < 0)
 			throw new IllegalArgumentException();

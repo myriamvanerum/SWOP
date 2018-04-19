@@ -2,7 +2,6 @@ package view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import model.Interaction;
 import model.Party;
 
 
-class MainWindowTest {
+class EventHandlerTest {
 
 	MainWindow mainwindow = new MainWindow("");
 	
@@ -148,7 +147,7 @@ class MainWindowTest {
 	}
 	
 	@Test
-	void testMainWindowMoveComponentNullError() {
+	void testControllerMoveComponentNullError() {
 		try {
 			int x = 150, y = 200;
 			mainwindow.moveComponent(null, x, y);
@@ -159,7 +158,7 @@ class MainWindowTest {
 	}
 	
 	@Test
-	void testMainWindowMoveComponentPositionError() {
+	void testControllerMoveComponentPositionError() {
 		Interaction interaction = new Interaction();
 		mainwindow.createNewSubWindow(interaction);
 		SubWindow activeWindow = mainwindow.getActiveWindow();
@@ -177,25 +176,4 @@ class MainWindowTest {
 	    }
 	}
 
-	@Test
-	void testMainWindowTabKey() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
-		State stateBefore = activeWindow.getState();
-		
-		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
-		
-		State stateAfter = activeWindow.getState();
-		
-		assertNotEquals(stateBefore, stateAfter);
-	}
-	
-	@Test
-	void testMainWindowCtrlNKey() {
-		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_N, '');
-		
-		assertNotNull(mainwindow.getActiveWindow());
-	}
 }

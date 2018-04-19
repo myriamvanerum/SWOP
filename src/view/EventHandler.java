@@ -91,7 +91,7 @@ public class EventHandler {
 						if (selectedComponent.isSelected)
 							mainwindow.selectComponent();
 
-						active.getInteraction().notifyEditLabel(currentComponent);
+						controller.labelEdited(active.getInteraction(), currentComponent);
 					}					
 				}
 			}
@@ -100,7 +100,8 @@ public class EventHandler {
 		if (active == null || active.getLabelMode() == LabelMode.SHOW) {
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
-				mainwindow.getActiveWindow().changeState();
+				if (active != null)
+					mainwindow.getActiveWindow().changeState();
 				break;
 			case KeyEvent.VK_DELETE:
 				if (active.getSelectedComponent() != null)

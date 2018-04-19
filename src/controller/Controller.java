@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.geom.Point2D;
 
+import model.Component;
 import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
@@ -157,5 +158,16 @@ public class Controller {
 	public boolean checkLabelSyntax(String label) {
 		SyntaxChecker syntaxChecker = new SyntaxChecker();
 		return syntaxChecker.correctLabelSyntax(label);
+	}
+
+	/**
+	 * Method to be called when a Label has to be saved
+	 * @param interaction
+	 * 		The Interaction the label belongs to
+	 * @param currentComponent
+	 * 		The component with a new label
+	 */
+	public void labelEdited(Interaction interaction, Component currentComponent) {
+		interaction.notifyEditLabel(currentComponent);
 	}
 }

@@ -111,8 +111,7 @@ public class ViewParty extends ViewComponent {
 	 * @param position
 	 * 			  The position to draw the Party
 	 */
-	public void draw(Graphics2D g, Point2D position) {
-	}
+	public void draw(Graphics2D g, Point2D position) {}
 	
 	/* GETTERS AND SETTERS */
 

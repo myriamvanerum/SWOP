@@ -232,6 +232,11 @@ public class Interaction implements Observable {
 			observer.onAddMessage(message, position);
 	}
 
+	/**
+	 * Notify all Observers a Label has been changed
+	 * @param component
+	 * 		The component with a changed Label
+	 */
 	@Override
 	public void notifyEditLabel(Component component) {
 		for (Observer observer : observers)
