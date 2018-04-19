@@ -65,43 +65,9 @@ class MainWindowTest {
 	}
 	
 	@Test
-	void testControllerClosedWindowNullError() {
+	void testMainWindowCloseWindowNullError() {
 		try {
 			mainwindow.closeClickedSubwindow(null);
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
-	
-	@Test
-	void testMainWindowSelectComponent() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
-		
-		Party party = new Actor("Actor");
-		Point2D clickPosition = new Point2D.Double(50,50);
-		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
-		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
-		activeWindow.selectedComponent = viewComponent;
-		activeWindow.selectComponent();
-		
-		assertTrue(viewComponent.selected());
-		
-		activeWindow.selectComponent();
-		
-		assertFalse(viewComponent.selected());
-	}
-	
-	@Test
-	void testControllerSelectComponentNullError() {
-		Interaction interaction = new Interaction();
-		mainwindow.createNewSubWindow(interaction);
-		
-		try {
-			mainwindow.getActiveWindow().selectComponent();
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;
@@ -190,6 +156,13 @@ class MainWindowTest {
 		State stateAfter = activeWindow.getState();
 		
 		assertNotEquals(stateBefore, stateAfter);
+		
+		
+		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
+		
+		stateAfter = activeWindow.getState();
+		
+		assertEquals(stateBefore, stateAfter);
 	}
 	
 	@Test
@@ -197,5 +170,16 @@ class MainWindowTest {
 		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_N, '');
 		
 		assertNotNull(mainwindow.getActiveWindow());
+	}
+	
+	@Test
+	void testMainWindowMoveSetSubWindowsNull() {
+		Interaction interaction = new Interaction();
+		
+		mainwindow.createNewSubWindow(interaction);
+		
+		mainwindow.setSubWindows(null);
+		
+		assertNull(mainwindow.getSubWindows());
 	}
 }

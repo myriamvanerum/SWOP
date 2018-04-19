@@ -64,6 +64,13 @@ class RecordingTest {
 	}
 	
 	@Test
+	void testCreatePartyLongLabel() {
+		String name = "createPartyLongLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
 	void testCreatePartyIncorrectLabel() {
 		String name = "createPartyIncorrectLabel";
 		main = new MainWindow(name);
@@ -199,6 +206,13 @@ class RecordingTest {
 	@Test
 	void testMouseClickOutsideWindows() {
 		String name = "mouseClickOutsideWindows";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testThorough() {
+		String name = "thoroughTest";
 		main = new MainWindow(name);
 		replayRecording(directory + name + suffix, main);
 	}

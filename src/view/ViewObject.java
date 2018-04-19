@@ -68,7 +68,6 @@ public class ViewObject extends ViewParty {
 			} else {
 			viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
 			viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
-			
 		}
 		
 		// label width dynamisch maken met label width				
