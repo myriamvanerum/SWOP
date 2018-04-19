@@ -106,6 +106,13 @@ class RecordingTest {
 	}
 	
 	@Test
+	void testRemovePartyWithMessage() {
+		String name = "removePartyWithMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
 	void testMoveParty() {
 		String name = "moveParty";
 		main = new MainWindow(name);
