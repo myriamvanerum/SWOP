@@ -31,7 +31,6 @@ public class ViewMessage extends ViewComponent {
 	public ViewMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver) {
 		viewLabel = new ViewLabel(message.getLabel());
 		activationBar = new ViewActivationBar();
-		// TODO
 		setMessage(message);
 		setPositionCom(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()+25));
 		setPositionSeq(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()));
@@ -87,9 +86,7 @@ public class ViewMessage extends ViewComponent {
 		int xSender = senderLifeline.getX();
 		int xReceiver = receiverLifeline.getX();
 		int y = (int) getPositionSeq().getY();
-		
-		System.err.println(senderLifeline);
-		
+				
 		draw(g, xSender, xReceiver, y, y);
 		
 		if (this.getClass() == ViewInvocationMessage.class) {

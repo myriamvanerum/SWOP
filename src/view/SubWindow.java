@@ -83,7 +83,6 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 * 		Illegal coordinates
 	 */
-	@SuppressWarnings("unchecked")
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
 		if (activeWindow == null)
 			throw new NullPointerException();
@@ -108,43 +107,46 @@ public class SubWindow implements Observer {
 		selectedComponent = null;
 	}
 
-	// TODO
+	/**
+	 * Duplicate the ViewMessages of the original subwindow
+	 * @param viewMessages
+	 * 		The Messages in the SubWindow
+	 * @return Copy of the viewMessages arraylist
+	 */
 	private ArrayList<ViewMessage> copyMessages(ArrayList<ViewMessage> viewMessages) {
 		ArrayList<ViewMessage> copy = new ArrayList<>();
-		
+       
 		for (ViewMessage viewMessage : viewMessages) {
-			ViewMessage newViewMessage;
-			ViewParty receiver = null, sender = null;
-			Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
+			ViewMessage newViewMessage;			
+			Message message = viewMessage.getMessage();
 			
-			for (ViewParty viewParty: getViewParties()) {				
-				if ( viewMessage.getSender().getParty() == viewParty.getParty()) {
-					sender = viewMessage.getSender();
-				}
-				if ( viewMessage.getReceiver().getParty() == viewParty.getParty()) {
-					receiver = viewMessage.getReceiver();
-				}
-			}
+			ViewParty sender = findViewParty(message.getSender());
+			ViewParty receiver = findViewParty(message.getReceiver());
 			
 			Point2D position;
 			if (windowState == seqState) {
-				position = new Point2D.Double(viewMessage.getPositionSeq().getX() + (subwindow.getX()), viewMessage.getPositionSeq().getY());
+				position = new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY());
 			} else {
-				position = new Point2D.Double(viewMessage.getPositionCom().getX() + (subwindow.getX()), viewMessage.getPositionCom().getY());
+				position = new Point2D.Double(viewMessage.getPositionCom().getX(), viewMessage.getPositionCom().getY());
 			}
-						
-		
-			if (viewMessage instanceof ViewInvocationMessage)
-				newViewMessage = new ViewInvocationMessage(viewMessage.getMessage(),position, sender, receiver);
-			else newViewMessage = new ViewResultMessage(viewMessage.getMessage(),position, sender, receiver);
 			
-			copy.add(newViewMessage);
+			if (message instanceof InvocationMessage)		
+				newViewMessage = new ViewInvocationMessage(message, position, sender, receiver);
+			else 
+				newViewMessage = new ViewResultMessage(message, position, sender, receiver);
+			
+			copy.add(newViewMessage);			
 		}
 		
 		return copy;
 	}
 
-	// TODO
+	/**
+	 * Duplicate the ViewParties of the original subwindow
+	 * @param viewParties
+	 * 		The Parties in the SubWindow
+	 * @return  Copy of the viewParties arraylist
+	 */
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
 		ArrayList<ViewParty> copy = new ArrayList<>();
 		
@@ -158,11 +160,12 @@ public class SubWindow implements Observer {
 			}
 			
 			ViewParty newViewParty;
-			if (viewParty instanceof ViewObject)
+			if (viewParty instanceof ViewObject) {
 				newViewParty = new ViewObject((Party)party, position);
-			else newViewParty = new ViewActor((Party)party, position);
+			} else {
+				newViewParty = new ViewActor((Party)party, position);
+			}
 			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
-			newViewParty.setViewLifeLine(new ViewLifeLine());
 			copy.add(newViewParty);
 		}
 		
@@ -414,9 +417,9 @@ public class SubWindow implements Observer {
 		ViewMessage viewMessage;
 		
 		if (message instanceof InvocationMessage)		
-			viewMessage = new ViewInvocationMessage(message, position, new Point2D.Double(getX(), getY()), sender, receiver);
+			viewMessage = new ViewInvocationMessage(message, position, sender, receiver);
 		else 
-			viewMessage = new ViewResultMessage(message, position, new Point2D.Double(getX(), getY()), sender, receiver);
+			viewMessage = new ViewResultMessage(message, position, sender, receiver);
 		
 		getViewMessages().add(viewMessage);
 	}

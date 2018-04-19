@@ -59,8 +59,7 @@ public class ViewObject extends ViewParty {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 										
-		viewLifeLine.setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), 375);
-        
+		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
 		String label = viewLabel.getOutput();
 		
 		if (viewLabel.getLabelMode() == LabelMode.SHOW) {
