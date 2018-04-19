@@ -188,4 +188,11 @@ class RecordingTest {
 		main = new MainWindow(name);
 		replayRecording(directory + name + suffix, main);
 	}
+	
+	@Test
+	void testMouseClickOutsideWindows() {
+		String name = "mouseClickOutsideWindows";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 }
