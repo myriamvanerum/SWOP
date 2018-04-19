@@ -231,4 +231,10 @@ public class Interaction implements Observable {
 		for (Observer observer : observers)
 			observer.onAddMessage(message, position);
 	}
+
+	@Override
+	public void notifyEditLabel(Component component) {
+		for (Observer observer : observers)
+			observer.onEditLabel(component);
+	}
 }

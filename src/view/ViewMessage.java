@@ -40,6 +40,27 @@ public class ViewMessage extends ViewComponent {
 	}
 	
 	/**
+	 * ViewMessage Constructor
+	 * @param message
+	 * 		Message to draw
+	 * @param position
+	 * 		Message position
+	 * @param sender
+	 * 		Message sender
+	 * @param receiver
+	 * 		Message receiver
+	 */
+	public ViewMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver) {
+		viewLabel = new ViewLabel(message.getLabel());
+		activationBar = new ViewActivationBar();
+		setMessage(message);
+		setPositionCom(new Point2D.Double(position.getX(), position.getY()));
+		setPositionSeq(new Point2D.Double(position.getX(), position.getY()));
+		setSender(sender);
+		setReceiver(receiver);
+	}
+	
+	/**
 	 * Draw a Message in a Communication diagram
 	 * @param g
 	 * 		Graphics class
@@ -66,6 +87,8 @@ public class ViewMessage extends ViewComponent {
 		int xSender = senderLifeline.getX();
 		int xReceiver = receiverLifeline.getX();
 		int y = (int) getPositionSeq().getY();
+		
+		System.err.println(senderLifeline);
 		
 		draw(g, xSender, xReceiver, y, y);
 		

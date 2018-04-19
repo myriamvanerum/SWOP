@@ -63,4 +63,9 @@ public interface Observable {
 	 * 		The position the message must be painted at
 	 */
 	public void notifyAdd(Message message, Point2D position);
+	
+	/**
+	 * TODO
+	 */
+	public void notifyEditLabel(Component component);
 }

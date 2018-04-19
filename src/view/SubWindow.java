@@ -113,8 +113,9 @@ public class SubWindow implements Observer {
 		ArrayList<ViewMessage> copy = new ArrayList<>();
 		
 		for (ViewMessage viewMessage : viewMessages) {
-			ViewMessage newViewMessage; //new ViewMessage(message, position, windowPosition, sender, receiver)
+			ViewMessage newViewMessage;
 			ViewParty receiver = null, sender = null;
+			Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
 			
 			for (ViewParty viewParty: getViewParties()) {				
 				if ( viewMessage.getSender().getParty() == viewParty.getParty()) {
@@ -127,24 +128,15 @@ public class SubWindow implements Observer {
 			
 			Point2D position;
 			if (windowState == seqState) {
-				position = new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY());
+				position = new Point2D.Double(viewMessage.getPositionSeq().getX() + (subwindow.getX()), viewMessage.getPositionSeq().getY());
 			} else {
-				position = new Point2D.Double(viewMessage.getPositionCom().getX(), viewMessage.getPositionCom().getY());
+				position = new Point2D.Double(viewMessage.getPositionCom().getX() + (subwindow.getX()), viewMessage.getPositionCom().getY());
 			}
-			
-			
-			Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
+						
+		
 			if (viewMessage instanceof ViewInvocationMessage)
-				newViewMessage = new ViewInvocationMessage(viewMessage.getMessage(),position,subwindow, sender, receiver);
-			else newViewMessage = new ViewResultMessage(viewMessage.getMessage(),position,subwindow, sender, receiver);
-			
-			/*double xSeq = newViewMessage.getPositionSeq().getX() + subwindow.getX();
-			double ySeq = newViewMessage.getPositionSeq().getY() + subwindow.getY() + 25;
-			newViewMessage.setPositionSeq(new Point2D.Double(xSeq, ySeq));
-			
-			double xCom = newViewMessage.getPositionCom().getX() + subwindow.getX();
-			double yCom = newViewMessage.getPositionCom().getY() + subwindow.getY() + 25;
-			newViewMessage.setPositionCom(new Point2D.Double(xCom, yCom));*/
+				newViewMessage = new ViewInvocationMessage(viewMessage.getMessage(),position, sender, receiver);
+			else newViewMessage = new ViewResultMessage(viewMessage.getMessage(),position, sender, receiver);
 			
 			copy.add(newViewMessage);
 		}
@@ -170,6 +162,7 @@ public class SubWindow implements Observer {
 				newViewParty = new ViewObject((Party)party, position);
 			else newViewParty = new ViewActor((Party)party, position);
 			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
+			newViewParty.setViewLifeLine(new ViewLifeLine());
 			copy.add(newViewParty);
 		}
 		
@@ -472,12 +465,24 @@ public class SubWindow implements Observer {
 		this.selectedComponent = selectedComponent;
 	}
 	
-	public void updateLabels() {
+	public void updateLabels(String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
 		components.addAll(getViewMessages());
-		for (ViewComponent component: getViewMessages()) {
-			component.getViewLabel().setLabelMode(LabelMode.SHOW);
+		for (ViewComponent component: components) {
+			ViewLabel viewLabel = component.getViewLabel();
+			viewLabel.setLabelMode(LabelMode.SHOW);
+			viewLabel.setColor(Color.BLACK);
+			viewLabel.setOutput(label);
 		}
+	}
+	
+	@Override
+	public void onEditLabel(Component component) {
+		labelMode = LabelMode.SHOW;
+		updateLabels(component.getLabel());
+		if (getSelectedComponent() != null)
+			getSelectedComponent().unselect();
+		setSelectedComponent(null);
 	}
 }

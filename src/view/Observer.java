@@ -2,6 +2,7 @@ package view;
 
 import java.awt.geom.Point2D;
 
+import model.Component;
 import model.Message;
 import model.Party;
 
@@ -51,4 +52,11 @@ public interface Observer {
 	 * 		The position the Message must be painted at
 	 */
 	public void onAddMessage(Message message, Point2D position);
+	
+	/**
+	 * 
+	 * @param component
+	 * @param label
+	 */
+	public void onEditLabel(Component component);
 }

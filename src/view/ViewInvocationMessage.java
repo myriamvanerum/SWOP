@@ -30,6 +30,21 @@ public class ViewInvocationMessage extends ViewMessage {
 	}
 	
 	/**
+	 * ViewInvocationMessage Constructor
+	 * @param message
+	 * 		Message to draw
+	 * @param position
+	 * 		Mesage position
+	 * @param sender
+	 * 		Message sender
+	 * @param receiver
+	 * 		Message receiver
+	 */
+	public ViewInvocationMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver ) {
+		super(message, position, sender, receiver);
+	}
+	
+	/**
 	 * This method draws an invocation message on the window
 	 * 
 	 * @param g
