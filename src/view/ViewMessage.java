@@ -32,7 +32,7 @@ public class ViewMessage extends ViewComponent {
 		viewLabel = new ViewLabel(message.getLabel());
 		activationBar = new ViewActivationBar();
 		setMessage(message);
-		setPositionCom(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()+25));
+		setPositionCom(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()-25));
 		setPositionSeq(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()));
 		setSender(sender);
 		setReceiver(receiver);
@@ -80,12 +80,14 @@ public class ViewMessage extends ViewComponent {
 	 * @param g
 	 * 		Graphics class
 	 */
-	public void drawSeq(Graphics2D g) {
+	public void drawSeq(Graphics2D g, Point2D windowPosition) {
+		System.err.println("click " + getPositionSeq().getX() + " " + getPositionSeq().getY());
+		
 		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
 		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
 		int xSender = senderLifeline.getX();
 		int xReceiver = receiverLifeline.getX();
-		int y = (int) getPositionSeq().getY();
+		int y = (int) (getPositionSeq().getY() + windowPosition.getY() + 25);
 				
 		draw(g, xSender, xReceiver, y, y);
 		

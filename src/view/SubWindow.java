@@ -415,11 +415,12 @@ public class SubWindow implements Observer {
 		ViewParty sender = findViewParty(message.getSender());
 		ViewParty receiver = findViewParty(message.getReceiver());
 		ViewMessage viewMessage;
+        Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
 		
 		if (message instanceof InvocationMessage)		
-			viewMessage = new ViewInvocationMessage(message, position, sender, receiver);
+			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
 		else 
-			viewMessage = new ViewResultMessage(message, position, sender, receiver);
+			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
 		
 		getViewMessages().add(viewMessage);
 	}

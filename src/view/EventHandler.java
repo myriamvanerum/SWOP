@@ -142,6 +142,8 @@ public class EventHandler {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
+		System.err.println("clicked " + x + " " + y);
+		
 		active = mainwindow.getActiveWindow();
 
 		if (active == null)
