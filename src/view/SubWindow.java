@@ -131,9 +131,9 @@ public class SubWindow implements Observer {
 			}
 			
 			if (message instanceof InvocationMessage)		
-				newViewMessage = new ViewInvocationMessage(message, position, sender, receiver);
+				newViewMessage = new ViewInvocationMessage(viewMessage);
 			else 
-				newViewMessage = new ViewResultMessage(message, position, sender, receiver);
+				newViewMessage = new ViewResultMessage(viewMessage);
 			
 			copy.add(newViewMessage);			
 		}

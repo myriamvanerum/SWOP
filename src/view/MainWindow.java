@@ -18,7 +18,7 @@ public class MainWindow extends CanvasWindow {
 	public static void main(String[] args){
 
         java.awt.EventQueue.invokeLater(() -> {
-            new MainWindow("My Canvas Window").show();
+            new MainWindow("Interactr").show();
         });
 
     }

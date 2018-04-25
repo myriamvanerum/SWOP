@@ -30,7 +30,7 @@ public class ViewResultMessage extends ViewMessage {
 	}
 	
 	/**
-	 * ViewResultMessage Constructor
+	 * Copy Constructor
 	 * @param message
 	 * 		Message to draw
 	 * @param position
@@ -40,8 +40,8 @@ public class ViewResultMessage extends ViewMessage {
 	 * @param receiver
 	 * 		Message receiver
 	 */
-	public ViewResultMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver ) {
-		super(message, position, sender, receiver);
+	public ViewResultMessage(ViewMessage message) {
+		super(message);
 	}
 	
 	/**

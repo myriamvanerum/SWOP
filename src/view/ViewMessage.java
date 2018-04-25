@@ -32,14 +32,13 @@ public class ViewMessage extends ViewComponent {
 		viewLabel = new ViewLabel(message.getLabel());
 		activationBar = new ViewActivationBar();
 		setMessage(message);
-		setPositionCom(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()-25));
 		setPositionSeq(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()-25));
 		setSender(sender);
 		setReceiver(receiver);
 	}
 	
 	/**
-	 * ViewMessage Constructor
+	 * Copy Constructor
 	 * @param message
 	 * 		Message to draw
 	 * @param position
@@ -49,14 +48,13 @@ public class ViewMessage extends ViewComponent {
 	 * @param receiver
 	 * 		Message receiver
 	 */
-	public ViewMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver) {
-		viewLabel = new ViewLabel(message.getLabel());
+	public ViewMessage(ViewMessage viewMessage) {
+		viewLabel = new ViewLabel(viewMessage.getViewLabel());
 		activationBar = new ViewActivationBar();
-		setMessage(message);
-		setPositionCom(new Point2D.Double(position.getX(), position.getY()));
-		setPositionSeq(new Point2D.Double(position.getX(), position.getY()));
-		setSender(sender);
-		setReceiver(receiver);
+		setMessage(viewMessage.getMessage());
+		setPositionSeq(new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY()));
+		setSender(viewMessage.getSender());
+		setReceiver(viewMessage.getReceiver());
 	}
 	
 	/**
