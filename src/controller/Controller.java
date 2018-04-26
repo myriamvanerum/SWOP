@@ -164,7 +164,7 @@ public class Controller {
 	 * @param currentComponent
 	 * 		The component with a new label
 	 */
-	public void labelEdited(Interaction interaction, Component currentComponent) {
-		interaction.notifyEditLabel(currentComponent);
+	public void editLabel(Interaction interaction, Component currentComponent, String label) {
+		interaction.editLabel(currentComponent, label);
 	}
 }

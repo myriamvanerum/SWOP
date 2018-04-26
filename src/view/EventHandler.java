@@ -85,13 +85,13 @@ public class EventHandler {
 				if (keyCode == 10) {
 					if (active.getLabelMode() == LabelMode.PARTY && controller.checkLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
 					{	viewLabel.setColor(Color.BLACK);
-						currentComponent.setLabel(label.substring(0, label.length() - 1));
 						viewLabel.setOutput(currentComponent.getLabel());
 						
 						if (selectedComponent.isSelected)
 							active.selectComponent();
 
-						controller.labelEdited(active.getInteraction(), currentComponent);
+						String newLabel = label.substring(0, label.length() - 1);
+						controller.editLabel(active.getInteraction(), currentComponent, newLabel);
 					}					
 				}
 			}
