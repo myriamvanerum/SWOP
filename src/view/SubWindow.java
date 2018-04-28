@@ -509,4 +509,41 @@ public class SubWindow implements Observer {
 		}
 		return null;
 	}
+	
+	/**
+	 * Checks if a Label was clicked
+	 * 
+	 * @param x
+	 *            Clicked x coordinates
+	 * @param y
+	 *            Clicked y coordinates
+	 * @return the clicked Label, if there is one, otherwise null
+	 * @throws NullPointerException
+	 *             No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	public ViewLabel clickLabel(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			if (getState().checkLabelPosition(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+				setSelectedComponent(party);
+				return party.getViewLabel();
+			}
+		}
+
+		for (ViewMessage message : getViewMessages()) {
+			// TODO instanceof weg
+			if (message.getClass() == ViewInvocationMessage.class) {
+				if (getState().checkLabelPosition(message, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+					setSelectedComponent(message);
+					return message.getViewLabel();
+				}
+			}
+		}
+
+		return null;
+	}
 }

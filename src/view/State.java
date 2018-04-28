@@ -33,6 +33,8 @@ public interface State {
 	
 	public boolean checkCoordinates(ViewParty party, Point2D clickPosition, Point2D windowPosition);
 	
+	public boolean checkLabelPosition(ViewComponent component, Point2D clickPosition, Point2D windowPosition);
+	
 	/**
 	 * Get the State of this SubWindow
 	 * @return the current state

@@ -190,7 +190,7 @@ public class EventHandler {
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
 						controller.changePartyType((ViewParty) active.getSelectedComponent());
-				} else if ((viewLabel = clickLabel(x, y, active)) != null) {
+				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
 					
@@ -244,71 +244,6 @@ public class EventHandler {
 		ViewParty second = subwindow.findViewParty(receiver);
 
 		return first.positionSeq.getX() < second.positionSeq.getX();
-	}
-
-	/**
-	 * Checks if a Label was clicked
-	 * 
-	 * @param x
-	 *            Clicked x coordinates
-	 * @param y
-	 *            Clicked y coordinates
-	 * @param subwindow
-	 *            SubWindow that contains this Label
-	 * @return the clicked Label, if there is one, otherwise null
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		State state = subwindow.getState();
-		ArrayList<ViewParty> parties = subwindow.getViewParties();
-		ArrayList<ViewMessage> messages = subwindow.getViewMessages();
-
-		for (ViewParty party : parties) {
-			// TODO state pattern
-			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					subwindow.setSelectedComponent(party);
-					return party.getViewLabel();
-				}
-			} else {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					subwindow.setSelectedComponent(party);
-					return party.getViewLabel();
-				}
-			}
-		}
-
-		for (ViewMessage message : messages) {
-			// TODO instanceof weg
-			if (message.getClass() == ViewInvocationMessage.class) {
-				// TODO state pattern
-				if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionSeq(),
-							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-						subwindow.setSelectedComponent(message);
-						return message.getViewLabel();
-					}
-				} else {
-					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionCom(),
-							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-						subwindow.setSelectedComponent(message);
-						return message.getViewLabel();
-					}
-				}
-			}
-		}
-
-		return null;
 	}
 
 	/**
