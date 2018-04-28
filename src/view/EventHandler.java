@@ -165,7 +165,7 @@ public class EventHandler {
 		if (active.getLabelMode() == LabelMode.SHOW) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
-				first = clickLifeline(x, y, active);
+				first = active.clickLifeline(x, y);
 				active.setSelectedComponent(active.clickParty(x, y));
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
@@ -174,8 +174,8 @@ public class EventHandler {
 					active.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				second = clickLifeline(x, y, active);
-				if (first != null && second != null && checkCallStack(first, second, active)) {
+				second = active.clickLifeline(x, y);
+				if (first != null && second != null && active.checkCallStack(first, second)) {
 					Message message = controller.addMessage(first, second, x, y);
 					ViewMessage viewMessage = active.findViewMessage(message);
 					active.setLabelMode(LabelMode.MESSAGE);
@@ -221,29 +221,6 @@ public class EventHandler {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Check the Message Call Stack
-	 * 
-	 * @param sender
-	 *            Message sender
-	 * @param receiver
-	 *            Message receiver
-	 * @param subwindow
-	 *            SubWindow that contains the Message
-	 * @return true if the call stack is correct
-	 * @throws NullPointerException
-	 *             No sender, receiver or subwindow supplied
-	 */
-	private boolean checkCallStack(Party sender, Party receiver, SubWindow subwindow) {
-		if (sender == null || receiver == null || subwindow == null)
-			throw new NullPointerException();
-
-		ViewParty first = subwindow.findViewParty(sender);
-		ViewParty second = subwindow.findViewParty(receiver);
-
-		return first.positionSeq.getX() < second.positionSeq.getX();
 	}
 
 	/**
@@ -369,35 +346,6 @@ public class EventHandler {
 				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
 					return subWindows.get(i);
 			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Checks if a LifeLine was clicked
-	 * 
-	 * @param x
-	 *            The clicked x coordinates
-	 * @param y
-	 *            The clicked y coordinates
-	 * @return the clicked LifeLine or null
-	 * @throws NullPointerException
-	 *             No subwindow or list of subwindows supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private Party clickLifeline(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		for (ViewParty party : subwindow.getViewParties()) {
-			ViewLifeLine lifeline = party.getViewLifeLine();
-			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
-					&& y <= lifeline.getEndY())
-				return party.getParty();
 		}
 
 		return null;

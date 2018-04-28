@@ -326,7 +326,7 @@ public class SubWindow implements Observer {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
 	
-	public void moveComponent(ViewComponent component, int x, int y) {
+	protected void moveComponent(ViewComponent component, int x, int y) {
 		if (component == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
@@ -423,7 +423,7 @@ public class SubWindow implements Observer {
 	 * 		The Party to find
 	 * @return The ViewParty to find, or null
 	 */
-	public ViewParty findViewParty(Party party) {
+	protected ViewParty findViewParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {
 			if (viewParty.getParty() == party)
 				return viewParty;
@@ -437,7 +437,7 @@ public class SubWindow implements Observer {
 	 * 		The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
-	public ViewMessage findViewMessage(Message message) {
+	protected ViewMessage findViewMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
 			if (viewMessage.getMessage() == message)
 				return viewMessage;
@@ -445,7 +445,7 @@ public class SubWindow implements Observer {
 		return null;
 	}
 	
-	public void updateLabels(String label) {
+	private void updateLabels(String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
 		components.addAll(getViewMessages());
@@ -499,7 +499,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	public ViewParty clickParty(int x, int y) {
+	protected ViewParty clickParty(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
@@ -523,7 +523,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	public ViewLabel clickLabel(int x, int y) {
+	protected ViewLabel clickLabel(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
@@ -542,5 +542,51 @@ public class SubWindow implements Observer {
 		}
 
 		return null;
+	}
+	
+	/**
+	 * Checks if a LifeLine was clicked
+	 * 
+	 * @param x
+	 *            The clicked x coordinates
+	 * @param y
+	 *            The clicked y coordinates
+	 * @return the clicked LifeLine or null
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected Party clickLifeline(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			ViewLifeLine lifeline = party.getViewLifeLine();
+			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
+					&& y <= lifeline.getEndY())
+				return party.getParty();
+		}
+
+		return null;
+	}
+	
+	/**
+	 * Check the Message Call Stack
+	 * 
+	 * @param sender
+	 *            Message sender
+	 * @param receiver
+	 *            Message receiver
+	 * @return true if the call stack is correct
+	 * @throws NullPointerException
+	 *             No sender, receiver or subwindow supplied
+	 */
+	protected boolean checkCallStack(Party sender, Party receiver) {
+		if (sender == null || receiver == null)
+			throw new NullPointerException();
+
+		ViewParty first = findViewParty(sender);
+		ViewParty second = findViewParty(receiver);
+
+		return first.positionSeq.getX() < second.positionSeq.getX();
 	}
 }
