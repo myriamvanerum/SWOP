@@ -63,6 +63,11 @@ public class SeqState implements State {
 	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
 		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
 	}
+	
+	@Override
+	public boolean checkCoordinates(ViewParty party, Point2D clickPosition, Point2D windowPosition) {
+		return party.checkCoordinates(clickPosition, party.getPositionSeq(), windowPosition);
+	}
 
 	/**
 	 * Get the State of this SubWindow

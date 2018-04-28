@@ -166,7 +166,7 @@ public class EventHandler {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
 				first = clickLifeline(x, y, active);
-				active.setSelectedComponent(clickParty(x, y, active));
+				active.setSelectedComponent(active.clickParty(x, y));
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
 				ViewComponent selectedComponent = active.getSelectedComponent();
@@ -185,7 +185,7 @@ public class EventHandler {
 				break;
 			case MouseEvent.MOUSE_CLICKED:
 				ViewLabel viewLabel = null;
-				active.setSelectedComponent(clickParty(x, y, active));
+				active.setSelectedComponent(active.clickParty(x, y));
 
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
@@ -198,9 +198,11 @@ public class EventHandler {
 						active.selectComponent();
 						labelClickedOnce = selectedComponent;
 					} else if (selectedComponent == labelClickedOnce) {
+						// TODO instanceof weg
 						if (selectedComponent instanceof ViewParty) {
 							active.setLabelMode(LabelMode.PARTY);
 							viewLabel.setLabelMode(LabelMode.PARTY);
+						// TODO instanceof weg
 						} else if (selectedComponent instanceof ViewMessage) {
 							active.setLabelMode(LabelMode.MESSAGE);
 							viewLabel.setLabelMode(LabelMode.MESSAGE);
@@ -270,6 +272,7 @@ public class EventHandler {
 		ArrayList<ViewMessage> messages = subwindow.getViewMessages();
 
 		for (ViewParty party : parties) {
+			// TODO state pattern
 			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(),
 						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
@@ -286,7 +289,9 @@ public class EventHandler {
 		}
 
 		for (ViewMessage message : messages) {
+			// TODO instanceof weg
 			if (message.getClass() == ViewInvocationMessage.class) {
+				// TODO state pattern
 				if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
 					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionSeq(),
 							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
@@ -340,46 +345,6 @@ public class EventHandler {
 				return subWindows.get(i);
 		}
 
-		return null;
-	}
-
-	/**
-	 * Checks if there is a party at the clicked position
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return Null if there is no party on the position given by the coordinates x
-	 *         and y The ViewParty that is on the position given by the coordinates
-	 *         x and y
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		ArrayList<ViewParty> parties = subwindow.getViewParties();
-		for (ViewParty party : parties) {
-			State state = subwindow.getState();
-			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY())))
-					return party;
-			} else {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY())))
-					return party;
-			}
-
-		}
 		return null;
 	}
 

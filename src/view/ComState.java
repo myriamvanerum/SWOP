@@ -63,6 +63,11 @@ public class ComState implements State {
 	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
 		component.setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY() - 25));
 	}
+	
+	@Override
+	public boolean checkCoordinates(ViewParty party, Point2D clickPosition, Point2D windowPosition) {
+		return party.checkCoordinates(clickPosition, party.getPositionCom(), windowPosition);
+	}
 
 	/**
 	 * Get the State of this SubWindow

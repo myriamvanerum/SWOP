@@ -8,7 +8,6 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import model.Actor;
 import model.Component;
 import model.Interaction;
 import model.InvocationMessage;
@@ -409,6 +408,7 @@ public class SubWindow implements Observer {
 		ViewMessage viewMessage;
         Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
 		
+        // TODO instanceof weg
 		if (message instanceof InvocationMessage)		
 			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
 		else 
@@ -484,5 +484,29 @@ public class SubWindow implements Observer {
 			viewComponent.unselect();
 		else
 			viewComponent.select();
+	}
+	
+	/**
+	 * Checks if there is a party at the clicked position
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @return Null if there is no party on the position given by the coordinates x
+	 *         and y The ViewParty that is on the position given by the coordinates
+	 *         x and y
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	public ViewParty clickParty(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			if (getState().checkCoordinates(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY())))
+				return party;
+		}
+		return null;
 	}
 }
