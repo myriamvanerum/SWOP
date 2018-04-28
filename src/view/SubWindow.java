@@ -535,12 +535,9 @@ public class SubWindow implements Observer {
 		}
 
 		for (ViewMessage message : getViewMessages()) {
-			// TODO instanceof weg
-			if (message.getClass() == ViewInvocationMessage.class) {
-				if (getState().checkLabelPosition(message, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
-					setSelectedComponent(message);
-					return message.getViewLabel();
-				}
+			if (getState().checkLabelPosition(message, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+				setSelectedComponent(message);
+				return message.getViewLabel();
 			}
 		}
 
