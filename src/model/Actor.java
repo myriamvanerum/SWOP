@@ -22,4 +22,9 @@ public class Actor extends Party {
 	public Actor(Party party) {
 		super(party);
 	}
+	
+	@Override
+	public Party changeType() {
+		return new Object(this);
+	}
 }

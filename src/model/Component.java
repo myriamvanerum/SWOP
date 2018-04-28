@@ -8,6 +8,10 @@ public class Component {
 
     public String label;
     
+    public void remove(Interaction interaction) {}
+    
+    public void removeDependents(Interaction interaction) {}
+    
     /* GETTERS AND SETTERS */
 
     public String getLabel(){

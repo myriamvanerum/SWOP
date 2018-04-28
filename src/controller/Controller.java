@@ -103,11 +103,7 @@ public class Controller {
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		// party verwijderd uit model
-		if (viewComponent instanceof ViewParty)
-			mainWindow.getActiveWindow().getInteraction().removeParty((Party)viewComponent.getComponent());
-		else if (viewComponent instanceof ViewInvocationMessage)
-			mainWindow.getActiveWindow().getInteraction().removeMessage((Message)viewComponent.getComponent());
+		mainWindow.getActiveWindow().getInteraction().removeComponent(viewComponent.getComponent());
 	}
 
 	/**

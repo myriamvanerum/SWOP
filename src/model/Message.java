@@ -35,9 +35,15 @@ public abstract class Message extends Component {
 		interaction.notifyEditLabel(this);
 	}
     
+    @Override
+	public void remove(Interaction interaction) {
+    	interaction.messages.remove(this);
+		interaction.notifyDelete(this);	
+	}
+        
     /* GETTERS AND SETTERS */
 
-    /**
+	/**
      * Gets the sender of the message.
      * @return a party
      */
