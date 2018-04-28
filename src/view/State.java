@@ -29,6 +29,8 @@ public interface State {
 	 */
 	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages);
 	
+	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition);
+	
 	/**
 	 * Get the State of this SubWindow
 	 * @return the current state

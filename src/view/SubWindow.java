@@ -353,6 +353,15 @@ public class SubWindow implements Observer {
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
+	
+	public void moveComponent(ViewComponent component, int x, int y) {
+		if (component == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+				
+		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+	}
 
 	/**
 	 * Method to be called when a Party is deleted

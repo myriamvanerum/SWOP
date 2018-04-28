@@ -12,7 +12,6 @@ import model.ResultMessage;
 import model.SyntaxChecker;
 import view.MainWindow;
 import view.ViewComponent;
-import view.ViewInvocationMessage;
 import view.ViewParty;
 
 /**
