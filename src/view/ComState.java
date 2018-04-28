@@ -58,6 +58,11 @@ public class ComState implements State {
 	    		viewMessage.drawCom(g, windowPosition);
 	    }		
 	}
+	
+	@Override
+	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
+		component.setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), clickPosition.getY() - windowPosition.getY() - 25));
+	}
 
 	/**
 	 * Get the State of this SubWindow

@@ -21,4 +21,11 @@ public class Component {
     public void setLabel(String label){
         this.label = label;
     }
+    
+    /**
+	 * Edit the Label of a Component
+	 * @param component
+	 * @param label
+	 */
+	public void editLabel(Interaction interaction, String label) {}
 }

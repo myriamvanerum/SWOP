@@ -116,25 +116,12 @@ public class SubWindow implements Observer {
 	private ArrayList<ViewMessage> copyMessages(ArrayList<ViewMessage> viewMessages) {
 		ArrayList<ViewMessage> copy = new ArrayList<>();
        
-		for (ViewMessage viewMessage : viewMessages) {
-			ViewMessage newViewMessage;			
-			Message message = viewMessage.getMessage();
-			
-			ViewParty sender = findViewParty(message.getSender());
-			ViewParty receiver = findViewParty(message.getReceiver());
-			
-			Point2D position;
-			if (windowState == seqState) {
-				position = new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY());
-			} else {
-				position = new Point2D.Double(viewMessage.getPositionCom().getX(), viewMessage.getPositionCom().getY());
-			}
-			
-			if (message instanceof InvocationMessage)		
-				newViewMessage = new ViewInvocationMessage(viewMessage);
-			else 
-				newViewMessage = new ViewResultMessage(viewMessage);
-			
+		for (ViewMessage viewMessage : viewMessages) {			
+			ViewMessage newViewMessage = viewMessage.copy();
+            ViewParty sender = findViewParty(viewMessage.getMessage().getSender());
+            ViewParty receiver = findViewParty(viewMessage.getMessage().getReceiver());
+            newViewMessage.setSender(sender);
+            newViewMessage.setReceiver(receiver);
 			copy.add(newViewMessage);			
 		}
 		
@@ -150,22 +137,8 @@ public class SubWindow implements Observer {
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
 		ArrayList<ViewParty> copy = new ArrayList<>();
 		
-		for (ViewParty viewParty : viewParties) {
-			Component party = viewParty.getComponent();				
-			Point2D position;
-			if (windowState == seqState) {
-				position = new Point2D.Double(viewParty.getPositionSeq().getX(), viewParty.getPositionSeq().getY());
-			} else {
-				position = new Point2D.Double(viewParty.getPositionCom().getX(), viewParty.getPositionCom().getY());
-			}
-			
-			ViewParty newViewParty;
-			if (viewParty instanceof ViewObject) {
-				newViewParty = new ViewObject((Party)party, position);
-			} else {
-				newViewParty = new ViewActor((Party)party, position);
-			}
-			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
+		for (ViewParty viewParty : viewParties) {		
+			ViewParty newViewParty = viewParty.copy();
 			copy.add(newViewParty);
 		}
 		
@@ -353,6 +326,15 @@ public class SubWindow implements Observer {
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
+	
+	public void moveComponent(ViewComponent component, int x, int y) {
+		if (component == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+				
+		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+	}
 
 	/**
 	 * Method to be called when a Party is deleted
@@ -375,13 +357,7 @@ public class SubWindow implements Observer {
 		ViewParty viewParty = findViewParty(party);
 		viewParty.setParty(partyNew);
 		getViewParties().remove(viewParty);
-		
-		ViewParty newViewParty;
-		if (party instanceof Actor) {
-			newViewParty = new ViewObject(viewParty);
-		} else {
-			newViewParty = new ViewActor(viewParty);
-		}
+		ViewParty newViewParty = viewParty.changeType();
 		getViewParties().add(newViewParty); 
 	}
 	

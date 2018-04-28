@@ -128,6 +128,16 @@ public class ViewObject extends ViewParty {
 			   coordinates.getY() <= yPositionLabel;
 	}
 	
+	@Override
+	public ViewParty copy() {
+		return new ViewObject(this);
+	}
+	
+	@Override
+	public ViewParty changeType() {
+		return new ViewActor(this);
+	}
+	
 	/* GETTERS AND SETTERS */
 
 	public int getWidth() {

@@ -58,6 +58,11 @@ public class SeqState implements State {
 	    	viewMessage.drawSeq(g, windowPosition);
 	    }		
 	}
+	
+	@Override
+	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
+		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
+	}
 
 	/**
 	 * Get the State of this SubWindow

@@ -108,6 +108,8 @@ public class ViewMessage extends ViewComponent {
 	 */
 	public void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver) {}
 	
+	public ViewMessage copy() {return null;}
+	
 	/* GETTERS AND SETTERS */
 	
 	public Message getMessage() {

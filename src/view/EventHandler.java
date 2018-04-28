@@ -171,7 +171,7 @@ public class EventHandler {
 			case MouseEvent.MOUSE_DRAGGED:
 				ViewComponent selectedComponent = active.getSelectedComponent();
 				if (selectedComponent != null && !selectedComponent.isSelected)
-					mainwindow.moveComponent(selectedComponent, x, y);
+					active.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
 				second = clickLifeline(x, y, active);

@@ -119,4 +119,14 @@ public class ViewActor extends ViewParty {
 			   coordinates.getY() >= positionY - viewLabel.getHeight() &&
 			   coordinates.getY() >= positionY;
 	}
+	
+	@Override
+	public ViewParty copy() {
+		return new ViewActor(this);
+	}
+	
+	@Override
+	public ViewParty changeType() {
+		return new ViewObject(this);
+	}
 }

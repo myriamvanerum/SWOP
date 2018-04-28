@@ -105,4 +105,9 @@ public class ViewInvocationMessage extends ViewMessage {
 			   coordinates.getY() +5 >= positionYSeq - viewLabel.getHeight() || coordinates.getY() +5 >= positionYCom - viewLabel.getHeight() &&
 			   coordinates.getY() +5 >= positionYSeq || coordinates.getY() +5 >= positionYCom;
 	}
+	
+	@Override
+	public ViewMessage copy() {
+		return new ViewInvocationMessage(this);
+	}
 }

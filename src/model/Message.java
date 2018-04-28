@@ -30,6 +30,12 @@ public abstract class Message extends Component {
     }    
     
     @Override
+    public void editLabel(Interaction interaction, String label) {
+		setLabel(label);
+		interaction.notifyEditLabel(this);
+	}
+    
+    @Override
 	public void remove(Interaction interaction) {
     	interaction.messages.remove(this);
 		interaction.notifyDelete(this);	

@@ -104,19 +104,6 @@ public class Interaction implements Observable {
 		this.parties.add(newParty);
 		notifyChangeType(party, newParty);
 	}
-	
-	/**
-	 * Edit the Label of a Component in this Interaction
-	 * @param component
-	 * @param label
-	 */
-	public void editLabel(Component component, String label) {
-		SyntaxChecker syntaxChecker = new SyntaxChecker();
-		if (syntaxChecker.correctLabelSyntax(label)) {
-			component.setLabel(label);
-			notifyEditLabel(component);
-		}
-	}
 
 	/**
 	 * Add an Observer to this Interaction
