@@ -160,11 +160,11 @@ public class Controller {
 	/**
 	 * Method to be called when a Label has to be saved
 	 * @param interaction
-	 * 		The Interaction the label belongs to
+	 * 		The Interaction the component belongs to
 	 * @param currentComponent
 	 * 		The component with a new label
 	 */
 	public void editLabel(Interaction interaction, Component currentComponent, String label) {
-		interaction.editLabel(currentComponent, label);
+		currentComponent.editLabel(interaction, label);
 	}
 }

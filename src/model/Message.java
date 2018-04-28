@@ -29,6 +29,12 @@ public abstract class Message extends Component {
         sender.setSendingMessage(this);
     }    
     
+    @Override
+    public void editLabel(Interaction interaction, String label) {
+		setLabel(label);
+		interaction.notifyEditLabel(this);
+	}
+    
     /* GETTERS AND SETTERS */
 
     /**

@@ -33,6 +33,15 @@ public abstract class Party extends Component {
 		setLabel(party.label);
 		setSendingMessage(party.getSendingMessage());
 	}
+    
+    @Override
+    public void editLabel(Interaction interaction, String label) {
+		SyntaxChecker syntaxChecker = new SyntaxChecker();
+		if (syntaxChecker.correctLabelSyntax(label)) {
+			setLabel(label);
+			interaction.notifyEditLabel(this);
+		}
+	}
 
     /* GETTERS AND SETTERS */
 
