@@ -83,47 +83,9 @@ public class Interaction implements Observable {
 		notifyAdd(message, position);
 	}
 	
-	/**
-	 * Remove a Party from the Interaction
-	 * @param party
-	 * 		The Party to remove
-	 * @throws NullPointerException
-	 * 		No Party supplied
-	 */
-	public void removeParty(Party party) {
-		if (party == null)
-			throw new NullPointerException();
-				
-		ArrayList<Message> aux = new ArrayList<>();
-		
-		for (Message message : getMessages()) {
-			if (message.getSender() != party && message.getReceiver() != party) 
-				aux.add(message);
-			else notifyDelete(message);
-		}	
-		
-		setMessages(aux);
-		
-		this.parties.remove(party);
-		notifyDelete(party);
-	}
-	
-	/**
-	 * Remove a Message from the Interaction
-	 * @param message
-	 * 		The Message to remove
-	 * @throws NullPointerException
-	 * 		No Message supplied
-	 */
-	public void removeMessage(Message message) {
-		if (message == null)
-			throw new NullPointerException();
-		
-		this.messages.remove(message);
-		notifyDelete(message);
-		
-		if (message instanceof InvocationMessage)
-			removeMessage(((InvocationMessage) message).getResultMessage());
+	public void removeComponent(Component component) {
+		component.remove(this);
+		component.removeDependents(this);
 	}
 	
 	/**
@@ -138,12 +100,7 @@ public class Interaction implements Observable {
 			throw new NullPointerException();
 		
 		this.parties.remove(party);
-		Party newParty;
-		if (party instanceof Actor) {
-			newParty = new Object(party);
-		} else {
-			newParty = new Actor(party);
-		}
+		Party newParty = party.changeType();
 		this.parties.add(newParty);
 		notifyChangeType(party, newParty);
 	}

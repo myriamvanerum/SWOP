@@ -35,6 +35,11 @@ public class InvocationMessage extends Message {
         super(label, sender, receiver);
         setResultMessage(resMessage);
     }
+    
+    @Override
+    public void removeDependents(Interaction interaction) {
+    	interaction.removeComponent(getResultMessage());
+    }
 
 	public ResultMessage getResultMessage() {
 		return resultMessage;
