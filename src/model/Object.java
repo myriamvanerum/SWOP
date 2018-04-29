@@ -23,4 +23,8 @@ public class Object extends Party {
 	public Object(Party party) {
 		super(party);
 	}
+	
+	public Party changeType() {
+		return new Actor(this);
+	}
 }

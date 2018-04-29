@@ -159,8 +159,8 @@ class SubWindowTest {
 		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
 		ViewParty v1 = new ViewActor(actor, clickPosition, windowPosition);
 		ViewParty v2 = new ViewActor(object, clickPosition, windowPosition);
-		ViewMessage m1 = new ViewInvocationMessage(message, clickPosition, v1, v2);
-		ViewMessage m2 = new ViewResultMessage(resmessage, clickPosition, v2, v1);
+		ViewMessage m1 = new ViewInvocationMessage(message, clickPosition, windowPosition, v1, v2);
+		ViewMessage m2 = new ViewResultMessage(resmessage, clickPosition, windowPosition, v2, v1);
 
 		
 		ArrayList<ViewParty> list = new ArrayList<>();

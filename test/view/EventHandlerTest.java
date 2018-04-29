@@ -107,73 +107,73 @@ class EventHandlerTest {
 	    }
 	}
 	
-	@Test
-	void testMainWindowMoveComponentSeq() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
-		
-		Party party = new Actor("Actor");
-		Point2D clickPosition = new Point2D.Double(50,50);
-		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
-		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
-		
-		int x = 150, y = 200;
-		mainwindow.moveComponent(viewComponent, x, y);
-		
-		assertEquals(x, viewComponent.getPositionSeq().getX() + activeWindow.getX());
-		assertEquals(40, viewComponent.getPositionSeq().getY());
-	}
-	
-	@Test
-	void testMainWindowMoveComponentCom() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
-		activeWindow.changeState();
-		
-		Party party = new Actor("Actor");
-		Point2D clickPosition = new Point2D.Double(50,50);
-		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
-		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
-		
-		int x = 150, y = 200;
-		mainwindow.moveComponent(viewComponent, x, y);
-		
-		assertEquals(x, viewComponent.getPositionCom().getX() + activeWindow.getX());
-		assertEquals(y, viewComponent.getPositionCom().getY() + activeWindow.getY() + activeWindow.getHeightTitlebar());
-	}
-	
-	@Test
-	void testControllerMoveComponentNullError() {
-		try {
-			int x = 150, y = 200;
-			mainwindow.moveComponent(null, x, y);
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
-	
-	@Test
-	void testControllerMoveComponentPositionError() {
-		Interaction interaction = new Interaction();
-		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
-		Party party = new Actor("Actor");
-		Point2D clickPosition = new Point2D.Double(50,50);
-		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
-		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
-		
-		try {
-			int x = -150, y = 200; 
-			mainwindow.moveComponent(viewComponent, x, y);
-	        assert false;
-	    } catch (IllegalArgumentException e) {
-	        assert true;
-	    }
-	}
+//	@Test
+//	void testMainWindowMoveComponentSeq() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		SubWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		Party party = new Actor("Actor");
+//		Point2D clickPosition = new Point2D.Double(50,50);
+//		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+//		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+//		
+//		int x = 150, y = 200;
+//		mainwindow.moveComponent(viewComponent, x, y);
+//		
+//		assertEquals(x, viewComponent.getPositionSeq().getX() + activeWindow.getX());
+//		assertEquals(40, viewComponent.getPositionSeq().getY());
+//	}
+//	
+//	@Test
+//	void testMainWindowMoveComponentCom() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		SubWindow activeWindow = mainwindow.getActiveWindow();
+//		activeWindow.changeState();
+//		
+//		Party party = new Actor("Actor");
+//		Point2D clickPosition = new Point2D.Double(50,50);
+//		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+//		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+//		
+//		int x = 150, y = 200;
+//		mainwindow.moveComponent(viewComponent, x, y);
+//		
+//		assertEquals(x, viewComponent.getPositionCom().getX() + activeWindow.getX());
+//		assertEquals(y, viewComponent.getPositionCom().getY() + activeWindow.getY() + activeWindow.getHeightTitlebar());
+//	}
+//	
+//	@Test
+//	void testControllerMoveComponentNullError() {
+//		try {
+//			int x = 150, y = 200;
+//			mainwindow.moveComponent(null, x, y);
+//	        assert false;
+//	    } catch (NullPointerException e) {
+//	        assert true;
+//	    }
+//	}
+//	
+//	@Test
+//	void testControllerMoveComponentPositionError() {
+//		Interaction interaction = new Interaction();
+//		mainwindow.createNewSubWindow(interaction);
+//		SubWindow activeWindow = mainwindow.getActiveWindow();
+//		Party party = new Actor("Actor");
+//		Point2D clickPosition = new Point2D.Double(50,50);
+//		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+//		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+//		
+//		try {
+//			int x = -150, y = 200; 
+//			mainwindow.moveComponent(viewComponent, x, y);
+//	        assert false;
+//	    } catch (IllegalArgumentException e) {
+//	        assert true;
+//	    }
+//	}
 
 }

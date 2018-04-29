@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import model.Component;
 
 /**
@@ -32,6 +34,36 @@ public abstract class Party extends Component {
     	
 		setLabel(party.label);
 		setSendingMessage(party.getSendingMessage());
+	}
+    
+    @Override
+    public void editLabel(Interaction interaction, String label) {
+		SyntaxChecker syntaxChecker = new SyntaxChecker();
+		if (syntaxChecker.correctLabelSyntax(label)) {
+			setLabel(label);
+			interaction.notifyEditLabel(this);
+		}
+    }
+
+    public Party changeType() { return null;}
+    
+	@Override
+	public void remove(Interaction interaction) {
+		interaction.parties.remove(this);
+		interaction.notifyDelete(this);
+	}
+
+	@Override
+	public void removeDependents(Interaction interaction) {
+		ArrayList<Message> aux = new ArrayList<>();
+		
+		for (Message message : interaction.getMessages()) {
+			if (message.getSender() != this && message.getReceiver() != this) 
+				aux.add(message);
+			else interaction.notifyDelete(message);
+		}	
+		
+		interaction.setMessages(aux);
 	}
 
     /* GETTERS AND SETTERS */

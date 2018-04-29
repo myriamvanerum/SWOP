@@ -55,10 +55,10 @@ public class ViewParty extends ViewComponent {
 	public ViewParty(ViewParty viewParty) {
 		// copy all parameters from viewParty into new viewParty
 		setParty(viewParty.getParty());
-		setViewLabel(viewParty.getViewLabel());
+		setViewLabel(new ViewLabel(viewParty.getViewLabel()));
 		setPositionCom(viewParty.getPositionCom());
 		setPositionSeq(viewParty.getPositionSeq());
-		setViewLifeLine(viewParty.getViewLifeLine());
+		viewLifeLine = new ViewLifeLine();
 	}
 
 	/**
@@ -112,6 +112,10 @@ public class ViewParty extends ViewComponent {
 	 * 			  The position to draw the Party
 	 */
 	public void draw(Graphics2D g, Point2D position) {}
+	
+	public ViewParty copy() {return null;}
+	
+	public ViewParty changeType() { return null;}
 	
 	/* GETTERS AND SETTERS */
 

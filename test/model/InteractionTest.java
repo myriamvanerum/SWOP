@@ -31,7 +31,7 @@ class InteractionTest {
 		assertTrue(interaction.getParties().contains(object));
 		assertTrue(interaction.getMessages().contains(invocation));
 		
-		interaction.removeMessage(invocation);
+		interaction.removeComponent(invocation);
 		
 		assertFalse(interaction.getMessages().contains(invocation));
 		
@@ -43,7 +43,7 @@ class InteractionTest {
 		
 		assertFalse(interaction.getParties().contains(object));
 		
-		interaction.removeParty(object);
+		interaction.removeComponent(object);
 		
 		assertFalse(interaction.getParties().contains(object));
 		
@@ -100,7 +100,7 @@ class InteractionTest {
 		interaction.addMessage(invocation2, new Point2D.Double(50,50));
 		interaction.addMessage(result, new Point2D.Double(50,50));
 		
-		interaction.removeParty(actor);
+		interaction.removeComponent(actor);
 		
 		assertFalse(interaction.getParties().contains(actor));
 		assertTrue(interaction.getParties().contains(object));
@@ -110,19 +110,9 @@ class InteractionTest {
 	}
 	
 	@Test
-	void testInteractionRemovePartyNullError() {
+	void testInteractionremoveComponentNullError() {
 		try {
-			interaction.removeParty(null);
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
-	
-	@Test
-	void testInteractionRemoveMessageyNullError() {
-		try {
-			interaction.removeMessage(null);
+			interaction.removeComponent(null);
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;

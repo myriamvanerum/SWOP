@@ -25,6 +25,14 @@ public class ViewLabel {
 	}
 	
 	/**
+	 * Copy Constructor
+	 */
+	public ViewLabel(ViewLabel viewLabel) {
+		labelMode = LabelMode.SHOW;
+		output = viewLabel.output;
+	}
+	
+	/**
 	 * This method draws a label for the components
 	 * @param g
 	 * 		The graphics class

@@ -85,13 +85,13 @@ public class EventHandler {
 				if (keyCode == 10) {
 					if (active.getLabelMode() == LabelMode.PARTY && controller.checkLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
 					{	viewLabel.setColor(Color.BLACK);
-						currentComponent.setLabel(label.substring(0, label.length() - 1));
 						viewLabel.setOutput(currentComponent.getLabel());
 						
 						if (selectedComponent.isSelected)
 							active.selectComponent();
 
-						controller.labelEdited(active.getInteraction(), currentComponent);
+						String newLabel = label.substring(0, label.length() - 1);
+						controller.editLabel(active.getInteraction(), currentComponent, newLabel);
 					}					
 				}
 			}
@@ -165,17 +165,17 @@ public class EventHandler {
 		if (active.getLabelMode() == LabelMode.SHOW) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
-				first = clickLifeline(x, y, active);
-				active.setSelectedComponent(clickParty(x, y, active));
+				first = active.clickLifeline(x, y);
+				active.setSelectedComponent(active.clickParty(x, y));
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
 				ViewComponent selectedComponent = active.getSelectedComponent();
 				if (selectedComponent != null && !selectedComponent.isSelected)
-					mainwindow.moveComponent(selectedComponent, x, y);
+					active.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				second = clickLifeline(x, y, active);
-				if (first != null && second != null && checkCallStack(first, second, active)) {
+				second = active.clickLifeline(x, y);
+				if (first != null && second != null && active.checkCallStack(first, second)) {
 					Message message = controller.addMessage(first, second, x, y);
 					ViewMessage viewMessage = active.findViewMessage(message);
 					active.setLabelMode(LabelMode.MESSAGE);
@@ -185,12 +185,12 @@ public class EventHandler {
 				break;
 			case MouseEvent.MOUSE_CLICKED:
 				ViewLabel viewLabel = null;
-				active.setSelectedComponent(clickParty(x, y, active));
+				active.setSelectedComponent(active.clickParty(x, y));
 
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
 						controller.changePartyType((ViewParty) active.getSelectedComponent());
-				} else if ((viewLabel = clickLabel(x, y, active)) != null) {
+				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
 					
@@ -198,9 +198,11 @@ public class EventHandler {
 						active.selectComponent();
 						labelClickedOnce = selectedComponent;
 					} else if (selectedComponent == labelClickedOnce) {
+						// TODO instanceof weg
 						if (selectedComponent instanceof ViewParty) {
 							active.setLabelMode(LabelMode.PARTY);
 							viewLabel.setLabelMode(LabelMode.PARTY);
+						// TODO instanceof weg
 						} else if (selectedComponent instanceof ViewMessage) {
 							active.setLabelMode(LabelMode.MESSAGE);
 							viewLabel.setLabelMode(LabelMode.MESSAGE);
@@ -219,91 +221,6 @@ public class EventHandler {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Check the Message Call Stack
-	 * 
-	 * @param sender
-	 *            Message sender
-	 * @param receiver
-	 *            Message receiver
-	 * @param subwindow
-	 *            SubWindow that contains the Message
-	 * @return true if the call stack is correct
-	 * @throws NullPointerException
-	 *             No sender, receiver or subwindow supplied
-	 */
-	private boolean checkCallStack(Party sender, Party receiver, SubWindow subwindow) {
-		if (sender == null || receiver == null || subwindow == null)
-			throw new NullPointerException();
-
-		ViewParty first = subwindow.findViewParty(sender);
-		ViewParty second = subwindow.findViewParty(receiver);
-
-		return first.positionSeq.getX() < second.positionSeq.getX();
-	}
-
-	/**
-	 * Checks if a Label was clicked
-	 * 
-	 * @param x
-	 *            Clicked x coordinates
-	 * @param y
-	 *            Clicked y coordinates
-	 * @param subwindow
-	 *            SubWindow that contains this Label
-	 * @return the clicked Label, if there is one, otherwise null
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private ViewLabel clickLabel(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		State state = subwindow.getState();
-		ArrayList<ViewParty> parties = subwindow.getViewParties();
-		ArrayList<ViewMessage> messages = subwindow.getViewMessages();
-
-		for (ViewParty party : parties) {
-			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionSeq(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					subwindow.setSelectedComponent(party);
-					return party.getViewLabel();
-				}
-			} else {
-				if (party.checkLabelPosition(new Point2D.Double(x, y), party.getPositionCom(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-					subwindow.setSelectedComponent(party);
-					return party.getViewLabel();
-				}
-			}
-		}
-
-		for (ViewMessage message : messages) {
-			if (message.getClass() == ViewInvocationMessage.class) {
-				if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionSeq(),
-							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-						subwindow.setSelectedComponent(message);
-						return message.getViewLabel();
-					}
-				} else {
-					if (message.checkLabelPosition(new Point2D.Double(x, y), message.getPositionCom(),
-							new Point2D.Double(subwindow.getX(), subwindow.getY()))) {
-						subwindow.setSelectedComponent(message);
-						return message.getViewLabel();
-					}
-				}
-			}
-		}
-
-		return null;
 	}
 
 	/**
@@ -340,46 +257,6 @@ public class EventHandler {
 				return subWindows.get(i);
 		}
 
-		return null;
-	}
-
-	/**
-	 * Checks if there is a party at the clicked position
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return Null if there is no party on the position given by the coordinates x
-	 *         and y The ViewParty that is on the position given by the coordinates
-	 *         x and y
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private ViewParty clickParty(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		ArrayList<ViewParty> parties = subwindow.getViewParties();
-		for (ViewParty party : parties) {
-			State state = subwindow.getState();
-			if ("SEQ".equalsIgnoreCase(state.getCurrentState())) {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionSeq(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY())))
-					return party;
-			} else {
-				if (party.checkCoordinates(new Point2D.Double(x, y), party.getPositionCom(),
-						new Point2D.Double(subwindow.getX(), subwindow.getY())))
-					return party;
-			}
-
-		}
 		return null;
 	}
 
@@ -469,35 +346,6 @@ public class EventHandler {
 				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
 					return subWindows.get(i);
 			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Checks if a LifeLine was clicked
-	 * 
-	 * @param x
-	 *            The clicked x coordinates
-	 * @param y
-	 *            The clicked y coordinates
-	 * @return the clicked LifeLine or null
-	 * @throws NullPointerException
-	 *             No subwindow or list of subwindows supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private Party clickLifeline(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		for (ViewParty party : subwindow.getViewParties()) {
-			ViewLifeLine lifeline = party.getViewLifeLine();
-			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
-					&& y <= lifeline.getEndY())
-				return party.getParty();
 		}
 
 		return null;

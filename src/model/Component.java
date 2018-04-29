@@ -8,6 +8,10 @@ public class Component {
 
     public String label;
     
+    public void remove(Interaction interaction) {}
+    
+    public void removeDependents(Interaction interaction) {}
+    
     /* GETTERS AND SETTERS */
 
     public String getLabel(){
@@ -17,4 +21,11 @@ public class Component {
     public void setLabel(String label){
         this.label = label;
     }
+    
+    /**
+	 * Edit the Label of a Component
+	 * @param component
+	 * @param label
+	 */
+	public void editLabel(Interaction interaction, String label) {}
 }

@@ -8,7 +8,6 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import model.Actor;
 import model.Component;
 import model.Interaction;
 import model.InvocationMessage;
@@ -116,25 +115,12 @@ public class SubWindow implements Observer {
 	private ArrayList<ViewMessage> copyMessages(ArrayList<ViewMessage> viewMessages) {
 		ArrayList<ViewMessage> copy = new ArrayList<>();
        
-		for (ViewMessage viewMessage : viewMessages) {
-			ViewMessage newViewMessage;			
-			Message message = viewMessage.getMessage();
-			
-			ViewParty sender = findViewParty(message.getSender());
-			ViewParty receiver = findViewParty(message.getReceiver());
-			
-			Point2D position;
-			if (windowState == seqState) {
-				position = new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY());
-			} else {
-				position = new Point2D.Double(viewMessage.getPositionCom().getX(), viewMessage.getPositionCom().getY());
-			}
-			
-			if (message instanceof InvocationMessage)		
-				newViewMessage = new ViewInvocationMessage(message, position, sender, receiver);
-			else 
-				newViewMessage = new ViewResultMessage(message, position, sender, receiver);
-			
+		for (ViewMessage viewMessage : viewMessages) {			
+			ViewMessage newViewMessage = viewMessage.copy();
+            ViewParty sender = findViewParty(viewMessage.getMessage().getSender());
+            ViewParty receiver = findViewParty(viewMessage.getMessage().getReceiver());
+            newViewMessage.setSender(sender);
+            newViewMessage.setReceiver(receiver);
 			copy.add(newViewMessage);			
 		}
 		
@@ -150,22 +136,8 @@ public class SubWindow implements Observer {
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
 		ArrayList<ViewParty> copy = new ArrayList<>();
 		
-		for (ViewParty viewParty : viewParties) {
-			Component party = viewParty.getComponent();				
-			Point2D position;
-			if (windowState == seqState) {
-				position = new Point2D.Double(viewParty.getPositionSeq().getX(), viewParty.getPositionSeq().getY());
-			} else {
-				position = new Point2D.Double(viewParty.getPositionCom().getX(), viewParty.getPositionCom().getY());
-			}
-			
-			ViewParty newViewParty;
-			if (viewParty instanceof ViewObject) {
-				newViewParty = new ViewObject((Party)party, position);
-			} else {
-				newViewParty = new ViewActor((Party)party, position);
-			}
-			newViewParty.setViewLabel(new ViewLabel(party.getLabel()));
+		for (ViewParty viewParty : viewParties) {		
+			ViewParty newViewParty = viewParty.copy();
 			copy.add(newViewParty);
 		}
 		
@@ -353,6 +325,15 @@ public class SubWindow implements Observer {
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
+	
+	protected void moveComponent(ViewComponent component, int x, int y) {
+		if (component == null)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+				
+		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+	}
 
 	/**
 	 * Method to be called when a Party is deleted
@@ -375,13 +356,7 @@ public class SubWindow implements Observer {
 		ViewParty viewParty = findViewParty(party);
 		viewParty.setParty(partyNew);
 		getViewParties().remove(viewParty);
-		
-		ViewParty newViewParty;
-		if (party instanceof Actor) {
-			newViewParty = new ViewObject(viewParty);
-		} else {
-			newViewParty = new ViewActor(viewParty);
-		}
+		ViewParty newViewParty = viewParty.changeType();
 		getViewParties().add(newViewParty); 
 	}
 	
@@ -433,6 +408,7 @@ public class SubWindow implements Observer {
 		ViewMessage viewMessage;
         Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
 		
+        // TODO instanceof weg
 		if (message instanceof InvocationMessage)		
 			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
 		else 
@@ -447,7 +423,7 @@ public class SubWindow implements Observer {
 	 * 		The Party to find
 	 * @return The ViewParty to find, or null
 	 */
-	public ViewParty findViewParty(Party party) {
+	protected ViewParty findViewParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {
 			if (viewParty.getParty() == party)
 				return viewParty;
@@ -461,7 +437,7 @@ public class SubWindow implements Observer {
 	 * 		The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
-	public ViewMessage findViewMessage(Message message) {
+	protected ViewMessage findViewMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
 			if (viewMessage.getMessage() == message)
 				return viewMessage;
@@ -469,7 +445,7 @@ public class SubWindow implements Observer {
 		return null;
 	}
 	
-	public void updateLabels(String label) {
+	private void updateLabels(String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
 		components.addAll(getViewMessages());
@@ -506,5 +482,109 @@ public class SubWindow implements Observer {
 			viewComponent.unselect();
 		else
 			viewComponent.select();
+	}
+	
+	/**
+	 * Checks if there is a party at the clicked position
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @return Null if there is no party on the position given by the coordinates x
+	 *         and y The ViewParty that is on the position given by the coordinates
+	 *         x and y
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected ViewParty clickParty(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			if (getState().checkCoordinates(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY())))
+				return party;
+		}
+		return null;
+	}
+	
+	/**
+	 * Checks if a Label was clicked
+	 * 
+	 * @param x
+	 *            Clicked x coordinates
+	 * @param y
+	 *            Clicked y coordinates
+	 * @return the clicked Label, if there is one, otherwise null
+	 * @throws NullPointerException
+	 *             No subwindow supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected ViewLabel clickLabel(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			if (getState().checkLabelPosition(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+				setSelectedComponent(party);
+				return party.getViewLabel();
+			}
+		}
+
+		for (ViewMessage message : getViewMessages()) {
+			if (getState().checkLabelPosition(message, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+				setSelectedComponent(message);
+				return message.getViewLabel();
+			}
+		}
+
+		return null;
+	}
+	
+	/**
+	 * Checks if a LifeLine was clicked
+	 * 
+	 * @param x
+	 *            The clicked x coordinates
+	 * @param y
+	 *            The clicked y coordinates
+	 * @return the clicked LifeLine or null
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected Party clickLifeline(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			ViewLifeLine lifeline = party.getViewLifeLine();
+			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
+					&& y <= lifeline.getEndY())
+				return party.getParty();
+		}
+
+		return null;
+	}
+	
+	/**
+	 * Check the Message Call Stack
+	 * 
+	 * @param sender
+	 *            Message sender
+	 * @param receiver
+	 *            Message receiver
+	 * @return true if the call stack is correct
+	 * @throws NullPointerException
+	 *             No sender, receiver or subwindow supplied
+	 */
+	protected boolean checkCallStack(Party sender, Party receiver) {
+		if (sender == null || receiver == null)
+			throw new NullPointerException();
+
+		ViewParty first = findViewParty(sender);
+		ViewParty second = findViewParty(receiver);
+
+		return first.positionSeq.getX() < second.positionSeq.getX();
 	}
 }

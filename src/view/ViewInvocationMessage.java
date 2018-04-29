@@ -30,7 +30,7 @@ public class ViewInvocationMessage extends ViewMessage {
 	}
 	
 	/**
-	 * ViewInvocationMessage Constructor
+	 * Copy Constructor
 	 * @param message
 	 * 		Message to draw
 	 * @param position
@@ -40,8 +40,8 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * @param receiver
 	 * 		Message receiver
 	 */
-	public ViewInvocationMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver ) {
-		super(message, position, sender, receiver);
+	public ViewInvocationMessage(ViewMessage message) {
+		super(message);
 	}
 	
 	/**
@@ -104,5 +104,10 @@ public class ViewInvocationMessage extends ViewMessage {
 			   coordinates.getX() <= positionX + viewLabel.getWidth() &&
 			   coordinates.getY() +5 >= positionYSeq - viewLabel.getHeight() || coordinates.getY() +5 >= positionYCom - viewLabel.getHeight() &&
 			   coordinates.getY() +5 >= positionYSeq || coordinates.getY() +5 >= positionYCom;
+	}
+	
+	@Override
+	public ViewMessage copy() {
+		return new ViewInvocationMessage(this);
 	}
 }

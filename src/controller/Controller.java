@@ -12,7 +12,6 @@ import model.ResultMessage;
 import model.SyntaxChecker;
 import view.MainWindow;
 import view.ViewComponent;
-import view.ViewInvocationMessage;
 import view.ViewParty;
 
 /**
@@ -103,11 +102,7 @@ public class Controller {
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		// party verwijderd uit model
-		if (viewComponent instanceof ViewParty)
-			mainWindow.getActiveWindow().getInteraction().removeParty((Party)viewComponent.getComponent());
-		else if (viewComponent instanceof ViewInvocationMessage)
-			mainWindow.getActiveWindow().getInteraction().removeMessage((Message)viewComponent.getComponent());
+		mainWindow.getActiveWindow().getInteraction().removeComponent(viewComponent.getComponent());
 	}
 
 	/**
@@ -160,11 +155,11 @@ public class Controller {
 	/**
 	 * Method to be called when a Label has to be saved
 	 * @param interaction
-	 * 		The Interaction the label belongs to
+	 * 		The Interaction the component belongs to
 	 * @param currentComponent
 	 * 		The component with a new label
 	 */
-	public void labelEdited(Interaction interaction, Component currentComponent) {
-		interaction.notifyEditLabel(currentComponent);
+	public void editLabel(Interaction interaction, Component currentComponent, String label) {
+		currentComponent.editLabel(interaction, label);
 	}
 }

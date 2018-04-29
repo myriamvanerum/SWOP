@@ -30,7 +30,7 @@ public class ViewResultMessage extends ViewMessage {
 	}
 	
 	/**
-	 * ViewResultMessage Constructor
+	 * Copy Constructor
 	 * @param message
 	 * 		Message to draw
 	 * @param position
@@ -40,8 +40,8 @@ public class ViewResultMessage extends ViewMessage {
 	 * @param receiver
 	 * 		Message receiver
 	 */
-	public ViewResultMessage(Message message, Point2D position, ViewParty sender, ViewParty receiver ) {
-		super(message, position, sender, receiver);
+	public ViewResultMessage(ViewMessage message) {
+		super(message);
 	}
 	
 	/**
@@ -76,5 +76,10 @@ public class ViewResultMessage extends ViewMessage {
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender+12));
+	}
+	
+	@Override
+	public ViewMessage copy() {
+		return new ViewResultMessage(this);
 	}
 }
