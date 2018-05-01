@@ -66,22 +66,8 @@ public class EventHandler {
 				ViewLabel viewLabel = selectedComponent.getViewLabel();
 				String label = viewLabel.getOutput();
 				viewLabel.setLabelMode(active.getLabelMode());
-
-				if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || keyCode == KeyEvent.VK_COLON
-						|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_BACK_SPACE
-						|| keyCode == KeyEvent.VK_SPACE) {
-					if (keyCode == KeyEvent.VK_BACK_SPACE && label.length() > 1)
-						viewLabel.setOutput(label.substring(0, label.length() - 2) + "|");
-					else if (label != null && label.length() > 0)
-						viewLabel.setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
-						
-					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkPartyLabelSyntax(viewLabel.getOutput()))
-						viewLabel.setColor(Color.RED);
-					else
-						viewLabel.setColor(Color.GREEN);
-				}
-
-				if (keyCode == 10) {
+				
+				if (keyCode == KeyEvent.VK_ENTER) {
 					if (active.getLabelMode() == LabelMode.PARTY && controller.checkPartyLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
 					{	viewLabel.setColor(Color.BLACK);
 						viewLabel.setOutput(currentComponent.getLabel());
@@ -92,7 +78,32 @@ public class EventHandler {
 						String newLabel = label.substring(0, label.length() - 1);
 						controller.editLabel(active.getInteraction(), currentComponent, newLabel);
 					}					
+				} else {
+
+//				if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || 
+//						keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || 
+//						keyCode == KeyEvent.VK_COLON ||
+//						keyCode == KeyEvent.VK_SEMICOLON || 
+//						keyCode == KeyEvent.VK_UNDERSCORE || 
+//						keyCode == KeyEvent.VK_LEFT_PARENTHESIS || 
+//						keyCode == KeyEvent.VK_RIGHT_PARENTHESIS || 
+//						keyCode == KeyEvent.VK_BACK_SPACE ||
+//						keyCode == KeyEvent.VK_SPACE) {
+					
+					if (keyCode == KeyEvent.VK_BACK_SPACE && label.length() > 1)
+						viewLabel.setOutput(label.substring(0, label.length() - 2) + "|");
+					else if (label != null && label.length() > 0)
+						// TODO voor partylabel enkel bepaalde karakters toelaten
+						// TODO voor messagelabel (bijna) alle karakters toelaten
+						viewLabel.setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+						
+					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkPartyLabelSyntax(viewLabel.getOutput()))
+						viewLabel.setColor(Color.RED);
+					else
+						viewLabel.setColor(Color.GREEN);
 				}
+
+
 			}
 		}
 
