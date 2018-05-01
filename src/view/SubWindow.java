@@ -490,21 +490,23 @@ public class SubWindow implements Observer {
 		return null;
 	}
 
-	private void updateLabels(String label) {
+	private void updateLabels(Component component, String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
 		components.addAll(getViewMessages());
-		for (ViewComponent component : components) {
-			ViewLabel viewLabel = component.getViewLabel();
+		for (ViewComponent viewComponent : components) {
+			if (viewComponent.getComponent() == component) {
+			ViewLabel viewLabel = viewComponent.getViewLabel();
 			viewLabel.setColor(Color.BLACK);
 			viewLabel.setOutput(label);
+			}
 		}
 	}
 
 	@Override
 	public void onEditLabel(Component component) {
 		setLabelState(showState);
-		updateLabels(component.getLabel());
+		updateLabels(component, component.getLabel());
 		if (getSelectedComponent() != null)
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
