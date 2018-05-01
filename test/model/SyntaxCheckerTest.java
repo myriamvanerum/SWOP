@@ -11,7 +11,7 @@ class SyntaxCheckerTest {
 	void testSuccess() {
 		
 		String label = "label:Label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertTrue(syntaxCorrect);
 	}
@@ -20,7 +20,7 @@ class SyntaxCheckerTest {
 	void testSuccessStartColon() {
 		
 		String label = ":Label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertTrue(syntaxCorrect);
 	}
@@ -29,7 +29,7 @@ class SyntaxCheckerTest {
 	void testFailHasSpace() {
 		
 		String label = "label :Label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertFalse(syntaxCorrect);
 	}
@@ -38,7 +38,7 @@ class SyntaxCheckerTest {
 	void testFailNoColon() {
 		
 		String label = "labelLabel";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertFalse(syntaxCorrect);
 	}
@@ -47,7 +47,7 @@ class SyntaxCheckerTest {
 	void testFailNoLowerCase() {
 		
 		String label = "Label:Label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertFalse(syntaxCorrect);
 	}
@@ -56,7 +56,7 @@ class SyntaxCheckerTest {
 	void testFailNoUpperCase() {
 		
 		String label = "label:label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertFalse(syntaxCorrect);
 	}
@@ -65,7 +65,7 @@ class SyntaxCheckerTest {
 	void testFailMultipleColons() {
 		
 		String label = "Label:Label:Label:Label";
-		Boolean syntaxCorrect = syntaxChecker.correctLabelSyntax(label);
+		Boolean syntaxCorrect = syntaxChecker.correctPartyLabelSyntax(label);
 		
 		assertFalse(syntaxCorrect);
 	}

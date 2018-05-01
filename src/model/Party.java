@@ -39,7 +39,7 @@ public abstract class Party extends Component {
     @Override
     public void editLabel(Interaction interaction, String label) {
 		SyntaxChecker syntaxChecker = new SyntaxChecker();
-		if (syntaxChecker.correctLabelSyntax(label)) {
+		if (syntaxChecker.correctPartyLabelSyntax(label)) {
 			setLabel(label);
 			interaction.notifyEditLabel(this);
 		}

@@ -141,6 +141,82 @@ public class MainWindow extends CanvasWindow {
         repaint();
     }
     
+	/**
+	 * Find the SubWindow that was clicked. Ths method loops over all the subwindows
+	 * except the active window, from the front to the back
+	 * 
+	 * @param x
+	 *            The clicked x coordinates
+	 * @param y
+	 *            The clicked y coordinates
+	 * @param subwindow
+	 *            The active subwindow
+	 * @param subWindows
+	 *            The list of all subwindows
+	 * @return The clicked subwindow, or null
+	 * @throws NullPointerException
+	 *             No subwindow or list of subwindows supplied
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow) {
+		if (subwindow == null || getSubWindows().size() == 0)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
+			if (getSubWindows().get(i) != subwindow) {
+				int xSub = getSubWindows().get(i).getX();
+				int ySub = getSubWindows().get(i).getY();
+				int width = getSubWindows().get(i).getWidth();
+				int height = getSubWindows().get(i).getHeight();
+
+				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
+					return getSubWindows().get(i);
+			}
+		}
+
+		return null;
+	}
+    
+    /**
+	 * Checks if the close button of a subwindow that isn't the active subwindow is
+	 * clicked.
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subWindows
+	 *            ArrayList of all subwindows
+	 * @param active
+	 *            The active subwindow
+	 * @return Null if no close button is clicked The Subwindow of which the close
+	 *         button was clicked
+	 * @throws NullPointerException
+	 *             No subwindows 
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected SubWindow checkCloseButtons(int x, int y) {
+		if (getSubWindows().size() == 0)
+			throw new NullPointerException();
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		if (getActiveWindow().clickCloseButton(x, y))
+			return getActiveWindow();
+
+		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
+			SubWindow window = getSubWindows().get(i);
+			if (window != getActiveWindow() && window.clickCloseButton(x, y))
+				return getSubWindows().get(i);
+		}
+
+		return null;
+	}
+    
     /* GETTERS AND SETTERS */
 
 	public EventHandler getEventHandler() {

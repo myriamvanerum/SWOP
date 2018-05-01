@@ -7,7 +7,7 @@ public class SyntaxChecker {
 	 * 		The label input
 	 * @return true if correct, false if not
 	 */
-	public boolean correctLabelSyntax(String input) {
+	public boolean correctPartyLabelSyntax(String input) {
 		char first = input.charAt(0);
 		String parts[] = input.split(":");
 		
