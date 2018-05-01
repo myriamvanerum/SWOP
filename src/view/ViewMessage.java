@@ -142,4 +142,10 @@ public class ViewMessage extends ViewComponent {
 	public Component getComponent() {
 		return this.getMessage();
 	}
+	
+
+	@Override
+	public void setLabelState(SubWindow subwindow) {
+		subwindow.setLabelState(new InvocationState(subwindow));
+	}
 }

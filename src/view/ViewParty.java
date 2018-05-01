@@ -139,4 +139,9 @@ public class ViewParty extends ViewComponent {
 	public Component getComponent() {
 		return this.getParty();
 	}
+	
+	@Override
+	public void setLabelState(SubWindow subwindow) {
+		subwindow.setLabelState(new PartyState(subwindow));
+	}
 }

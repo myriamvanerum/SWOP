@@ -62,13 +62,8 @@ public class ViewObject extends ViewParty {
 		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
 		String label = viewLabel.getOutput();
 		
-		if (viewLabel.getLabelMode() == LabelMode.SHOW) {
-			viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(getParty().getLabel(), g).getHeight());
-			viewLabel.setWidth(g.getFontMetrics().stringWidth(getParty().getLabel()));
-			} else {
-			viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
-			viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
-		}
+		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
+		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
 		
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > 80)

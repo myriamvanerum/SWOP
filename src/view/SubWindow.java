@@ -13,9 +13,12 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
+
 /**
- * SubWindow class. A SubWindow contains an Interaction with Parties and Messages. 
- * Several SubWindows can display the same Interaction in different forms.
+ * SubWindow class. A SubWindow contains an Interaction with Parties and
+ * Messages. Several SubWindows can display the same Interaction in different
+ * forms.
+ * 
  * @author groep 03
  *
  */
@@ -34,26 +37,30 @@ public class SubWindow implements Observer {
 	private State windowState;
 	private SeqState seqState = new SeqState();
 	private ComState comState = new ComState();
-	
-	private LabelMode labelMode;
+
+	private LabelState labelState;
+	private ShowState showState = new ShowState(this);
+	private InvocationState invocationState = new InvocationState(this);
+	private PartyState partyState = new PartyState(this);
+
 	public ViewComponent selectedComponent;
 
 	/**
 	 * Create a new SubWinow for a new Interaction
 	 * 
 	 * @param interaction
-	 * 		The Interaction for this Subwindow
+	 *            The Interaction for this Subwindow
 	 * @param x
-	 * 		The SubWindow's x coordinate
+	 *            The SubWindow's x coordinate
 	 * @param y
-	 * 		The SubWindow's y coordinate
+	 *            The SubWindow's y coordinate
 	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 *             Illegal coordinates
 	 */
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
+
 		setInteraction(interaction);
 		interaction.addObserver(this);
 
@@ -64,7 +71,8 @@ public class SubWindow implements Observer {
 		setY(y);
 
 		setState(seqState);
-		setLabelMode(LabelMode.SHOW);
+		// TODO labelstate
+		setLabelState(showState);
 		selectedComponent = null;
 	}
 
@@ -72,25 +80,25 @@ public class SubWindow implements Observer {
 	 * Create a new SubWindow by duplicating another SubWindow
 	 * 
 	 * @param activeWindow
-	 * 		The SubWindow to duplicate
+	 *            The SubWindow to duplicate
 	 * @param x
-	 * 		The SubWindow's x coordinate
+	 *            The SubWindow's x coordinate
 	 * @param y
-	 * 		The SubWindow's y coordinate
+	 *            The SubWindow's y coordinate
 	 * @throws NullPointerException
-	 * 		No SubWindow supplied
+	 *             No SubWindow supplied
 	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 *             Illegal coordinates
 	 */
 	public SubWindow(SubWindow activeWindow, Integer x, Integer y) {
 		if (activeWindow == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
+
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
-		interaction.addObserver(this);		
+		interaction.addObserver(this);
 
 		setX(x);
 		setY(y);
@@ -102,45 +110,47 @@ public class SubWindow implements Observer {
 		setViewMessages(messages);
 
 		setState(activeWindow.getState());
-		setLabelMode(LabelMode.SHOW);
+		setLabelState(new ShowState(this));
 		selectedComponent = null;
 	}
 
 	/**
 	 * Duplicate the ViewMessages of the original subwindow
+	 * 
 	 * @param viewMessages
-	 * 		The Messages in the SubWindow
+	 *            The Messages in the SubWindow
 	 * @return Copy of the viewMessages arraylist
 	 */
 	private ArrayList<ViewMessage> copyMessages(ArrayList<ViewMessage> viewMessages) {
 		ArrayList<ViewMessage> copy = new ArrayList<>();
-       
-		for (ViewMessage viewMessage : viewMessages) {			
+
+		for (ViewMessage viewMessage : viewMessages) {
 			ViewMessage newViewMessage = viewMessage.copy();
-            ViewParty sender = findViewParty(viewMessage.getMessage().getSender());
-            ViewParty receiver = findViewParty(viewMessage.getMessage().getReceiver());
-            newViewMessage.setSender(sender);
-            newViewMessage.setReceiver(receiver);
-			copy.add(newViewMessage);			
+			ViewParty sender = findViewParty(viewMessage.getMessage().getSender());
+			ViewParty receiver = findViewParty(viewMessage.getMessage().getReceiver());
+			newViewMessage.setSender(sender);
+			newViewMessage.setReceiver(receiver);
+			copy.add(newViewMessage);
 		}
-		
+
 		return copy;
 	}
 
 	/**
 	 * Duplicate the ViewParties of the original subwindow
+	 * 
 	 * @param viewParties
-	 * 		The Parties in the SubWindow
-	 * @return  Copy of the viewParties arraylist
+	 *            The Parties in the SubWindow
+	 * @return Copy of the viewParties arraylist
 	 */
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
 		ArrayList<ViewParty> copy = new ArrayList<>();
-		
-		for (ViewParty viewParty : viewParties) {		
+
+		for (ViewParty viewParty : viewParties) {
 			ViewParty newViewParty = viewParty.copy();
 			copy.add(newViewParty);
 		}
-		
+
 		return copy;
 	}
 
@@ -148,7 +158,7 @@ public class SubWindow implements Observer {
 	 * Method to draw a SubWindow and all its contents
 	 * 
 	 * @param gOrig
-	 * 		Graphics class
+	 *            Graphics class
 	 */
 	public void draw(Graphics2D gOrig) {
 		Integer padding = 7;
@@ -195,7 +205,7 @@ public class SubWindow implements Observer {
 		g.dispose();
 	}
 
-	/** 
+	/**
 	 * Change the SubWindows State
 	 */
 	public void changeState() {
@@ -205,8 +215,30 @@ public class SubWindow implements Observer {
 			setState(seqState);
 	}
 
+	/**
+	 * Change the SubWindows LabelState
+	 * 
+	 * @param state
+	 *            New label state
+	 */
+	public void changeLabelState(String state) {
+		switch (state.toUpperCase()) {
+		case "SHOW":
+			labelState = showState;
+			break;
+		case "MESSAGE":
+			labelState = invocationState;
+			break;
+		case "PARTY":
+			labelState = partyState;
+			break;
+		default:
+			break;
+		}
+	}
+
 	/* GETTERS AND SETTERS */
-	
+
 	public Interaction getInteraction() {
 		return interaction;
 	}
@@ -278,13 +310,17 @@ public class SubWindow implements Observer {
 	public void setState(State windowState) {
 		this.windowState = windowState;
 	}
+
+	public LabelState getLabelState() {
+		return labelState;
+	}
 	
-	public LabelMode getLabelMode() {
-		return labelMode;
+	public LabelState getShowState() {
+		return showState;
 	}
 
-	public void setLabelMode(LabelMode labelMode) {
-		this.labelMode = labelMode;
+	public void setLabelState(LabelState labelState) {
+		this.labelState = labelState;
 	}
 
 	public ViewComponent getSelectedComponent() {
@@ -297,48 +333,51 @@ public class SubWindow implements Observer {
 
 	/**
 	 * Draw the SubWindow title
+	 * 
 	 * @param g
-	 * 		Graphics class
+	 *            Graphics class
 	 * @param x
-	 * 		X coordinates
+	 *            X coordinates
 	 * @param y
-	 * 		Y coordinates
+	 *            Y coordinates
 	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 *             Illegal coordinates
 	 */
 	public void drawTitle(Graphics2D g, Integer x, Integer y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
+
 		getState().drawTitle(g, x, y);
 	}
 
 	/**
 	 * Draw the Parties and Messages in the SubWindow
+	 * 
 	 * @param g
-	 * 		Graphics class
+	 *            Graphics class
 	 * @param viewParties
-	 * 		The Parties in the SubWindow
+	 *            The Parties in the SubWindow
 	 * @param viewMessages
-	 * 		The Messages in the SubWindow
+	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
 	}
-	
+
 	protected void moveComponent(ViewComponent component, int x, int y) {
 		if (component == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-				
+
 		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 
 	/**
 	 * Method to be called when a Party is deleted
+	 * 
 	 * @param party
-	 * 		The Party that was deleted
+	 *            The Party that was deleted
 	 */
 	@Override
 	public void onDeleteParty(Party party) {
@@ -348,8 +387,9 @@ public class SubWindow implements Observer {
 
 	/**
 	 * Method to be called when a Party type is changed
+	 * 
 	 * @param party
-	 * 		The Party whose type was changed
+	 *            The Party whose type was changed
 	 */
 	@Override
 	public void onChangeParty(Party party, Party partyNew) {
@@ -357,31 +397,33 @@ public class SubWindow implements Observer {
 		viewParty.setParty(partyNew);
 		getViewParties().remove(viewParty);
 		ViewParty newViewParty = viewParty.changeType();
-		getViewParties().add(newViewParty); 
+		getViewParties().add(newViewParty);
 	}
-	
+
 	/**
 	 * Method to be called when a Party is added
+	 * 
 	 * @param party
-	 * 		The Party that was added
+	 *            The Party that was added
 	 * @param position
-	 * 		The position the Party must be painted at
+	 *            The position the Party must be painted at
 	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 *             Illegal coordinates
 	 */
 	@Override
 	public void onAddParty(Party party, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-		
+
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
 		getViewParties().add(viewParty);
 	}
 
 	/**
 	 * Method to be called when a Message is deleted
+	 * 
 	 * @param message
-	 * 		The Message that was deleted
+	 *            The Message that was deleted
 	 */
 	@Override
 	public void onDeleteMessage(Message message) {
@@ -391,36 +433,38 @@ public class SubWindow implements Observer {
 
 	/**
 	 * Method to be called when a Message is added
+	 * 
 	 * @param message
-	 * 		The Message that was added
+	 *            The Message that was added
 	 * @param position
-	 * 		The position the Message must be painted at
+	 *            The position the Message must be painted at
 	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 *             Illegal coordinates
 	 */
 	@Override
 	public void onAddMessage(Message message, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
-		
+
 		ViewParty sender = findViewParty(message.getSender());
 		ViewParty receiver = findViewParty(message.getReceiver());
 		ViewMessage viewMessage;
-        Point2D subwindow = new Point2D.Double((double)getX(), (double)getY());
-		
-        // TODO instanceof weg
-		if (message instanceof InvocationMessage)		
+		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
+
+		// TODO instanceof weg
+		if (message instanceof InvocationMessage)
 			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
-		else 
+		else
 			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
-		
+
 		getViewMessages().add(viewMessage);
 	}
-		
+
 	/**
 	 * Find the ViewParty for a Party
+	 * 
 	 * @param party
-	 * 		The Party to find
+	 *            The Party to find
 	 * @return The ViewParty to find, or null
 	 */
 	public ViewParty findViewParty(Party party) {
@@ -430,11 +474,12 @@ public class SubWindow implements Observer {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Find the ViewMessage for a Message
+	 * 
 	 * @param message
-	 * 		The Message to find
+	 *            The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
 	public ViewMessage findViewMessage(Message message) {
@@ -444,46 +489,46 @@ public class SubWindow implements Observer {
 		}
 		return null;
 	}
-	
+
 	private void updateLabels(String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
 		components.addAll(getViewMessages());
-		for (ViewComponent component: components) {
+		for (ViewComponent component : components) {
 			ViewLabel viewLabel = component.getViewLabel();
-			viewLabel.setLabelMode(LabelMode.SHOW);
 			viewLabel.setColor(Color.BLACK);
 			viewLabel.setOutput(label);
 		}
 	}
-	
+
 	@Override
 	public void onEditLabel(Component component) {
-		labelMode = LabelMode.SHOW;
+		setLabelState(showState);
 		updateLabels(component.getLabel());
 		if (getSelectedComponent() != null)
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
 	}
-	
-	/** 
+
+	/**
 	 * Select a Party or Message
+	 * 
 	 * @throws NullPointerException
-	 * 		No ViewComponent supplied
+	 *             No ViewComponent supplied
 	 */
 	public void selectComponent() {
 		ViewComponent viewComponent = getSelectedComponent();
 		if (viewComponent == null)
 			throw new NullPointerException();
-		
+
 		System.out.println("Select component.");
-		
+
 		if (viewComponent.selected())
 			viewComponent.unselect();
 		else
 			viewComponent.select();
 	}
-	
+
 	/**
 	 * Checks if there is a party at the clicked position
 	 * 
@@ -507,7 +552,7 @@ public class SubWindow implements Observer {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Checks if a Label was clicked
 	 * 
@@ -541,7 +586,7 @@ public class SubWindow implements Observer {
 
 		return null;
 	}
-	
+
 	/**
 	 * Checks if a LifeLine was clicked
 	 * 
@@ -566,7 +611,7 @@ public class SubWindow implements Observer {
 
 		return null;
 	}
-	
+
 	/**
 	 * Check the Message Call Stack
 	 * 
@@ -587,7 +632,7 @@ public class SubWindow implements Observer {
 
 		return first.positionSeq.getX() < second.positionSeq.getX();
 	}
-	
+
 	/**
 	 * Checks if the close button of a subwindow is clicked
 	 * 
@@ -606,12 +651,10 @@ public class SubWindow implements Observer {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
-		return x >= (getX() + getWidth() - getHeightTitlebar())
-				&& x <= (getX() + getWidth()) 
-				&& y >= getY()
+		return x >= (getX() + getWidth() - getHeightTitlebar()) && x <= (getX() + getWidth()) && y >= getY()
 				&& y <= (getY() + getHeightTitlebar());
 	}
-	
+
 	/**
 	 * Checks if clicked position is part of the active subwindow
 	 * 
@@ -629,7 +672,6 @@ public class SubWindow implements Observer {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
-		return x < getX() || y < getY() || x > getX() + getWidth()
-				|| y > getY() + getHeight();
+		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
 	}
 }

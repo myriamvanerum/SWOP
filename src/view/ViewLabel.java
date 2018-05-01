@@ -10,7 +10,6 @@ import java.awt.geom.*;
  */
 public class ViewLabel {
 	int width, height;
-	LabelMode labelMode;
 	Color color;
 	String output;
 	
@@ -20,7 +19,6 @@ public class ViewLabel {
 	 * 		The text of the label
 	 */
 	public ViewLabel(String label) {
-		labelMode = LabelMode.SHOW;
 		output = label;
 	}
 	
@@ -28,7 +26,6 @@ public class ViewLabel {
 	 * Copy Constructor
 	 */
 	public ViewLabel(ViewLabel viewLabel) {
-		labelMode = LabelMode.SHOW;
 		output = viewLabel.output;
 	}
 	
@@ -47,18 +44,15 @@ public class ViewLabel {
 		if (label == null || position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();		
 		
-		
 		Color colorOrig = g.getColor();
 	
-		
-		if (labelMode == LabelMode.SHOW) {
-			g.setColor(getColor());
-			g.drawString(label, (int)position.getX(), (int)position.getY());
-		} else {
+		// TODO show
+		//	g.setColor(getColor());
+		//	g.drawString(label, (int)position.getX(), (int)position.getY());
+
 			g.setColor(getColor());
 			g.drawString(output, (int)position.getX(), (int)position.getY());
-		}
-		
+
 		g.setColor(colorOrig);
 	}
 	
@@ -78,14 +72,6 @@ public class ViewLabel {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	public LabelMode getLabelMode() {
-		return labelMode;
-	}
-
-	public void setLabelMode(LabelMode labelMode) {
-		this.labelMode = labelMode;
 	}
 
 	public Color getColor() {

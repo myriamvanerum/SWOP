@@ -115,4 +115,8 @@ public class ViewComponent implements Selectable {
 	public void unselect() {
 		isSelected = false;
 	}
+
+	public void setLabelState(SubWindow subwindow) {
+		System.out.println("Set label state active subwindow");
+	}
 }
