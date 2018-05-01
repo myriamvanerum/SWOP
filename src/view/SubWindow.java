@@ -468,8 +468,6 @@ public class SubWindow implements Observer {
 	
 	/** 
 	 * Select a Party or Message
-	 * @param viewComponent
-	 * 		The Party or Message to select
 	 * @throws NullPointerException
 	 * 		No ViewComponent supplied
 	 */

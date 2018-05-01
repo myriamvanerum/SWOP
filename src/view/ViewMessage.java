@@ -77,6 +77,8 @@ public class ViewMessage extends ViewComponent {
 	 * Draw a Message in a Communication diagram
 	 * @param g
 	 * 		Graphics class
+	 * @param windowPosition
+	 * 		SubWindow position
 	 */
 	public void drawSeq(Graphics2D g, Point2D windowPosition) {
 		ViewLifeLine senderLifeline = getSender().getViewLifeLine();

@@ -36,7 +36,7 @@ public class ViewParty extends ViewComponent {
 	 * ViewParty Constructor
 	 * @param party
 	 * 		Party to draw
-	 * @param clickPosition
+	 * @param position
 	 * 		Chosen position
 	 */
 	public ViewParty(Party party, Point2D position) {
