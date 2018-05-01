@@ -423,7 +423,7 @@ public class SubWindow implements Observer {
 	 * 		The Party to find
 	 * @return The ViewParty to find, or null
 	 */
-	protected ViewParty findViewParty(Party party) {
+	public ViewParty findViewParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {
 			if (viewParty.getParty() == party)
 				return viewParty;
@@ -437,7 +437,7 @@ public class SubWindow implements Observer {
 	 * 		The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
-	protected ViewMessage findViewMessage(Message message) {
+	public ViewMessage findViewMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
 			if (viewMessage.getMessage() == message)
 				return viewMessage;
