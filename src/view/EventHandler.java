@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
-import java.util.ArrayList;
 
 import controller.Controller;
 import model.Component;
@@ -76,14 +75,14 @@ public class EventHandler {
 					else if (label != null && label.length() > 0)
 						viewLabel.setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
 						
-					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkLabelSyntax(viewLabel.getOutput()))
+					if (active.getLabelMode() == LabelMode.PARTY && !controller.checkPartyLabelSyntax(viewLabel.getOutput()))
 						viewLabel.setColor(Color.RED);
 					else
 						viewLabel.setColor(Color.GREEN);
 				}
 
 				if (keyCode == 10) {
-					if (active.getLabelMode() == LabelMode.PARTY && controller.checkLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
+					if (active.getLabelMode() == LabelMode.PARTY && controller.checkPartyLabelSyntax(label) || active.getLabelMode() == LabelMode.MESSAGE)
 					{	viewLabel.setColor(Color.BLACK);
 						viewLabel.setOutput(currentComponent.getLabel());
 						
@@ -149,17 +148,17 @@ public class EventHandler {
 			return;
 
 		if (id == MouseEvent.MOUSE_CLICKED) {
-			SubWindow closeWindow = checkCloseButtons(x, y, mainwindow.getSubWindows(), active);
+			SubWindow closeWindow = mainwindow.checkCloseButtons(x, y);
 			if (closeWindow != null) {
 				mainwindow.closeClickedSubwindow(closeWindow);
-			} else if (clickOutsideActiveSubwindow(x, y, active)) {
-				SubWindow sub = findClickedSubwindow(x, y, active, mainwindow.getSubWindows());
+			} else if (active.clickOutsideActiveSubwindow(x, y)) {
+				SubWindow sub = mainwindow.findClickedSubwindow(x, y, active);
 				if (sub != null)
 					mainwindow.setActiveWindow(sub);
 			}
 		}
 		
-		if (clickOutsideActiveSubwindow(x, y, active))
+		if (active.clickOutsideActiveSubwindow(x, y))
 			return;
 
 		if (active.getLabelMode() == LabelMode.SHOW) {
@@ -221,133 +220,5 @@ public class EventHandler {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Checks if the close button of a subwindow that isn't the active subwindow is
-	 * clicked.
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subWindows
-	 *            ArrayList of all subwindows
-	 * @param active
-	 *            The active subwindow
-	 * @return Null if no close button is clicked The Subwindow of which the close
-	 *         button was clicked
-	 * @throws NullPointerException
-	 *             No subwindows supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private SubWindow checkCloseButtons(int x, int y, ArrayList<SubWindow> subWindows, SubWindow active) {
-		if (subWindows.size() == 0)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		if (clickCloseButton(x, y, active))
-			return active;
-
-		for (int i = subWindows.size() - 1; i >= 0; i--) {
-			SubWindow item = subWindows.get(i);
-			if (item != active && clickCloseButton(x, y, item))
-				return subWindows.get(i);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Checks if the close button of a subwindow is clicked
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return True if the close button of the subwindow is clicked False if the
-	 *         close butten of the subwindow isn't clicked
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private boolean clickCloseButton(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		return subwindow != null && x >= subwindow.getX() + (subwindow.getWidth() - subwindow.getHeightTitlebar())
-				&& x <= subwindow.getX() + subwindow.getWidth() && y >= subwindow.getY()
-				&& y <= (subwindow.getY() + subwindow.getHeightTitlebar());
-	}
-
-	/**
-	 * Checks if clicked position is part of the active subwindow
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return true if the clickevent occured outside of the active subwindow
-	 * @throws NullPointerException
-	 *             No subwindow supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private boolean clickOutsideActiveSubwindow(int x, int y, SubWindow subwindow) {
-		if (subwindow == null)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		return x < subwindow.getX() || y < subwindow.getY() || x > subwindow.getX() + subwindow.getWidth()
-				|| y > subwindow.getY() + subwindow.getHeight();
-	}
-
-	/**
-	 * Find the SubWindow that was clicked. Ths method loops over all the subwindows
-	 * except the active window, from the front to the back
-	 * 
-	 * @param x
-	 *            The clicked x coordinates
-	 * @param y
-	 *            The clicked y coordinates
-	 * @param subwindow
-	 *            The active subwindow
-	 * @param subWindows
-	 *            The list of all subwindows
-	 * @return The clicked subwindow, or null
-	 * @throws NullPointerException
-	 *             No subwindow or list of subwindows supplied
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	private SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow, ArrayList<SubWindow> subWindows) {
-		if (subwindow == null || subWindows.size() == 0)
-			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		for (int i = subWindows.size() - 1; i >= 0; i--) {
-			if (subWindows.get(i) != subwindow) {
-				int xSub = subWindows.get(i).getX();
-				int ySub = subWindows.get(i).getY();
-				int width = subWindows.get(i).getWidth();
-				int height = subWindows.get(i).getHeight();
-
-				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
-					return subWindows.get(i);
-			}
-		}
-
-		return null;
 	}
 }

@@ -129,6 +129,7 @@ public class Controller {
 			throw new IllegalArgumentException();
 		
 		System.out.println("Add message.");
+		// TODO message factory / interaction maakt message
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
 		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
 		invocationMessage.setResultMessage(resultMessage);
@@ -147,9 +148,9 @@ public class Controller {
 	 * 		The label to check
 	 * @return true if syntax correct
 	 */
-	public boolean checkLabelSyntax(String label) {
+	public boolean checkPartyLabelSyntax(String label) {
 		SyntaxChecker syntaxChecker = new SyntaxChecker();
-		return syntaxChecker.correctLabelSyntax(label);
+		return syntaxChecker.correctPartyLabelSyntax(label);
 	}
 
 	/**

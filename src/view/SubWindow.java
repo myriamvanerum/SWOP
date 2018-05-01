@@ -423,7 +423,7 @@ public class SubWindow implements Observer {
 	 * 		The Party to find
 	 * @return The ViewParty to find, or null
 	 */
-	protected ViewParty findViewParty(Party party) {
+	public ViewParty findViewParty(Party party) {
 		for (ViewParty viewParty : getViewParties()) {
 			if (viewParty.getParty() == party)
 				return viewParty;
@@ -437,7 +437,7 @@ public class SubWindow implements Observer {
 	 * 		The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
-	protected ViewMessage findViewMessage(Message message) {
+	public ViewMessage findViewMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
 			if (viewMessage.getMessage() == message)
 				return viewMessage;
@@ -586,5 +586,50 @@ public class SubWindow implements Observer {
 		ViewParty second = findViewParty(receiver);
 
 		return first.positionSeq.getX() < second.positionSeq.getX();
+	}
+	
+	/**
+	 * Checks if the close button of a subwindow is clicked
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return True if the close button of the subwindow is clicked False if the
+	 *         close butten of the subwindow isn't clicked
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected boolean clickCloseButton(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		return x >= (getX() + getWidth() - getHeightTitlebar())
+				&& x <= (getX() + getWidth()) 
+				&& y >= getY()
+				&& y <= (getY() + getHeightTitlebar());
+	}
+	
+	/**
+	 * Checks if clicked position is part of the active subwindow
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return true if the clickevent occured outside of the active subwindow
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	protected boolean clickOutsideActiveSubwindow(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		return x < getX() || y < getY() || x > getX() + getWidth()
+				|| y > getY() + getHeight();
 	}
 }

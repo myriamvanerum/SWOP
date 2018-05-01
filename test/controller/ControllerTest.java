@@ -5,21 +5,15 @@ package controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import model.Actor;
 import model.InvocationMessage;
 import model.Message;
-import model.Object;
 import model.Party;
 import model.ResultMessage;
 import view.MainWindow;
-import view.State;
-import view.SubWindow;
 import view.ViewComponent;
 
 /**
@@ -59,7 +53,7 @@ class ControllerTest {
 		assertEquals(message.getReceiver(), party2);
 		
 		String label = "label:Label";
-		Boolean syntaxCorrect = controller.checkLabelSyntax(label);
+		Boolean syntaxCorrect = controller.checkPartyLabelSyntax(label);
 		
 		assertTrue(syntaxCorrect);
 		
@@ -84,7 +78,7 @@ class ControllerTest {
 	@Test
 	void testControllerPartyNullError() {
 		try {
-			Party party = controller.createParty(null);
+			controller.createParty(null);
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;
@@ -95,7 +89,7 @@ class ControllerTest {
 	void testControllerPartyPositionError() {
 		try {
 			Point2D position = new Point2D.Double(-10,150);
-			Party party = controller.createParty(position);
+			controller.createParty(position);
 	        assert false;
 	    } catch (IllegalArgumentException e) {
 	        assert true;
@@ -147,7 +141,7 @@ class ControllerTest {
 		ViewComponent viewComponent = mainwindow.getActiveWindow().findViewMessage(message);
 		controller.deleteComponent(viewComponent);
 		
-		assertFalse(mainwindow.getActiveWindow().getInteraction().getParties().contains(message));
+		assertFalse(mainwindow.getActiveWindow().getInteraction().getMessages().contains(message));
 		assertFalse(mainwindow.getActiveWindow().getInteraction().getMessages().contains(resMessage));
 	}
 	
@@ -164,7 +158,7 @@ class ControllerTest {
 	@Test
 	void testControllerMessageNullError() {
 		try {
-			Message message = controller.addMessage(null, null, 150, 150);
+			controller.addMessage(null, null, 150, 150);
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;
@@ -182,7 +176,7 @@ class ControllerTest {
 		Party party2 = controller.createParty(position);
 		
 		try {
-			Message message = controller.addMessage(party, party2, 150, -10);
+			controller.addMessage(party, party2, 150, -10);
 	        assert false;
 	    } catch (IllegalArgumentException e) {
 	        assert true;
