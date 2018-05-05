@@ -37,7 +37,7 @@ public abstract class Message extends Component {
     
     @Override
 	public void remove(Interaction interaction) {
-    	interaction.messages.remove(this);
+    	interaction.getMessageSequence().removeMessage(this);
 		interaction.notifyDelete(this);	
 	}
         

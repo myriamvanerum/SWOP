@@ -54,16 +54,8 @@ public abstract class Party extends Component {
 	}
 
 	@Override
-	public void removeDependents(Interaction interaction) {
-		ArrayList<Message> aux = new ArrayList<>();
-		
-		for (Message message : interaction.getMessages()) {
-			if (message.getSender() != this && message.getReceiver() != this) 
-				aux.add(message);
-			else interaction.notifyDelete(message);
-		}	
-		
-		interaction.setMessages(aux);
+	public void removeDependents(MessageSequence messageSequence) {
+		messageSequence.removePartyDependents(this);
 	}
 
     /* GETTERS AND SETTERS */

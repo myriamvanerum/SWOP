@@ -11,7 +11,7 @@ import view.Observer;
  */
 public class Interaction implements Observable {
 	public ArrayList<Party> parties;
-	public ArrayList<Message> messages;
+	public MessageSequence messageSequence;
 	private ArrayList<Observer> observers;
 	
 	/**
@@ -19,7 +19,7 @@ public class Interaction implements Observable {
 	 */
 	public Interaction() {
 		parties = new ArrayList<>();
-		messages = new ArrayList<>();
+		messageSequence = new MessageSequence();
 		observers = new ArrayList<>();
 	}
 	
@@ -32,15 +32,15 @@ public class Interaction implements Observable {
 	public void setParties(ArrayList<Party> parties) {
 		this.parties = parties;
 	}
-
-	public ArrayList<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(ArrayList<Message> messages) {
-		this.messages = messages;
-	}
 	
+	public MessageSequence getMessageSequence() {
+		return messageSequence;
+	}
+
+	public void setMessageSequence(MessageSequence messageSequence) {
+		this.messageSequence = messageSequence;
+	}
+
 	/** 
 	 * Add a new Party to the Interaction
 	 * @param party
@@ -79,13 +79,13 @@ public class Interaction implements Observable {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
-		this.messages.add(message);
+		getMessageSequence().addMessage(message);
 		notifyAdd(message, position);
 	}
 	
 	public void removeComponent(Component component) {
 		component.remove(this);
-		component.removeDependents(this);
+		component.removeDependents(getMessageSequence());
 	}
 	
 	/**

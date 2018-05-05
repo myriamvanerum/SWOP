@@ -37,8 +37,8 @@ public class InvocationMessage extends Message {
     }
     
     @Override
-    public void removeDependents(Interaction interaction) {
-    	interaction.removeComponent(getResultMessage());
+    public void removeDependents(MessageSequence messageSequence) {
+    	messageSequence.removeMessageDependents(this);
     }
 
 	public ResultMessage getResultMessage() {
