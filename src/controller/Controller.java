@@ -137,8 +137,11 @@ public class Controller {
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		
-		currentInteraction.addMessage(invocationMessage, new Point2D.Double(x,y));	
-		currentInteraction.addMessage(resultMessage, new Point2D.Double(x,y+20));
+		// TODO get previous message
+		Message previous = null;
+		
+		currentInteraction.addMessage(invocationMessage, previous, new Point2D.Double(x,y));	
+		//currentInteraction.addMessage(resultMessage, new Point2D.Double(x,y+20));
 						
 		return invocationMessage;
 	}

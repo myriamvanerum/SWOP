@@ -10,22 +10,11 @@ import java.util.ArrayList;
 public class ComState implements State {
 
 	/**
-	 * Draw the SubWindow title
-	 * @param g
-	 * 		Graphics class
-	 * @param x
-	 * 		X coordinates
-	 * @param y
-	 * 		Y coordinates
-	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
+	 * Get the SubWindow title
 	 */
 	@Override
-	public void drawTitle(Graphics2D g, Integer x, Integer y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-		
-		g.drawString("COMMUNICATION DIAGRAM", x, y);		
+	public String getTitle() {
+		return "COMMUNICATION DIAGRAM";		
 	}
 
 	/**

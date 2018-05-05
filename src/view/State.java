@@ -6,15 +6,9 @@ import java.util.ArrayList;
 
 public interface State {
 	/**
-	 * Draw the SubWindow title
-	 * @param g
-	 * 		Graphics class
-	 * @param x
-	 * 		X coordinates
-	 * @param y
-	 * 		Y coordinates
+	 * Get the SubWindow title
 	 */
-	public void drawTitle(Graphics2D g, Integer x, Integer y);
+	public String getTitle();
 	
 	/**
 	 * Draw the Parties and Messages in the SubWindow

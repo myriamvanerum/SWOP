@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import purecollections.PList;
 
@@ -19,26 +20,36 @@ public class MessageSequence {
 		this.messages = messages;
 	}
 
-	public void addMessage(Message message) {
-		
+	public boolean addMessage(Message message, Message previous) {
+        if (!checkCallStack(previous, message)) return false;
+        
+        // insert Invocation and Result message
+        int insertIndex = getMessages().indexOf(previous) + 1;
+        setMessages(getMessages().plus(insertIndex, message).plus(insertIndex + 1, message.getCompanion()));
+        
+        // recalculate message numbers
+        setMessageNumbers();
+        
+        return true;
 	}
 	
 	public void removeMessageAndDependents(Message message) {
 		// TODO notifyDelete for dependents
 		if (!getMessages().contains(message) || !getMessages().contains(message.getCompanion()))
             throw new IllegalArgumentException();
-        
-		Message companion = message.getCompanion();
 
         int messageIndex = getMessages().indexOf(message);
-        int companionMessageIndex = getMessages().indexOf(companion);
+        int companionMessageIndex = getMessages().indexOf(message.getCompanion());
 
+        // remove invocation, result and all messages in between
         ArrayList<Message> messagesToDelete = new ArrayList<>();
         for (int i = Math.min(messageIndex, companionMessageIndex); i <= Math.max(messageIndex, companionMessageIndex); i++) {
             messagesToDelete.add(getMessages().get(i));
         }
         setMessages(getMessages().minusAll(messagesToDelete));
-        setSequenceStrings();
+        
+        // recalculate message numbers
+        setMessageNumbers();
 	}
 	
 	public void removePartyDependents(Party party) {
@@ -60,30 +71,47 @@ public class MessageSequence {
     }
 	
 	public boolean checkCallStack(Message previous, Message message) {
-		return messages.contains(previous) && previous.getReceiver() == message.getSender();
+		return getMessages().contains(previous) && previous.getReceiver() == message.getSender();
 	}
 	
-	private void setSequenceStrings() {
+	private void setMessageNumbers() {
 		// TODO
-//        Stack<Integer> sequenceString = new Stack<>();
-//        int count = -1;
-//        boolean returned = false;
-//        for (Message m : messages) {
-//            if (m.getType() == Message.MessageType.INVOCATION) {
-//                if (returned) {
-//                    sequenceString.set(count, sequenceString.get(count) + 1);
-//                } else {
-//                    sequenceString.push(1);
-//                    count += 1;
-//                }
-//                m.setSequenceString(formatSequenceString(sequenceString.toString()));
-//                returned = false;
-//            } else if (m.getType() == Message.MessageType.RESULT && returned) {
-//                sequenceString.pop();
-//                count -= 1;
-//            } else {
-//                returned = true;
-//            }
-//        }
+        Stack<Integer> messageNumber = new Stack<>();
+        int count = -1;
+        boolean foundRes = false;
+        for (Message message : getMessages()) {
+        	// new message is invocation message
+            if (message instanceof InvocationMessage) {
+            	// a result message was found before this invocation message
+                if (foundRes) {
+                	messageNumber.set(count, messageNumber.get(count) + 1);
+                // no result message was found before this invocation message
+                } else {
+                	messageNumber.push(1);
+                    count += 1;
+                }
+                
+                message.setMessageNumber(formatMessageNumber(messageNumber.toString()));
+                foundRes = false;
+            // new message is result message, and result message was found before this result message
+            } else if (message instanceof ResultMessage && foundRes) {
+            	messageNumber.pop();
+                count -= 1;
+            // new message is result message, and no result message was found before this result message
+            } else {
+            	foundRes = true;
+            }
+        }
+    }
+	
+	/**
+     * Formats the sequence String, the toString of an arrayList has commas and spaces.
+     * Spaces will be removed and commas will be replaced by dots.
+     *
+     * @param sequenceString the string to format.
+     * @return the formatted sequence string.
+     */
+    private String formatMessageNumber(String messageNumber) {
+        return messageNumber.substring(1, messageNumber.length() - 1).replace(" ", "").replace(',', '.');
     }
 }

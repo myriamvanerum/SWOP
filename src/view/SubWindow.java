@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -32,7 +30,8 @@ public class SubWindow implements Observer {
 	private Integer y;
 	private Integer width = 500;
 	private Integer height = 400;
-	private Integer heightTitlebar = 25;
+	
+	private Titlebar titlebar;
 
 	private State windowState;
 	private SeqState seqState = new SeqState();
@@ -74,6 +73,7 @@ public class SubWindow implements Observer {
 		// TODO labelstate
 		setLabelState(showState);
 		selectedComponent = null;
+		titlebar = new Titlebar(getX(), getY(), getWidth());
 	}
 
 	/**
@@ -112,6 +112,8 @@ public class SubWindow implements Observer {
 		setState(activeWindow.getState());
 		setLabelState(new ShowState(this));
 		selectedComponent = null;
+		
+		titlebar = new Titlebar(getX(), getY(), getWidth());
 	}
 
 	/**
@@ -161,45 +163,24 @@ public class SubWindow implements Observer {
 	 *            Graphics class
 	 */
 	public void draw(Graphics2D gOrig) {
-		Integer padding = 7;
-		Integer paddingBig = padding + 10;
-
 		// Create a new Graphics object so clip can be used to only clip contents for
 		// this SubWindow
 		Graphics2D g = (Graphics2D) gOrig.create();
 
 		// Draw white field
 		g.setColor(Color.WHITE);
-		g.fillRect(getX(), getY() + getHeightTitlebar(), getWidth(), getHeight() - getHeightTitlebar());
+		g.fillRect(getX(), getY() + getTitlebar().getHeight(), getWidth(), getHeight() - getTitlebar().getHeight());
 
 		// Draw title bar
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(getX(), getY(), getWidth(), getHeightTitlebar());
-
-		// Draw title bar text
-		g.setColor(Color.BLACK);
-		drawTitle(g, getX() + padding, getY() + paddingBig);
-
-		// Draw close button
-		g.setColor(Color.RED);
-		g.fillRect(getX() + getWidth() - getHeightTitlebar(), getY(), getHeightTitlebar(), getHeightTitlebar());
-		g.setColor(Color.BLACK);
-		Stroke stroke = new BasicStroke(2);
-		g.setStroke(stroke);
-		g.drawLine(getX() + getWidth() - paddingBig, getY() + padding, getX() + getWidth() - padding,
-				getY() + paddingBig);
-		g.drawLine(getX() + getWidth() - padding, getY() + padding, getX() + getWidth() - paddingBig,
-				getY() + paddingBig);
+		titlebar.draw(g, getState().getTitle());
 
 		// Draw black border
 		g.setColor(Color.BLACK);
-		stroke = new BasicStroke(1);
-		g.setStroke(stroke);
 		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 
 		// Only draw within SubWindow limits (minus 1 px for border)
-		g.setClip(getX() + 1, getY() + getHeightTitlebar(), getWidth() - 1, getHeight() - getHeightTitlebar());
+		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1, getHeight() - getTitlebar().getHeight());
 		// Draw contents
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
@@ -263,6 +244,14 @@ public class SubWindow implements Observer {
 		this.y = y;
 	}
 
+	public Titlebar getTitlebar() {
+		return titlebar;
+	}
+
+	public void setTitlebar(Titlebar titlebar) {
+		this.titlebar = titlebar;
+	}
+
 	public ArrayList<ViewParty> getViewParties() {
 		return viewParties;
 	}
@@ -295,14 +284,6 @@ public class SubWindow implements Observer {
 		this.height = height;
 	}
 
-	public Integer getHeightTitlebar() {
-		return heightTitlebar;
-	}
-
-	public void setHeightTitlebar(Integer heightTitlebar) {
-		this.heightTitlebar = heightTitlebar;
-	}
-
 	public State getState() {
 		return windowState;
 	}
@@ -332,25 +313,6 @@ public class SubWindow implements Observer {
 	}
 
 	/**
-	 * Draw the SubWindow title
-	 * 
-	 * @param g
-	 *            Graphics class
-	 * @param x
-	 *            X coordinates
-	 * @param y
-	 *            Y coordinates
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	public void drawTitle(Graphics2D g, Integer x, Integer y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		getState().drawTitle(g, x, y);
-	}
-
-	/**
 	 * Draw the Parties and Messages in the SubWindow
 	 * 
 	 * @param g
@@ -361,7 +323,7 @@ public class SubWindow implements Observer {
 	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, new Point2D.Double(getX(), getY() + getHeightTitlebar()), viewParties, viewMessages);
+		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties, viewMessages);
 	}
 
 	protected void moveComponent(ViewComponent component, int x, int y) {
@@ -653,8 +615,8 @@ public class SubWindow implements Observer {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
-		return x >= (getX() + getWidth() - getHeightTitlebar()) && x <= (getX() + getWidth()) && y >= getY()
-				&& y <= (getY() + getHeightTitlebar());
+		return x >= (getX() + getWidth() - getTitlebar().getHeight()) && x <= (getX() + getWidth()) && y >= getY()
+				&& y <= (getY() + getTitlebar().getHeight());
 	}
 
 	/**

@@ -73,14 +73,17 @@ public class Interaction implements Observable {
 	 * @throws IllegalArgumentException
 	 * 		Illegal position
 	 */
-	public void addMessage(Message message, Point2D position) {
+	public void addMessage(Message message, Message previous, Point2D position) {
 		if (message == null || position == null)
 			throw new NullPointerException();
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
-		getMessageSequence().addMessage(message);
-		notifyAdd(message, position);
+		// add message and companion to flow. If successfull, tell observers
+		if (getMessageSequence().addMessage(message, previous)) {
+			notifyAdd(message, position);
+			notifyAdd(message.getCompanion(), position);
+		}
 	}
 	
 	public void removeComponent(Component component) {

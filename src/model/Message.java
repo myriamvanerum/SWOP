@@ -11,6 +11,8 @@ public abstract class Message extends Component {
     private Party sender;
     private Party receiver;
     private Message companion;
+	private String messageNumber;
+
 
     /**
      * Constructor of Message.
@@ -26,6 +28,7 @@ public abstract class Message extends Component {
         this.label = label;
         this.sender = sender;
         this.receiver = receiver;
+        this.messageNumber = "";
 
         sender.setSendingMessage(this);
     }    
@@ -66,5 +69,13 @@ public abstract class Message extends Component {
 
 	public void setCompanion(Message companion) {
 		this.companion = companion;
+	}
+
+	public String getMessageNumber() {
+		return messageNumber;
+	}
+
+	public void setMessageNumber(String messageNumber) {
+		this.messageNumber = messageNumber;
 	}
 }

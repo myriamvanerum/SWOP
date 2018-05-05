@@ -5,7 +5,7 @@ package model;
  * @author  groep 03
  */
 public class InvocationMessage extends Message {
-	
+		
 	/**
 	 * Invocation message constructor
 	 * @param label
