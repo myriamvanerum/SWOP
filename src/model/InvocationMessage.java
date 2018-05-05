@@ -5,7 +5,6 @@ package model;
  * @author  groep 03
  */
 public class InvocationMessage extends Message {
-	private ResultMessage resultMessage;
 	
 	/**
 	 * Invocation message constructor
@@ -33,19 +32,11 @@ public class InvocationMessage extends Message {
 	 */
     public InvocationMessage(String label, Party sender, Party receiver, ResultMessage resMessage) {
         super(label, sender, receiver);
-        setResultMessage(resMessage);
+        setCompanion(resMessage);
     }
     
     @Override
     public void removeDependents(MessageSequence messageSequence) {
-    	messageSequence.removeMessageDependents(this);
+    	messageSequence.removeMessageAndDependents(this);
     }
-
-	public ResultMessage getResultMessage() {
-		return resultMessage;
-	}
-
-	public void setResultMessage(ResultMessage resultMessage) {
-		this.resultMessage = resultMessage;
-	}
 }

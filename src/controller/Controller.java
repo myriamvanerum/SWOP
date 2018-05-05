@@ -132,7 +132,8 @@ public class Controller {
 		// TODO message factory / interaction maakt message
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
 		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
-		invocationMessage.setResultMessage(resultMessage);
+		invocationMessage.setCompanion(resultMessage);
+		resultMessage.setCompanion(invocationMessage);
 		
 		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
 		

@@ -10,6 +10,7 @@ package model;
 public abstract class Message extends Component {
     private Party sender;
     private Party receiver;
+    private Message companion;
 
     /**
      * Constructor of Message.
@@ -37,7 +38,7 @@ public abstract class Message extends Component {
     
     @Override
 	public void remove(Interaction interaction) {
-    	interaction.getMessageSequence().removeMessage(this);
+    	interaction.getMessageSequence().removeMessageAndDependents(this);
 		interaction.notifyDelete(this);	
 	}
         
@@ -58,4 +59,12 @@ public abstract class Message extends Component {
     public Party getReceiver() {
         return receiver;
     }
+
+	public Message getCompanion() {
+		return companion;
+	}
+
+	public void setCompanion(Message companion) {
+		this.companion = companion;
+	}
 }
