@@ -71,7 +71,7 @@ public class MessageSequence {
     }
 	
 	public boolean checkCallStack(Message previous, Message message) {
-		return getMessages().contains(previous) && previous.getReceiver() == message.getSender();
+		return (getMessages().contains(previous) && previous.getReceiver() == message.getSender() || getMessages().isEmpty());
 	}
 	
 	private void setMessageNumbers() {

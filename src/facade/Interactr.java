@@ -1,4 +1,4 @@
-package controller;
+package facade;
 
 import java.awt.geom.Point2D;
 
@@ -11,14 +11,14 @@ import model.PartyFactory;
 import model.ResultMessage;
 import model.SyntaxChecker;
 import view.MainWindow;
-import view.ViewComponent;
-import view.ViewParty;
+import view.Components.ViewComponent;
+import view.Components.ViewParty;
 
 /**
  * A Controller Class
  * @author groep 03
  */
-public class Controller {
+public class Interactr {
 	MainWindow mainWindow;
 	PartyFactory partyFactory;
 	
@@ -29,13 +29,21 @@ public class Controller {
 	 * @throws NullPointerException
 	 * 		No window supplied
 	 */
-	public Controller(MainWindow mainWindow) {
+	public Interactr(MainWindow mainWindow) {
 		if (mainWindow == null)
 			throw new NullPointerException();
 		
 		this.mainWindow = mainWindow;
 		this.partyFactory = new PartyFactory();
 		System.out.println("Starting Interactr.");
+	}
+	
+	/**
+	 * Interactr constructor
+	 */
+	public Interactr() {
+		this.partyFactory = new PartyFactory();
+		System.out.println("New Interactr.");
 	}
 	
 	/**

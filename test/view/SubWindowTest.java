@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import controller.Controller;
+import facade.Interactr;
 import model.Actor;
 import model.Object;
 import model.Interaction;
@@ -15,6 +15,12 @@ import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import model.ResultMessage;
+import view.Components.ViewActor;
+import view.Components.ViewComponent;
+import view.Components.ViewInvocationMessage;
+import view.Components.ViewMessage;
+import view.Components.ViewParty;
+import view.Components.ViewResultMessage;
 
 
 class SubWindowTest {
@@ -30,11 +36,11 @@ class SubWindowTest {
 		int height = 50, width = 40, heightTitlebar = 5;
 		subwindow.setHeight(height);
 		subwindow.setWidth(width);
-		subwindow.setHeightTitlebar(heightTitlebar);
+		//subwindow.setHeightTitlebar(heightTitlebar);
 		
 		assert(height == subwindow.getHeight());
 		assert(width == subwindow.getWidth());
-		assert(heightTitlebar == subwindow.getHeightTitlebar());
+		//assert(heightTitlebar == subwindow.getHeightTitlebar());
 	}
 	
 	@Test

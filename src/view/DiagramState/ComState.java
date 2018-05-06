@@ -1,8 +1,13 @@
-package view;
+package view.DiagramState;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+
+import view.Components.ViewComponent;
+import view.Components.ViewInvocationMessage;
+import view.Components.ViewMessage;
+import view.Components.ViewParty;
 /**
  * Communication Diagram State class
  * @author groep 03

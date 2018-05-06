@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import model.Component;
 import model.SyntaxChecker;
+import view.Components.ViewComponent;
+import view.Components.ViewLabel;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;

@@ -6,10 +6,12 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
-import controller.Controller;
+import facade.Interactr;
 import model.Actor;
 import model.Interaction;
 import model.Party;
+import view.Components.ViewComponent;
+import view.Components.ViewParty;
 
 
 class EventHandlerTest {

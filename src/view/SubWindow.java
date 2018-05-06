@@ -11,6 +11,17 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
+import view.Components.ViewComponent;
+import view.Components.ViewInvocationMessage;
+import view.Components.ViewLabel;
+import view.Components.ViewLifeLine;
+import view.Components.ViewMessage;
+import view.Components.ViewObject;
+import view.Components.ViewParty;
+import view.Components.ViewResultMessage;
+import view.DiagramState.ComState;
+import view.DiagramState.SeqState;
+import view.DiagramState.State;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and
@@ -326,7 +337,7 @@ public class SubWindow implements Observer {
 		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties, viewMessages);
 	}
 
-	protected void moveComponent(ViewComponent component, int x, int y) {
+	public void moveComponent(ViewComponent component, int x, int y) {
 		if (component == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
@@ -506,7 +517,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected ViewParty clickParty(int x, int y) {
+	public ViewParty clickParty(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
@@ -530,7 +541,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected ViewLabel clickLabel(int x, int y) {
+	public ViewLabel clickLabel(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
@@ -562,7 +573,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected Party clickLifeline(int x, int y) {
+	public Party clickLifeline(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
@@ -587,14 +598,14 @@ public class SubWindow implements Observer {
 	 * @throws NullPointerException
 	 *             No sender, receiver or subwindow supplied
 	 */
-	protected boolean checkCallStack(Party sender, Party receiver) {
+	public boolean checkCallStack(Party sender, Party receiver) {
 		if (sender == null || receiver == null)
 			throw new NullPointerException();
 
 		ViewParty first = findViewParty(sender);
 		ViewParty second = findViewParty(receiver);
 
-		return first.positionSeq.getX() < second.positionSeq.getX();
+		return first.getPositionSeq().getX() < second.getPositionSeq().getX();
 	}
 
 	/**
@@ -632,7 +643,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected boolean clickOutsideActiveSubwindow(int x, int y) {
+	public boolean clickOutsideActiveSubwindow(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 

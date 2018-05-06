@@ -1,10 +1,12 @@
-package view;
+package view.Components;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import model.Component;
 import model.Party;
+import view.PartyState;
+import view.SubWindow;
 /**
  * ViewParty class. Controls the drawing of Parties
  * @author groep 03

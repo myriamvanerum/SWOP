@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
+import view.EventHandlers.KeyEventHandler;
+import view.EventHandlers.MouseEventHandler;
 /**
  * MainWindow class, inherits CanvasWindow class
  * @author groep 03
@@ -25,11 +27,13 @@ public class MainWindow extends CanvasWindow {
 	
 	public SubWindow activeWindow = null;	
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
-	public EventHandler eventHandler;
+	public KeyEventHandler keyEventHandler;
+	public MouseEventHandler mouseEventHandler;
 
 	public MainWindow(String title) {
         super(title);
-        setEventHandler(new EventHandler(this));
+        setKeyEventHandler(new KeyEventHandler(this));
+        setMouseEventHandler(new MouseEventHandler(this));
     }
 	
 	
@@ -122,7 +126,7 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		eventHandler.handleMouseEvent(id, x, y, clickCount);
+		mouseEventHandler.handleMouseEvent(id, x, y, clickCount);
 		repaint();
     }
     
@@ -137,7 +141,7 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        eventHandler.handleKeyEvent(id, keyCode, keyChar);
+        keyEventHandler.handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
     
@@ -159,7 +163,7 @@ public class MainWindow extends CanvasWindow {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow) {
+	public SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow) {
 		if (subwindow == null || getSubWindows().size() == 0)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
@@ -199,7 +203,7 @@ public class MainWindow extends CanvasWindow {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected SubWindow checkCloseButtons(int x, int y) {
+	public SubWindow checkCloseButtons(int x, int y) {
 		if (getSubWindows().size() == 0)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
@@ -219,12 +223,20 @@ public class MainWindow extends CanvasWindow {
     
     /* GETTERS AND SETTERS */
 
-	public EventHandler getEventHandler() {
-		return eventHandler;
+	public KeyEventHandler getKeyEventHandler() {
+		return keyEventHandler;
 	}
 
-	public void setEventHandler(EventHandler eventHandler) {
-		this.eventHandler = eventHandler;
+	public void setKeyEventHandler(KeyEventHandler keyEventHandler) {
+		this.keyEventHandler = keyEventHandler;
+	}
+	
+	public MouseEventHandler getMouseEventHandler() {
+		return mouseEventHandler;
+	}
+
+	public void setMouseEventHandler(MouseEventHandler mouseEventHandler) {
+		this.mouseEventHandler = mouseEventHandler;
 	}
 
 	public SubWindow getActiveWindow() {
