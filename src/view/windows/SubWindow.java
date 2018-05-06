@@ -78,6 +78,8 @@ public class SubWindow implements Observer {
 	public SubWindow(Interaction interaction, Integer x, Integer y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
+		
+		setInteractionManager(new InteractionManager());
 
 		setInteraction(interaction);
 		interaction.addObserver(this);
@@ -114,6 +116,8 @@ public class SubWindow implements Observer {
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
+		
+		setInteractionManager(activeWindow.getInteractionManager());
 
 		// leg link met interaction
 		setInteraction(activeWindow.getInteraction());
@@ -245,6 +249,14 @@ public class SubWindow implements Observer {
 
 	public void setInteraction(Interaction interaction) {
 		this.interaction = interaction;
+	}
+
+	public InteractionManager getInteractionManager() {
+		return interactionManager;
+	}
+
+	public void setInteractionManager(InteractionManager interactionManager) {
+		this.interactionManager = interactionManager;
 	}
 
 	public Integer getX() {
