@@ -39,8 +39,6 @@ import view.labelstate.ShowState;
  */
 public class SubWindow implements Observer {
 	private InteractionManager interactionManager;
-	
-	private Interaction interaction;
 
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
@@ -79,9 +77,7 @@ public class SubWindow implements Observer {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		setInteractionManager(new InteractionManager());
-
-		setInteraction(interaction);
+		setInteractionManager(new InteractionManager(interaction));
 		interaction.addObserver(this);
 
 		setViewParties(new ArrayList<>());
@@ -118,10 +114,7 @@ public class SubWindow implements Observer {
 			throw new IllegalArgumentException();
 		
 		setInteractionManager(activeWindow.getInteractionManager());
-
-		// leg link met interaction
-		setInteraction(activeWindow.getInteraction());
-		interaction.addObserver(this);
+		getInteractionManager().getInteraction().addObserver(this);
 
 		setX(x);
 		setY(y);
@@ -242,14 +235,6 @@ public class SubWindow implements Observer {
 	}
 
 	/* GETTERS AND SETTERS */
-
-	public Interaction getInteraction() {
-		return interaction;
-	}
-
-	public void setInteraction(Interaction interaction) {
-		this.interaction = interaction;
-	}
 
 	public InteractionManager getInteractionManager() {
 		return interactionManager;

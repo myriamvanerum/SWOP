@@ -3,7 +3,6 @@ package view.eventhandlers;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
-import facade.Interactr;
 import model.Component;
 import model.Message;
 import model.Party;
@@ -20,7 +19,6 @@ import view.windows.SubWindow;
  * @author groep 03
  */
 public class MouseEventHandler {
-	Interactr controller;
 	WindowManager windowManager;
 
 	ViewComponent labelClickedOnce;
@@ -33,7 +31,6 @@ public class MouseEventHandler {
 	 *            Main Window
 	 */
 	public MouseEventHandler(WindowManager windowManager) {
-		controller = new Interactr(windowManager);
 		this.windowManager = windowManager;
 	}
 

@@ -82,7 +82,7 @@ public class WindowManager {
 			throw new NullPointerException();
 		
 		getSubWindows().remove(subwindow);
-		subwindow.getInteraction().removeObserver(subwindow);
+		subwindow.getInteractionManager().getInteraction().removeObserver(subwindow);
 
 		if (subwindow == getActiveWindow()) {
 			int index = getSubWindows().size();
@@ -186,5 +186,15 @@ public class WindowManager {
 	public void deleteComponent() {
 		System.out.println("Forward Delete Component.");
 		getActiveWindow().deleteComponent();
+	}
+
+	public void createNewInteraction() {
+		// tell model to make new interaction
+		// TODO code verplaatsen, hoort hier niet
+		Interaction interaction = new Interaction();
+		
+		// make new subwindow
+		createNewSubWindow(interaction);
+		System.out.println("Create New Interaction.");
 	}
 }

@@ -1,15 +1,9 @@
 package view.eventhandlers;
 
-import static java.awt.event.KeyEvent.CHAR_UNDEFINED;
-
 import java.awt.event.KeyEvent;
 
-import facade.Interactr;
-import model.Party;
 import view.WindowManager;
-import view.components.ViewComponent;
 import view.labelstate.LabelState;
-import view.windows.SubWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -17,11 +11,9 @@ import view.windows.SubWindow;
  * @author groep 03
  */
 public class KeyEventHandler {
-	Interactr controller;
-	WindowManager windowManager;
-	private final KeyModifierHandler keyModifierHandler;
-	ViewComponent labelClickedOnce;
-	Party first, second;
+	private WindowManager windowManager;
+	private KeyModifierHandler keyModifierHandler;
+	private LabelState labelState;
 
 	/**
 	 * EventHandler Constructor
@@ -30,9 +22,9 @@ public class KeyEventHandler {
 	 *            Main Window
 	 */
 	public KeyEventHandler(WindowManager windowManager) {
-		controller = new Interactr(windowManager);
 		this.windowManager = windowManager;
 		keyModifierHandler = new KeyModifierHandler();
+		labelState = null;
 	}
 
 	/**
@@ -54,19 +46,15 @@ public class KeyEventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		SubWindow active = windowManager.getActiveWindow();
-		LabelState labelState = null;
+		labelState = null;
 
-		if (active != null)
-			labelState = active.getLabelState();
-
-		if (keyChar == CHAR_UNDEFINED) {
+		if (keyChar == KeyEvent.CHAR_UNDEFINED) {
 			keyModifierHandler.setModifier(keyCode);
 		} else {
             if (keyModifierHandler.ctrlModifierActive()) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
-    				controller.createNewInteraction();
+    				windowManager.createNewInteraction();
     				break;
     			case KeyEvent.VK_D:
     				windowManager.duplicateActiveWindow();
@@ -76,6 +64,9 @@ public class KeyEventHandler {
     				break;
     			}
             }
+            
+            if (windowManager.getActiveWindow() != null)
+				labelState = windowManager.getActiveWindow().getLabelState();
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
