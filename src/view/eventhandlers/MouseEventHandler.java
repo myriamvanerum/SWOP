@@ -67,9 +67,7 @@ public class MouseEventHandler {
 			if (closeWindow != null) {
 				windowManager.closeClickedSubwindow(closeWindow);
 			} else if (active.clickOutsideActiveSubwindow(x, y)) {
-				SubWindow sub = windowManager.findClickedSubwindow(x, y, active);
-				if (sub != null)
-					windowManager.setActiveWindow(sub);
+				windowManager.findClickedSubwindow(x, y, active);
 			}
 		}
 

@@ -118,7 +118,7 @@ public class WindowManager {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	public SubWindow findClickedSubwindow(int x, int y, SubWindow subwindow) {
+	public void findClickedSubwindow(int x, int y, SubWindow subwindow) {
 		if (subwindow == null || getSubWindows().size() == 0)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
@@ -131,12 +131,12 @@ public class WindowManager {
 				int width = getSubWindows().get(i).getWidth();
 				int height = getSubWindows().get(i).getHeight();
 
-				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height)
-					return getSubWindows().get(i);
+				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height) {	
+					setActiveWindow(subwindow); 
+					break;
+				}
 			}
 		}
-
-		return null;
 	}
     
     /**
