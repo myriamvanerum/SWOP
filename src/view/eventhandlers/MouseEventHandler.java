@@ -1,4 +1,4 @@
-package view.EventHandlers;
+package view.eventhandlers;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
@@ -7,12 +7,12 @@ import facade.Interactr;
 import model.Component;
 import model.Message;
 import model.Party;
-import view.MainWindow;
+import view.InteractionManager;
 import view.SubWindow;
-import view.Components.ViewComponent;
-import view.Components.ViewLabel;
-import view.Components.ViewMessage;
-import view.Components.ViewParty;
+import view.components.ViewComponent;
+import view.components.ViewLabel;
+import view.components.ViewMessage;
+import view.components.ViewParty;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -21,8 +21,7 @@ import view.Components.ViewParty;
  */
 public class MouseEventHandler {
 	Interactr controller;
-	MainWindow mainwindow;
-	SubWindow active;
+	InteractionManager interactionManager;
 
 	ViewComponent labelClickedOnce;
 	Party first, second;
@@ -33,10 +32,9 @@ public class MouseEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public MouseEventHandler(MainWindow window) {
-		controller = new Interactr(window);
-		this.mainwindow = window;
-		active = null;
+	public MouseEventHandler(InteractionManager interactionManager) {
+		controller = new Interactr(interactionManager);
+		this.interactionManager = interactionManager;
 	}
 
 	/**
@@ -62,19 +60,19 @@ public class MouseEventHandler {
 
 		// TODO labelstate !!! aanmaken
 
-		active = mainwindow.getActiveWindow();
+		SubWindow active = interactionManager.getActiveWindow();
 
 		if (active == null)
 			return;
 
 		if (id == MouseEvent.MOUSE_CLICKED) {
-			SubWindow closeWindow = mainwindow.checkCloseButtons(x, y);
+			SubWindow closeWindow = interactionManager.checkCloseButtons(x, y);
 			if (closeWindow != null) {
-				mainwindow.closeClickedSubwindow(closeWindow);
+				interactionManager.closeClickedSubwindow(closeWindow);
 			} else if (active.clickOutsideActiveSubwindow(x, y)) {
-				SubWindow sub = mainwindow.findClickedSubwindow(x, y, active);
+				SubWindow sub = interactionManager.findClickedSubwindow(x, y, active);
 				if (sub != null)
-					mainwindow.setActiveWindow(sub);
+					interactionManager.setActiveWindow(sub);
 			}
 		}
 

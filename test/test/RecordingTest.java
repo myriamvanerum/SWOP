@@ -1,13 +1,13 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static view.canvaswindow.CanvasWindow.replayRecording;
 
 import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-import view.MainWindow;
-import static view.CanvasWindow.replayRecording;
+import view.canvaswindow.MainWindow;
 
 class RecordingTest {
 	MainWindow main;

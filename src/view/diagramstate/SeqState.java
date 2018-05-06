@@ -1,12 +1,12 @@
-package view.DiagramState;
+package view.diagramstate;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import view.Components.ViewComponent;
-import view.Components.ViewMessage;
-import view.Components.ViewParty;
+import view.components.ViewComponent;
+import view.components.ViewMessage;
+import view.components.ViewParty;
 /**
  * Sequence Diagram State class
  * @author groep 03

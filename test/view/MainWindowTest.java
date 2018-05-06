@@ -11,7 +11,8 @@ import facade.Interactr;
 import model.Actor;
 import model.Interaction;
 import model.Party;
-import view.DiagramState.State;
+import view.canvaswindow.MainWindow;
+import view.diagramstate.State;
 
 
 class MainWindowTest {

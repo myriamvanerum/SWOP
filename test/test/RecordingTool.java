@@ -3,7 +3,7 @@ package test;
 import java.io.File;
 import java.util.Scanner;
 
-import view.MainWindow;
+import view.canvaswindow.MainWindow;
 
 public class RecordingTool {
 	private static String name;

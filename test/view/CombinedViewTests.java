@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import model.Object;
 import model.Party;
-import view.Components.ViewObject;
+import view.components.ViewObject;
 
 class CombinedViewTests {
 

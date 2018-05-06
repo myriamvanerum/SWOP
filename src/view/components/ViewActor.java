@@ -1,4 +1,4 @@
-package view.Components;
+package view.components;
 
 import java.awt.Graphics2D;
 import java.awt.Shape;

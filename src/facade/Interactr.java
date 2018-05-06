@@ -10,30 +10,30 @@ import model.Party;
 import model.PartyFactory;
 import model.ResultMessage;
 import model.SyntaxChecker;
-import view.MainWindow;
-import view.Components.ViewComponent;
-import view.Components.ViewParty;
+import view.InteractionManager;
+import view.components.ViewComponent;
+import view.components.ViewParty;
 
 /**
  * A Controller Class
  * @author groep 03
  */
 public class Interactr {
-	MainWindow mainWindow;
+	InteractionManager manager;
 	PartyFactory partyFactory;
 	
 	/**
 	 * Controller constructor
-	 * @param mainWindow
+	 * @param manager
 	 * 		Canvas for this controller
 	 * @throws NullPointerException
 	 * 		No window supplied
 	 */
-	public Interactr(MainWindow mainWindow) {
-		if (mainWindow == null)
+	public Interactr(InteractionManager manager) {
+		if (manager == null)
 			throw new NullPointerException();
 		
-		this.mainWindow = mainWindow;
+		this.manager = manager;
 		this.partyFactory = new PartyFactory();
 		System.out.println("Starting Interactr.");
 	}
@@ -54,7 +54,7 @@ public class Interactr {
 		Interaction interaction = new Interaction();
 		
 		// make new subwindow
-		mainWindow.createNewSubWindow(interaction);
+		manager.createNewSubWindow(interaction);
 		System.out.println("Create New Interaction.");
 	}
 	
@@ -76,7 +76,7 @@ public class Interactr {
 		
 		Party party = partyFactory.createParty("object");
 		
-		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
+		Interaction currentInteraction = manager.getActiveWindow().getInteraction();
 		currentInteraction.addParty(party, position);
 		
 		System.out.println("Create New Party.");
@@ -95,7 +95,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Change Party Type.");
-		mainWindow.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
+		manager.getActiveWindow().getInteraction().changePartyType(viewParty.getParty());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		mainWindow.getActiveWindow().getInteraction().removeComponent(viewComponent.getComponent());
+		manager.getActiveWindow().getInteraction().removeComponent(viewComponent.getComponent());
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class Interactr {
 		invocationMessage.setCompanion(resultMessage);
 		resultMessage.setCompanion(invocationMessage);
 		
-		Interaction currentInteraction = mainWindow.getActiveWindow().getInteraction();
+		Interaction currentInteraction = manager.getActiveWindow().getInteraction();
 		
 		// TODO get previous message
 		Message previous = null;

@@ -1,4 +1,4 @@
-package view;
+package view.canvaswindow;
 
 import java.awt.Color;
 import java.awt.Component;

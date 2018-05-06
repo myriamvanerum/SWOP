@@ -1,13 +1,13 @@
-package view.EventHandlers;
+package view.eventhandlers;
 
 import java.awt.event.KeyEvent;
 
 import facade.Interactr;
 import model.Party;
+import view.InteractionManager;
 import view.LabelState;
-import view.MainWindow;
 import view.SubWindow;
-import view.Components.ViewComponent;
+import view.components.ViewComponent;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -16,9 +16,7 @@ import view.Components.ViewComponent;
  */
 public class KeyEventHandler {
 	Interactr controller;
-	MainWindow mainwindow;
-	SubWindow active;
-
+	InteractionManager interactionManager;
 	ViewComponent labelClickedOnce;
 	Party first, second;
 
@@ -28,10 +26,9 @@ public class KeyEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public KeyEventHandler(MainWindow window) {
-		controller = new Interactr(window);
-		this.mainwindow = window;
-		active = null;
+	public KeyEventHandler(InteractionManager interactionManager) {
+		controller = new Interactr(interactionManager);
+		this.interactionManager = interactionManager;
 	}
 
 	/**
@@ -53,7 +50,7 @@ public class KeyEventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		active = mainwindow.getActiveWindow();
+		SubWindow active = interactionManager.getActiveWindow();
 		LabelState labelState = null;
 
 		if (active != null)
@@ -75,8 +72,8 @@ public class KeyEventHandler {
 			break;
 		case KeyEvent.VK_D:
 			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
-				if (mainwindow.getActiveWindow() != null)
-					mainwindow.createNewSubWindow(null);
+				if (interactionManager.getActiveWindow() != null)
+					interactionManager.createNewSubWindow(null);
 			}
 			break;
 		case KeyEvent.VK_ENTER:

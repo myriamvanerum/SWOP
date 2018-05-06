@@ -1,41 +1,15 @@
 package view;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
-import view.EventHandlers.KeyEventHandler;
-import view.EventHandlers.MouseEventHandler;
-/**
- * MainWindow class, inherits CanvasWindow class
- * @author groep 03
- *
- */
-public class MainWindow extends CanvasWindow {
-	
-	public static void main(String[] args){
 
-        java.awt.EventQueue.invokeLater(() -> {
-            new MainWindow("Interactr").show();
-        });
-
-    }
-	
+public class InteractionManager {
 	public SubWindow activeWindow = null;	
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
-	public KeyEventHandler keyEventHandler;
-	public MouseEventHandler mouseEventHandler;
-
-	public MainWindow(String title) {
-        super(title);
-        setKeyEventHandler(new KeyEventHandler(this));
-        setMouseEventHandler(new MouseEventHandler(this));
-    }
-	
 	
 	/**
 	 * Method to create a new SubWindow
@@ -90,61 +64,8 @@ public class MainWindow extends CanvasWindow {
 				setActiveWindow(getSubWindows().get(index-1));
 		}
 		System.out.println("Close SubWindow.");
-	}	
+	}
 	
-	/**
-     * Override for the standard paint method.
-     * Paints everything the user sees onto the screen.
-     * @param g
-     * 		Graphics class
-     */
-    @Override
-    protected void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        
-        // Draw all but active window first
-        for (SubWindow window : subWindows) {
-        	if (window != activeWindow)
-        		window.draw(g2);
-		}
-        
-        // Draw active window on top
-        if (activeWindow != null)
-        	activeWindow.draw(g2);
-    }
-
-    /**
-     * Method to pick up mouse events
-     * @param id
-     * 		The mouseEvent id
-     * @param x
-     * 		The clicked x coordinates
-     * @param y
-     * 		The clicked y coordinates
-     * @param clickCount
-     * 		The number of clicks
-     */
-	@Override
-    protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		mouseEventHandler.handleMouseEvent(id, x, y, clickCount);
-		repaint();
-    }
-    
-    /**
-     * Method to pick up keyboard events
-     * @param id
-     * 		The keyEvent id
-     * @param keyCode
-     * 		The keycode for the entered key
-     * @param keyChar
-     * 		The keyChar for the entered key
-     */
-    @Override
-    protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        keyEventHandler.handleKeyEvent(id, keyCode, keyChar);
-        repaint();
-    }
-    
 	/**
 	 * Find the SubWindow that was clicked. Ths method loops over all the subwindows
 	 * except the active window, from the front to the back
@@ -220,25 +141,19 @@ public class MainWindow extends CanvasWindow {
 
 		return null;
 	}
-    
-    /* GETTERS AND SETTERS */
-
-	public KeyEventHandler getKeyEventHandler() {
-		return keyEventHandler;
-	}
-
-	public void setKeyEventHandler(KeyEventHandler keyEventHandler) {
-		this.keyEventHandler = keyEventHandler;
-	}
 	
-	public MouseEventHandler getMouseEventHandler() {
-		return mouseEventHandler;
-	}
-
-	public void setMouseEventHandler(MouseEventHandler mouseEventHandler) {
-		this.mouseEventHandler = mouseEventHandler;
-	}
-
+	public void draw(Graphics2D g) {        
+        // Draw all but active window first
+        for (SubWindow window : subWindows) {
+        	if (window != activeWindow)
+        		window.draw(g);
+		}
+        
+        // Draw active window on top
+        if (activeWindow != null)
+        	activeWindow.draw(g);
+    }
+	
 	public SubWindow getActiveWindow() {
 		return activeWindow;
 	}

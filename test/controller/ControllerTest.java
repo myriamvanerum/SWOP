@@ -14,8 +14,8 @@ import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import model.ResultMessage;
-import view.MainWindow;
-import view.Components.ViewComponent;
+import view.canvaswindow.MainWindow;
+import view.components.ViewComponent;
 
 /**
  * @author groep 03

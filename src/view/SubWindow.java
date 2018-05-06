@@ -11,17 +11,17 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
-import view.Components.ViewComponent;
-import view.Components.ViewInvocationMessage;
-import view.Components.ViewLabel;
-import view.Components.ViewLifeLine;
-import view.Components.ViewMessage;
-import view.Components.ViewObject;
-import view.Components.ViewParty;
-import view.Components.ViewResultMessage;
-import view.DiagramState.ComState;
-import view.DiagramState.SeqState;
-import view.DiagramState.State;
+import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
+import view.components.ViewLabel;
+import view.components.ViewLifeLine;
+import view.components.ViewMessage;
+import view.components.ViewObject;
+import view.components.ViewParty;
+import view.components.ViewResultMessage;
+import view.diagramstate.ComState;
+import view.diagramstate.SeqState;
+import view.diagramstate.State;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and
@@ -622,7 +622,7 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	protected boolean clickCloseButton(int x, int y) {
+	public boolean clickCloseButton(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 

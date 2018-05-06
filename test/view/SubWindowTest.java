@@ -15,12 +15,13 @@ import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import model.ResultMessage;
-import view.Components.ViewActor;
-import view.Components.ViewComponent;
-import view.Components.ViewInvocationMessage;
-import view.Components.ViewMessage;
-import view.Components.ViewParty;
-import view.Components.ViewResultMessage;
+import view.canvaswindow.MainWindow;
+import view.components.ViewActor;
+import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
+import view.components.ViewMessage;
+import view.components.ViewParty;
+import view.components.ViewResultMessage;
 
 
 class SubWindowTest {
