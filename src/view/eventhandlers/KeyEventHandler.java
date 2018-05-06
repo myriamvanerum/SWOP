@@ -1,5 +1,7 @@
 package view.eventhandlers;
 
+import static java.awt.event.KeyEvent.CHAR_UNDEFINED;
+
 import java.awt.event.KeyEvent;
 
 import facade.Interactr;
@@ -17,6 +19,7 @@ import view.windows.SubWindow;
 public class KeyEventHandler {
 	Interactr controller;
 	InteractionManager interactionManager;
+	private final KeyModifierHandler keyModifierHandler;
 	ViewComponent labelClickedOnce;
 	Party first, second;
 
@@ -29,6 +32,7 @@ public class KeyEventHandler {
 	public KeyEventHandler(InteractionManager interactionManager) {
 		controller = new Interactr(interactionManager);
 		this.interactionManager = interactionManager;
+		keyModifierHandler = new KeyModifierHandler();
 	}
 
 	/**
@@ -56,48 +60,53 @@ public class KeyEventHandler {
 		if (active != null)
 			labelState = active.getLabelState();
 
-		switch (keyCode) {
-		case KeyEvent.VK_TAB:
-			if (active != null)
-				active.changeState();
-			break;
-		case KeyEvent.VK_DELETE:
-			if (active.getSelectedComponent() != null)
-				controller.deleteComponent(active.getSelectedComponent());
-			break;
-		case KeyEvent.VK_N:
-			// TODO aanpassen met modifiers
-			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
-				controller.createNewInteraction();
+		if (keyChar == CHAR_UNDEFINED) {
+			keyModifierHandler.setModifier(keyCode);
+		} else {
+            if (keyModifierHandler.ctrlModifierActive()) {
+            	switch (keyCode) {
+    			case KeyEvent.VK_N:
+    					controller.createNewInteraction();
+    				break;
+    			case KeyEvent.VK_D:
+    					if (interactionManager.getActiveWindow() != null)
+    						interactionManager.createNewSubWindow(null);
+    				break;
+    			case KeyEvent.VK_ENTER:
+    				
+    				break;
+    			}
+            }
+			switch (keyCode) {
+			case KeyEvent.VK_TAB:
+				if (active != null)
+					active.changeState();
+				break;
+			case KeyEvent.VK_DELETE:
+				if (active.getSelectedComponent() != null)
+					controller.deleteComponent(active.getSelectedComponent());
+				break;
+			case KeyEvent.VK_ENTER:
+				// TODO aanpassen met modifiers
+				if (labelState != null)
+					labelState.confirmLabel();
+				break;
+			case KeyEvent.VK_BACK_SPACE:
+				if (labelState != null)
+					labelState.removeCharacter();
+				break;
 			}
-			break;
-		case KeyEvent.VK_D:
-			// TODO aanpassen met modifiers
-			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
-				if (interactionManager.getActiveWindow() != null)
-					interactionManager.createNewSubWindow(null);
+
+			if (labelState != null && keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z
+					|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
+					|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
+					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
+					|| keyCode == KeyEvent.VK_SPACE) {
+
+				// TODO voor partylabel enkel bepaalde karakters toelaten
+				// TODO voor messagelabel (bijna) alle karakters toelaten
+				labelState.addCharacter(keyCode, keyChar);
 			}
-			break;
-		case KeyEvent.VK_ENTER:
-			// TODO aanpassen met modifiers
-			if (labelState != null)
-				labelState.confirmLabel();
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			if (labelState != null)
-				labelState.removeCharacter();
-			break;
-		}
-
-		if (labelState != null && keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z
-				|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
-				|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
-				|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
-				|| keyCode == KeyEvent.VK_SPACE) {
-
-			// TODO voor partylabel enkel bepaalde karakters toelaten
-			// TODO voor messagelabel (bijna) alle karakters toelaten
-			labelState.addCharacter(keyCode, keyChar);
 		}
 	}
 }

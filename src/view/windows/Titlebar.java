@@ -1,9 +1,7 @@
 package view.windows;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 
 public class Titlebar {
 	private Integer x, y, width, height = 25;
