@@ -2,38 +2,35 @@ package view.eventhandlers;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class KeyModifierHandler {
-	// modifier is valid for 1.5 seconds
-	private int validFor = 1500;
-    private long timestamp;
+	// modifier is valid for .5 seconds
+	private int validFor = 500;
+    private long keyEnteredTime;
     private ArrayList<Integer> keyCodes;
     
 	public void setModifier(int keyCode) {
-        resetPrevious();
+		resetExpired();
         if ((keyCode != KeyEvent.VK_CONTROL) || keyCodes.contains(keyCode)) return;
         this.keyCodes.add(keyCode);
     }
 	
 	public boolean ctrlModifierActive() {
-		return false;
+		resetExpired();
+		return (keyCodes.contains(KeyEvent.VK_CONTROL)) ? true : false;
 	}
 	
-	private void resetPrevious() {
+	private void resetExpired() {
         if (expired()) reset();
     }
 	
 	private void reset() {
         keyCodes = new ArrayList<>();
-        timestamp = new Date().getTime();
+        keyEnteredTime = System.currentTimeMillis();
     }
 
-    /**
-     * @return <code>true</code> if more time has passed than the TIMEOUT_DURATION; <code>false</code> otherwise
-     */
     private boolean expired() {
-        return new Date().getTime() - timestamp > validFor;
+        return System.currentTimeMillis() - keyEnteredTime > validFor;
     }
 
 }

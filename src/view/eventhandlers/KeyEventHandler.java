@@ -66,17 +66,18 @@ public class KeyEventHandler {
             if (keyModifierHandler.ctrlModifierActive()) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
-    					controller.createNewInteraction();
+    				controller.createNewInteraction();
     				break;
     			case KeyEvent.VK_D:
-    					if (interactionManager.getActiveWindow() != null)
-    						interactionManager.createNewSubWindow(null);
+    				if (interactionManager.getActiveWindow() != null)
+    					interactionManager.createNewSubWindow(null);
     				break;
     			case KeyEvent.VK_ENTER:
-    				
+    				// TODO open dialog
     				break;
     			}
             }
+            
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
 				if (active != null)
@@ -87,7 +88,6 @@ public class KeyEventHandler {
 					controller.deleteComponent(active.getSelectedComponent());
 				break;
 			case KeyEvent.VK_ENTER:
-				// TODO aanpassen met modifiers
 				if (labelState != null)
 					labelState.confirmLabel();
 				break;
