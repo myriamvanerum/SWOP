@@ -10,7 +10,7 @@ import model.Party;
 import model.PartyFactory;
 import model.ResultMessage;
 import model.SyntaxChecker;
-import view.InteractionManager;
+import view.WindowManager;
 import view.components.ViewComponent;
 import view.components.ViewParty;
 
@@ -19,7 +19,7 @@ import view.components.ViewParty;
  * @author groep 03
  */
 public class Interactr {
-	InteractionManager manager;
+	WindowManager manager;
 	PartyFactory partyFactory;
 	
 	/**
@@ -29,7 +29,7 @@ public class Interactr {
 	 * @throws NullPointerException
 	 * 		No window supplied
 	 */
-	public Interactr(InteractionManager manager) {
+	public Interactr(WindowManager manager) {
 		if (manager == null)
 			throw new NullPointerException();
 		

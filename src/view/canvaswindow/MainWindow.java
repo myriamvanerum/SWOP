@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
-import view.InteractionManager;
+import view.WindowManager;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
 import view.windows.SubWindow;
@@ -23,15 +23,15 @@ public class MainWindow extends CanvasWindow {
         java.awt.EventQueue.invokeLater(() -> {new MainWindow("Interactr").show();});
     }
 	
-	private InteractionManager interactionManager;
+	private WindowManager windowManager;
 	private KeyEventHandler keyEventHandler;
 	private MouseEventHandler mouseEventHandler;
 
 	public MainWindow(String title) {
         super(title);
-        setInteractionManager(new InteractionManager());
-        setKeyEventHandler(new KeyEventHandler(interactionManager));
-        setMouseEventHandler(new MouseEventHandler(interactionManager));
+        setWindowManager(new WindowManager());
+        setKeyEventHandler(new KeyEventHandler(windowManager));
+        setMouseEventHandler(new MouseEventHandler(windowManager));
     }	
 	
 	/**
@@ -43,7 +43,7 @@ public class MainWindow extends CanvasWindow {
     @Override
     protected void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        interactionManager.draw(g2);
+        getWindowManager().draw(g2);
     }
 
     /**
@@ -96,11 +96,11 @@ public class MainWindow extends CanvasWindow {
 		this.mouseEventHandler = mouseEventHandler;
 	}
 
-	public InteractionManager getInteractionManager() {
-		return interactionManager;
+	public WindowManager getWindowManager() {
+		return windowManager;
 	}
 
-	public void setInteractionManager(InteractionManager interactionManager) {
-		this.interactionManager = interactionManager;
+	public void setWindowManager(WindowManager windowManager) {
+		this.windowManager = windowManager;
 	}
 }

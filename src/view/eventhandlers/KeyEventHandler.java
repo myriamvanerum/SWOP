@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import facade.Interactr;
 import model.Party;
-import view.InteractionManager;
+import view.WindowManager;
 import view.components.ViewComponent;
 import view.labelstate.LabelState;
 import view.windows.SubWindow;
@@ -18,7 +18,7 @@ import view.windows.SubWindow;
  */
 public class KeyEventHandler {
 	Interactr controller;
-	InteractionManager interactionManager;
+	WindowManager windowManager;
 	private final KeyModifierHandler keyModifierHandler;
 	ViewComponent labelClickedOnce;
 	Party first, second;
@@ -29,9 +29,9 @@ public class KeyEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public KeyEventHandler(InteractionManager interactionManager) {
-		controller = new Interactr(interactionManager);
-		this.interactionManager = interactionManager;
+	public KeyEventHandler(WindowManager windowManager) {
+		controller = new Interactr(windowManager);
+		this.windowManager = windowManager;
 		keyModifierHandler = new KeyModifierHandler();
 	}
 
@@ -54,7 +54,7 @@ public class KeyEventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		SubWindow active = interactionManager.getActiveWindow();
+		SubWindow active = windowManager.getActiveWindow();
 		LabelState labelState = null;
 
 		if (active != null)
@@ -69,8 +69,7 @@ public class KeyEventHandler {
     				controller.createNewInteraction();
     				break;
     			case KeyEvent.VK_D:
-    				if (interactionManager.getActiveWindow() != null)
-    					interactionManager.createNewSubWindow(null);
+    				windowManager.duplicateActiveWindow();
     				break;
     			case KeyEvent.VK_ENTER:
     				// TODO open dialog
@@ -80,12 +79,10 @@ public class KeyEventHandler {
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
-				if (active != null)
-					active.changeState();
+				windowManager.changeDiagramState();
 				break;
 			case KeyEvent.VK_DELETE:
-				if (active.getSelectedComponent() != null)
-					controller.deleteComponent(active.getSelectedComponent());
+				windowManager.deleteComponent();
 				break;
 			case KeyEvent.VK_ENTER:
 				if (labelState != null)

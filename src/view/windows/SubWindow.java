@@ -11,6 +11,7 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
+import view.InteractionManager;
 import view.Observer;
 import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;
@@ -37,6 +38,8 @@ import view.labelstate.ShowState;
  *
  */
 public class SubWindow implements Observer {
+	private InteractionManager interactionManager;
+	
 	private Interaction interaction;
 
 	private ArrayList<ViewParty> viewParties;
@@ -653,5 +656,10 @@ public class SubWindow implements Observer {
 			throw new IllegalArgumentException();
 
 		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
+	}
+
+	public void deleteComponent() {
+		if (getSelectedComponent() != null)
+			interactionManager.deleteComponent(getSelectedComponent());
 	}
 }

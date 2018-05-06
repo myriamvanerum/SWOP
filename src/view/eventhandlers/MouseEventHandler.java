@@ -7,7 +7,7 @@ import facade.Interactr;
 import model.Component;
 import model.Message;
 import model.Party;
-import view.InteractionManager;
+import view.WindowManager;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
@@ -21,7 +21,7 @@ import view.windows.SubWindow;
  */
 public class MouseEventHandler {
 	Interactr controller;
-	InteractionManager interactionManager;
+	WindowManager windowManager;
 
 	ViewComponent labelClickedOnce;
 	Party first, second;
@@ -32,9 +32,9 @@ public class MouseEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public MouseEventHandler(InteractionManager interactionManager) {
-		controller = new Interactr(interactionManager);
-		this.interactionManager = interactionManager;
+	public MouseEventHandler(WindowManager windowManager) {
+		controller = new Interactr(windowManager);
+		this.windowManager = windowManager;
 	}
 
 	/**
@@ -60,19 +60,19 @@ public class MouseEventHandler {
 
 		// TODO labelstate !!! aanmaken
 
-		SubWindow active = interactionManager.getActiveWindow();
+		SubWindow active = windowManager.getActiveWindow();
 
 		if (active == null)
 			return;
 
 		if (id == MouseEvent.MOUSE_CLICKED) {
-			SubWindow closeWindow = interactionManager.checkCloseButtons(x, y);
+			SubWindow closeWindow = windowManager.checkCloseButtons(x, y);
 			if (closeWindow != null) {
-				interactionManager.closeClickedSubwindow(closeWindow);
+				windowManager.closeClickedSubwindow(closeWindow);
 			} else if (active.clickOutsideActiveSubwindow(x, y)) {
-				SubWindow sub = interactionManager.findClickedSubwindow(x, y, active);
+				SubWindow sub = windowManager.findClickedSubwindow(x, y, active);
 				if (sub != null)
-					interactionManager.setActiveWindow(sub);
+					windowManager.setActiveWindow(sub);
 			}
 		}
 
