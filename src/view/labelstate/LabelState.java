@@ -57,7 +57,7 @@ public class LabelState {
 		viewLabel.setColor(Color.BLACK);
 		
 		String newLabel = label.substring(0, label.length() - 1);
-		component.editLabel(subwindow.getInteraction(), newLabel);
+		component.editLabel(subwindow.getInteractionManager().getInteraction(), newLabel);
 		viewLabel.setOutput(newLabel);	
 	}
 }

@@ -1,11 +1,16 @@
 package view;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
+import model.Message;
+import model.Party;
+import view.components.ViewMessage;
 import view.windows.SubWindow;
 
 public class WindowManager {
@@ -196,5 +201,20 @@ public class WindowManager {
 		// make new subwindow
 		createNewSubWindow(interaction);
 		System.out.println("Create New Interaction.");
+	}
+
+	public void addMessageToActiveWindow(Party first, Party second, int x, int y) {
+		if (getActiveWindow() != null) 
+			getActiveWindow().addMessage(first, second, x, y);		
+	}
+
+	public void addPartyToActiveWindow(Point2D position) {
+		if (getActiveWindow() != null)
+			getActiveWindow().addParty(position);
+	}
+
+	public void changePartyTypeInActiveWindow() {
+		if (getActiveWindow() != null)
+			getActiveWindow().changePartyType();
 	}
 }

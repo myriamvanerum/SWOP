@@ -659,4 +659,21 @@ public class SubWindow implements Observer {
 		if (getSelectedComponent() != null)
 			interactionManager.deleteComponent(getSelectedComponent());
 	}
+
+	public void addMessage(Party first, Party second, int x2, int y2) {
+		Message message = getInteractionManager().addMessage(first, second, x2, y2);
+		ViewMessage viewMessage = findViewMessage(message);
+		changeLabelState("MESSAGE");
+		setSelectedComponent(viewMessage);
+	}
+
+	public void addParty(Point2D position) {
+		Party party = getInteractionManager().addParty(position);
+		setSelectedComponent(findViewParty(party));
+		changeLabelState("PARTY");
+	}
+
+	public void changePartyType() {
+		getInteractionManager().changePartyType((ViewParty) getSelectedComponent());
+	}
 }

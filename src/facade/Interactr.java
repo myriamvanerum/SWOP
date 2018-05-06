@@ -48,7 +48,7 @@ public class Interactr {
 	 * @throws IllegalArgumentException
 	 * 		Illegal position
 	 */
-	public Party createParty(Point2D position) {
+	public Party addParty(Point2D position) {
 		if (position == null)
 			throw new NullPointerException();
 		if (position.getX() < 0 || position.getY() < 0)

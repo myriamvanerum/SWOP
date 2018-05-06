@@ -91,10 +91,7 @@ public class MouseEventHandler {
 				second = active.clickLifeline(x, y);
 				if (first != null && second != null && active.checkCallStack(first, second)) {
 					// TODO add previous message
-					Message message = controller.addMessage(first, second, x, y);
-					ViewMessage viewMessage = active.findViewMessage(message);
-					active.changeLabelState("MESSAGE");
-					active.setSelectedComponent(viewMessage);
+					windowManager.addMessageToActiveWindow(first, second, x, y);
 				}
 				break;
 			case MouseEvent.MOUSE_CLICKED:
@@ -103,7 +100,7 @@ public class MouseEventHandler {
 
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
-						controller.changePartyType((ViewParty) active.getSelectedComponent());
+						windowManager.changePartyTypeInActiveWindow();
 				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
@@ -120,9 +117,7 @@ public class MouseEventHandler {
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
-					Party party = controller.createParty(new Point2D.Double(x, y));
-					active.setSelectedComponent(active.findViewParty(party));
-					active.changeLabelState("PARTY");
+					windowManager.addPartyToActiveWindow(new Point2D.Double(x, y));
 				}
 				break;
 			}
