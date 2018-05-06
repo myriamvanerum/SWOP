@@ -66,17 +66,20 @@ public class KeyEventHandler {
 				controller.deleteComponent(active.getSelectedComponent());
 			break;
 		case KeyEvent.VK_N:
+			// TODO aanpassen met modifiers
 			if (keyChar == '' /* keyChar != 'n' && keyChar != 'N' && keyChar != 'ñ' */) {
 				controller.createNewInteraction();
 			}
 			break;
 		case KeyEvent.VK_D:
+			// TODO aanpassen met modifiers
 			if (keyChar == '' /* keyChar != 'd' && keyChar != 'D' && keyChar != 'ð' */) {
 				if (interactionManager.getActiveWindow() != null)
 					interactionManager.createNewSubWindow(null);
 			}
 			break;
 		case KeyEvent.VK_ENTER:
+			// TODO aanpassen met modifiers
 			if (labelState != null)
 				labelState.confirmLabel();
 			break;

@@ -7,11 +7,13 @@ import java.awt.Stroke;
 
 public class Titlebar {
 	private Integer x, y, width, height = 25;
+	private CloseButton closeButton;
 	
 	public Titlebar(Integer x, Integer y, Integer width) {
 		setX(x);
 		setY(y);
 		setWidth(width);
+		setCloseButton(new CloseButton());
 	}
 	
 	public Integer getX() {
@@ -46,6 +48,14 @@ public class Titlebar {
 		this.height = height;
 	}
 
+	public CloseButton getCloseButton() {
+		return closeButton;
+	}
+
+	public void setCloseButton(CloseButton closeButton) {
+		this.closeButton = closeButton;
+	}
+
 	public void draw(Graphics2D g, String title) {
 		Integer padding = 7;
 		Integer paddingBig = padding + 10;
@@ -58,16 +68,6 @@ public class Titlebar {
 		g.drawString(title, getX() + padding, getY() + paddingBig);		
 
 		// Draw close button
-		g.setColor(Color.RED);
-		g.fillRect(getX() + getWidth() - getHeight(), getY(), getHeight(), getHeight());
-		g.setColor(Color.BLACK);
-		Stroke stroke = new BasicStroke(2);
-		g.setStroke(stroke);
-		g.drawLine(getX() + getWidth() - paddingBig, getY() + padding, getX() + getWidth() - padding,
-				getY() + paddingBig);
-		g.drawLine(getX() + getWidth() - padding, getY() + padding, getX() + getWidth() - paddingBig,
-				getY() + paddingBig);
-		stroke = new BasicStroke(1);
-		g.setStroke(stroke);
+		getCloseButton().draw(g, getX() + getWidth(), getY(), getHeight(), padding, paddingBig);
 	}
 }
