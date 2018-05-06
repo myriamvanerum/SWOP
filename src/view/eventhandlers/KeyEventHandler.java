@@ -5,9 +5,9 @@ import java.awt.event.KeyEvent;
 import facade.Interactr;
 import model.Party;
 import view.InteractionManager;
-import view.LabelState;
-import view.SubWindow;
 import view.components.ViewComponent;
+import view.labelstate.LabelState;
+import view.windows.SubWindow;
 
 /**
  * EventHandler class. Translates user input for Controller

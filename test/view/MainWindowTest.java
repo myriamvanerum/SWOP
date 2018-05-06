@@ -13,6 +13,7 @@ import model.Interaction;
 import model.Party;
 import view.canvaswindow.MainWindow;
 import view.diagramstate.State;
+import view.windows.SubWindow;
 
 
 class MainWindowTest {

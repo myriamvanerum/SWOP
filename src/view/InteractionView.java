@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import facade.Interactr;
+import view.windows.SubWindow;
 
 public class InteractionView {
 	private SubWindow activeWindow;	

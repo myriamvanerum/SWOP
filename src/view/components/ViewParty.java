@@ -5,8 +5,8 @@ import java.awt.geom.Point2D;
 
 import model.Component;
 import model.Party;
-import view.PartyState;
-import view.SubWindow;
+import view.labelstate.PartyState;
+import view.windows.SubWindow;
 /**
  * ViewParty class. Controls the drawing of Parties
  * @author groep 03

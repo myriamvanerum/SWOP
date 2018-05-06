@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import model.Component;
 import model.Message;
-import view.InvocationState;
-import view.SubWindow;
+import view.labelstate.InvocationState;
+import view.windows.SubWindow;
 /**
  * ViewMessage class. Controls the drawing of Messages
  * @author groep 03

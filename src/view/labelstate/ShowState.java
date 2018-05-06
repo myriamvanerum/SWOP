@@ -1,4 +1,6 @@
-package view;
+package view.labelstate;
+
+import view.windows.SubWindow;
 
 public class ShowState extends LabelState {
 	public ShowState(SubWindow subwindow) {

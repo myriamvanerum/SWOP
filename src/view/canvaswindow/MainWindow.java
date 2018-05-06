@@ -9,9 +9,9 @@ import java.util.Comparator;
 
 import model.Interaction;
 import view.InteractionManager;
-import view.SubWindow;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
+import view.windows.SubWindow;
 /**
  * MainWindow class, inherits CanvasWindow class
  * @author groep 03

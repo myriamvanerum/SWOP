@@ -13,6 +13,7 @@ import model.Party;
 import view.canvaswindow.MainWindow;
 import view.components.ViewComponent;
 import view.components.ViewParty;
+import view.windows.SubWindow;
 
 
 class EventHandlerTest {

@@ -8,11 +8,11 @@ import model.Component;
 import model.Message;
 import model.Party;
 import view.InteractionManager;
-import view.SubWindow;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.windows.SubWindow;
 
 /**
  * EventHandler class. Translates user input for Controller

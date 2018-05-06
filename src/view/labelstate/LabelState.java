@@ -1,4 +1,4 @@
-package view;
+package view.labelstate;
 
 import java.awt.Color;
 
@@ -6,6 +6,7 @@ import model.Component;
 import model.SyntaxChecker;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
+import view.windows.SubWindow;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;

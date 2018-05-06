@@ -1,4 +1,4 @@
-package view;
+package view.windows;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,6 +11,7 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
+import view.Observer;
 import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;
 import view.components.ViewLabel;
@@ -22,6 +23,10 @@ import view.components.ViewResultMessage;
 import view.diagramstate.ComState;
 import view.diagramstate.SeqState;
 import view.diagramstate.State;
+import view.labelstate.InvocationState;
+import view.labelstate.LabelState;
+import view.labelstate.PartyState;
+import view.labelstate.ShowState;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and

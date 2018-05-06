@@ -22,6 +22,7 @@ import view.components.ViewInvocationMessage;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.components.ViewResultMessage;
+import view.windows.SubWindow;
 
 
 class SubWindowTest {

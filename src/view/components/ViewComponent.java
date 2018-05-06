@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 
 import model.Component;
 import view.Selectable;
-import view.SubWindow;
+import view.windows.SubWindow;
 /**
  * ViewComponent class. Controls the drawing of Components
  * @author groep 03

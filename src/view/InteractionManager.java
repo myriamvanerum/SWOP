@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
+import view.windows.SubWindow;
 
 public class InteractionManager {
 	public SubWindow activeWindow = null;	

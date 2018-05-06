@@ -1,7 +1,9 @@
-package view;
+package view.labelstate;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+
+import view.windows.SubWindow;
 
 public class PartyState extends LabelState {
 	public PartyState(SubWindow subwindow) {
