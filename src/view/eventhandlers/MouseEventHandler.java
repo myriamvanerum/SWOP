@@ -6,7 +6,7 @@ import java.awt.geom.*;
 import model.Component;
 import model.Message;
 import model.Party;
-import view.WindowManager;
+import view.InteractionManager;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
@@ -19,7 +19,7 @@ import view.windows.SubWindow;
  * @author groep 03
  */
 public class MouseEventHandler {
-	WindowManager windowManager;
+	InteractionManager windowManager;
 
 	ViewComponent labelClickedOnce;
 	Party first, second;
@@ -30,7 +30,7 @@ public class MouseEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public MouseEventHandler(WindowManager windowManager) {
+	public MouseEventHandler(InteractionManager windowManager) {
 		this.windowManager = windowManager;
 	}
 
@@ -57,7 +57,7 @@ public class MouseEventHandler {
 
 		// TODO labelstate !!! aanmaken
 
-		SubWindow active = windowManager.getActiveWindow();
+		SubWindow active = windowManager.getActiveInteraction().getActiveWindow();
 
 		if (active == null)
 			return;

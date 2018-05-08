@@ -2,7 +2,7 @@ package view.eventhandlers;
 
 import java.awt.event.KeyEvent;
 
-import view.WindowManager;
+import view.InteractionManager;
 import view.labelstate.LabelState;
 
 /**
@@ -11,7 +11,7 @@ import view.labelstate.LabelState;
  * @author groep 03
  */
 public class KeyEventHandler {
-	private WindowManager windowManager;
+	private InteractionManager windowManager;
 	private KeyModifierHandler keyModifierHandler;
 	private LabelState labelState;
 
@@ -21,7 +21,7 @@ public class KeyEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public KeyEventHandler(WindowManager windowManager) {
+	public KeyEventHandler(InteractionManager windowManager) {
 		this.windowManager = windowManager;
 		keyModifierHandler = new KeyModifierHandler();
 		labelState = null;
@@ -65,8 +65,8 @@ public class KeyEventHandler {
     			}
             }
             
-            if (windowManager.getActiveWindow() != null)
-				labelState = windowManager.getActiveWindow().getLabelState();
+            if (windowManager.getActiveInteraction().getActiveWindow() != null)
+				labelState = windowManager.getActiveInteraction().getActiveWindow().getLabelState();
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:

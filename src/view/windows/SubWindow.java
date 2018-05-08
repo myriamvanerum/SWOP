@@ -11,7 +11,7 @@ import model.Interaction;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
-import view.InteractionManager;
+import view.ViewInteraction;
 import view.Observer;
 import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;
@@ -37,8 +37,8 @@ import view.labelstate.ShowState;
  * @author groep 03
  *
  */
-public class SubWindow implements Observer {
-	private InteractionManager interactionManager;
+public class SubWindow {
+	private ViewInteraction interactionManager;
 
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
@@ -73,12 +73,11 @@ public class SubWindow implements Observer {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	public SubWindow(Interaction interaction, Integer x, Integer y) {
+	public SubWindow(ViewInteraction viewInteraction, Integer x, Integer y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		setInteractionManager(new InteractionManager(interaction));
-		interaction.addObserver(this);
+		setInteractionManager(viewInteraction);
 
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
@@ -89,8 +88,8 @@ public class SubWindow implements Observer {
 		setState(seqState);
 		// TODO labelstate
 		setLabelState(showState);
-		selectedComponent = null;
-		titlebar = new Titlebar(getX(), getY(), getWidth());
+		setSelectedComponent(null);
+		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
 	}
 
 	/**
@@ -114,7 +113,6 @@ public class SubWindow implements Observer {
 			throw new IllegalArgumentException();
 		
 		setInteractionManager(activeWindow.getInteractionManager());
-		getInteractionManager().getInteraction().addObserver(this);
 
 		setX(x);
 		setY(y);
@@ -127,9 +125,8 @@ public class SubWindow implements Observer {
 
 		setState(activeWindow.getState());
 		setLabelState(new ShowState(this));
-		selectedComponent = null;
-		
-		titlebar = new Titlebar(getX(), getY(), getWidth());
+		setSelectedComponent(null);
+		setTitlebar(new Titlebar(getX(), getY(), getWidth()));;
 	}
 
 	/**
@@ -236,11 +233,11 @@ public class SubWindow implements Observer {
 
 	/* GETTERS AND SETTERS */
 
-	public InteractionManager getInteractionManager() {
+	public ViewInteraction getInteractionManager() {
 		return interactionManager;
 	}
 
-	public void setInteractionManager(InteractionManager interactionManager) {
+	public void setInteractionManager(ViewInteraction interactionManager) {
 		this.interactionManager = interactionManager;
 	}
 
@@ -351,92 +348,7 @@ public class SubWindow implements Observer {
 		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 
-	/**
-	 * Method to be called when a Party is deleted
-	 * 
-	 * @param party
-	 *            The Party that was deleted
-	 */
-	@Override
-	public void onDeleteParty(Party party) {
-		ViewParty viewParty = findViewParty(party);
-		getViewParties().remove(viewParty);
-	}
-
-	/**
-	 * Method to be called when a Party type is changed
-	 * 
-	 * @param party
-	 *            The Party whose type was changed
-	 */
-	@Override
-	public void onChangeParty(Party party, Party partyNew) {
-		ViewParty viewParty = findViewParty(party);
-		viewParty.setParty(partyNew);
-		getViewParties().remove(viewParty);
-		ViewParty newViewParty = viewParty.changeType();
-		getViewParties().add(newViewParty);
-	}
-
-	/**
-	 * Method to be called when a Party is added
-	 * 
-	 * @param party
-	 *            The Party that was added
-	 * @param position
-	 *            The position the Party must be painted at
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	@Override
-	public void onAddParty(Party party, Point2D position) {
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
-
-		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
-		getViewParties().add(viewParty);
-	}
-
-	/**
-	 * Method to be called when a Message is deleted
-	 * 
-	 * @param message
-	 *            The Message that was deleted
-	 */
-	@Override
-	public void onDeleteMessage(Message message) {
-		ViewMessage viewMessage = findViewMessage(message);
-		getViewMessages().remove(viewMessage);
-	}
-
-	/**
-	 * Method to be called when a Message is added
-	 * 
-	 * @param message
-	 *            The Message that was added
-	 * @param position
-	 *            The position the Message must be painted at
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	@Override
-	public void onAddMessage(Message message, Point2D position) {
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
-
-		ViewParty sender = findViewParty(message.getSender());
-		ViewParty receiver = findViewParty(message.getReceiver());
-		ViewMessage viewMessage;
-		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
-
-		// TODO instanceof weg
-		if (message instanceof InvocationMessage)
-			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
-		else
-			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
-
-		getViewMessages().add(viewMessage);
-	}
+	
 
 	/**
 	 * Find the ViewParty for a Party
@@ -479,15 +391,6 @@ public class SubWindow implements Observer {
 			viewLabel.setOutput(label);
 			}
 		}
-	}
-
-	@Override
-	public void onEditLabel(Component component) {
-		setLabelState(showState);
-		updateLabels(component, component.getLabel());
-		if (getSelectedComponent() != null)
-			getSelectedComponent().unselect();
-		setSelectedComponent(null);
 	}
 
 	/**
