@@ -9,11 +9,13 @@ import java.util.ArrayList;
 public class ListBox extends WindowControl {
 	private ArrayList<String> items = new ArrayList<String>();
 	private int selectedItem = -1;
+	private String description;
 	private int height = 100;
 	private int width = 150;
 	
-	public ListBox(ArrayList<String> items, Point2D position) {
+	public ListBox(ArrayList<String> items, String description, Point2D position) {
 		this.items = items;
+		this.description = description;
 		this.position = position;
 	}
 
@@ -58,6 +60,7 @@ public class ListBox extends WindowControl {
 		int x = (int) position.getX();
 		int y = (int) position.getY();
 		
+		g.drawString(description, x, y-10);		
 		Rectangle rectangle = new Rectangle(x-1, y-1, width, height);
 		g.setColor(Color.WHITE);
 		g.fill(rectangle);	
