@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import model.Interaction;
-import view.WindowManager;
+import view.InteractionManager;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
 import view.windows.SubWindow;
@@ -23,15 +23,11 @@ public class MainWindow extends CanvasWindow {
         java.awt.EventQueue.invokeLater(() -> {new MainWindow("Interactr").show();});
     }
 	
-	private WindowManager windowManager;
-	private KeyEventHandler keyEventHandler;
-	private MouseEventHandler mouseEventHandler;
+	private InteractionManager windowManager;
 
 	public MainWindow(String title) {
         super(title);
-        setWindowManager(new WindowManager());
-        setKeyEventHandler(new KeyEventHandler(windowManager));
-        setMouseEventHandler(new MouseEventHandler(windowManager));
+        setWindowManager(new InteractionManager());
     }	
 	
 	/**
@@ -59,7 +55,7 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		mouseEventHandler.handleMouseEvent(id, x, y, clickCount);
+		getWindowManager().handleMouseEvent(id, x, y, clickCount);
 		repaint();
     }
     
@@ -74,33 +70,17 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        keyEventHandler.handleKeyEvent(id, keyCode, keyChar);
+        getWindowManager().handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
     
     /* GETTERS AND SETTERS */
 
-	public KeyEventHandler getKeyEventHandler() {
-		return keyEventHandler;
-	}
-
-	public void setKeyEventHandler(KeyEventHandler keyEventHandler) {
-		this.keyEventHandler = keyEventHandler;
-	}
-	
-	public MouseEventHandler getMouseEventHandler() {
-		return mouseEventHandler;
-	}
-
-	public void setMouseEventHandler(MouseEventHandler mouseEventHandler) {
-		this.mouseEventHandler = mouseEventHandler;
-	}
-
-	public WindowManager getWindowManager() {
+	public InteractionManager getWindowManager() {
 		return windowManager;
 	}
 
-	public void setWindowManager(WindowManager windowManager) {
+	public void setWindowManager(InteractionManager windowManager) {
 		this.windowManager = windowManager;
 	}
 }

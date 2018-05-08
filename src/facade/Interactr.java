@@ -10,7 +10,7 @@ import model.Party;
 import model.PartyFactory;
 import model.ResultMessage;
 import model.SyntaxChecker;
-import view.InteractionManager;
+import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewParty;
 
@@ -19,7 +19,7 @@ import view.components.ViewParty;
  * @author groep 03
  */
 public class Interactr {
-	InteractionManager manager;
+	ViewInteraction manager;
 	PartyFactory partyFactory;
 	
 	/**
@@ -28,7 +28,7 @@ public class Interactr {
 	 * @throws NullPointerException
 	 * 		No window supplied
 	 */
-	public Interactr(InteractionManager manager) {
+	public Interactr(ViewInteraction manager) {
 		if (manager == null)
 			throw new NullPointerException();
 		
@@ -154,5 +154,10 @@ public class Interactr {
 	 */
 	public void editLabel(Interaction interaction, Component currentComponent, String label) {
 		currentComponent.editLabel(interaction, label);
+	}
+
+
+	public Interaction addInteraction() {
+		return new Interaction();
 	}
 }
