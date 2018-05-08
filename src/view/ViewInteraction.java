@@ -69,8 +69,9 @@ public class ViewInteraction implements Observer {
 		this.subWindows = subWindows;
 	}	
 
-	public void deleteComponent(ViewComponent selectedComponent) {
-		interactr.deleteComponent(selectedComponent);
+	public void deleteComponent() {
+		ViewComponent viewComponent = getActiveWindow().getSelectedComponent();
+		interactr.deleteComponent(viewComponent);
 	}
 
 	public Message addMessage(Party first, Party second, int x, int y) {
@@ -81,8 +82,9 @@ public class ViewInteraction implements Observer {
 		return interactr.addParty(position);
 	}
 
-	public void changePartyType(ViewParty selectedComponent) {
-		interactr.changePartyType(selectedComponent);
+	public void changePartyType() {
+		ViewParty viewParty = (ViewParty) getActiveWindow().getSelectedComponent();
+		interactr.changePartyType(viewParty);
 	}
 
 	public void drawWindows(Graphics2D g) {
@@ -96,9 +98,14 @@ public class ViewInteraction implements Observer {
         	activeWindow.draw(g);
 	}
 
+	// TODO aanpassen duplicate code
+	// TODO aanpassen zoek laagst gelegen window voor ALLE interactions
 	public void addWindow() {
-		Integer x = getActiveWindow().getX();
-		Integer y = getActiveWindow().getY();
+		Integer x = 10, y = 10;
+		if (getActiveWindow() != null) {
+			x = getActiveWindow().getX() + 10;
+			y = getActiveWindow().getY() + 10;
+		}
 		
 		// create new subwindow for new interaction
 		SubWindow subWindow = new SubWindow(this, x, y);
@@ -108,8 +115,8 @@ public class ViewInteraction implements Observer {
 	}
 	
 	public void duplicateActiveWindow() {
-		Integer x = getActiveWindow().getX();
-		Integer y = getActiveWindow().getY();
+		Integer x = getActiveWindow().getX() + 10;
+		Integer y = getActiveWindow().getY() + 10;
 		
 		// create new subwindow for new interaction
 		SubWindow subWindow = new SubWindow(getActiveWindow(), x, y);
@@ -212,5 +219,72 @@ public class ViewInteraction implements Observer {
 //		if (getSelectedComponent() != null)
 //			getSelectedComponent().unselect();
 //		setSelectedComponent(null);
+	}
+
+	public Boolean activateSubwindow(int x, int y) {
+		SubWindow subwindow = findSubWindow(x, y);
+		
+		if (subwindow != null) {
+			setActiveWindow(subwindow); 
+			return true;
+		}
+
+		return false;
+	}
+	
+	public SubWindow findSubWindow(int x, int y) {
+		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
+			if (getSubWindows().get(i) != getActiveWindow()) {
+				int xSub = getSubWindows().get(i).getX();
+				int ySub = getSubWindows().get(i).getY();
+				int width = getSubWindows().get(i).getWidth();
+				int height = getSubWindows().get(i).getHeight();
+
+				if (x >= xSub && x <= xSub + width && y >= ySub && y <= ySub + height) {	
+					return getSubWindows().get(i);
+				}
+			}
+		}
+		return null;
+	}
+
+	public boolean clickCloseButton(int x, int y) {
+		if (getActiveWindow().clickCloseButton(x, y)) {
+			removeWindow(getActiveWindow());
+			
+			int index = getSubWindows().size();
+			if (index <= 0)
+				setActiveWindow(null);
+			else
+				setActiveWindow(getSubWindows().get(index-1));
+			
+			return true;
+		}
+
+		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
+			SubWindow window = getSubWindows().get(i);
+			if (window.clickCloseButton(x, y)) {
+				removeWindow(window);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void removeWindow(SubWindow window) {
+		System.out.println("Close SubWindow.");
+		getSubWindows().remove(window);			
+	}
+
+	public boolean hasNoWindows() {
+		return (getSubWindows().size() > 0);
+	}
+
+	public void removeInteractionObserver() {
+		getInteraction().removeObserver(this);
+	}
+
+	public void changeActiveWindowState() {
+		getActiveWindow().changeState();
 	}
 }
