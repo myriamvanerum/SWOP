@@ -17,23 +17,32 @@ public class ResultBox extends DialogBox {
 		this.message = null;
 		this.label = "Label: ";		
 		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox(""));
+		controls.add(new TextBox("Invoer: "));
 		this.currentControl = 0;
-	}	
+	}
 	
 	public ResultBox(ViewResultMessage message) {
 		this.message = message;
 		this.label = "Label: ";	
 		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("", message.getViewLabel()));
+		controls.add(new TextBox("Invoer: ", message.getViewLabel()));
 		this.currentControl = 0;
 	}
 	
-	protected void draw(Graphics2D g, Point2D position) {
+	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();		
+			throw new IllegalArgumentException();	
 		
-		drawControls(g);
+		int x = (int) position.getX();
+		int y = (int) position.getY();
+		
+		// TODO extract method --> to superclass
+		// use height and with properties
+		g.setColor(Color.WHITE);
+		g.fillRect(x, y, 250, 50);
+		g.setColor(Color.BLACK);
+		
+		drawControls(g, x+10, y+20);
 	}
 
 	public ViewResultMessage getMessage() {

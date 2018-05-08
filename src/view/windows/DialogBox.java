@@ -10,9 +10,7 @@ public class DialogBox {
 	public ArrayList<WindowControl> controls;
 	public int currentControl;
 	
-	public void drawControls(Graphics2D g2) {
-		int x = 15, y = 15;
-		
+	public void drawControls(Graphics2D g2, int x, int y) {		
 		for (WindowControl control : getControls()) {
 			control.draw(g2, new Point2D.Double(x, y));
 			y += 20;

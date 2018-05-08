@@ -46,10 +46,13 @@ public class TextBox extends WindowControl{
 		
 		int boxX = x + g.getFontMetrics().stringWidth(getDescription()) + 5; 
 		int boxY = y - height/2;
-		
-		String value = getLabel().getOutput();		
+				
 		Rectangle box = new Rectangle(boxX, boxY, width, height);
 		g.draw(box);
-		g.drawString(value, boxX + 10, boxY + 15);
+		
+		if (getLabel() != null) {
+			String value = getLabel().getOutput();
+			g.drawString(value, boxX + 10, boxY + 15);
+		}
 	}
 }
