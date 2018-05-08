@@ -12,9 +12,9 @@ public class ListBox extends WindowControl {
 	private int height = 100;
 	private int width = 150;
 	
-	public ListBox(ArrayList<String> items) {
-		super();
+	public ListBox(ArrayList<String> items, Point2D position) {
 		this.items = items;
+		this.position = position;
 	}
 
 	public ArrayList<String> getItems() {
@@ -31,19 +31,6 @@ public class ListBox extends WindowControl {
 
 	public void setSelectedItem(int selectedItem) {
 		this.selectedItem = selectedItem;
-	}
-
-	@Override
-	public void draw(Graphics2D g, Point2D position) {
-		int x = (int) position.getX();
-		int y = (int) position.getY();
-		
-		Rectangle rectangle = new Rectangle(x-1, y-1, width, height);
-		g.setColor(Color.WHITE);
-		g.fill(rectangle);	
-		g.setColor(Color.BLACK);	
-		drawItems(g, position);
-		g.draw(rectangle);
 	}
 
 	private void drawItems(Graphics2D g, Point2D position) {
@@ -64,5 +51,18 @@ public class ListBox extends WindowControl {
 			g.drawString(items.get(i), x+5, y+stringHeight);
 			y += 20;
 		}
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		int x = (int) position.getX();
+		int y = (int) position.getY();
+		
+		Rectangle rectangle = new Rectangle(x-1, y-1, width, height);
+		g.setColor(Color.WHITE);
+		g.fill(rectangle);	
+		g.setColor(Color.BLACK);	
+		drawItems(g, position);
+		g.draw(rectangle);
 	}
 }

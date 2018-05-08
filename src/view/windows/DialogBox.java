@@ -10,10 +10,12 @@ public class DialogBox {
 	public ArrayList<WindowControl> controls;
 	public int currentControl;
 	
-	public void drawControls(Graphics2D g2, int x, int y) {		
+	// TODO super class "subwindow"
+	public Point2D position;
+	
+	public void drawControls(Graphics2D g2) {		
 		for (WindowControl control : getControls()) {
-			control.draw(g2, new Point2D.Double(x, y));
-			y += 20;
+			control.draw(g2);
 		}
 	}
 	

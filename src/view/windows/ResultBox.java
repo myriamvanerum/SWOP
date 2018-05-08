@@ -2,6 +2,7 @@ package view.windows;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -10,41 +11,17 @@ import view.formelements.TextBox;
 import view.formelements.WindowControl;
 
 public class ResultBox extends DialogBox {
-	private ViewResultMessage message;;
-	private String label;
-	
-	public ResultBox() {
-		this.message = null;
-		this.label = "Label: ";		
-		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Invoer: "));
-		this.currentControl = 0;
-	}
-	
-	public ResultBox(ViewResultMessage message) {
+	private ViewResultMessage message;
+		
+	public ResultBox(ViewResultMessage message, Point2D position) {
 		this.message = message;
-		this.label = "Label: ";	
+		this.position = position;
+		
 		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Invoer: ", message.getViewLabel()));
+		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+20), "Invoer: ", message.getViewLabel()));
 		this.currentControl = 0;
 	}
 	
-	public void draw(Graphics2D g, Point2D position) {
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();	
-		
-		int x = (int) position.getX();
-		int y = (int) position.getY();
-		
-		// TODO extract method --> to superclass
-		// use height and with properties
-		g.setColor(Color.WHITE);
-		g.fillRect(x, y, 250, 50);
-		g.setColor(Color.BLACK);
-		
-		drawControls(g, x+10, y+20);
-	}
-
 	public ViewResultMessage getMessage() {
 		return message;
 	}
@@ -52,8 +29,23 @@ public class ResultBox extends DialogBox {
 	public void setMessage(ViewResultMessage message) {
 		this.message = message;
 	}
-	
-	public String getLabel() {
-		return label;
+		
+	public void draw(Graphics2D g) {		
+		int x = (int) position.getX();
+		int y = (int) position.getY();
+		
+		// TODO extract method --> to superclass	drawWhiteField()
+		// use height and with properties
+		g.setColor(Color.WHITE);
+		g.fillRect(x, y, 250, 300);
+		g.setColor(Color.BLACK);	
+
+		
+		drawControls(g);
+		
+		// TODO	drawBlackBorder()
+		// Draw black border
+		Rectangle r = new Rectangle(x, y, 250, 300);
+		g.draw(r);
 	}
 }

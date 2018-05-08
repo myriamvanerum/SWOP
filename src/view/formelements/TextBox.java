@@ -12,11 +12,13 @@ public class TextBox extends WindowControl{
 	private int height = 20;
 	private int width = 150;
 
-	public TextBox(String description) {
+	public TextBox(Point2D position, String description) {
+		this.position = position;
 		this.description = description;
 	}
 	
-	public TextBox(String description, ViewLabel label) {
+	public TextBox(Point2D position, String description, ViewLabel label) {
+		this.position = position;
 		this.description = description;
 		this.label = label;
 	}
@@ -38,7 +40,7 @@ public class TextBox extends WindowControl{
 	}
 
 	@Override
-	public void draw(Graphics2D g, Point2D position) {	
+	public void draw(Graphics2D g) {	
 		int x = (int)position.getX();
 		int y = (int)position.getY();		
 
