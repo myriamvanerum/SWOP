@@ -38,7 +38,7 @@ import view.labelstate.ShowState;
  *
  */
 public class SubWindow {
-	private ViewInteraction interactionManager;
+	private ViewInteraction viewInteraction;
 
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
@@ -77,7 +77,7 @@ public class SubWindow {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		setInteractionManager(viewInteraction);
+		setViewInteraction(viewInteraction);
 
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
@@ -112,7 +112,7 @@ public class SubWindow {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		setInteractionManager(activeWindow.getInteractionManager());
+		setViewInteraction(activeWindow.getViewInteraction());
 
 		setX(x);
 		setY(y);
@@ -233,12 +233,12 @@ public class SubWindow {
 
 	/* GETTERS AND SETTERS */
 
-	public ViewInteraction getInteractionManager() {
-		return interactionManager;
+	public ViewInteraction getViewInteraction() {
+		return viewInteraction;
 	}
 
-	public void setInteractionManager(ViewInteraction interactionManager) {
-		this.interactionManager = interactionManager;
+	public void setViewInteraction(ViewInteraction viewInteraction) {
+		this.viewInteraction = viewInteraction;
 	}
 
 	public Integer getX() {
@@ -558,25 +558,20 @@ public class SubWindow {
 		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
 	}
 
-	public void deleteComponent() {
-		if (getSelectedComponent() != null)
-			interactionManager.deleteComponent(getSelectedComponent());
-	}
-
+	// TODO methode wegdoen als code verplaatst is
 	public void addMessage(Party first, Party second, int x2, int y2) {
-		Message message = getInteractionManager().addMessage(first, second, x2, y2);
+		Message message = getViewInteraction().addMessage(first, second, x2, y2);
+		// TODO verplaats naar observer
 		ViewMessage viewMessage = findViewMessage(message);
 		changeLabelState("MESSAGE");
 		setSelectedComponent(viewMessage);
 	}
 
+	// TODO methode wegdoen als code verplaatst is
 	public void addParty(Point2D position) {
-		Party party = getInteractionManager().addParty(position);
+		Party party = getViewInteraction().addParty(position);
+		// TODO verplaats naar observer
 		setSelectedComponent(findViewParty(party));
 		changeLabelState("PARTY");
-	}
-
-	public void changePartyType() {
-		getInteractionManager().changePartyType((ViewParty) getSelectedComponent());
 	}
 }
