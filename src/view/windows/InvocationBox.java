@@ -21,11 +21,9 @@ public class InvocationBox extends DialogBox {
 		
 		// ADD CONTROLS
 		this.controls = new ArrayList<WindowControl>();
-		//controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+20), "Method: ", message.getViewLabel()));
-		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+20), "Invoer: ", new ViewLabel("message label")));
+		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+20), "Method: ", message.getViewLabel()));
 		controls.add(new ListBox(new ArrayList<String>(), new Point2D.Double(position.getX()+10, position.getY()+100)));
-		//controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+70), "New: ", message.getViewLabel()));
-		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+50), "New: ", new ViewLabel("message label")));
+		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+70), "New: ", message.getViewLabel()));
 		
 		this.currentControl = 0;
 	}

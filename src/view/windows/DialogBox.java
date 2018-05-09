@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import view.formelements.WindowControl;
 
-public class DialogBox {
+public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
 	public int currentControl;
 	

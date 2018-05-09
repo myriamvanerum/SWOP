@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 
 import model.Component;
 import view.Selectable;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 /**
  * ViewComponent class. Controls the drawing of Components
  * @author groep 03
@@ -118,7 +118,7 @@ public class ViewComponent implements Selectable {
 		isSelected = false;
 	}
 
-	public void setLabelState(SubWindow subwindow) {
+	public void setLabelState(DiagramWindow subwindow) {
 		System.out.println("Set label state active subwindow");
 	}
 }

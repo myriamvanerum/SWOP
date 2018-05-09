@@ -11,7 +11,7 @@ import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -57,7 +57,7 @@ public class MouseEventHandler {
 
 		// TODO labelstate !!! aanmaken
 
-		SubWindow active = windowManager.getActiveInteraction().getActiveWindow();
+		DiagramWindow active = windowManager.getActiveInteraction().getActiveWindow();
 
 		if (active == null)
 			return;
