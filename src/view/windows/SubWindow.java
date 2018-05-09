@@ -1,5 +1,9 @@
 package view.windows;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 public class SubWindow {
 	private Integer x;
 	private Integer y;
@@ -7,6 +11,17 @@ public class SubWindow {
 	private Integer height;	
 	private Titlebar titlebar;
 	
+	
+	
+	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.titlebar = titlebar;
+	}
+
 	public Integer getX() {
 		return x;
 	}
@@ -46,4 +61,16 @@ public class SubWindow {
 	public void setTitlebar(Titlebar titlebar) {
 		this.titlebar = titlebar;
 	}	
+	
+	public void drawWhiteField(Graphics2D g) {
+		g.setColor(Color.WHITE);
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
+		g.setColor(Color.BLACK);
+	}
+	
+	public void drawBlackBorder(Graphics2D g) {
+		g.setColor(Color.BLACK);
+		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
+		g.draw(r);
+	}
 }

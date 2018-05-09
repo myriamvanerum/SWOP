@@ -1,13 +1,9 @@
 package view.windows;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.components.ViewInvocationMessage;
-import view.components.ViewLabel;
+import view.formelements.Button;
 import view.formelements.ListBox;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
@@ -15,35 +11,23 @@ import view.formelements.WindowControl;
 public class InvocationBox extends DialogBox {
 	private ViewInvocationMessage message;
 	
-	public InvocationBox(ViewInvocationMessage message, Point2D position) {
-		this.message = message;
-		this.position = position;
-		
-		// ADD CONTROLS
-		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+20), "Method: ", message.getViewLabel()));
-		controls.add(new ListBox(new ArrayList<String>(), new Point2D.Double(position.getX()+10, position.getY()+100)));
-		controls.add(new TextBox(new Point2D.Double(position.getX()+10, position.getY()+70), "New: ", message.getViewLabel()));
-		
-		this.currentControl = 0;
+	public InvocationBox(ViewInvocationMessage message, int x, int y) {
+		super(x, y, 250, 275, new Titlebar(x,y,250));
+		this.message = message;	
+		addControls();
 	}
-	
-	public void draw(Graphics2D g) {		
-		int x = (int) position.getX();
-		int y = (int) position.getY();
-		
-		// TODO extract method --> to superclass	drawWhiteField()
-		// use height and with properties
-		g.setColor(Color.WHITE);
-		g.fillRect(x, y, 250, 300);
-		g.setColor(Color.BLACK);	
 
+	private void addControls() {
+		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
+		controls.add(new TextBox("Method: ", getX()+10, getY()+20, message.getViewLabel()));
+		controls.add(new TextBox("New: ", getX()+10, getY()+20, message.getViewLabel()));
+		controls.add(new ListBox(new ArrayList<String>(), getX()+10, getY()+100));
+		controls.add(new Button("\u02C4", getX()+175,getY()+100,25,20));
+		controls.add(new Button("\u02C5", getX()+175,getY()+130,25,20));
+		controls.add(new Button("X", getX()+175,getY()+160,25,20));
+		controls.add(new Button("Add", getX()+175,getY()+190,25,20));
 		
-		drawControls(g);
-		
-		// TODO	drawBlackBorder()
-		// Draw black border
-		Rectangle r = new Rectangle(x, y, 250, 300);
-		g.draw(r);
+		setControls(controls);
+		setCurrentControl(0);
 	}
 }

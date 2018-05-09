@@ -7,20 +7,14 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import model.Component;
-import model.Interaction;
-import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import view.ViewInteraction;
-import view.Observer;
 import view.components.ViewComponent;
-import view.components.ViewInvocationMessage;
 import view.components.ViewLabel;
 import view.components.ViewLifeLine;
 import view.components.ViewMessage;
-import view.components.ViewObject;
 import view.components.ViewParty;
-import view.components.ViewResultMessage;
 import view.diagramstate.ComState;
 import view.diagramstate.SeqState;
 import view.diagramstate.State;
@@ -42,13 +36,6 @@ public class DiagramWindow extends SubWindow {
 
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
-
-	/*private Integer x;
-	private Integer y;
-	private Integer width = 500;
-	private Integer height = 400;
-	
-	private Titlebar titlebar;*/
 
 	private State windowState;
 	private SeqState seqState = new SeqState();
@@ -74,24 +61,20 @@ public class DiagramWindow extends SubWindow {
 	 *             Illegal coordinates
 	 */
 	public DiagramWindow(ViewInteraction viewInteraction, Integer x, Integer y) {
+		super(x, y, 500, 400, new Titlebar(x, y, 500));
+
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
-		setViewInteraction(viewInteraction);
 
+		setViewInteraction(viewInteraction);
 		setViewParties(new ArrayList<>());
 		setViewMessages(new ArrayList<>());
-
-		setX(x);
-		setY(y);
-		setWidth(500);
-		setHeight(400);
 
 		setState(seqState);
 		// TODO labelstate
 		setLabelState(showState);
 		setSelectedComponent(null);
-		setTitlebar(new Titlebar(getX(), getY(), getWidth()));		
+		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
 	}
 
 	/**
@@ -109,15 +92,14 @@ public class DiagramWindow extends SubWindow {
 	 *             Illegal coordinates
 	 */
 	public DiagramWindow(DiagramWindow activeWindow, Integer x, Integer y) {
+		super(x, y, 500, 400, new Titlebar(x, y, 500));
+		
 		if (activeWindow == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
-		setViewInteraction(activeWindow.getViewInteraction());
 
-		setX(x);
-		setY(y);
+		setViewInteraction(activeWindow.getViewInteraction());
 
 		// maak kopie van alle onderdelen van subwindow
 		ArrayList<ViewParty> parties = copyParties(activeWindow.getViewParties());
@@ -129,9 +111,6 @@ public class DiagramWindow extends SubWindow {
 		setLabelState(new ShowState(this));
 		setSelectedComponent(null);
 		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
-		
-		setWidth(500);
-		setHeight(400);
 	}
 
 	/**
@@ -198,7 +177,8 @@ public class DiagramWindow extends SubWindow {
 		g.draw(r);
 
 		// Only draw within SubWindow limits (minus 1 px for border)
-		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1, getHeight() - getTitlebar().getHeight());
+		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1,
+				getHeight() - getTitlebar().getHeight());
 		// Draw contents
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
@@ -261,7 +241,7 @@ public class DiagramWindow extends SubWindow {
 	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
 		this.viewMessages = viewMessages;
 	}
-	
+
 	public State getState() {
 		return windowState;
 	}
@@ -273,7 +253,7 @@ public class DiagramWindow extends SubWindow {
 	public LabelState getLabelState() {
 		return labelState;
 	}
-	
+
 	public LabelState getShowState() {
 		return showState;
 	}
@@ -301,7 +281,8 @@ public class DiagramWindow extends SubWindow {
 	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties, viewMessages);
+		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties,
+				viewMessages);
 	}
 
 	public void moveComponent(ViewComponent component, int x, int y) {
@@ -312,8 +293,6 @@ public class DiagramWindow extends SubWindow {
 
 		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
-
-	
 
 	/**
 	 * Find the ViewParty for a Party
@@ -351,9 +330,9 @@ public class DiagramWindow extends SubWindow {
 		components.addAll(getViewMessages());
 		for (ViewComponent viewComponent : components) {
 			if (viewComponent.getComponent() == component) {
-			ViewLabel viewLabel = viewComponent.getViewLabel();
-			viewLabel.setColor(Color.BLACK);
-			viewLabel.setOutput(label);
+				ViewLabel viewLabel = viewComponent.getViewLabel();
+				viewLabel.setColor(Color.BLACK);
+				viewLabel.setOutput(label);
 			}
 		}
 	}

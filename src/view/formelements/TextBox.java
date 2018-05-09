@@ -2,25 +2,27 @@ package view.formelements;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Point2D;
-
 import view.components.ViewLabel;
 
 public class TextBox extends WindowControl{
 	private ViewLabel label;
 	private String description;
-	private int height = 20;
-	private int width = 150;
 
-	public TextBox(Point2D position, String description) {
-		this.position = position;
+	public TextBox(String description, int x, int y) {
 		this.description = description;
+		setX(x);
+		setY(y);
+		setHeight(20);
+		setWidth(150);
 	}
 	
-	public TextBox(Point2D position, String description, ViewLabel label) {
-		this.position = position;
+	public TextBox(String description, int x, int y, ViewLabel label) {
 		this.description = description;
 		this.label = label;
+		setX(x);
+		setY(y);
+		setHeight(20);
+		setWidth(150);
 	}
 
 	public ViewLabel getLabel() {
@@ -40,16 +42,13 @@ public class TextBox extends WindowControl{
 	}
 
 	@Override
-	public void draw(Graphics2D g) {	
-		int x = (int)position.getX();
-		int y = (int)position.getY();		
-
-		g.drawString(getDescription(), x , y + 4);		
+	public void draw(Graphics2D g) {
+		g.drawString(getDescription(), getX() , getY() + 4);		
 		
-		int boxX = x + g.getFontMetrics().stringWidth(getDescription()) + 5; 
-		int boxY = y - height/2;
+		int boxX = getX() + g.getFontMetrics().stringWidth(getDescription()) + 5; 
+		int boxY = getY() - getHeight()/2;
 				
-		Rectangle box = new Rectangle(boxX, boxY, width, height);
+		Rectangle box = new Rectangle(boxX, boxY, getWidth(), getHeight());
 		g.draw(box);
 		
 		if (getLabel() != null) {
