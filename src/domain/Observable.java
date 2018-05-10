@@ -1,7 +1,9 @@
-package model;
+package domain;
 
 import java.awt.geom.Point2D;
 
+import model.message.Message;
+import model.party.Party;
 import view.Observer;
 /**
  * Observable class

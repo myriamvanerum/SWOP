@@ -6,6 +6,12 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import model.message.InvocationMessage;
+import model.message.Message;
+import model.party.Actor;
+import model.party.Object;
+import model.party.Party;
+
 /**
  * @author groep 03
  *

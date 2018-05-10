@@ -2,8 +2,8 @@ package view.labelstate;
 
 import java.awt.Color;
 
-import model.Component;
-import model.SyntaxChecker;
+import domain.Component;
+import domain.SyntaxChecker;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.windows.DiagramWindow;

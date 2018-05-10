@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.*;
 
-import model.Party;
+import model.party.Party;
 /**
  * ViewActor class. Controls the drawing of Actors
  * @author groep 03

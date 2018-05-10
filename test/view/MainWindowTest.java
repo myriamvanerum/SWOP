@@ -7,10 +7,10 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
-import model.Actor;
-import model.Interaction;
-import model.Interactr;
-import model.Party;
+import domain.Interaction;
+import domain.Interactr;
+import model.party.Actor;
+import model.party.Party;
 import view.canvaswindow.MainWindow;
 import view.diagramstate.State;
 import view.windows.DiagramWindow;

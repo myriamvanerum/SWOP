@@ -3,8 +3,8 @@ package view.components;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import model.Component;
-import model.Party;
+import domain.Component;
+import model.party.Party;
 import view.labelstate.PartyState;
 import view.windows.DiagramWindow;
 /**

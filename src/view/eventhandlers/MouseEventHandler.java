@@ -3,9 +3,9 @@ package view.eventhandlers;
 import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
-import model.Component;
-import model.Message;
-import model.Party;
+import domain.Component;
+import model.message.Message;
+import model.party.Party;
 import view.InteractionManager;
 import view.components.ViewComponent;
 import view.components.ViewLabel;

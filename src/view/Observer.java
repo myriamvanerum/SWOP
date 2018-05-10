@@ -2,9 +2,9 @@ package view;
 
 import java.awt.geom.Point2D;
 
-import model.Component;
-import model.Message;
-import model.Party;
+import domain.Component;
+import model.message.Message;
+import model.party.Party;
 
 /**
  * Observer class

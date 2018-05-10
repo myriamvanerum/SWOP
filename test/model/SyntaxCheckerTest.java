@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import domain.SyntaxChecker;
+
 class SyntaxCheckerTest {
 	SyntaxChecker syntaxChecker = new SyntaxChecker();
 

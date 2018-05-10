@@ -1,4 +1,4 @@
-package model;
+package model.party;
 
 /**
  * An Object class, a type of Party

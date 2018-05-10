@@ -1,8 +1,12 @@
-package model;
+package model.party;
 
 import java.util.ArrayList;
 
-import model.Component;
+import domain.Component;
+import domain.Interaction;
+import domain.SyntaxChecker;
+import model.message.Message;
+import model.message.MessageSequence;
 
 /**
  * A Party class

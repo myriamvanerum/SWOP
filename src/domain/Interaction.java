@@ -1,8 +1,11 @@
-package model;
+package domain;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import model.message.Message;
+import model.message.MessageSequence;
+import model.party.Party;
 import view.Observer;
 
 /**

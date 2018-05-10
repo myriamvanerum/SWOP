@@ -1,8 +1,9 @@
-package model;
+package model.message;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
+import model.party.Party;
 import purecollections.PList;
 
 public class MessageSequence {

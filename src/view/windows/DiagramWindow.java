@@ -5,10 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import model.Component;
-import model.InvocationMessage;
-import model.Message;
-import model.Party;
+import domain.Component;
+import model.message.InvocationMessage;
+import model.message.Message;
+import model.party.Party;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;

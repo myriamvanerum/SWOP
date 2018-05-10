@@ -6,6 +6,13 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
+import domain.Interaction;
+import model.message.InvocationMessage;
+import model.message.ResultMessage;
+import model.party.Actor;
+import model.party.Object;
+import model.party.Party;
+
 /**
  * @author groep 03
  *

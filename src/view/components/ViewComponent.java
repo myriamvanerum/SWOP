@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
-import model.Component;
+import domain.Component;
 import view.Selectable;
 import view.windows.DiagramWindow;
 /**

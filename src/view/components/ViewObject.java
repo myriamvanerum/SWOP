@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
-import model.Party;
+import model.party.Party;
 /**
  * ViewObject class. Controls the drawing of Objects
  * @author groep 03

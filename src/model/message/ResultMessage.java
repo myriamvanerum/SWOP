@@ -1,4 +1,6 @@
-package model;
+package model.message;
+
+import model.party.Party;
 
 /**
  * A result message class

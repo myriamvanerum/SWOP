@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import model.Actor;
-import model.Object;
-import model.Interaction;
-import model.Interactr;
-import model.InvocationMessage;
-import model.Message;
-import model.Party;
-import model.ResultMessage;
+import domain.Interaction;
+import domain.Interactr;
+import model.message.InvocationMessage;
+import model.message.Message;
+import model.message.ResultMessage;
+import model.party.Actor;
+import model.party.Object;
+import model.party.Party;
 import view.canvaswindow.MainWindow;
 import view.components.ViewActor;
 import view.components.ViewComponent;

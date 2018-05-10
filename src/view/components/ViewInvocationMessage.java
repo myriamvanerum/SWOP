@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
-import model.Message;
+import model.message.Message;
 /**
  * ViewInvocationMessage class. Controls the drawing of InvocationMessages
  * @author groep 03
