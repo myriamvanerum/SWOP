@@ -268,8 +268,6 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	public void moveComponent(ViewComponent component, int x, int y) {
-		if (component == null)
-			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 

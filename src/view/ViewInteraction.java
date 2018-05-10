@@ -61,6 +61,7 @@ public class ViewInteraction implements Observer {
 
 	public void deleteComponent() {
 		ViewComponent viewComponent = getActiveWindow().getSelectedComponent();
+		if (viewComponent == null) return;
 		interactr.deleteComponent(viewComponent);
 	}
 
@@ -91,10 +92,11 @@ public class ViewInteraction implements Observer {
 	// TODO aanpassen duplicate code
 	// TODO aanpassen zoek laagst gelegen window voor ALLE interactions
 	public void addWindow(Point2D lowestPosition) {
+		System.out.println("Create New DiagramWindow.");
 		// create new subwindow for new interaction
 		DiagramWindow subWindow = new DiagramWindow(this, (int)lowestPosition.getX(), (int)lowestPosition.getY());
 		
-		subWindows.add(subWindow);
+		getSubWindows().add(subWindow);
 		setActiveWindow(subWindow);
 	}
 	
@@ -105,7 +107,7 @@ public class ViewInteraction implements Observer {
 		// create new subwindow for new interaction
 		DiagramWindow subWindow = new DiagramWindow(getActiveWindow(), x, y);
 		
-		subWindows.add(subWindow);
+		getSubWindows().add(subWindow);
 		setActiveWindow(subWindow);
 	}
 	
@@ -209,6 +211,7 @@ public class ViewInteraction implements Observer {
 		DiagramWindow subwindow = findSubWindow(x, y);
 		
 		if (subwindow != null) {
+			System.out.println("Activate Window.");
 			setActiveWindow(subwindow); 
 			return true;
 		}
@@ -237,7 +240,7 @@ public class ViewInteraction implements Observer {
 			removeWindow(getActiveWindow());
 			
 			int index = getSubWindows().size();
-			if (index <= 0)
+			if (index == 0)
 				setActiveWindow(null);
 			else
 				setActiveWindow(getSubWindows().get(index-1));

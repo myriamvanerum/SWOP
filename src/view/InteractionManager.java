@@ -110,7 +110,7 @@ public class InteractionManager {
 
 	private Point2D findLowestWindow() {
 		ArrayList<Point2D> positions = new ArrayList<>();
-		positions.add(new Point2D.Double(10,10));
+		positions.add(new Point2D.Double(5, 5));
 		for (ViewInteraction viewInteraction : getInteractions()) {
 			if (viewInteraction.getSubWindows().size() > 0) {
 				DiagramWindow lowestWindow =  Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
@@ -121,6 +121,7 @@ public class InteractionManager {
 	}
 
 	public void duplicateActiveWindow() {
+		if (getActiveInteraction() == null) return;
 		System.out.println("Duplicate Active Window.");
 		getActiveInteraction().duplicateActiveWindow();
 	}
@@ -134,9 +135,11 @@ public class InteractionManager {
 		if (getActiveInteraction().closeWindow(x, y)) {
 			if (getActiveInteraction().hasNoWindows()) {
 				removeInteraction(getActiveInteraction());
-				if (getInteractions().size() > 0)
-					setActiveInteraction(getInteractions().get(getInteractions().size()-1));
-				else setActiveInteraction(null);
+				if (getInteractions().size() > 0) {
+					ViewInteraction topInteraction = getInteractions().get(getInteractions().size()-1);
+					setActiveInteraction(topInteraction);
+					topInteraction.setActiveWindow(topInteraction.getSubWindows().get(topInteraction.getSubWindows().size()-1));
+				} else setActiveInteraction(null);
 			}
 			return;
 		}
@@ -152,6 +155,7 @@ public class InteractionManager {
 	}
 
 	private void removeInteraction(ViewInteraction interaction) {
+		System.out.println("Close Interaction.");
 		getInteractions().remove(interaction);
 		interaction.removeInteractionObserver();		
 	}
@@ -182,28 +186,29 @@ public class InteractionManager {
 	}
 
 	public void changeDiagramState() {
+		if (getActiveInteraction() == null) return;
 		System.out.println("Change Window State.");
-		if (getActiveInteraction() != null)
-			getActiveInteraction().changeActiveWindowState();
+		getActiveInteraction().changeActiveWindowState();
 	}
 
 	public void deleteComponent() {
+		if (getActiveInteraction() == null) return;
 		System.out.println("Forward Delete Component.");
 		getActiveInteraction().deleteComponent();
 	}
 
 	public void addMessageToActiveWindow(Party sender, Party receiver, int x, int y) {
-		if (getActiveInteraction() != null) 
-			getActiveInteraction().addMessage(sender, receiver, x, y);		
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().addMessage(sender, receiver, x, y);		
 	}
 
 	public void addPartyToActiveWindow(Point2D position) {
-		if (getActiveInteraction() != null)
-			getActiveInteraction().addParty(position);
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().addParty(position);
 	}
 
 	public void changePartyTypeInActiveWindow() {
-		if (getActiveInteraction() != null)
-			getActiveInteraction().changePartyType();
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().changePartyType();
 	}
 }

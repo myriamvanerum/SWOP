@@ -11,7 +11,7 @@ import view.labelstate.LabelState;
  * @author groep 03
  */
 public class KeyEventHandler {
-	private InteractionManager windowManager;
+	private InteractionManager interactionManager;
 	private KeyModifierHandler keyModifierHandler;
 	private LabelState labelState;
 
@@ -21,8 +21,8 @@ public class KeyEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public KeyEventHandler(InteractionManager windowManager) {
-		this.windowManager = windowManager;
+	public KeyEventHandler(InteractionManager interactionManager) {
+		this.interactionManager = interactionManager;
 		keyModifierHandler = new KeyModifierHandler();
 		labelState = null;
 	}
@@ -54,10 +54,10 @@ public class KeyEventHandler {
             if (keyModifierHandler.ctrlModifierActive()) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
-    				windowManager.createNewInteraction();
+    				interactionManager.createNewInteraction();
     				break;
     			case KeyEvent.VK_D:
-    				windowManager.duplicateActiveWindow();
+    				interactionManager.duplicateActiveWindow();
     				break;
     			case KeyEvent.VK_ENTER:
     				// TODO open dialog
@@ -65,15 +65,15 @@ public class KeyEventHandler {
     			}
             }
             
-            if (windowManager.getActiveInteraction() != null && windowManager.getActiveInteraction().getActiveWindow() != null)
-				labelState = windowManager.getActiveInteraction().getActiveWindow().getLabelState();
+            if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
+				labelState = interactionManager.getActiveInteraction().getActiveWindow().getLabelState();
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
-				windowManager.changeDiagramState();
+				interactionManager.changeDiagramState();
 				break;
 			case KeyEvent.VK_DELETE:
-				windowManager.deleteComponent();
+				interactionManager.deleteComponent();
 				break;
 			case KeyEvent.VK_ENTER:
 				if (labelState != null)
@@ -85,11 +85,11 @@ public class KeyEventHandler {
 				break;
 			}
 
-			if (labelState != null && keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z
+			if (labelState != null && ((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z)
 					|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
 					|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
 					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
-					|| keyCode == KeyEvent.VK_SPACE) {
+					|| keyCode == KeyEvent.VK_SPACE)) {
 
 				// TODO voor partylabel enkel bepaalde karakters toelaten
 				// TODO voor messagelabel (bijna) alle karakters toelaten

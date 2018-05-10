@@ -49,7 +49,7 @@ public class ComState implements State {
 	    	if (viewMessage.getClass() == ViewInvocationMessage.class) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
-	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() +  80), 
+	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + 80), 
 	    				(int) (receiver.getX()+ windowPosition.getX()), 
 	    				(int) (sender.getY() + windowPosition.getY() + 25),
 	    				(int) (receiver.getY() + windowPosition.getY() + 25));
