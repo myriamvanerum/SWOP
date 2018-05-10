@@ -2,16 +2,8 @@ package view.canvaswindow;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import model.Interaction;
 import view.InteractionManager;
-import view.eventhandlers.KeyEventHandler;
-import view.eventhandlers.MouseEventHandler;
-import view.windows.SubWindow;
 /**
  * MainWindow class, inherits CanvasWindow class
  * @author groep 03
@@ -23,11 +15,11 @@ public class MainWindow extends CanvasWindow {
         java.awt.EventQueue.invokeLater(() -> {new MainWindow("Interactr").show();});
     }
 	
-	private InteractionManager windowManager;
+	private InteractionManager interactionManager;
 
 	public MainWindow(String title) {
         super(title);
-        setWindowManager(new InteractionManager());
+        setInteractionManager(new InteractionManager());
     }	
 	
 	/**
@@ -39,7 +31,7 @@ public class MainWindow extends CanvasWindow {
     @Override
     protected void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        getWindowManager().draw(g2);
+        getInteractionManager().draw(g2);
     }
 
     /**
@@ -55,7 +47,7 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		getWindowManager().handleMouseEvent(id, x, y, clickCount);
+		getInteractionManager().handleMouseEvent(id, x, y, clickCount);
 		repaint();
     }
     
@@ -70,17 +62,17 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        getWindowManager().handleKeyEvent(id, keyCode, keyChar);
+        getInteractionManager().handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
     
     /* GETTERS AND SETTERS */
 
-	public InteractionManager getWindowManager() {
-		return windowManager;
+	public InteractionManager getInteractionManager() {
+		return interactionManager;
 	}
 
-	public void setWindowManager(InteractionManager windowManager) {
-		this.windowManager = windowManager;
+	public void setInteractionManager(InteractionManager interactionManager) {
+		this.interactionManager = interactionManager;
 	}
 }

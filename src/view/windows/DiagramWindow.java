@@ -172,13 +172,10 @@ public class DiagramWindow extends SubWindow {
 		getTitlebar().draw(g, getState().getTitle());
 
 		// Draw black border
-		g.setColor(Color.BLACK);
-		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
-		g.draw(r);
+		drawBlackBorder(g);
 
 		// Only draw within SubWindow limits (minus 1 px for border)
-		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1,
-				getHeight() - getTitlebar().getHeight());
+		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1, getHeight() - getTitlebar().getHeight());
 		// Draw contents
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();

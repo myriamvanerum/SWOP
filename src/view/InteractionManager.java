@@ -2,19 +2,11 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import model.Interaction;
-import model.Message;
 import model.Party;
-import purecollections.PList;
-import view.components.ViewMessage;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
-import view.windows.DiagramWindow;
 
 public class InteractionManager {
 	private KeyEventHandler keyEventHandler;
@@ -57,13 +49,13 @@ public class InteractionManager {
 	}
 
 	public void draw(Graphics2D g) {        
-		// Draw all but active window first
+		// Draw all but active interaction first
 		for (ViewInteraction interaction : getInteractions()) {
 			if (interaction != activeInteraction)
 				interaction.drawWindows(g);
 		}
 
-		// Draw active window on top
+		// Draw active interaction on top
 		if (activeInteraction != null)
 			activeInteraction.drawWindows(g);
 	}
