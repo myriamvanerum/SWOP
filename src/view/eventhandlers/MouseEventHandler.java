@@ -56,8 +56,10 @@ public class MouseEventHandler {
 			throw new IllegalArgumentException();
 
 		// TODO labelstate !!! aanmaken
-
-		SubWindow active = windowManager.getActiveInteraction().getActiveWindow();
+		
+		SubWindow active = null;
+		if (windowManager.getActiveInteraction() != null)
+			active = windowManager.getActiveInteraction().getActiveWindow();
 
 		if (active == null)
 			return;

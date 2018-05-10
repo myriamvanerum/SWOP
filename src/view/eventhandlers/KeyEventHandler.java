@@ -65,7 +65,7 @@ public class KeyEventHandler {
     			}
             }
             
-            if (windowManager.getActiveInteraction().getActiveWindow() != null)
+            if (windowManager.getActiveInteraction() != null && windowManager.getActiveInteraction().getActiveWindow() != null)
 				labelState = windowManager.getActiveInteraction().getActiveWindow().getLabelState();
             
 			switch (keyCode) {
