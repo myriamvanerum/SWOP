@@ -261,7 +261,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public boolean hasNoWindows() {
-		return (getSubWindows().size() > 0);
+		return (getSubWindows().size() == 0);
 	}
 
 	public void removeInteractionObserver() {
