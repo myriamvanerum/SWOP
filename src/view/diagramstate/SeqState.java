@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
+import view.components.ViewLifeLine;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 /**
@@ -31,24 +33,35 @@ public class SeqState implements State {
 	 * 		The Parties in the SubWindow
 	 * @param viewMessages
 	 * 		The Messages in the SubWindow
-	 * @throws NullPointerException
-	 * 		No coordinates supplied
 	 * @throws IllegalArgumentException
 	 * 		Illegal coordinates
 	 */
 	@Override
 	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		if (viewParties == null || viewMessages == null || windowPosition == null)
-			throw new NullPointerException();
 		if (windowPosition.getX() < 0 || windowPosition.getY() < 0)
 			throw new IllegalArgumentException();
 		
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.drawSeq(g, windowPosition);
+	        viewParty.setColor(g);
+	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionSeq(), windowPosition));
+	        viewParty.setColor(g);
+	        viewParty.getViewLifeLine().draw(g);
+	        viewParty.resetColor(g);
 	    }
 
     	for (ViewMessage viewMessage : viewMessages) {
-	    	viewMessage.drawSeq(g, windowPosition);
+	    	ViewLifeLine senderLifeline = viewMessage.getSender().getViewLifeLine();
+			ViewLifeLine receiverLifeline = viewMessage.getReceiver().getViewLifeLine();
+			int xSender = senderLifeline.getX();
+			int xReceiver = receiverLifeline.getX();
+			int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
+					
+			viewMessage.draw(g, xSender, xReceiver, y, y);
+			
+			if (viewMessage.getClass() == ViewInvocationMessage.class) {
+				viewMessage.getActivationBar().draw(g, xSender - 5, y - 5);
+				viewMessage.getActivationBar().draw(g, xReceiver - 5, y - 5);	
+			}
 	    }		
 	}
 	

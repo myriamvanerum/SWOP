@@ -78,34 +78,6 @@ public class ViewParty extends ViewComponent {
 	}
 
 	/**
-	 * Draw a Party in a Communication diagram
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		SubWindow position
-	 */
-	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		this.setColor(g);
-		draw(g, positionWindow(getPositionCom(), windowPosition));
-		this.resetColor(g);
-	}
-
-	/**
-	 * Draw a Party in a Sequence diagram
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		SubWindow position
-	 */
-	public void drawSeq(Graphics2D g, Point2D windowPosition) {
-		setColor(g);
-		draw(g, positionWindow(getPositionSeq(), windowPosition));
-		setColor(g);
-		viewLifeLine.draw(g);
-		resetColor(g);
-	}
-
-	/**
 	 * This method paints an Party on the window
 	 * 
 	 * @param g

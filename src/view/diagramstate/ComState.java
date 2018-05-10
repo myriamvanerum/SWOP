@@ -32,24 +32,28 @@ public class ComState implements State {
 	 * 		The Parties in the SubWindow
 	 * @param viewMessages
 	 * 		The Messages in the SubWindow
-	 * @throws NullPointerException
-	 * 		No coordinates or viewParties or viewmessages supplied
 	 * @throws IllegalArgumentException
 	 * 		Illegal window position
 	 */
 	@Override
 	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		if (viewParties == null || viewMessages == null || windowPosition == null)
-			throw new NullPointerException();
 		if (windowPosition.getX() < 0 || windowPosition.getY() < 0)
 			throw new IllegalArgumentException();
 		
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.drawCom(g, windowPosition);
+	        viewParty.setColor(g);
+	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionCom(), windowPosition));
+	        viewParty.resetColor(g);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
-	    	if (viewMessage.getClass() == ViewInvocationMessage.class)
-	    		viewMessage.drawCom(g, windowPosition);
+	    	if (viewMessage.getClass() == ViewInvocationMessage.class) {
+	    		Point2D sender = viewMessage.getSender().getPositionCom();
+	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
+	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() +  80), 
+	    				(int) (receiver.getX()+ windowPosition.getX()), 
+	    				(int) (sender.getY() + windowPosition.getY() + 25),
+	    				(int) (receiver.getY() + windowPosition.getY() + 25));
+	    	}
 	    }		
 	}
 	

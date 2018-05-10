@@ -31,8 +31,8 @@ public class ViewMessage extends ViewComponent {
 	 * 		Message receiver
 	 */
 	public ViewMessage(Message message, Point2D position, Point2D windowPosition, ViewParty sender, ViewParty receiver) {
-		viewLabel = new ViewLabel(message.getLabel());
-		activationBar = new ViewActivationBar();
+		setViewLabel(new ViewLabel(message.getLabel()));
+		setActivationBar(new ViewActivationBar());
 		setMessage(message);
 		setPositionSeq(new Point2D.Double(position.getX() - windowPosition.getX(), position.getY() - windowPosition.getY()-25));
 		setSender(sender);
@@ -51,50 +51,12 @@ public class ViewMessage extends ViewComponent {
 	 * 		Message receiver
 	 */
 	public ViewMessage(ViewMessage viewMessage) {
-		viewLabel = new ViewLabel(viewMessage.getViewLabel());
-		activationBar = new ViewActivationBar();
+		setViewLabel(new ViewLabel(viewMessage.getViewLabel()));
+		setActivationBar(new ViewActivationBar());
 		setMessage(viewMessage.getMessage());
 		setPositionSeq(new Point2D.Double(viewMessage.getPositionSeq().getX(), viewMessage.getPositionSeq().getY()));
 		setSender(viewMessage.getSender());
 		setReceiver(viewMessage.getReceiver());
-	}
-	
-	/**
-	 * Draw a Message in a Communication diagram
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		SubWindow position
-	 */
-	public void drawCom(Graphics2D g, Point2D windowPosition) {
-		Point2D sender = getSender().getPositionCom();
-		Point2D receiver = getReceiver().getPositionCom();
-		draw(g, (int) (sender.getX() + windowPosition.getX() +  80), 
-				(int) (receiver.getX()+ windowPosition.getX()), 
-				(int) (sender.getY() + windowPosition.getY() + 25),
-				(int) (receiver.getY() + windowPosition.getY() + 25));
-	}
-	
-	/**
-	 * Draw a Message in a Communication diagram
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		SubWindow position
-	 */
-	public void drawSeq(Graphics2D g, Point2D windowPosition) {
-		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
-		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
-		int xSender = senderLifeline.getX();
-		int xReceiver = receiverLifeline.getX();
-		int y = (int) (getPositionSeq().getY() + windowPosition.getY());
-				
-		draw(g, xSender, xReceiver, y, y);
-		
-		if (this.getClass() == ViewInvocationMessage.class) {
-			activationBar.draw(g, xSender - 5, y - 5);
-			activationBar.draw(g, xReceiver - 5, y - 5);	
-		}
 	}
 	
 	/**
@@ -138,6 +100,14 @@ public class ViewMessage extends ViewComponent {
 
 	public void setReceiver(ViewParty receiver) {
 		this.receiver = receiver;
+	}
+
+	public ViewActivationBar getActivationBar() {
+		return activationBar;
+	}
+
+	public void setActivationBar(ViewActivationBar activationBar) {
+		this.activationBar = activationBar;
 	}
 
 	@Override 
