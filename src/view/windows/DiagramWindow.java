@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import domain.Component;
-import domain.message.InvocationMessage;
 import domain.message.Message;
 import domain.party.Party;
 import view.ViewInteraction;
@@ -506,11 +505,5 @@ public class DiagramWindow extends SubWindow {
 		if (getSelectedComponent() != null)
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
-	}
-
-	public ViewComponent openDialogBox() {
-		if (getSelectedComponent() != null)
-			return getSelectedComponent();
-		else return null;
 	}
 }

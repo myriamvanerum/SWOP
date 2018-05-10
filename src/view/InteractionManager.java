@@ -211,9 +211,4 @@ public class InteractionManager {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().changePartyType();
 	}
-
-	public void openDialogBoxActive() {
-		if (getActiveInteraction() != null)
-			getActiveInteraction().openDialogBox();
-	}
 }

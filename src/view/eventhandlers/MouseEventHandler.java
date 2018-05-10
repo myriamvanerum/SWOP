@@ -75,7 +75,8 @@ public class MouseEventHandler {
 		if (active.clickOutsideActiveSubwindow(x, y))
 			return;
 
-	//	if (active.getShowState() == active.getLabelState()) {
+		DiagramWindow diagram = (DiagramWindow)active;
+		if (diagram.getShowState() == diagram.getLabelState()) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
 				first = active.clickLifeline(x, y);
@@ -108,7 +109,7 @@ public class MouseEventHandler {
 						active.selectComponent();
 						labelClickedOnce = selectedComponent;
 					} else if (selectedComponent == labelClickedOnce) {
-						//selectedComponent.setLabelState(active);
+						selectedComponent.setLabelState((DiagramWindow)active);
 
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
@@ -120,6 +121,6 @@ public class MouseEventHandler {
 				}
 				break;
 			}
-		//}
+		}
 	}
 }

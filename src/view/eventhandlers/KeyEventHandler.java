@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import view.InteractionManager;
 import view.labelstate.LabelState;
+import view.windows.DiagramWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -66,8 +67,11 @@ public class KeyEventHandler {
             }
             
             // TODO
-           // if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
-			//	labelState = interactionManager.getActiveInteraction().getActiveWindow().getLabelState();
+            if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
+            {
+            	DiagramWindow diagram = (DiagramWindow)interactionManager.getActiveInteraction().getActiveWindow();
+            	labelState = diagram.getLabelState();
+            }
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:

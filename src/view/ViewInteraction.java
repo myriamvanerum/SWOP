@@ -278,7 +278,6 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void openDialogBox() {
-		DiagramWindow active = (DiagramWindow)getActiveWindow();
-		active.openDialogBox();
+		
 	}
 }
