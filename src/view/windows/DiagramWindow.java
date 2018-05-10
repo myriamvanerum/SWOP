@@ -2,7 +2,6 @@ package view.windows;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -164,13 +163,11 @@ public class DiagramWindow extends SubWindow {
 	 *            Graphics class
 	 */
 	public void draw(Graphics2D gOrig) {
-		// Create a new Graphics object so clip can be used to only clip contents for
-		// this SubWindow
+		// Create a new Graphics object so clip can be used to only clip contents for this SubWindow
 		Graphics2D g = (Graphics2D) gOrig.create();
 
 		// Draw white field
-		g.setColor(Color.WHITE);
-		g.fillRect(getX(), getY() + getTitlebar().getHeight(), getWidth(), getHeight() - getTitlebar().getHeight());
+		drawWhiteField(g);
 
 		// Draw title bar
 		getTitlebar().draw(g, getState().getTitle());
