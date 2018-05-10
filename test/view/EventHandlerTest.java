@@ -6,9 +6,9 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
-import facade.Interactr;
 import model.Actor;
 import model.Interaction;
+import model.Interactr;
 import model.Party;
 import view.canvaswindow.MainWindow;
 import view.components.ViewComponent;

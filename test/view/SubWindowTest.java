@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import facade.Interactr;
 import model.Actor;
 import model.Object;
 import model.Interaction;
+import model.Interactr;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;

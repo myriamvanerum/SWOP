@@ -6,8 +6,6 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
-import facade.Interactr;
-
 /**
  * @author groep 03
  *

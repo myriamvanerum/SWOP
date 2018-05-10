@@ -13,11 +13,11 @@ public class SubWindow {
 	
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.titlebar = titlebar;
+		setX(x);
+		setY(y);
+		setWidth(width);
+		setHeight(height);
+		setTitlebar(titlebar);
 	}
 
 	public Integer getX() {

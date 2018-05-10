@@ -3,10 +3,13 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import model.Party;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
+import view.windows.DiagramWindow;
 
 public class InteractionManager {
 	private KeyEventHandler keyEventHandler;
@@ -98,8 +101,20 @@ public class InteractionManager {
 		if (getActiveInteraction() != null)
 			getActiveInteraction().setActiveWindow(null);
 		setActiveInteraction(viewInteraction);
+		
+		Point2D lowestPos = findLowestWindow();
 
-		viewInteraction.addWindow();
+		viewInteraction.addWindow(lowestPos);
+	}
+
+	private Point2D findLowestWindow() {
+		ArrayList<Point2D> positions = new ArrayList<>();
+		positions.add(new Point2D.Double(10,10));
+		for (ViewInteraction viewInteraction : getInteractions()) {
+			DiagramWindow lowestWindow =  Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
+			positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
+		}
+		return Collections.max(positions, Comparator.comparing(s -> s.getY()));	
 	}
 
 	public void duplicateActiveWindow() {

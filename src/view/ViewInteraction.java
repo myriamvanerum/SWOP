@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import facade.Interactr;
 import model.Component;
 import model.Interaction;
+import model.Interactr;
 import model.InvocationMessage;
 import model.Message;
 import model.Party;
@@ -94,15 +94,9 @@ public class ViewInteraction implements Observer {
 
 	// TODO aanpassen duplicate code
 	// TODO aanpassen zoek laagst gelegen window voor ALLE interactions
-	public void addWindow() {
-		Integer x = 10, y = 10;
-		if (getActiveWindow() != null) {
-			x = getActiveWindow().getX() + 10;
-			y = getActiveWindow().getY() + 10;
-		}
-		
+	public void addWindow(Point2D lowestPosition) {
 		// create new subwindow for new interaction
-		DiagramWindow subWindow = new DiagramWindow(this, x, y);
+		DiagramWindow subWindow = new DiagramWindow(this, (int)lowestPosition.getX(), (int)lowestPosition.getY());
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);

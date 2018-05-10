@@ -1,15 +1,7 @@
-package facade;
+package model;
 
 import java.awt.geom.Point2D;
 
-import model.Component;
-import model.Interaction;
-import model.InvocationMessage;
-import model.Message;
-import model.Party;
-import model.PartyFactory;
-import model.ResultMessage;
-import model.SyntaxChecker;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewParty;
