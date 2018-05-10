@@ -77,16 +77,12 @@ public class DiagramWindow extends SubWindow {
 	 *            The SubWindow's x coordinate
 	 * @param y
 	 *            The SubWindow's y coordinate
-	 * @throws NullPointerException
-	 *             No SubWindow supplied
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
 	public DiagramWindow(DiagramWindow activeWindow, Integer x, Integer y) {
 		super(x, y, 500, 400, new Titlebar(x, y, 500));
 		
-		if (activeWindow == null)
-			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 

@@ -19,7 +19,7 @@ import view.windows.DiagramWindow;
  * @author groep 03
  */
 public class MouseEventHandler {
-	InteractionManager windowManager;
+	InteractionManager interactionManager;
 
 	ViewComponent labelClickedOnce;
 	Party first, second;
@@ -30,8 +30,8 @@ public class MouseEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public MouseEventHandler(InteractionManager windowManager) {
-		this.windowManager = windowManager;
+	public MouseEventHandler(InteractionManager interactionManager) {
+		this.interactionManager = interactionManager;
 	}
 
 	/**
@@ -58,16 +58,16 @@ public class MouseEventHandler {
 		// TODO labelstate !!! aanmaken
 		
 		DiagramWindow active = null;
-		if (windowManager.getActiveInteraction() != null)
-			active = windowManager.getActiveInteraction().getActiveWindow();
+		if (interactionManager.getActiveInteraction() != null)
+			active = interactionManager.getActiveInteraction().getActiveWindow();
 
 		if (active == null)
 			return;
 
 		if (id == MouseEvent.MOUSE_CLICKED) {
-			windowManager.closeClickedSubwindow(x, y);
+			interactionManager.closeClickedSubwindow(x, y);
 			if (active.clickOutsideActiveSubwindow(x, y)) {
-				windowManager.activateSubwindow(x, y);
+				interactionManager.activateSubwindow(x, y);
 			}
 		}
 
@@ -89,7 +89,7 @@ public class MouseEventHandler {
 				second = active.clickLifeline(x, y);
 				if (first != null && second != null && active.checkCallStack(first, second)) {
 					// TODO add previous message
-					windowManager.addMessageToActiveWindow(first, second, x, y);
+					interactionManager.addMessageToActiveWindow(first, second, x, y);
 				}
 				break;
 			case MouseEvent.MOUSE_CLICKED:
@@ -98,7 +98,7 @@ public class MouseEventHandler {
 
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
-						windowManager.changePartyTypeInActiveWindow();
+						interactionManager.changePartyTypeInActiveWindow();
 				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
@@ -115,7 +115,7 @@ public class MouseEventHandler {
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
-					windowManager.addPartyToActiveWindow(new Point2D.Double(x, y));
+					interactionManager.addPartyToActiveWindow(new Point2D.Double(x, y));
 				}
 				break;
 			}

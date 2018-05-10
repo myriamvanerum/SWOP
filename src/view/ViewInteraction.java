@@ -233,7 +233,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public boolean closeWindow(int x, int y) {
-		if (getActiveWindow().clickCloseButton(x, y)) {
+		if (getActiveWindow() != null && getActiveWindow().clickCloseButton(x, y)) {
 			removeWindow(getActiveWindow());
 			
 			int index = getSubWindows().size();

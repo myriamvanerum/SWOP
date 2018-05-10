@@ -98,6 +98,7 @@ public class InteractionManager {
 	public void createNewInteraction() {
 		System.out.println("Create New Interaction.");
 		ViewInteraction viewInteraction = new ViewInteraction();
+		getInteractions().add(viewInteraction);
 		if (getActiveInteraction() != null)
 			getActiveInteraction().setActiveWindow(null);
 		setActiveInteraction(viewInteraction);
@@ -111,8 +112,10 @@ public class InteractionManager {
 		ArrayList<Point2D> positions = new ArrayList<>();
 		positions.add(new Point2D.Double(10,10));
 		for (ViewInteraction viewInteraction : getInteractions()) {
-			DiagramWindow lowestWindow =  Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
-			positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
+			if (viewInteraction.getSubWindows().size() > 0) {
+				DiagramWindow lowestWindow =  Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
+				positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
+			}
 		}
 		return Collections.max(positions, Comparator.comparing(s -> s.getY()));	
 	}
@@ -132,7 +135,7 @@ public class InteractionManager {
 			if (getActiveInteraction().hasNoWindows()) {
 				removeInteraction(getActiveInteraction());
 				if (getInteractions().size() > 0)
-					setActiveInteraction(getInteractions().get(0));
+					setActiveInteraction(getInteractions().get(getInteractions().size()-1));
 				else setActiveInteraction(null);
 			}
 			return;

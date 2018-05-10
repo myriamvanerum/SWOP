@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import domain.message.InvocationMessage;
-import domain.message.Message;
 import domain.party.Actor;
 import domain.party.Object;
 import domain.party.Party;
@@ -23,7 +22,7 @@ class PartyTest {
 		Party actor = new Actor("test");
 		Party object = new Object("test");
 		
-		Message invocation = new InvocationMessage("message", actor, object);		
+		new InvocationMessage("message", actor, object);		
 		
 		assertEquals("test", actor.getLabel());
 		assertEquals("test", object.getLabel());	
@@ -45,7 +44,7 @@ class PartyTest {
 		Party party = null;
 	
 		try {
-			Party newActor = new Actor(party);
+			new Actor(party);
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;
