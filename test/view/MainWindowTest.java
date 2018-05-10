@@ -20,62 +20,62 @@ class MainWindowTest {
 
 	MainWindow mainwindow = new MainWindow("");
 	
-	@Test
-	void testMainWindowNewInteraction() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		assertEquals(activeWindow.getInteraction(), interaction);
-		assertEquals(mainwindow.getSubWindows().size(), 1);
-	}
-	
-	@Test
-	void testMainWindowDuplicateWindow() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow firstWindow = mainwindow.getActiveWindow();
-		mainwindow.createNewSubWindow(null);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		assertEquals(activeWindow.getInteraction(), interaction);
-		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
-		assertEquals(mainwindow.getSubWindows().size(), 2);
-	}
-	
-	@Test
-	void testMainWindowCloseWindow() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow firstWindow = mainwindow.getActiveWindow();
-		mainwindow.createNewSubWindow(null);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		mainwindow.closeClickedSubwindow(activeWindow);
-		
-		assertNotEquals(activeWindow, mainwindow.getActiveWindow());
-		assertEquals(firstWindow, mainwindow.getActiveWindow());
-		assertEquals(mainwindow.getSubWindows().size(), 1);
-		
-		mainwindow.closeClickedSubwindow(firstWindow);
-		
-		assertNotEquals(firstWindow, mainwindow.getActiveWindow());
-		assertEquals(mainwindow.getSubWindows().size(), 0);
-		assertNull(mainwindow.getActiveWindow());
-	}
-	
-	@Test
-	void testMainWindowCloseWindowNullError() {
-		try {
-			mainwindow.closeClickedSubwindow(null);
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
+//	@Test
+//	void testMainWindowNewInteraction() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		assertEquals(activeWindow.getInteraction(), interaction);
+//		assertEquals(mainwindow.getSubWindows().size(), 1);
+//	}
+//	
+//	@Test
+//	void testMainWindowDuplicateWindow() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow firstWindow = mainwindow.getActiveWindow();
+//		mainwindow.createNewSubWindow(null);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		assertEquals(activeWindow.getInteraction(), interaction);
+//		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
+//		assertEquals(mainwindow.getSubWindows().size(), 2);
+//	}
+//	
+//	@Test
+//	void testMainWindowCloseWindow() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow firstWindow = mainwindow.getActiveWindow();
+//		mainwindow.createNewSubWindow(null);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		mainwindow.closeClickedSubwindow(activeWindow);
+//		
+//		assertNotEquals(activeWindow, mainwindow.getActiveWindow());
+//		assertEquals(firstWindow, mainwindow.getActiveWindow());
+//		assertEquals(mainwindow.getSubWindows().size(), 1);
+//		
+//		mainwindow.closeClickedSubwindow(firstWindow);
+//		
+//		assertNotEquals(firstWindow, mainwindow.getActiveWindow());
+//		assertEquals(mainwindow.getSubWindows().size(), 0);
+//		assertNull(mainwindow.getActiveWindow());
+//	}
+//	
+//	@Test
+//	void testMainWindowCloseWindowNullError() {
+//		try {
+//			mainwindow.closeClickedSubwindow(null);
+//	        assert false;
+//	    } catch (NullPointerException e) {
+//	        assert true;
+//	    }
+//	}
 	
 //	@Test
 //	void testMainWindowMoveComponentSeq() {
@@ -146,43 +146,43 @@ class MainWindowTest {
 //	    }
 //	}
 
-	@Test
-	void testMainWindowTabKey() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		State stateBefore = activeWindow.getState();
-		
-		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
-		
-		State stateAfter = activeWindow.getState();
-		
-		assertNotEquals(stateBefore, stateAfter);
-		
-		
-		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
-		
-		stateAfter = activeWindow.getState();
-		
-		assertEquals(stateBefore, stateAfter);
-	}
-	
-	@Test
-	void testMainWindowCtrlNKey() {
-		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_N, '');
-		
-		assertNotNull(mainwindow.getActiveWindow());
-	}
-	
-	@Test
-	void testMainWindowMoveSetSubWindowsNull() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		
-		mainwindow.setSubWindows(null);
-		
-		assertNull(mainwindow.getSubWindows());
-	}
+//	@Test
+//	void testMainWindowTabKey() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		State stateBefore = activeWindow.getState();
+//		
+//		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
+//		
+//		State stateAfter = activeWindow.getState();
+//		
+//		assertNotEquals(stateBefore, stateAfter);
+//		
+//		
+//		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');
+//		
+//		stateAfter = activeWindow.getState();
+//		
+//		assertEquals(stateBefore, stateAfter);
+//	}
+//	
+//	@Test
+//	void testMainWindowCtrlNKey() {
+//		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_N, '');
+//		
+//		assertNotNull(mainwindow.getActiveWindow());
+//	}
+//	
+//	@Test
+//	void testMainWindowMoveSetSubWindowsNull() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		
+//		mainwindow.setSubWindows(null);
+//		
+//		assertNull(mainwindow.getSubWindows());
+//	}
 }

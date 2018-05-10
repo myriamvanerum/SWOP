@@ -20,96 +20,96 @@ class EventHandlerTest {
 
 	MainWindow mainwindow = new MainWindow("");
 	
-	@Test
-	void testMainWindowNewInteraction() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		assertEquals(activeWindow.getInteraction(), interaction);
-		assertEquals(mainwindow.getSubWindows().size(), 1);
-	}
-	
-	@Test
-	void testMainWindowDuplicateWindow() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow firstWindow = mainwindow.getActiveWindow();
-		mainwindow.createNewSubWindow(null);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		assertEquals(activeWindow.getInteraction(), interaction);
-		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
-		assertEquals(mainwindow.getSubWindows().size(), 2);
-	}
-	
-	@Test
-	void testMainWindowCloseWindow() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow firstWindow = mainwindow.getActiveWindow();
-		mainwindow.createNewSubWindow(null);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		mainwindow.closeClickedSubwindow(activeWindow);
-		
-		assertNotEquals(activeWindow, mainwindow.getActiveWindow());
-		assertEquals(firstWindow, mainwindow.getActiveWindow());
-		assertEquals(mainwindow.getSubWindows().size(), 1);
-		
-		mainwindow.closeClickedSubwindow(firstWindow);
-		
-		assertNotEquals(firstWindow, mainwindow.getActiveWindow());
-		assertEquals(mainwindow.getSubWindows().size(), 0);
-		assertNull(mainwindow.getActiveWindow());
-	}
-	
-	@Test
-	void testControllerClosedWindowNullError() {
-		try {
-			mainwindow.closeClickedSubwindow(null);
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
-	
-	@Test
-	void testMainWindowSelectComponent() {
-		Interaction interaction = new Interaction();
-		
-		mainwindow.createNewSubWindow(interaction);
-		DiagramWindow activeWindow = mainwindow.getActiveWindow();
-		
-		Party party = new Actor("Actor");
-		Point2D clickPosition = new Point2D.Double(50,50);
-		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
-		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
-		activeWindow.selectedComponent = viewComponent;
-		activeWindow.selectComponent();
-		
-		assertTrue(viewComponent.selected());
-		
-		activeWindow.selectComponent();
-		
-		assertFalse(viewComponent.selected());
-	}
-	
-	@Test
-	void testControllerSelectComponentNullError() {
-		Interaction interaction = new Interaction();
-		mainwindow.createNewSubWindow(interaction);
-		
-		try {
-			mainwindow.getActiveWindow().selectComponent();
-	        assert false;
-	    } catch (NullPointerException e) {
-	        assert true;
-	    }
-	}
+//	@Test
+//	void testMainWindowNewInteraction() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		assertEquals(activeWindow.getInteraction(), interaction);
+//		assertEquals(mainwindow.getSubWindows().size(), 1);
+//	}
+//	
+//	@Test
+//	void testMainWindowDuplicateWindow() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow firstWindow = mainwindow.getActiveWindow();
+//		mainwindow.createNewSubWindow(null);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		assertEquals(activeWindow.getInteraction(), interaction);
+//		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
+//		assertEquals(mainwindow.getSubWindows().size(), 2);
+//	}
+//	
+//	@Test
+//	void testMainWindowCloseWindow() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow firstWindow = mainwindow.getActiveWindow();
+//		mainwindow.createNewSubWindow(null);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		mainwindow.closeClickedSubwindow(activeWindow);
+//		
+//		assertNotEquals(activeWindow, mainwindow.getActiveWindow());
+//		assertEquals(firstWindow, mainwindow.getActiveWindow());
+//		assertEquals(mainwindow.getSubWindows().size(), 1);
+//		
+//		mainwindow.closeClickedSubwindow(firstWindow);
+//		
+//		assertNotEquals(firstWindow, mainwindow.getActiveWindow());
+//		assertEquals(mainwindow.getSubWindows().size(), 0);
+//		assertNull(mainwindow.getActiveWindow());
+//	}
+//	
+//	@Test
+//	void testControllerClosedWindowNullError() {
+//		try {
+//			mainwindow.closeClickedSubwindow(null);
+//	        assert false;
+//	    } catch (NullPointerException e) {
+//	        assert true;
+//	    }
+//	}
+//	
+//	@Test
+//	void testMainWindowSelectComponent() {
+//		Interaction interaction = new Interaction();
+//		
+//		mainwindow.createNewSubWindow(interaction);
+//		DiagramWindow activeWindow = mainwindow.getActiveWindow();
+//		
+//		Party party = new Actor("Actor");
+//		Point2D clickPosition = new Point2D.Double(50,50);
+//		Point2D windowPosition = new Point2D.Double(activeWindow.getX(),activeWindow.getY());
+//		ViewComponent viewComponent = new ViewParty(party, clickPosition, windowPosition);
+//		activeWindow.selectedComponent = viewComponent;
+//		activeWindow.selectComponent();
+//		
+//		assertTrue(viewComponent.selected());
+//		
+//		activeWindow.selectComponent();
+//		
+//		assertFalse(viewComponent.selected());
+//	}
+//	
+//	@Test
+//	void testControllerSelectComponentNullError() {
+//		Interaction interaction = new Interaction();
+//		mainwindow.createNewSubWindow(interaction);
+//		
+//		try {
+//			mainwindow.getActiveWindow().selectComponent();
+//	        assert false;
+//	    } catch (NullPointerException e) {
+//	        assert true;
+//	    }
+//	}
 	
 //	@Test
 //	void testMainWindowMoveComponentSeq() {
