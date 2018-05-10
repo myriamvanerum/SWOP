@@ -22,8 +22,12 @@ public class MessageSequence {
 	}
 
 	public boolean addMessage(Message message, Message previous) {
-        if (!checkCallStack(previous, message)) return false;
+        if (!checkCallStack(previous, message)) {
+        	System.out.println("Call Stack Rejection.");
+        	return false;
+        }
         
+        System.out.println("Call Stack OK.");
         // insert Invocation and Result message
         int insertIndex = getMessages().indexOf(previous) + 1;
         setMessages(getMessages().plus(insertIndex, message).plus(insertIndex + 1, message.getCompanion()));
@@ -72,7 +76,7 @@ public class MessageSequence {
     }
 	
 	public boolean checkCallStack(Message previous, Message message) {
-		return (getMessages().contains(previous) && previous.getReceiver() == message.getSender() || getMessages().isEmpty());
+		return ((getMessages().contains(previous) && previous.getReceiver() == message.getSender() && message.getSender() != message.getReceiver()) || getMessages().isEmpty());
 	}
 	
 	private void setMessageNumbers() {

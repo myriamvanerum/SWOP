@@ -86,8 +86,6 @@ public class Interaction implements Observable {
 		if (getMessageSequence().addMessage(message, previous)) {
 			// TODO verbeter zodat positie niet moet worden doorgestuurd
 			notifyAdd(message, position);
-			position.setLocation(position.getX(), position.getY() + 20);
-			notifyAdd(message.getCompanion(), position);
 		}
 	}
 	

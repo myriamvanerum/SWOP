@@ -43,7 +43,9 @@ public class LabelState {
 	
 	public void editLabel(char keyChar) {
 		String label = getCurrentViewLabel().getOutput();
-		getCurrentViewLabel().setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+		if (label.length() > 0)
+			getCurrentViewLabel().setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+		else getCurrentViewLabel().setOutput(keyChar + "|");
 	}
 	
 	public void confirmLabel() {

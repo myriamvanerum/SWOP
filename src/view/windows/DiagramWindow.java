@@ -492,13 +492,12 @@ public class DiagramWindow extends SubWindow {
 		ViewMessage viewMessage;
 		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
 
-		// TODO instanceof weg
-		if (message instanceof InvocationMessage)
-			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
-		else
-			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
+		viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
+		position.setLocation(position.getX(), position.getY() + 20);
+		ViewMessage resMessage = new ViewResultMessage(message.getCompanion(), position, subwindow, receiver, sender);
 
 		getViewMessages().add(viewMessage);
+		getViewMessages().add(resMessage);
 	}
 
 	public void editViewLabel(Component component) {
