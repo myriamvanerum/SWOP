@@ -13,7 +13,7 @@ import model.Interaction;
 import model.Party;
 import view.canvaswindow.MainWindow;
 import view.diagramstate.State;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 
 class MainWindowTest {
@@ -25,7 +25,7 @@ class MainWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		assertEquals(activeWindow.getInteraction(), interaction);
 		assertEquals(mainwindow.getSubWindows().size(), 1);
@@ -36,9 +36,9 @@ class MainWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow firstWindow = mainwindow.getActiveWindow();
+		DiagramWindow firstWindow = mainwindow.getActiveWindow();
 		mainwindow.createNewSubWindow(null);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		assertEquals(activeWindow.getInteraction(), interaction);
 		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
@@ -50,9 +50,9 @@ class MainWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow firstWindow = mainwindow.getActiveWindow();
+		DiagramWindow firstWindow = mainwindow.getActiveWindow();
 		mainwindow.createNewSubWindow(null);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		mainwindow.closeClickedSubwindow(activeWindow);
 		
@@ -151,7 +151,7 @@ class MainWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		State stateBefore = activeWindow.getState();
 		
 		mainwindow.handleKeyEvent(KeyEvent.KEY_PRESSED, KeyEvent.VK_TAB, 't');

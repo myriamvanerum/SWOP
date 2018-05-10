@@ -22,7 +22,7 @@ import view.components.ViewInvocationMessage;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.components.ViewResultMessage;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 
 class SubWindowTest {
@@ -33,7 +33,7 @@ class SubWindowTest {
 	void testSubWindowConstruct() {
 		Interaction interaction = new Interaction();
 		
-		SubWindow subwindow = new SubWindow(interaction, 10, 10);
+		DiagramWindow subwindow = new DiagramWindow(interaction, 10, 10);
 		
 		int height = 50, width = 40, heightTitlebar = 5;
 		subwindow.setHeight(height);
@@ -50,7 +50,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		
 		try {
-			SubWindow subwindow = new SubWindow(interaction, -10, 10);
+			DiagramWindow subwindow = new DiagramWindow(interaction, -10, 10);
 	        assert false;
 	    } catch (IllegalArgumentException e) {
 	        assert true;
@@ -59,9 +59,9 @@ class SubWindowTest {
 	
 	@Test
 	void testSubWindowConstructNullError2() {
-		SubWindow nullWindow = null;
+		DiagramWindow nullWindow = null;
 		try {
-			SubWindow subwindow = new SubWindow(nullWindow, 10, 10);
+			DiagramWindow subwindow = new DiagramWindow(nullWindow, 10, 10);
 	        assert false;
 	    } catch (NullPointerException e) {
 	        assert true;
@@ -73,7 +73,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		mainwindow.createNewSubWindow(interaction);		
 		try {
-			SubWindow subwindow = new SubWindow(mainwindow.getActiveWindow(), -10, 10);
+			DiagramWindow subwindow = new DiagramWindow(mainwindow.getActiveWindow(), -10, 10);
 	        assert false;
 	    } catch (IllegalArgumentException e) {
 	        assert true;
@@ -85,7 +85,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		Party party = new Actor("Actor");
 		Point2D clickPosition = new Point2D.Double(50,50);
@@ -119,7 +119,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		Party party = new Actor("Actor");
 		Point2D position = new Point2D.Double(-50,50);
@@ -137,7 +137,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		Party party = new Actor("Actor");
 		Party party2 = new Actor("Actor");
@@ -157,7 +157,7 @@ class SubWindowTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		Party actor = new Actor("Actor");
 		Party object = new Object("Object");
@@ -185,7 +185,7 @@ class SubWindowTest {
 		
 		mainwindow.createNewSubWindow(null);
 		
-		SubWindow newActiveWindow = mainwindow.getActiveWindow();
+		DiagramWindow newActiveWindow = mainwindow.getActiveWindow();
 		
 		assertEquals(newActiveWindow.getViewMessages().size(),2);
 		assertEquals(newActiveWindow.getViewParties().size(),2);

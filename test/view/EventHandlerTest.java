@@ -13,7 +13,7 @@ import model.Party;
 import view.canvaswindow.MainWindow;
 import view.components.ViewComponent;
 import view.components.ViewParty;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 
 class EventHandlerTest {
@@ -25,7 +25,7 @@ class EventHandlerTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		assertEquals(activeWindow.getInteraction(), interaction);
 		assertEquals(mainwindow.getSubWindows().size(), 1);
@@ -36,9 +36,9 @@ class EventHandlerTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow firstWindow = mainwindow.getActiveWindow();
+		DiagramWindow firstWindow = mainwindow.getActiveWindow();
 		mainwindow.createNewSubWindow(null);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		assertEquals(activeWindow.getInteraction(), interaction);
 		assertEquals(activeWindow.getInteraction(), firstWindow.getInteraction());
@@ -50,9 +50,9 @@ class EventHandlerTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow firstWindow = mainwindow.getActiveWindow();
+		DiagramWindow firstWindow = mainwindow.getActiveWindow();
 		mainwindow.createNewSubWindow(null);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		mainwindow.closeClickedSubwindow(activeWindow);
 		
@@ -82,7 +82,7 @@ class EventHandlerTest {
 		Interaction interaction = new Interaction();
 		
 		mainwindow.createNewSubWindow(interaction);
-		SubWindow activeWindow = mainwindow.getActiveWindow();
+		DiagramWindow activeWindow = mainwindow.getActiveWindow();
 		
 		Party party = new Actor("Actor");
 		Point2D clickPosition = new Point2D.Double(50,50);

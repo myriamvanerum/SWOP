@@ -14,7 +14,7 @@ import purecollections.PList;
 import view.components.ViewMessage;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 public class InteractionManager {
 	private KeyEventHandler keyEventHandler;

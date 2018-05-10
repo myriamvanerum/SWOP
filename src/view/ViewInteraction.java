@@ -16,14 +16,14 @@ import view.components.ViewMessage;
 import view.components.ViewObject;
 import view.components.ViewParty;
 import view.components.ViewResultMessage;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 public class ViewInteraction implements Observer {
 	private Interactr interactr;
 	private Interaction interaction;
 	
-	public SubWindow activeWindow = null;
-	public ArrayList<SubWindow> subWindows = new ArrayList<>();
+	public DiagramWindow activeWindow = null;
+	public ArrayList<DiagramWindow> subWindows = new ArrayList<>();
 	
 //	public ViewInteraction(Interaction interaction) {
 //		setInteractr(new Interactr(this));
@@ -53,19 +53,19 @@ public class ViewInteraction implements Observer {
 		this.interaction = interaction;
 	}
 	
-	public SubWindow getActiveWindow() {
+	public DiagramWindow getActiveWindow() {
 		return activeWindow;
 	}
 
-	public void setActiveWindow(SubWindow activeWindow) {
+	public void setActiveWindow(DiagramWindow activeWindow) {
 		this.activeWindow = activeWindow;
 	}
 	
-	public ArrayList<SubWindow> getSubWindows() {
+	public ArrayList<DiagramWindow> getSubWindows() {
 		return subWindows;
 	}
 
-	public void setSubWindows(ArrayList<SubWindow> subWindows) {
+	public void setSubWindows(ArrayList<DiagramWindow> subWindows) {
 		this.subWindows = subWindows;
 	}	
 
@@ -88,7 +88,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void drawWindows(Graphics2D g) {
-		for (SubWindow window : getSubWindows()) {
+		for (DiagramWindow window : getSubWindows()) {
         	if (window != activeWindow)
         		window.draw(g);
 		}
@@ -108,7 +108,7 @@ public class ViewInteraction implements Observer {
 		}
 		
 		// create new subwindow for new interaction
-		SubWindow subWindow = new SubWindow(this, x, y);
+		DiagramWindow subWindow = new DiagramWindow(this, x, y);
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);
@@ -119,7 +119,7 @@ public class ViewInteraction implements Observer {
 		Integer y = getActiveWindow().getY() + 10;
 		
 		// create new subwindow for new interaction
-		SubWindow subWindow = new SubWindow(getActiveWindow(), x, y);
+		DiagramWindow subWindow = new DiagramWindow(getActiveWindow(), x, y);
 		
 		subWindows.add(subWindow);
 		setActiveWindow(subWindow);
@@ -222,7 +222,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public Boolean activateSubwindow(int x, int y) {
-		SubWindow subwindow = findSubWindow(x, y);
+		DiagramWindow subwindow = findSubWindow(x, y);
 		
 		if (subwindow != null) {
 			setActiveWindow(subwindow); 
@@ -232,7 +232,7 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 	
-	public SubWindow findSubWindow(int x, int y) {
+	public DiagramWindow findSubWindow(int x, int y) {
 		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
 			if (getSubWindows().get(i) != getActiveWindow()) {
 				int xSub = getSubWindows().get(i).getX();
@@ -262,7 +262,7 @@ public class ViewInteraction implements Observer {
 		}
 
 		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
-			SubWindow window = getSubWindows().get(i);
+			DiagramWindow window = getSubWindows().get(i);
 			if (window.clickCloseButton(x, y)) {
 				removeWindow(window);
 				return true;
@@ -271,7 +271,7 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 
-	private void removeWindow(SubWindow window) {
+	private void removeWindow(DiagramWindow window) {
 		System.out.println("Close SubWindow.");
 		getSubWindows().remove(window);			
 	}

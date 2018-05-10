@@ -6,13 +6,13 @@ import model.Component;
 import model.SyntaxChecker;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;
-	SubWindow subwindow;
+	DiagramWindow subwindow;
 	
-	public LabelState(SubWindow subwindow) {
+	public LabelState(DiagramWindow subwindow) {
 		this.syntaxChecker = new SyntaxChecker();
 		this.subwindow = subwindow;
 	}

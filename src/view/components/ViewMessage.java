@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import model.Component;
 import model.Message;
 import view.labelstate.InvocationState;
-import view.windows.SubWindow;
+import view.windows.DiagramWindow;
 /**
  * ViewMessage class. Controls the drawing of Messages
  * @author groep 03
@@ -147,7 +147,7 @@ public class ViewMessage extends ViewComponent {
 	
 
 	@Override
-	public void setLabelState(SubWindow subwindow) {
+	public void setLabelState(DiagramWindow subwindow) {
 		subwindow.setLabelState(new InvocationState(subwindow));
 	}
 }
