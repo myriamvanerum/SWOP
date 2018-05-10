@@ -14,7 +14,6 @@ import view.windows.DiagramWindow;
 public class KeyEventHandler {
 	private InteractionManager interactionManager;
 	private KeyModifierHandler keyModifierHandler;
-	private LabelState labelState;
 
 	/**
 	 * EventHandler Constructor
@@ -25,7 +24,6 @@ public class KeyEventHandler {
 	public KeyEventHandler(InteractionManager interactionManager) {
 		this.interactionManager = interactionManager;
 		keyModifierHandler = new KeyModifierHandler();
-		labelState = null;
 	}
 
 	/**
@@ -47,8 +45,6 @@ public class KeyEventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 
-		labelState = null;
-
 		if (keyChar == KeyEvent.CHAR_UNDEFINED) {
 			keyModifierHandler.setModifier(keyCode);
 		} else {
@@ -61,16 +57,9 @@ public class KeyEventHandler {
     				interactionManager.duplicateActiveWindow();
     				break;
     			case KeyEvent.VK_ENTER:
-    				//interactionManager.openDialogBoxActiveDiagram();
+    				interactionManager.openDialogBox();
     				break;
     			}
-            }
-            
-            // TODO
-            if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
-            {
-            	DiagramWindow diagram = (DiagramWindow)interactionManager.getActiveInteraction().getActiveWindow();
-            	labelState = diagram.getLabelState();
             }
             
 			switch (keyCode) {
@@ -81,16 +70,14 @@ public class KeyEventHandler {
 				interactionManager.deleteComponent();
 				break;
 			case KeyEvent.VK_ENTER:
-				if (labelState != null)
-					labelState.confirmLabel();
+				labelState().confirmLabel();
 				break;
 			case KeyEvent.VK_BACK_SPACE:
-				if (labelState != null)
-					labelState.removeCharacter();
+				labelState().removeCharacter();
 				break;
 			}
 
-			if (labelState != null && ((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z)
+			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z)
 					|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
 					|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
 					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
@@ -98,8 +85,13 @@ public class KeyEventHandler {
 
 				// TODO voor partylabel enkel bepaalde karakters toelaten
 				// TODO voor messagelabel (bijna) alle karakters toelaten
-				labelState.addCharacter(keyCode, keyChar);
+				labelState().addCharacter(keyCode, keyChar);
 			}
 		}
+	}
+
+	private LabelState labelState() {
+		DiagramWindow diagram = (DiagramWindow)interactionManager.getActiveInteraction().getActiveWindow();
+		return diagram.getLabelState();
 	}
 }

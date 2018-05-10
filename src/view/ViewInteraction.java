@@ -13,6 +13,7 @@ import view.components.ViewComponent;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
+import view.windows.DialogBox;
 import view.windows.SubWindow;
 
 public class ViewInteraction implements Observer {
@@ -278,6 +279,8 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void openDialogBox() {
-		
+		DialogBox dialogBox = getActiveWindow().getSelectedComponent().createDialogBox();
+		subWindows.add(dialogBox);
+		activeWindow = dialogBox;
 	}
 }

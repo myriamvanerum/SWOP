@@ -5,7 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
+import domain.message.InvocationMessage;
 import domain.message.Message;
+import view.windows.DialogBox;
 import view.windows.InvocationBox;
 import view.windows.ResultBox;
 /**
@@ -111,5 +113,10 @@ public class ViewInvocationMessage extends ViewMessage {
 	@Override
 	public ViewMessage copy() {
 		return new ViewInvocationMessage(this);
+	}
+	
+	@Override
+	public DialogBox createDialogBox() {
+		return new InvocationBox((InvocationMessage)getMessage(), 0, 0);
 	}
 }

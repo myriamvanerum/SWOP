@@ -440,28 +440,6 @@ public class DiagramWindow extends SubWindow {
 		return first.getPositionSeq().getX() < second.getPositionSeq().getX();
 	}
 
-	/**
-	 * Checks if the close button of a subwindow is clicked
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return True if the close button of the subwindow is clicked False if the
-	 *         close butten of the subwindow isn't clicked
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	public boolean clickCloseButton(int x, int y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		return x >= (getX() + getWidth() - getTitlebar().getHeight()) && x <= (getX() + getWidth()) && y >= getY()
-				&& y <= (getY() + getTitlebar().getHeight());
-	}
-
 	public void removeViewParty(Party party) {
 		ViewParty viewParty = findViewParty(party);
 		getViewParties().remove(viewParty);

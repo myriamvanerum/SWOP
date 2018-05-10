@@ -107,6 +107,12 @@ public class InteractionManager {
 
 		viewInteraction.addWindow(lowestPos);
 	}
+	
+	public void openDialogBox() {
+		System.out.println("Open dialog box.");
+		if (getActiveInteraction() != null)
+			getActiveInteraction().openDialogBox();
+	}
 
 	private Point2D findLowestWindow() {
 		ArrayList<Point2D> positions = new ArrayList<>();

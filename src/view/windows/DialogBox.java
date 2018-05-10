@@ -67,12 +67,6 @@ public class DialogBox extends SubWindow {
 	}
 
 	@Override
-	public boolean clickCloseButton(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void changeViewParty(Party party, Party partyNew) {
 		// TODO Auto-generated method stub
 		
@@ -151,8 +145,7 @@ public class DialogBox extends SubWindow {
 	}
 
 	@Override
-	public ViewLabel clickLabel(int x2, int y2) {
-		// TODO Auto-generated method stub
+	public ViewLabel clickLabel(int x, int y) {
 		return null;
 	}
 

@@ -122,4 +122,8 @@ public class ViewComponent implements Selectable {
 	public void setLabelState(DiagramWindow subwindow) {
 		System.out.println("Set label state active subwindow");
 	}
+	
+	public DialogBox createDialogBox() {
+		return null;
+	}
 }

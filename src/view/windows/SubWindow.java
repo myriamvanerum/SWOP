@@ -100,25 +100,47 @@ public abstract class SubWindow {
 
 		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
 	}
+	
+	/**
+	 * Checks if the close button of a subwindow is clicked
+	 * 
+	 * @param x
+	 *            The x coordinate of the clicked position
+	 * @param y
+	 *            The y coordinate of the clicked position
+	 * @param subwindow
+	 *            The current active subwindow
+	 * @return True if the close button of the subwindow is clicked False if the
+	 *         close butten of the subwindow isn't clicked
+	 * @throws IllegalArgumentException
+	 *             Illegal coordinates
+	 */
+	public boolean clickCloseButton(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		return x >= (getX() + getWidth() - getTitlebar().getHeight()) && x <= (getX() + getWidth()) && y >= getY()
+				&& y <= (getY() + getTitlebar().getHeight());
+	}
 
 	public abstract void draw(Graphics2D g);
 	
 	public abstract void removeViewParty(Party party);
-	public abstract boolean clickCloseButton(int x, int y);
 	public abstract void changeViewParty(Party party, Party partyNew);
 	public abstract void addViewParty(Party party, Point2D position);
 	public abstract ViewParty findViewParty(Party party);
-	public abstract void changeLabelState(String string);
 	public abstract void removeViewMessage(Message message);
 	public abstract void addViewMessage(Message message, Point2D position);
 	public abstract ViewMessage findViewMessage(Message message);
 	public abstract void editViewLabel(Component component);
-	public abstract void setSelectedComponent(ViewComponent viewComponent);
-	public abstract ViewComponent getSelectedComponent();
-
 	public abstract ViewComponent clickParty(int x2, int y2);
 	public abstract Party clickLifeline(int x2, int y2);
 	public abstract void moveComponent(ViewComponent selectedComponent, int x2, int y2);
+		
+	public abstract void setSelectedComponent(ViewComponent viewComponent);
+	public abstract ViewComponent getSelectedComponent();
+
 	public abstract ViewLabel clickLabel(int x2, int y2);
 	public abstract void selectComponent();
+	public abstract void changeLabelState(String string);
 }
