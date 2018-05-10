@@ -1,4 +1,4 @@
-package model.party;
+package domain.party;
 
 /**
  * An Actor class. An Actor is a kind of Party

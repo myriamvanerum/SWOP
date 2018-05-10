@@ -1,6 +1,6 @@
-package model.message;
+package domain.message;
 
-import model.party.Party;
+import domain.party.Party;
 
 /**
  * An Invocation Message class, a type of Message

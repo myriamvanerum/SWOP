@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import model.party.Party;
+import domain.party.Party;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
 import view.windows.DiagramWindow;

@@ -6,8 +6,8 @@ import java.awt.geom.Point2D;
 
 import org.junit.jupiter.api.Test;
 
-import model.party.Object;
-import model.party.Party;
+import domain.party.Object;
+import domain.party.Party;
 import view.components.ViewObject;
 
 class CombinedViewTests {

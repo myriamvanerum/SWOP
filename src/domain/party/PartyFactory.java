@@ -1,4 +1,4 @@
-package model.party;
+package domain.party;
 
 /**
  * Factory class for creating Parties

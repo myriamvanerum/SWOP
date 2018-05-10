@@ -1,6 +1,6 @@
 package domain;
 
-import model.message.MessageSequence;
+import domain.message.MessageSequence;
 
 /**
  * Component Class. Parent class for Parties and Messages

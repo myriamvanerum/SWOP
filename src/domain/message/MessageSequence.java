@@ -1,9 +1,9 @@
-package model.message;
+package domain.message;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-import model.party.Party;
+import domain.party.Party;
 import purecollections.PList;
 
 public class MessageSequence {

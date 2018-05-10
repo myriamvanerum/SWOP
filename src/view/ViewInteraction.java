@@ -7,15 +7,11 @@ import java.util.ArrayList;
 import domain.Component;
 import domain.Interaction;
 import domain.Interactr;
-import model.message.InvocationMessage;
-import model.message.Message;
-import model.party.Party;
+import domain.message.Message;
+import domain.party.Party;
 import view.components.ViewComponent;
-import view.components.ViewInvocationMessage;
 import view.components.ViewMessage;
-import view.components.ViewObject;
 import view.components.ViewParty;
-import view.components.ViewResultMessage;
 import view.windows.DiagramWindow;
 
 public class ViewInteraction implements Observer {

@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import domain.Component;
-import model.party.Party;
+import domain.party.Party;
 import view.labelstate.PartyState;
 import view.windows.DiagramWindow;
 /**

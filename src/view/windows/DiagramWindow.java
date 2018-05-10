@@ -6,25 +6,13 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import domain.Component;
-import model.message.InvocationMessage;
-import model.message.Message;
-import model.party.Party;
+import domain.message.InvocationMessage;
+import domain.message.Message;
+import domain.party.Party;
 import view.ViewInteraction;
-import view.components.ViewComponent;
-import view.components.ViewInvocationMessage;
-import view.components.ViewLabel;
-import view.components.ViewLifeLine;
-import view.components.ViewMessage;
-import view.components.ViewObject;
-import view.components.ViewParty;
-import view.components.ViewResultMessage;
-import view.diagramstate.ComState;
-import view.diagramstate.SeqState;
-import view.diagramstate.State;
-import view.labelstate.InvocationState;
-import view.labelstate.LabelState;
-import view.labelstate.PartyState;
-import view.labelstate.ShowState;
+import view.components.*;
+import view.diagramstate.*;
+import view.labelstate.*;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and

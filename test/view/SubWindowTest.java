@@ -7,22 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Interaction;
-import domain.Interactr;
-import model.message.InvocationMessage;
-import model.message.Message;
-import model.message.ResultMessage;
-import model.party.Actor;
-import model.party.Object;
-import model.party.Party;
 import view.canvaswindow.MainWindow;
-import view.components.ViewActor;
-import view.components.ViewComponent;
-import view.components.ViewInvocationMessage;
-import view.components.ViewMessage;
-import view.components.ViewParty;
-import view.components.ViewResultMessage;
-import view.windows.DiagramWindow;
 
 
 class SubWindowTest {

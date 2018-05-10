@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import model.party.Party;
-import model.party.PartyFactory;
+import domain.party.Party;
+import domain.party.PartyFactory;
 /**
  * @author groep 03
  *

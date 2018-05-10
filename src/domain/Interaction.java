@@ -3,9 +3,9 @@ package domain;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import model.message.Message;
-import model.message.MessageSequence;
-import model.party.Party;
+import domain.message.Message;
+import domain.message.MessageSequence;
+import domain.party.Party;
 import view.Observer;
 
 /**

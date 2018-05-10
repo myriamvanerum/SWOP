@@ -3,8 +3,8 @@ package view;
 import java.awt.geom.Point2D;
 
 import domain.Component;
-import model.message.Message;
-import model.party.Party;
+import domain.message.Message;
+import domain.party.Party;
 
 /**
  * Observer class

@@ -1,8 +1,8 @@
-package model.message;
+package domain.message;
 
 import domain.Component;
 import domain.Interaction;
-import model.party.Party;
+import domain.party.Party;
 
 /**
  * A message has a sender party, a receiver party, and a label.  In this iteration,

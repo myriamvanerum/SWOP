@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import domain.Component;
-import model.message.Message;
+import domain.message.Message;
 import view.labelstate.InvocationState;
 import view.windows.DiagramWindow;
 /**

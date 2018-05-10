@@ -2,11 +2,11 @@ package domain;
 
 import java.awt.geom.Point2D;
 
-import model.message.InvocationMessage;
-import model.message.Message;
-import model.message.ResultMessage;
-import model.party.Party;
-import model.party.PartyFactory;
+import domain.message.InvocationMessage;
+import domain.message.Message;
+import domain.message.ResultMessage;
+import domain.party.Party;
+import domain.party.PartyFactory;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewParty;

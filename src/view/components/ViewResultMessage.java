@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
-import model.message.Message;
+import domain.message.Message;
 /**
  * ViewResultMessage class. Controls the drawing of ResultMessages
  * @author groep 03

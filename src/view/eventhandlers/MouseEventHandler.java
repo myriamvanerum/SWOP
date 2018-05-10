@@ -4,8 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
 import domain.Component;
-import model.message.Message;
-import model.party.Party;
+import domain.message.Message;
+import domain.party.Party;
 import view.InteractionManager;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
