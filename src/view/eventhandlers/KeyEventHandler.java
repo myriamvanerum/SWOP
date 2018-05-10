@@ -60,13 +60,14 @@ public class KeyEventHandler {
     				interactionManager.duplicateActiveWindow();
     				break;
     			case KeyEvent.VK_ENTER:
-    				// TODO open dialog
+    				//interactionManager.openDialogBoxActiveDiagram();
     				break;
     			}
             }
             
-            if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
-				labelState = interactionManager.getActiveInteraction().getActiveWindow().getLabelState();
+            // TODO
+           // if (interactionManager.getActiveInteraction() != null && interactionManager.getActiveInteraction().getActiveWindow() != null)
+			//	labelState = interactionManager.getActiveInteraction().getActiveWindow().getLabelState();
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:

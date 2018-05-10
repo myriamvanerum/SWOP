@@ -113,7 +113,7 @@ public class InteractionManager {
 		positions.add(new Point2D.Double(5, 5));
 		for (ViewInteraction viewInteraction : getInteractions()) {
 			if (viewInteraction.getSubWindows().size() > 0) {
-				DiagramWindow lowestWindow =  Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
+				DiagramWindow lowestWindow =  (DiagramWindow)Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
 				positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
 			}
 		}
@@ -210,5 +210,10 @@ public class InteractionManager {
 	public void changePartyTypeInActiveWindow() {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().changePartyType();
+	}
+
+	public void openDialogBoxActive() {
+		if (getActiveInteraction() != null)
+			getActiveInteraction().openDialogBox();
 	}
 }

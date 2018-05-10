@@ -12,6 +12,7 @@ import view.windows.DiagramWindow;
  * @author groep 03
  *
  */
+import view.windows.DialogBox;
 public class ViewComponent implements Selectable {
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
@@ -65,7 +66,7 @@ public class ViewComponent implements Selectable {
 	public void setPositionSeq(Point2D positionSeq) {
 		this.positionSeq = positionSeq;
 	}
-	
+
 	/**
 	 * Checks if the Component's Label is positioned at the clicked coordinates
 	 * 

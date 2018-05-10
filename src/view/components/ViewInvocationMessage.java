@@ -6,6 +6,8 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import domain.message.Message;
+import view.windows.InvocationBox;
+import view.windows.ResultBox;
 /**
  * ViewInvocationMessage class. Controls the drawing of InvocationMessages
  * @author groep 03

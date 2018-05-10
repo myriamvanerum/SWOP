@@ -6,6 +6,7 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import domain.message.Message;
+import view.windows.ResultBox;
 /**
  * ViewResultMessage class. Controls the drawing of ResultMessages
  * @author groep 03

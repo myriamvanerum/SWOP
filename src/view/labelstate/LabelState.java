@@ -10,15 +10,15 @@ import view.windows.DiagramWindow;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;
-	DiagramWindow subwindow;
+	DiagramWindow diagram;
 	
-	public LabelState(DiagramWindow subwindow) {
+	public LabelState(DiagramWindow diagram) {
 		this.syntaxChecker = new SyntaxChecker();
-		this.subwindow = subwindow;
+		this.diagram = diagram;
 	}
 	
 	public ViewComponent getCurrentViewComponent() {
-		return subwindow.getSelectedComponent();
+		return diagram.getSelectedComponent();
 	}
 	
 	public ViewLabel getCurrentViewLabel() {
@@ -57,7 +57,7 @@ public class LabelState {
 		viewLabel.setColor(Color.BLACK);
 		
 		String newLabel = label.substring(0, label.length() - 1);
-		component.editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
+		component.editLabel(diagram.getViewInteraction().getInteraction(), newLabel);
 		viewLabel.setOutput(newLabel);	
 	}
 }

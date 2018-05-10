@@ -13,13 +13,14 @@ import view.components.ViewComponent;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 public class ViewInteraction implements Observer {
 	private Interactr interactr;
 	private Interaction interaction;
 	
-	public DiagramWindow activeWindow = null;
-	public ArrayList<DiagramWindow> subWindows = new ArrayList<>();
+	public SubWindow activeWindow = null;
+	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 
 	public ViewInteraction() {
 		setInteractr(new Interactr(this));
@@ -43,19 +44,19 @@ public class ViewInteraction implements Observer {
 		this.interaction = interaction;
 	}
 	
-	public DiagramWindow getActiveWindow() {
+	public SubWindow getActiveWindow() {
 		return activeWindow;
 	}
 
-	public void setActiveWindow(DiagramWindow activeWindow) {
+	public void setActiveWindow(SubWindow activeWindow) {
 		this.activeWindow = activeWindow;
 	}
 	
-	public ArrayList<DiagramWindow> getSubWindows() {
+	public ArrayList<SubWindow> getSubWindows() {
 		return subWindows;
 	}
 
-	public void setSubWindows(ArrayList<DiagramWindow> subWindows) {
+	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
 	}	
 
@@ -79,7 +80,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void drawWindows(Graphics2D g) {
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
         	if (window != activeWindow)
         		window.draw(g);
 		}
@@ -105,7 +106,7 @@ public class ViewInteraction implements Observer {
 		Integer y = getActiveWindow().getY() + 10;
 		
 		// create new subwindow for new interaction
-		DiagramWindow subWindow = new DiagramWindow(getActiveWindow(), x, y);
+		DiagramWindow subWindow = new DiagramWindow((DiagramWindow)getActiveWindow(), x, y);
 		
 		getSubWindows().add(subWindow);
 		setActiveWindow(subWindow);
@@ -119,7 +120,7 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onDeleteParty(Party party) {
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.removeViewParty(party);
 		}
 	}
@@ -132,7 +133,7 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onChangeParty(Party party, Party partyNew) {
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.changeViewParty(party, partyNew);
 		}
 	}
@@ -152,7 +153,7 @@ public class ViewInteraction implements Observer {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.addViewParty(party, position);
 			if (window == getActiveWindow()) {
 				window.setSelectedComponent(window.findViewParty(party));
@@ -169,7 +170,7 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onDeleteMessage(Message message) {
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.removeViewMessage(message);
 		}
 	}
@@ -189,7 +190,7 @@ public class ViewInteraction implements Observer {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
 		
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.addViewMessage(message, position);
 			
 			if (window == getActiveWindow()) {
@@ -202,13 +203,13 @@ public class ViewInteraction implements Observer {
 	
 	@Override
 	public void onEditLabel(Component component) {
-		for (DiagramWindow window : getSubWindows()) {
+		for (SubWindow window : getSubWindows()) {
 			window.editViewLabel(component);
 		}
 	}
 
 	public Boolean activateSubwindow(int x, int y) {
-		DiagramWindow subwindow = findSubWindow(x, y);
+		SubWindow subwindow = findSubWindow(x, y);
 		
 		if (subwindow != null) {
 			System.out.println("Activate Window.");
@@ -219,7 +220,7 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 	
-	public DiagramWindow findSubWindow(int x, int y) {
+	public SubWindow findSubWindow(int x, int y) {
 		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
 			if (getSubWindows().get(i) != getActiveWindow()) {
 				int xSub = getSubWindows().get(i).getX();
@@ -249,7 +250,7 @@ public class ViewInteraction implements Observer {
 		}
 
 		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
-			DiagramWindow window = getSubWindows().get(i);
+			SubWindow window = getSubWindows().get(i);
 			if (window.clickCloseButton(x, y)) {
 				removeWindow(window);
 				return true;
@@ -258,7 +259,7 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 
-	private void removeWindow(DiagramWindow window) {
+	private void removeWindow(SubWindow window) {
 		System.out.println("Close SubWindow.");
 		getSubWindows().remove(window);			
 	}
@@ -272,6 +273,12 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void changeActiveWindowState() {
-		getActiveWindow().changeState();
+		DiagramWindow active = (DiagramWindow)getActiveWindow();
+		active.changeState();
+	}
+
+	public void openDialogBox() {
+		DiagramWindow active = (DiagramWindow)getActiveWindow();
+		active.openDialogBox();
 	}
 }

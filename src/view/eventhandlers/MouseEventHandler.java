@@ -12,6 +12,7 @@ import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -57,7 +58,7 @@ public class MouseEventHandler {
 
 		// TODO labelstate !!! aanmaken
 		
-		DiagramWindow active = null;
+		SubWindow active = null;
 		if (interactionManager.getActiveInteraction() != null)
 			active = interactionManager.getActiveInteraction().getActiveWindow();
 
@@ -74,7 +75,7 @@ public class MouseEventHandler {
 		if (active.clickOutsideActiveSubwindow(x, y))
 			return;
 
-		if (active.getShowState() == active.getLabelState()) {
+	//	if (active.getShowState() == active.getLabelState()) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
 				first = active.clickLifeline(x, y);
@@ -87,7 +88,7 @@ public class MouseEventHandler {
 				break;
 			case MouseEvent.MOUSE_RELEASED:
 				second = active.clickLifeline(x, y);
-				if (first != null && second != null && active.checkCallStack(first, second)) {
+				if (first != null && second != null) { // && active.checkCallStack(first, second)) {
 					// TODO add previous message
 					interactionManager.addMessageToActiveWindow(first, second, x, y);
 				}
@@ -107,7 +108,7 @@ public class MouseEventHandler {
 						active.selectComponent();
 						labelClickedOnce = selectedComponent;
 					} else if (selectedComponent == labelClickedOnce) {
-						selectedComponent.setLabelState(active);
+						//selectedComponent.setLabelState(active);
 
 						Component currentComponent = selectedComponent.getComponent();
 						String label = currentComponent.getLabel() + "|";
@@ -119,6 +120,6 @@ public class MouseEventHandler {
 				}
 				break;
 			}
-		}
+		//}
 	}
 }

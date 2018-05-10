@@ -146,6 +146,7 @@ public class DiagramWindow extends SubWindow {
 	 * @param gOrig
 	 *            Graphics class
 	 */
+	@Override
 	public void draw(Graphics2D gOrig) {
 		// Create a new Graphics object so clip can be used to only clip contents for this SubWindow
 		Graphics2D g = (Graphics2D) gOrig.create();
@@ -462,26 +463,6 @@ public class DiagramWindow extends SubWindow {
 				&& y <= (getY() + getTitlebar().getHeight());
 	}
 
-	/**
-	 * Checks if clicked position is part of the active subwindow
-	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return true if the clickevent occured outside of the active subwindow
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
-	 */
-	public boolean clickOutsideActiveSubwindow(int x, int y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
-	}
-
 	public void removeViewParty(Party party) {
 		ViewParty viewParty = findViewParty(party);
 		getViewParties().remove(viewParty);
@@ -526,5 +507,11 @@ public class DiagramWindow extends SubWindow {
 		if (getSelectedComponent() != null)
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
+	}
+
+	public ViewComponent openDialogBox() {
+		if (getSelectedComponent() != null)
+			return getSelectedComponent();
+		else return null;
 	}
 }
