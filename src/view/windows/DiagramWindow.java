@@ -7,14 +7,18 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import model.Component;
+import model.InvocationMessage;
 import model.Message;
 import model.Party;
 import view.ViewInteraction;
 import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
 import view.components.ViewLabel;
 import view.components.ViewLifeLine;
 import view.components.ViewMessage;
+import view.components.ViewObject;
 import view.components.ViewParty;
+import view.components.ViewResultMessage;
 import view.diagramstate.ComState;
 import view.diagramstate.SeqState;
 import view.diagramstate.State;
@@ -499,20 +503,49 @@ public class DiagramWindow extends SubWindow {
 		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
 	}
 
-	// TODO methode wegdoen als code verplaatst is
-	public void addMessage(Party first, Party second, int x2, int y2) {
-		Message message = getViewInteraction().addMessage(first, second, x2, y2);
-		// TODO verplaats naar observer
-		ViewMessage viewMessage = findViewMessage(message);
-		changeLabelState("MESSAGE");
-		setSelectedComponent(viewMessage);
+	public void removeViewParty(Party party) {
+		ViewParty viewParty = findViewParty(party);
+		getViewParties().remove(viewParty);
 	}
 
-	// TODO methode wegdoen als code verplaatst is
-	public void addParty(Point2D position) {
-		Party party = getViewInteraction().addParty(position);
-		// TODO verplaats naar observer
-		setSelectedComponent(findViewParty(party));
-		changeLabelState("PARTY");
+	public void changeViewParty(Party party, Party partyNew) {
+		ViewParty viewParty = findViewParty(party);
+		viewParty.setParty(partyNew);
+		getViewParties().remove(viewParty);
+		ViewParty newViewParty = viewParty.changeType();
+		getViewParties().add(newViewParty);
+	}
+
+	public void addViewParty(Party party, Point2D position) {
+		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
+		getViewParties().add(viewParty);
+	}
+
+	public void removeViewMessage(Message message) {
+		ViewMessage viewMessage = findViewMessage(message);
+		getViewMessages().remove(viewMessage);
+	}
+
+	public void addViewMessage(Message message, Point2D position) {
+		ViewParty sender = findViewParty(message.getSender());
+		ViewParty receiver = findViewParty(message.getReceiver());
+		ViewMessage viewMessage;
+		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
+
+		// TODO instanceof weg
+		if (message instanceof InvocationMessage)
+			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
+		else
+			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
+
+		getViewMessages().add(viewMessage);
+	}
+
+	public void editViewLabel(Component component) {
+		setLabelState(showState);
+		updateLabels(component, component.getLabel());
+		if (getSelectedComponent() != null)
+			getSelectedComponent().unselect();
+		setSelectedComponent(null);
 	}
 }

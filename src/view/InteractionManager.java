@@ -113,7 +113,7 @@ public class InteractionManager {
 	 * 		the SubWindow to be closed
 	 */
 	public void closeClickedSubwindow(int x, int y) {
-		if (getActiveInteraction().clickCloseButton(x, y)) {
+		if (getActiveInteraction().closeWindow(x, y)) {
 			if (getActiveInteraction().hasNoWindows()) {
 				removeInteraction(getActiveInteraction());
 				if (getInteractions().size() > 0)
@@ -125,7 +125,7 @@ public class InteractionManager {
 
 		for (int i = getInteractions().size() - 1; i >= 0; i--) {
 			ViewInteraction interaction = getInteractions().get(i);
-			if (interaction != getActiveInteraction() && interaction.clickCloseButton(x, y)) {
+			if (interaction != getActiveInteraction() && interaction.closeWindow(x, y)) {
 				if (interaction.hasNoWindows())
 					removeInteraction(interaction);
 				return;

@@ -11,8 +11,6 @@ public class SubWindow {
 	private Integer height;	
 	private Titlebar titlebar;
 	
-	
-	
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
 		this.x = x;

@@ -24,12 +24,6 @@ public class ViewInteraction implements Observer {
 	
 	public DiagramWindow activeWindow = null;
 	public ArrayList<DiagramWindow> subWindows = new ArrayList<>();
-	
-//	public ViewInteraction(Interaction interaction) {
-//		setInteractr(new Interactr(this));
-//		setInteraction(interaction);
-//		interaction.addObserver(this);
-//	}
 
 	public ViewInteraction() {
 		setInteractr(new Interactr(this));
@@ -133,8 +127,9 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onDeleteParty(Party party) {
-//		ViewParty viewParty = findViewParty(party);
-//		getViewParties().remove(viewParty);
+		for (DiagramWindow window : getSubWindows()) {
+			window.removeViewParty(party);
+		}
 	}
 
 	/**
@@ -145,11 +140,9 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onChangeParty(Party party, Party partyNew) {
-//		ViewParty viewParty = findViewParty(party);
-//		viewParty.setParty(partyNew);
-//		getViewParties().remove(viewParty);
-//		ViewParty newViewParty = viewParty.changeType();
-//		getViewParties().add(newViewParty);
+		for (DiagramWindow window : getSubWindows()) {
+			window.changeViewParty(party, partyNew);
+		}
 	}
 
 	/**
@@ -164,11 +157,16 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onAddParty(Party party, Point2D position) {
-//		if (position.getX() < 0 || position.getY() < 0)
-//			throw new IllegalArgumentException();
-//
-//		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
-//		getViewParties().add(viewParty);
+		if (position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();
+		
+		for (DiagramWindow window : getSubWindows()) {
+			window.addViewParty(party, position);
+			if (window == getActiveWindow()) {
+				window.setSelectedComponent(window.findViewParty(party));
+				window.changeLabelState("PARTY");
+			}
+		}
 	}
 
 	/**
@@ -179,8 +177,9 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onDeleteMessage(Message message) {
-//		ViewMessage viewMessage = findViewMessage(message);
-//		getViewMessages().remove(viewMessage);
+		for (DiagramWindow window : getSubWindows()) {
+			window.removeViewMessage(message);
+		}
 	}
 
 	/**
@@ -195,30 +194,25 @@ public class ViewInteraction implements Observer {
 	 */
 	@Override
 	public void onAddMessage(Message message, Point2D position) {
-//		if (position.getX() < 0 || position.getY() < 0)
-//			throw new IllegalArgumentException();
-//
-//		ViewParty sender = findViewParty(message.getSender());
-//		ViewParty receiver = findViewParty(message.getReceiver());
-//		ViewMessage viewMessage;
-//		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
-//
-//		// TODO instanceof weg
-//		if (message instanceof InvocationMessage)
-//			viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
-//		else
-//			viewMessage = new ViewResultMessage(message, position, subwindow, sender, receiver);
-//
-//		getViewMessages().add(viewMessage);
+		if (position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();
+		
+		for (DiagramWindow window : getSubWindows()) {
+			window.addViewMessage(message, position);
+			
+			if (window == getActiveWindow()) {
+				ViewMessage viewMessage = window.findViewMessage(message);
+				window.changeLabelState("MESSAGE");
+				window.setSelectedComponent(viewMessage);
+			}
+		}
 	}
 	
 	@Override
 	public void onEditLabel(Component component) {
-//		setLabelState(showState);
-//		updateLabels(component, component.getLabel());
-//		if (getSelectedComponent() != null)
-//			getSelectedComponent().unselect();
-//		setSelectedComponent(null);
+		for (DiagramWindow window : getSubWindows()) {
+			window.editViewLabel(component);
+		}
 	}
 
 	public Boolean activateSubwindow(int x, int y) {
@@ -248,7 +242,7 @@ public class ViewInteraction implements Observer {
 		return null;
 	}
 
-	public boolean clickCloseButton(int x, int y) {
+	public boolean closeWindow(int x, int y) {
 		if (getActiveWindow().clickCloseButton(x, y)) {
 			removeWindow(getActiveWindow());
 			
