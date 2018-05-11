@@ -46,6 +46,7 @@ public class ComState implements State {
 	        viewParty.resetColor(g);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
+	    	viewMessage.setColor(g);
 	    	if (viewMessage.getClass() == ViewInvocationMessage.class) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
@@ -54,6 +55,7 @@ public class ComState implements State {
 	    				(int) (sender.getY() + windowPosition.getY() + 25),
 	    				(int) (receiver.getY() + windowPosition.getY() + 25));
 	    	}
+	    	viewMessage.resetColor(g);
 	    }		
 	}
 	

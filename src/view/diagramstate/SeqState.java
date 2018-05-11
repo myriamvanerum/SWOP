@@ -44,7 +44,6 @@ public class SeqState implements State {
 		for (ViewParty viewParty : viewParties) {
 	        viewParty.setColor(g);
 	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionSeq(), windowPosition));
-	        viewParty.setColor(g);
 	        viewParty.getViewLifeLine().draw(g);
 	        viewParty.resetColor(g);
 	    }
@@ -56,7 +55,9 @@ public class SeqState implements State {
 			int xReceiver = receiverLifeline.getX();
 			int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
 					
+			viewMessage.setColor(g);
 			viewMessage.draw(g, xSender, xReceiver, y, y);
+			viewMessage.resetColor(g);
 			
 			if (viewMessage.getClass() == ViewInvocationMessage.class) {
 				viewMessage.getActivationBar().draw(g, xSender - 5, y - 5);
