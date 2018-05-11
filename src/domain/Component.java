@@ -1,7 +1,5 @@
 package domain;
 
-import domain.message.MessageSequence;
-
 /**
  * Component Class. Parent class for Parties and Messages
  * @author groep 03
@@ -11,9 +9,7 @@ public class Component {
     public String label;
     
     public void remove(Interaction interaction) {}
-    
-    public void removeDependents(MessageSequence messageSequence) {}
-        
+            
     /* GETTERS AND SETTERS */
 
     public String getLabel(){

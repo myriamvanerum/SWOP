@@ -1,4 +1,8 @@
-package domain.party;
+package domain;
+
+import domain.party.Actor;
+import domain.party.Object;
+import domain.party.Party;
 
 /**
  * Factory class for creating Parties

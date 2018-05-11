@@ -6,7 +6,6 @@ import domain.Component;
 import domain.Interaction;
 import domain.SyntaxChecker;
 import domain.message.Message;
-import domain.message.MessageSequence;
 
 /**
  * A Party class
@@ -55,11 +54,10 @@ public abstract class Party extends Component {
 	public void remove(Interaction interaction) {
 		interaction.parties.remove(this);
 		interaction.notifyDelete(this);
-	}
-
-	@Override
-	public void removeDependents(MessageSequence messageSequence) {
-		messageSequence.removePartyDependents(this);
+		ArrayList<Message> messages = interaction.getMessageSequence().removePartyDependents(this);
+		
+		for (Message message : messages)
+			interaction.notifyDelete(message);
 	}
 
     /* GETTERS AND SETTERS */

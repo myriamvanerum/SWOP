@@ -4,9 +4,7 @@ import java.awt.geom.Point2D;
 
 import domain.message.InvocationMessage;
 import domain.message.Message;
-import domain.message.ResultMessage;
 import domain.party.Party;
-import domain.party.PartyFactory;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewParty;
@@ -18,6 +16,7 @@ import view.components.ViewParty;
 public class Interactr {
 	ViewInteraction manager;
 	PartyFactory partyFactory;
+	MessageFactory messageFactory;
 	
 	/**
 	 * Controller constructor
@@ -31,7 +30,7 @@ public class Interactr {
 		
 		this.manager = manager;
 		this.partyFactory = new PartyFactory();
-		System.out.println("Starting Interactr.");
+		this.messageFactory = new MessageFactory();
 	}
 	
 
@@ -107,28 +106,18 @@ public class Interactr {
 	 * @throws IllegalArgumentException
 	 * 		Illegal coordinates
 	 */
-	public Message addMessage(Party sender, Party receiver, int x, int y) {
+	public Message addMessage(Party sender, Party receiver, Message previous, int x, int y) {
 		if (sender == null || receiver == null)
 			throw new NullPointerException();
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		System.out.println("Add message.");
-		// TODO message factory / interaction maakt message
-		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
-		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
-		invocationMessage.setCompanion(resultMessage);
-		resultMessage.setCompanion(invocationMessage);
+		System.out.println("Create New Message.");
+		InvocationMessage message = messageFactory.createMessage(sender, receiver);
 		
-		Interaction currentInteraction = manager.getInteraction();
-		
-		// TODO get previous message
-		Message previous = null;
-		
-		currentInteraction.addMessage(invocationMessage, previous, new Point2D.Double(x,y));	
-		//currentInteraction.addMessage(resultMessage, new Point2D.Double(x,y+20));
+		manager.getInteraction().addMessage(message, previous, new Point2D.Double(x,y));	
 						
-		return invocationMessage;
+		return message;
 	}
 	
 	/**

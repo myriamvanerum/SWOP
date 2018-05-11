@@ -2,6 +2,7 @@ package domain.message;
 
 import java.util.ArrayList;
 
+import domain.Interaction;
 import domain.party.Party;
 
 /**
@@ -58,9 +59,12 @@ public class InvocationMessage extends Message {
     }
     
     @Override
-    public void removeDependents(MessageSequence messageSequence) {
-    	messageSequence.removeMessageAndDependents(this);
-    }
+	public void remove(Interaction interaction) {
+    	ArrayList<Message> messages = interaction.getMessageSequence().removeMessageAndDependents(this);
+		interaction.notifyDelete(this);	
+		for (Message message : messages)
+			interaction.notifyDelete(message);
+	}
     
     public String argumentsToString() {
     	String value = "";

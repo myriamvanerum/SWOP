@@ -19,7 +19,7 @@ public class ViewActivationBar {
 	 * 		Y coordinate
 	 */
 	public void draw(Graphics2D g, int x, int y) {
-		Rectangle rectangle = new Rectangle(x, y, 12, 30);
+		Rectangle rectangle = new Rectangle(x, y, 12, 40);
 		g.setColor(new Color(255,255,255));
 		g.fill(rectangle);
 		g.setColor(new Color(0,0,0));

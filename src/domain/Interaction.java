@@ -91,7 +91,6 @@ public class Interaction implements Observable {
 	
 	public void removeComponent(Component component) {
 		component.remove(this);
-		component.removeDependents(getMessageSequence());
 	}
 	
 	/**

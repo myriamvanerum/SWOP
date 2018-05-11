@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static view.canvaswindow.CanvasWindow.replayRecording;
 
 import java.io.File;

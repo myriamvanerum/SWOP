@@ -9,7 +9,6 @@ import domain.message.InvocationMessage;
 import domain.message.Message;
 import view.windows.DialogBox;
 import view.windows.InvocationBox;
-import view.windows.ResultBox;
 /**
  * ViewInvocationMessage class. Controls the drawing of InvocationMessages
  * @author groep 03

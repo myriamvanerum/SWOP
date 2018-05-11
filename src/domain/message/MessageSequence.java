@@ -38,7 +38,7 @@ public class MessageSequence {
         return true;
 	}
 	
-	public void removeMessageAndDependents(Message message) {
+	public ArrayList<Message> removeMessageAndDependents(Message message) {
 		// TODO notifyDelete for dependents
 		if (!getMessages().contains(message) || !getMessages().contains(message.getCompanion()))
             throw new IllegalArgumentException();
@@ -55,15 +55,20 @@ public class MessageSequence {
         
         // recalculate message numbers
         setMessageNumbers();
+        
+        return messagesToDelete;
 	}
 	
-	public void removePartyDependents(Party party) {
+	public ArrayList<Message> removePartyDependents(Party party) {
+		ArrayList<Message> messagesToDelete = new ArrayList<>();
 		Message message = findPartyMessage(party);
         // no message found for this party
-        if (message == null) return;
-        removeMessageAndDependents(message);
+        if (message == null) return messagesToDelete;
+        messagesToDelete.addAll(removeMessageAndDependents(message));
         // delete possible other messages for this party
-        removePartyDependents(party);
+        messagesToDelete.addAll(removePartyDependents(party));
+        
+        return messagesToDelete;
 	}
 	
 	private Message findPartyMessage(Party party) {

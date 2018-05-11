@@ -1,11 +1,12 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
+import domain.PartyFactory;
 import domain.party.Party;
-import domain.party.PartyFactory;
 /**
  * @author groep 03
  *

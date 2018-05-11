@@ -1,12 +1,5 @@
 package view;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.Test;
-
 import view.canvaswindow.MainWindow;
 
 

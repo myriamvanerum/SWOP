@@ -5,11 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
-import domain.message.InvocationMessage;
 import domain.message.Message;
 import domain.message.ResultMessage;
 import view.windows.DialogBox;
-import view.windows.InvocationBox;
 import view.windows.ResultBox;
 /**
  * ViewResultMessage class. Controls the drawing of ResultMessages

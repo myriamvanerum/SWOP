@@ -10,7 +10,6 @@ import domain.Interactr;
 import domain.message.Message;
 import domain.party.Party;
 import view.components.ViewComponent;
-import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
 import view.windows.DialogBox;
@@ -151,8 +150,9 @@ public class ViewInteraction implements Observer {
 		interactr.deleteComponent(viewComponent);
 	}
 
-	public Message addMessage(Party first, Party second, int x, int y) {
-		return interactr.addMessage(first, second, x, y);
+	public Message addMessage(Party sender, Party receiver, int x, int y) {
+		Message previous = getActiveWindow().getPreviousMessage(sender, y);
+		return interactr.addMessage(sender, receiver, previous, x, y);
 	}
 
 	public Party addParty(Point2D position) {

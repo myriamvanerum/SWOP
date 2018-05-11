@@ -42,12 +42,6 @@ public abstract class Message extends Component {
 		setLabel(label);
 		interaction.notifyEditLabel(this);
 	}
-    
-    @Override
-	public void remove(Interaction interaction) {
-    	interaction.getMessageSequence().removeMessageAndDependents(this);
-		interaction.notifyDelete(this);	
-	}
         
     /* GETTERS AND SETTERS */
 

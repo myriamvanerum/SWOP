@@ -4,14 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import domain.Component;
 import domain.message.Message;
 import domain.party.Party;
 import view.ViewInteraction;
-import view.components.*;
-import view.diagramstate.*;
-import view.labelstate.*;
+import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
+import view.components.ViewLabel;
+import view.components.ViewLifeLine;
+import view.components.ViewMessage;
+import view.components.ViewObject;
+import view.components.ViewParty;
+import view.components.ViewResultMessage;
+import view.diagramstate.ComState;
+import view.diagramstate.SeqState;
+import view.diagramstate.State;
+import view.labelstate.InvocationState;
+import view.labelstate.LabelState;
+import view.labelstate.PartyState;
+import view.labelstate.ShowState;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and
@@ -449,7 +462,7 @@ public class DiagramWindow extends SubWindow {
 		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
 
 		viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
-		position.setLocation(position.getX(), position.getY() + 20);
+		position.setLocation(position.getX(), position.getY() + 30);
 		ViewMessage resMessage = new ViewResultMessage(message.getCompanion(), position, subwindow, receiver, sender);
 
 		getViewMessages().add(viewMessage);
@@ -464,6 +477,22 @@ public class DiagramWindow extends SubWindow {
 	public void selectMessage(Message message) {
 		setSelectedComponent(findViewMessage(message));
 		changeLabelState("MESSAGE");
+	}
+	
+	public Message getPreviousMessage(Party sender, int yClicked) {
+		Message previous = null;
+		ArrayList<ViewMessage> messages = copyMessages(getViewMessages());
+		messages.sort(Comparator.comparing(m -> m.getPositionSeq().getY()));
+		yClicked -= getY();
+		
+		for (ViewMessage message : messages) {
+			if (message.getPositionSeq().getY() <= yClicked)
+				previous = message.getMessage();
+			else
+				break;
+		}
+		
+		return previous;
 	}
 
 	public void editViewLabel(Component component) {

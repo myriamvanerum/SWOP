@@ -1,7 +1,7 @@
 package view.eventhandlers;
 
 import java.awt.event.MouseEvent;
-import java.awt.geom.*;
+import java.awt.geom.Point2D;
 
 import domain.Component;
 import domain.party.Party;

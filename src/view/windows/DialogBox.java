@@ -1,16 +1,8 @@
 package view.windows;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import domain.Component;
-import domain.message.Message;
-import domain.party.Party;
-import view.components.ViewComponent;
-import view.components.ViewLabel;
-import view.components.ViewMessage;
-import view.components.ViewParty;
 import view.formelements.WindowControl;
 
 public class DialogBox extends SubWindow {

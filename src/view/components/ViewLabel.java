@@ -2,7 +2,7 @@ package view.components;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.*;
+import java.awt.geom.Point2D;
 /**
  * ViewLabel class. Controls the drawing of Labels
  * @author groep 03
