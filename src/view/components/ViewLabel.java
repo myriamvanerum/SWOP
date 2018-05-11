@@ -42,18 +42,9 @@ public class ViewLabel {
 	 */
 	protected void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();		
+			throw new IllegalArgumentException();	
 		
-		Color colorOrig = g.getColor();
-	
-		// TODO show
-		//	g.setColor(getColor());
-		//	g.drawString(label, (int)position.getX(), (int)position.getY());
-
-			g.setColor(getColor());
-			g.drawString(output, (int)position.getX(), (int)position.getY());
-
-		g.setColor(colorOrig);
+		drawLabel(g, output, position);
 	}
 	
 	/**
@@ -71,15 +62,13 @@ public class ViewLabel {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();		
 		
-		Color colorOrig = g.getColor();
+		drawLabel(g, labelPrefix + "  " + output, position);
+	}
 	
-		// TODO show
-		//	g.setColor(getColor());
-		//	g.drawString(label, (int)position.getX(), (int)position.getY());
-
-			g.setColor(getColor());
-			g.drawString(labelPrefix + "  " + output, (int)position.getX(), (int)position.getY());
-
+	public void drawLabel(Graphics2D g, String label, Point2D position) {
+		Color colorOrig = g.getColor();
+		g.setColor(getColor());
+		g.drawString(label, (int)position.getX(), (int)position.getY());
 		g.setColor(colorOrig);
 	}
 	
