@@ -72,7 +72,7 @@ public class ViewObject extends ViewParty {
 										
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
 		g.draw(r);
-		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
+		getViewLabel().draw(g, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
 	}
 		
 	/**

@@ -38,10 +38,10 @@ public class ViewLabel {
 	 * @param position
 	 * 		The position to draw the label at
 	 * @throws IllegalArgumentException
-	 * 		Illegal label or position
+	 * 		Illegal position
 	 */
-	protected void draw(Graphics2D g, String label, Point2D position) {
-		if (label == null || position.getX() < 0 || position.getY() < 0)
+	protected void draw(Graphics2D g, Point2D position) {
+		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();		
 		
 		Color colorOrig = g.getColor();
@@ -52,6 +52,33 @@ public class ViewLabel {
 
 			g.setColor(getColor());
 			g.drawString(output, (int)position.getX(), (int)position.getY());
+
+		g.setColor(colorOrig);
+	}
+	
+	/**
+	 * This method draws a label for the components
+	 * @param g
+	 * 		The graphics class
+	 * @param label
+	 * 		The text of the label
+	 * @param position
+	 * 		The position to draw the label at
+	 * @throws IllegalArgumentException
+	 * 		Illegal position
+	 */
+	protected void draw(Graphics2D g, String labelPrefix, Point2D position) {
+		if (position.getX() < 0 || position.getY() < 0)
+			throw new IllegalArgumentException();		
+		
+		Color colorOrig = g.getColor();
+	
+		// TODO show
+		//	g.setColor(getColor());
+		//	g.drawString(label, (int)position.getX(), (int)position.getY());
+
+			g.setColor(getColor());
+			g.drawString(labelPrefix + "  " + output, (int)position.getX(), (int)position.getY());
 
 		g.setColor(colorOrig);
 	}

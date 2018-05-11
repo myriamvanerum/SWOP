@@ -78,7 +78,7 @@ public class ViewInvocationMessage extends ViewMessage {
 		
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
-		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender-2));
+		getViewLabel().draw(g, getMessage().getMessageNumber(), new Point2D.Double(labelX, ySender-(ySender-yReceiver)/2));
 	}
 	
 

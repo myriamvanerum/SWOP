@@ -78,7 +78,7 @@ public class ViewResultMessage extends ViewMessage {
 				
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
-		getViewLabel().draw(g, label, new Point2D.Double(labelX, ySender+12));
+		getViewLabel().draw(g, new Point2D.Double(labelX, ySender+12));
 	}
 	
 	@Override

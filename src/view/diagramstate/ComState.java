@@ -47,7 +47,8 @@ public class ComState implements State {
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
 	    	viewMessage.setColor(g);
-	    	if (viewMessage.getClass() == ViewInvocationMessage.class) {
+	    	// TODO message labels boven elkaar tonen als meerdere messages tussen zelfde parties
+	    	if (viewMessage instanceof ViewInvocationMessage) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
 	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + 80), 

@@ -73,7 +73,7 @@ public class ViewActor extends ViewParty {
 		g.draw(new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50));
 		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70));
 
-		getViewLabel().draw(g, getParty().getLabel(), new Point2D.Double(position.getX() - (viewLabel.getWidth() / 2), position.getY() + 100));
+		getViewLabel().draw(g, new Point2D.Double(position.getX() - (viewLabel.getWidth() / 2), position.getY() + 100));
 	}
 	
 	/**
