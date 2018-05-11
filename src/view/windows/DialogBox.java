@@ -61,97 +61,50 @@ public class DialogBox extends SubWindow {
 	}
 
 	@Override
-	public void removeViewParty(Party party) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removeViewParty(Party party) {}
 
 	@Override
-	public void changeViewParty(Party party, Party partyNew) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void changeViewParty(Party party, Party partyNew) {}
 
 	@Override
-	public void addViewParty(Party party, Point2D position) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addViewParty(Party party, Point2D position) {}
 
 	@Override
-	public ViewParty findViewParty(Party party) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ViewParty findViewParty(Party party) {return null;}
 
 	@Override
-	public void changeLabelState(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void changeLabelState(String string) {}
 
 	@Override
-	public void removeViewMessage(Message message) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void removeViewMessage(Message message) {}
 
 	@Override
-	public void addViewMessage(Message message, Point2D position) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void addViewMessage(Message message, Point2D position) {}
 
 	@Override
-	public ViewMessage findViewMessage(Message message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ViewMessage findViewMessage(Message message) {return null;}
 
 	@Override
-	public void editViewLabel(Component component) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void editViewLabel(Component component) {}
 
 	@Override
-	public void setSelectedComponent(ViewComponent viewComponent) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setSelectedComponent(ViewComponent viewComponent) {}
 
 	@Override
-	public ViewComponent getSelectedComponent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ViewComponent getSelectedComponent() {return null;}
 
 	@Override
-	public ViewComponent clickParty(int x2, int y2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ViewComponent clickParty(int x2, int y2) {return null;}
 
 	@Override
-	public Party clickLifeline(int x2, int y2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Party clickLifeline(int x2, int y2) {return null;}
 
 	@Override
-	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {}
 
 	@Override
-	public ViewLabel clickLabel(int x, int y) {
-		return null;
-	}
+	public ViewLabel clickLabel(int x, int y) {return null;}
 
 	@Override
-	public void selectComponent() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void selectComponent() {}
 }

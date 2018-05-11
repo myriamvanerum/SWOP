@@ -4,13 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 
 import domain.Component;
-import domain.message.Message;
 import domain.party.Party;
 import view.InteractionManager;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
-import view.components.ViewMessage;
-import view.components.ViewParty;
 import view.windows.DiagramWindow;
 import view.windows.SubWindow;
 
@@ -23,7 +20,7 @@ public class MouseEventHandler {
 	InteractionManager interactionManager;
 
 	ViewComponent labelClickedOnce;
-	Party first, second;
+	Party sender, receiver;
 
 	/**
 	 * EventHandler Constructor
@@ -79,7 +76,7 @@ public class MouseEventHandler {
 		if (diagram.getShowState() == diagram.getLabelState()) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
-				first = active.clickLifeline(x, y);
+				sender = active.clickLifeline(x, y);
 				active.setSelectedComponent(active.clickParty(x, y));
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
@@ -88,10 +85,10 @@ public class MouseEventHandler {
 					active.moveComponent(selectedComponent, x, y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				second = active.clickLifeline(x, y);
-				if (first != null && second != null) { // && active.checkCallStack(first, second)) {
+				receiver = active.clickLifeline(x, y);
+				if (sender != null && receiver != null) { // && active.checkCallStack(first, second)) {
 					// TODO add previous message
-					interactionManager.addMessageToActiveWindow(first, second, x, y);
+					interactionManager.addMessage(sender, receiver, x, y);
 				}
 				break;
 			case MouseEvent.MOUSE_CLICKED:
@@ -100,7 +97,7 @@ public class MouseEventHandler {
 
 				if (active.getSelectedComponent() != null) {
 					if (clickCount == 2)
-						interactionManager.changePartyTypeInActiveWindow();
+						interactionManager.changePartyType();
 				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
 					System.out.println("label clicked");
 					selectedComponent = active.getSelectedComponent();
@@ -117,7 +114,7 @@ public class MouseEventHandler {
 						labelClickedOnce = null;
 					}
 				} else if (clickCount == 2) {
-					interactionManager.addPartyToActiveWindow(new Point2D.Double(x, y));
+					interactionManager.addParty(new Point2D.Double(x, y));
 				}
 				break;
 			}
