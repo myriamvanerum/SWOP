@@ -245,6 +245,23 @@ public class InteractionManager {
 		getActiveInteraction().changePartyType();
 	}
 	
+	/* LABEL METHODS */
+	
+	public void confirmLabel() {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().confirmLabel();
+	}
+	
+	public void removeLabelCharacter() {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().removeLabelCharacter();
+	}
+	
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().addLabelCharacter(keyCode, keyChar);
+	}
+	
 	/* GETTERS AND SETTERS */
 
 	public ViewInteraction getActiveInteraction() {

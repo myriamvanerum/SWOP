@@ -164,6 +164,20 @@ public class ViewInteraction implements Observer {
 		interactr.changePartyType(viewParty);
 	}
 	
+	/* LABEL METHODS */
+	
+	public void confirmLabel() {
+		((DiagramWindow)getActiveWindow()).confirmLabel();
+	}
+	
+	public void removeLabelCharacter() {
+		((DiagramWindow)getActiveWindow()).removeLabelCharacter();
+	}
+	
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		((DiagramWindow)getActiveWindow()).addLabelCharacter(keyCode, keyChar);
+	}
+	
 	/* OBSERVER METHODDS */
 
 	/**
@@ -246,11 +260,9 @@ public class ViewInteraction implements Observer {
 		
 		for (SubWindow window : getSubWindows()) {
 			window.addViewMessage(message, position);
-			
 			if (window == getActiveWindow()) {
-				ViewMessage viewMessage = window.findViewMessage(message);
+				window.setSelectedComponent(window.findViewMessage(message));
 				window.changeLabelState("MESSAGE");
-				window.setSelectedComponent(viewMessage);
 			}
 		}
 	}

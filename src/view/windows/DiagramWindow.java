@@ -484,4 +484,16 @@ public class DiagramWindow extends SubWindow {
 			getSelectedComponent().unselect();
 		setSelectedComponent(null);
 	}
+
+	public void confirmLabel() {
+		getLabelState().confirmLabel();
+	}
+	
+	public void removeLabelCharacter() {
+		getLabelState().removeCharacter();
+	}
+	
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		getLabelState().addCharacter(keyCode, keyChar);
+	}
 }

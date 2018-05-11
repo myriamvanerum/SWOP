@@ -3,8 +3,6 @@ package view.eventhandlers;
 import java.awt.event.KeyEvent;
 
 import view.InteractionManager;
-import view.labelstate.LabelState;
-import view.windows.DiagramWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -70,10 +68,10 @@ public class KeyEventHandler {
 				interactionManager.deleteComponent();
 				break;
 			case KeyEvent.VK_ENTER:
-				labelState().confirmLabel();
+				interactionManager.confirmLabel();
 				break;
 			case KeyEvent.VK_BACK_SPACE:
-				labelState().removeCharacter();
+				interactionManager.removeLabelCharacter();
 				break;
 			}
 
@@ -85,13 +83,8 @@ public class KeyEventHandler {
 
 				// TODO voor partylabel enkel bepaalde karakters toelaten
 				// TODO voor messagelabel (bijna) alle karakters toelaten
-				labelState().addCharacter(keyCode, keyChar);
+				interactionManager.addLabelCharacter(keyCode, keyChar);
 			}
 		}
-	}
-
-	private LabelState labelState() {
-		DiagramWindow diagram = (DiagramWindow)interactionManager.getActiveInteraction().getActiveWindow();
-		return diagram.getLabelState();
 	}
 }
