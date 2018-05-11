@@ -224,8 +224,7 @@ public class ViewInteraction implements Observer {
 		for (SubWindow window : getSubWindows()) {
 			window.addViewParty(party, position);
 			if (window == getActiveWindow()) {
-				window.setSelectedComponent(window.findViewParty(party));
-				window.changeLabelState("PARTY");
+				window.selectParty(party);
 			}
 		}
 	}
@@ -261,8 +260,7 @@ public class ViewInteraction implements Observer {
 		for (SubWindow window : getSubWindows()) {
 			window.addViewMessage(message, position);
 			if (window == getActiveWindow()) {
-				window.setSelectedComponent(window.findViewMessage(message));
-				window.changeLabelState("MESSAGE");
+				window.selectMessage(message);
 			}
 		}
 	}

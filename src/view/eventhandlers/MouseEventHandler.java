@@ -53,6 +53,7 @@ public class MouseEventHandler {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
+		// TODO opkuisen, zie keyEventHandler
 		// TODO labelstate !!! aanmaken
 		
 		SubWindow active = null;

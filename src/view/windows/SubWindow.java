@@ -125,22 +125,25 @@ public abstract class SubWindow {
 
 	public abstract void draw(Graphics2D g);
 	
-	public abstract void removeViewParty(Party party);
-	public abstract void changeViewParty(Party party, Party partyNew);
-	public abstract void addViewParty(Party party, Point2D position);
-	public abstract ViewParty findViewParty(Party party);
-	public abstract void removeViewMessage(Message message);
-	public abstract void addViewMessage(Message message, Point2D position);
-	public abstract ViewMessage findViewMessage(Message message);
-	public abstract void editViewLabel(Component component);
-	public abstract ViewComponent clickParty(int x2, int y2);
-	public abstract Party clickLifeline(int x2, int y2);
-	public abstract void moveComponent(ViewComponent selectedComponent, int x2, int y2);
+	public void removeViewParty(Party party) {}
+	public void changeViewParty(Party party, Party partyNew) {}
+	public void addViewParty(Party party, Point2D position) {}
+	public ViewParty findViewParty(Party party) {return null;}
+	public void removeViewMessage(Message message) {}
+	public void addViewMessage(Message message, Point2D position) {}
+	public ViewMessage findViewMessage(Message message) {return null;}
+	public void editViewLabel(Component component) {}
+	public ViewComponent clickParty(int x2, int y2) {return null;}
+	public Party clickLifeline(int x2, int y2) {return null;}
+	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {}
+	
+	public void selectParty(Party party) {}
+	public void selectMessage(Message message) {}
 		
-	public abstract void setSelectedComponent(ViewComponent viewComponent);
-	public abstract ViewComponent getSelectedComponent();
+	public void setSelectedComponent(ViewComponent viewComponent) {}
+	public ViewComponent getSelectedComponent() {return null;}
 
-	public abstract ViewLabel clickLabel(int x2, int y2);
-	public abstract void selectComponent();
-	public abstract void changeLabelState(String string);
+	public ViewLabel clickLabel(int x2, int y2) {return null;}
+	public void selectComponent() {}
+	public void changeLabelState(String string) {}
 }

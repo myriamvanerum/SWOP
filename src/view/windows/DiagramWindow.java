@@ -419,27 +419,6 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 
-	/**
-	 * Check the Message Call Stack
-	 * 
-	 * @param sender
-	 *            Message sender
-	 * @param receiver
-	 *            Message receiver
-	 * @return true if the call stack is correct
-	 * @throws NullPointerException
-	 *             No sender, receiver or subwindow supplied
-	 */
-	public boolean checkCallStack(Party sender, Party receiver) {
-		if (sender == null || receiver == null)
-			throw new NullPointerException();
-
-		ViewParty first = findViewParty(sender);
-		ViewParty second = findViewParty(receiver);
-
-		return first.getPositionSeq().getX() < second.getPositionSeq().getX();
-	}
-
 	public void removeViewParty(Party party) {
 		ViewParty viewParty = findViewParty(party);
 		getViewParties().remove(viewParty);
@@ -475,6 +454,16 @@ public class DiagramWindow extends SubWindow {
 
 		getViewMessages().add(viewMessage);
 		getViewMessages().add(resMessage);
+	}
+	
+	public void selectParty(Party party) {
+		setSelectedComponent(findViewParty(party));
+		changeLabelState("PARTY");
+	}
+	
+	public void selectMessage(Message message) {
+		setSelectedComponent(findViewMessage(message));
+		changeLabelState("MESSAGE");
 	}
 
 	public void editViewLabel(Component component) {
