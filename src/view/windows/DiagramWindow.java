@@ -470,6 +470,10 @@ public class DiagramWindow extends SubWindow {
 		ViewParty receiver = findViewParty(message.getReceiver());
 		ViewMessage viewMessage;
 		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
+		
+		for (ViewMessage vMessage : getViewMessages()) {
+			vMessage.moveDownIfBelow(position.getY());
+		}
 
 		viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
 		position.setLocation(position.getX(), position.getY() + 30);
@@ -479,7 +483,7 @@ public class DiagramWindow extends SubWindow {
 		getViewMessages().add(resMessage);
 		
 		// TODO verplaats alle lager gelegen messages naar onder om plaats te maken voor deze nieuwe messages
-		// TODO activaction bar verlengen ipv en nieuwe aan te maken? niet zo belangrijk
+		// TODO activaction bar verlengen ipv een nieuwe aan te maken? niet zo belangrijk
 	}
 	
 	@Override

@@ -121,4 +121,9 @@ public class ViewMessage extends ViewComponent {
 	public void setLabelState(DiagramWindow subwindow) {
 		subwindow.setLabelState(new InvocationState(subwindow));
 	}
+
+	public void moveDownIfBelow(double y) {
+		if (getPositionSeq().getY() >= y)
+			setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + 50));
+	}
 }
