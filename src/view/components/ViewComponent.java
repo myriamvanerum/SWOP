@@ -123,7 +123,7 @@ public class ViewComponent implements Selectable {
 		System.out.println("Set label state active subwindow");
 	}
 	
-	public DialogBox createDialogBox() {
+	public DialogBox createDialogBox(int x, int y) {
 		return null;
 	}
 }

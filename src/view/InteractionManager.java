@@ -112,7 +112,7 @@ public class InteractionManager {
 	public void openDialogBox() {
 		System.out.println("Open dialog box.");
 		if (getActiveInteraction() != null)
-			getActiveInteraction().openDialogBox();
+			getActiveInteraction().openDialogBox(findLowestWindow());
 	}
 
 	/**

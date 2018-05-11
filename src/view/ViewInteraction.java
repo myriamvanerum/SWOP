@@ -135,17 +135,21 @@ public class ViewInteraction implements Observer {
 		active.changeState();
 	}
 
-	public void openDialogBox() {
-		if (getActiveWindow().getSelectedComponent() == null) return;
-		DialogBox dialogBox = getActiveWindow().getSelectedComponent().createDialogBox();
+	public void openDialogBox(Point2D lowestPosition) {
+		if (selectedComponent() == null) return;
+		DialogBox dialogBox = selectedComponent().createDialogBox((int)lowestPosition.getX(), (int)lowestPosition.getY());
 		subWindows.add(dialogBox);
 		activeWindow = dialogBox;
+	}
+
+	private ViewComponent selectedComponent() {
+		return getActiveWindow().getSelectedComponent();
 	}
 	
 	/* COMPONENT OPERATIONS */
 
 	public void deleteComponent() {
-		ViewComponent viewComponent = getActiveWindow().getSelectedComponent();
+		ViewComponent viewComponent = selectedComponent();
 		if (viewComponent == null) return;
 		interactr.deleteComponent(viewComponent);
 	}
@@ -160,7 +164,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void changePartyType() {
-		ViewParty viewParty = (ViewParty) getActiveWindow().getSelectedComponent();
+		ViewParty viewParty = (ViewParty) selectedComponent();
 		interactr.changePartyType(viewParty);
 	}
 	
@@ -178,7 +182,7 @@ public class ViewInteraction implements Observer {
 		getActiveWindow().addLabelCharacter(keyCode, keyChar);
 	}
 	
-	/* OBSERVER METHODDS */
+	/* OBSERVER METHODS */
 
 	/**
 	 * Method to be called when a Party type is changed
@@ -305,4 +309,5 @@ public class ViewInteraction implements Observer {
 	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
 	}	
+	
 }

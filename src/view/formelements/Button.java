@@ -39,6 +39,7 @@ public class Button extends WindowControl {
 		g.fill(rec);
 		g.setColor(Color.BLACK);
 		g.draw(rec);
-		g.drawString(text, getX() + getWidth() / 2, getY() + 15);
+		int textWidth = g.getFontMetrics().stringWidth(text);
+		g.drawString(text, (getX() + getWidth() / 2) - (textWidth/2), getY() + 15);
 	}
 }

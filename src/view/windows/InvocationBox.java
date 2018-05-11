@@ -25,13 +25,13 @@ public class InvocationBox extends DialogBox {
 
 	private void addControls(ViewLabel method) {
 		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Method: ", getX()+10, getY()+20, method));
-		controls.add(new TextBox("New: ", getX()+10, getY()+20, labelArguments));
-		controls.add(new ListBox(message.getArguments(), getX()+10, getY()+100));
-		controls.add(new Button("\u02C4", getX()+175,getY()+100,25,20));
-		controls.add(new Button("\u02C5", getX()+175,getY()+130,25,20));
-		controls.add(new Button("X", getX()+175,getY()+160,25,20));
-		controls.add(new Button("Add", getX()+175,getY()+190,25,20));
+		controls.add(new TextBox("Method: ", getX()+10, getY()+50, method));
+		controls.add(new TextBox("New: ", getX()+10, getY()+80, labelArguments));
+		controls.add(new ListBox(message.getArguments(), getX()+10, getY()+130));
+		controls.add(new Button("\u02C4", getX()+175,getY()+130,25,20));
+		controls.add(new Button("\u02C5", getX()+175,getY()+160,25,20));
+		controls.add(new Button("X", getX()+175,getY()+190,25,20));
+		controls.add(new Button("Add", getX()+175,getY()+220,25,40));
 		
 		setControls(controls);
 		setCurrentControl(0);

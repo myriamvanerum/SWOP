@@ -46,9 +46,9 @@ public class DialogBox extends SubWindow {
 
 	@Override
 	public void draw(Graphics2D g) {
-		getTitlebar().draw(g, getTitle());
 		drawWhiteField(g);	
-		drawControls(g);
+		getTitlebar().draw(g, getTitle());
 		drawBlackBorder(g);
+		drawControls(g);
 	}
 }
