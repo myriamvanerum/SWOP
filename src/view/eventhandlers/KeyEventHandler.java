@@ -79,7 +79,7 @@ public class KeyEventHandler {
 					|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
 					|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
 					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
-					|| keyCode == KeyEvent.VK_SPACE)) {
+					|| keyCode == KeyEvent.VK_SPACE || keyCode == KeyEvent.VK_COMMA)) {
 
 				// TODO voor partylabel enkel bepaalde karakters toelaten
 				// TODO voor messagelabel (bijna) alle karakters toelaten

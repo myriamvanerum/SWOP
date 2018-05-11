@@ -1,6 +1,9 @@
 package domain.message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import domain.Interaction;
 import domain.party.Party;
@@ -75,4 +78,52 @@ public class InvocationMessage extends Message {
     	}
     	return value;
     }
+    
+    @Override
+    public void editLabel(Interaction interaction, String label) {
+		setLabel(label);
+		
+		String method = getMethodFromLabel(label);
+		ArrayList<String> arguments = getArgumentsFromLabel(label);
+		
+		setMethod(method);
+		if (arguments != null) 
+			setArguments(arguments);
+		
+		interaction.notifyEditLabel(this);
+	}
+    
+
+	
+	public String getMethodFromLabel(String string) {		
+		String result = "";
+		Pattern pattern = Pattern.compile("^(.*?)\\(");
+		Matcher matcher = pattern.matcher(string);
+		if (matcher.find())
+		{
+		    result += matcher.group(1);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<String> getArgumentsFromLabel(String string) {
+		ArrayList<String> list = new ArrayList<>();
+		String result = "";
+		Pattern pattern = Pattern.compile("\\(([^\\)]+)\\)");
+		Matcher matcher = pattern.matcher(string);
+		if (matcher.find())
+		{
+		    result += matcher.group(1);
+		}
+		
+		String[] split = result.split(",");
+		
+		for (String s : split)
+			list.add(s);
+		
+		if (list.size() < 1)
+			return null;
+		return list;
+	}
 }
