@@ -151,7 +151,7 @@ public class ViewInteraction implements Observer {
 	}
 
 	public Message addMessage(Party sender, Party receiver, int x, int y) {
-		Message previous = getActiveWindow().getPreviousMessage(sender, y);
+		Message previous = getActiveWindow().getPreviousMessage(y);
 		return interactr.addMessage(sender, receiver, previous, x, y);
 	}
 
@@ -167,15 +167,15 @@ public class ViewInteraction implements Observer {
 	/* LABEL METHODS */
 	
 	public void confirmLabel() {
-		((DiagramWindow)getActiveWindow()).confirmLabel();
+		getActiveWindow().confirmLabel();
 	}
 	
 	public void removeLabelCharacter() {
-		((DiagramWindow)getActiveWindow()).removeLabelCharacter();
+		getActiveWindow().removeLabelCharacter();
 	}
 	
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		((DiagramWindow)getActiveWindow()).addLabelCharacter(keyCode, keyChar);
+		getActiveWindow().addLabelCharacter(keyCode, keyChar);
 	}
 	
 	/* OBSERVER METHODDS */

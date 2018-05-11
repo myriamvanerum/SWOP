@@ -309,6 +309,7 @@ public class DiagramWindow extends SubWindow {
 	 *            The Message to find
 	 * @return The ViewMessage to find, or null
 	 */
+	@Override
 	public ViewMessage findViewMessage(Message message) {
 		for (ViewMessage viewMessage : getViewMessages()) {
 			if (viewMessage.getMessage() == message)
@@ -336,6 +337,7 @@ public class DiagramWindow extends SubWindow {
 	 * @throws NullPointerException
 	 *             No ViewComponent supplied
 	 */
+	@Override
 	public void selectComponent() {
 		ViewComponent viewComponent = getSelectedComponent();
 		if (viewComponent == null)
@@ -362,6 +364,7 @@ public class DiagramWindow extends SubWindow {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
+	@Override
 	public ViewParty clickParty(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -386,6 +389,7 @@ public class DiagramWindow extends SubWindow {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
+	@Override
 	public ViewLabel clickLabel(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -418,6 +422,7 @@ public class DiagramWindow extends SubWindow {
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
+	@Override
 	public Party clickLifeline(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -432,11 +437,13 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 
+	@Override
 	public void removeViewParty(Party party) {
 		ViewParty viewParty = findViewParty(party);
 		getViewParties().remove(viewParty);
 	}
 
+	@Override
 	public void changeViewParty(Party party, Party partyNew) {
 		ViewParty viewParty = findViewParty(party);
 		viewParty.setParty(partyNew);
@@ -445,16 +452,19 @@ public class DiagramWindow extends SubWindow {
 		getViewParties().add(newViewParty);
 	}
 
+	@Override
 	public void addViewParty(Party party, Point2D position) {
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
 		getViewParties().add(viewParty);
 	}
 
+	@Override
 	public void removeViewMessage(Message message) {
 		ViewMessage viewMessage = findViewMessage(message);
 		getViewMessages().remove(viewMessage);
 	}
 
+	@Override
 	public void addViewMessage(Message message, Point2D position) {
 		ViewParty sender = findViewParty(message.getSender());
 		ViewParty receiver = findViewParty(message.getReceiver());
@@ -469,32 +479,36 @@ public class DiagramWindow extends SubWindow {
 		getViewMessages().add(resMessage);
 	}
 	
+	@Override
 	public void selectParty(Party party) {
 		setSelectedComponent(findViewParty(party));
 		changeLabelState("PARTY");
 	}
 	
+	@Override
 	public void selectMessage(Message message) {
 		setSelectedComponent(findViewMessage(message));
 		changeLabelState("MESSAGE");
 	}
 	
-	public Message getPreviousMessage(Party sender, int yClicked) {
+	@Override
+	public Message getPreviousMessage(int yClicked) {
 		Message previous = null;
 		ArrayList<ViewMessage> messages = copyMessages(getViewMessages());
 		messages.sort(Comparator.comparing(m -> m.getPositionSeq().getY()));
-		yClicked -= getY();
+		yClicked -= getY() + getTitlebar().getHeight();
 		
 		for (ViewMessage message : messages) {
-			if (message.getPositionSeq().getY() <= yClicked)
+			if (message.getPositionSeq().getY() <= yClicked) 
 				previous = message.getMessage();
 			else
 				break;
 		}
-		
+
 		return previous;
 	}
 
+	@Override
 	public void editViewLabel(Component component) {
 		setLabelState(showState);
 		updateLabels(component, component.getLabel());
@@ -503,14 +517,17 @@ public class DiagramWindow extends SubWindow {
 		setSelectedComponent(null);
 	}
 
+	@Override
 	public void confirmLabel() {
 		getLabelState().confirmLabel();
 	}
 	
+	@Override
 	public void removeLabelCharacter() {
 		getLabelState().removeCharacter();
 	}
 	
+	@Override
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		getLabelState().addCharacter(keyCode, keyChar);
 	}

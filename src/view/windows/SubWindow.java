@@ -146,6 +146,9 @@ public abstract class SubWindow {
 	public ViewLabel clickLabel(int x2, int y2) {return null;}
 	public void selectComponent() {}
 	public void changeLabelState(String string) {}
+	public void confirmLabel() {}
+	public void removeLabelCharacter() {}
+	public void addLabelCharacter(int keyCode, char keyChar) {}
 
-	public Message getPreviousMessage(Party sender, int y2) {return null;}
+	public Message getPreviousMessage(int y2) {return null;}
 }
