@@ -54,7 +54,14 @@ public class MouseEventHandler {
 			interactionManager.released(x,y);
 			break;
 		case MouseEvent.MOUSE_CLICKED:
-			interactionManager.clicked(clickCount, x,y);
+			switch (clickCount) {
+			case 1:
+				interactionManager.clickedOnce(x, y);
+				break;
+			case 2: 
+				interactionManager.clickedTwice(x, y);
+				break;
+			}
 			break;
 		}
 	}

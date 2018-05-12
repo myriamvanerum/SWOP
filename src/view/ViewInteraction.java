@@ -180,6 +180,13 @@ public class ViewInteraction implements Observer {
 		return getActiveWindow().clickLifeline(x, y);
 	}
 	
+	public void doubleClick(int x, int y) {
+		if (getActiveWindow().getSelectedComponent() != null)
+			changePartyType();
+		else
+			addParty(new Point2D.Double(x, y));
+	}
+	
 	/* LABEL METHODS */
 	
 	public void confirmLabel() {

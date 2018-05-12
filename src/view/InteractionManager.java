@@ -233,26 +233,6 @@ public class InteractionManager {
 		getActiveInteraction().deleteComponent();
 	}
 
-	/**
-	 * Forward the request to add a new Party
-	 * 
-	 * @param position
-	 *            The position to place the Party at
-	 */
-	public void addParty(Point2D position) {
-		if (getActiveInteraction() == null) return;
-		getActiveInteraction().addParty(position);
-	}
-
-	/**
-	 * Forward the request to change the type of the selected Party
-	 */
-	public void changePartyType() {
-		if (getActiveInteraction() == null)
-			return;
-		getActiveInteraction().changePartyType();
-	}
-
 	/* LABEL METHODS */
 
 	public void confirmLabel() {
@@ -310,39 +290,40 @@ public class InteractionManager {
 	/* USER OPERATIONS */
 
 	ViewComponent labelClickedOnce = null;
-	public void clicked(int clickCount, int x, int y) {
+	public void clickedOnce(int x, int y) {
 		SubWindow active = activeInteraction.activeWindow;
 
-		if (clickCount == 1) {
-			closeClickedSubwindow(x, y);
-			activateSubwindow(x, y);
+		closeClickedSubwindow(x, y);
+		activateSubwindow(x, y);
 
-			ViewLabel viewLabel = null;
-			active.setSelectedComponent(active.clickParty(x, y));
+		ViewLabel viewLabel = null;
+		active.setSelectedComponent(active.clickParty(x, y));
 
-			if ((viewLabel = active.clickLabel(x, y)) != null) {
-				System.out.println("label clicked");
-				ViewComponent selectedComponent = active.getSelectedComponent();
-
-				if (clickCount == 1 && labelClickedOnce == null) {
-					active.selectComponent();
-					labelClickedOnce = selectedComponent;
-				} else if (selectedComponent == labelClickedOnce) {
-					selectedComponent.setLabelState(active);
-
-					Component currentComponent = selectedComponent.getComponent();
-					String label = currentComponent.getLabel() + "|";
-					viewLabel.setOutput(label);
-					labelClickedOnce = null;
-				}
+		if ((viewLabel = active.clickLabel(x, y)) != null) {
+			System.out.println("Label Clicked.");
+			ViewComponent selectedComponent = active.getSelectedComponent();
+			
+			if (labelClickedOnce == null) {
+				active.selectComponent();
+				labelClickedOnce = selectedComponent;
+			} else if (selectedComponent == labelClickedOnce) {
+				selectedComponent.setLabelState(active);
+				Component currentComponent = selectedComponent.getComponent();
+				String label = currentComponent.getLabel() + "|";
+				viewLabel.setOutput(label);
+				labelClickedOnce = null;
 			}
-		} else if (clickCount == 2) {
-			if (active.getSelectedComponent() != null) {
-				changePartyType();
-			}
-
-			addParty(new Point2D.Double(x, y));
 		}
+	}
+	
+	public void clickedTwice(int x, int y) {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().doubleClick(x, y);
+	}
+	
+	public void dragged(int x, int y) {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().moveComponent(x, y);
 	}
 
 	Party sender, receiver;
@@ -350,11 +331,6 @@ public class InteractionManager {
 		if (getActiveInteraction() == null) return;
 		sender = getActiveInteraction().checkLifeLine(x, y);
 		getActiveInteraction().selectComponent(x, y);
-	}
-
-	public void dragged(int x, int y) {
-		if (getActiveInteraction() == null) return;
-		getActiveInteraction().moveComponent(x, y);
 	}
 
 	public void released(int x, int y) {
