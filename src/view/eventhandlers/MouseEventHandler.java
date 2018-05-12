@@ -1,15 +1,8 @@
 package view.eventhandlers;
 
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 
-import domain.Component;
-import domain.party.Party;
 import view.InteractionManager;
-import view.components.ViewComponent;
-import view.components.ViewLabel;
-import view.windows.DiagramWindow;
-import view.windows.SubWindow;
 
 /**
  * EventHandler class. Translates user input for Controller
@@ -50,25 +43,19 @@ public class MouseEventHandler {
 		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
 			throw new IllegalArgumentException();
 
-		// TODO opkuisen, zie keyEventHandler
-		// TODO labelstate !!! aanmaken
-
-		/*if (active.clickOutsideActiveSubwindow(x, y))
-			return;*/
-
-			switch (id) {
-			case MouseEvent.MOUSE_PRESSED:
-				interactionManager.pressed(x,y);
-				break;
-			case MouseEvent.MOUSE_DRAGGED:
-				interactionManager.dragged(x,y);
-				break;
-			case MouseEvent.MOUSE_RELEASED:
-				interactionManager.released(x,y);
-				break;
-			case MouseEvent.MOUSE_CLICKED:
-				interactionManager.clicked(clickCount, x,y);
-				break;
-			}
+		switch (id) {
+		case MouseEvent.MOUSE_PRESSED:
+			interactionManager.pressed(x,y);
+			break;
+		case MouseEvent.MOUSE_DRAGGED:
+			interactionManager.dragged(x,y);
+			break;
+		case MouseEvent.MOUSE_RELEASED:
+			interactionManager.released(x,y);
+			break;
+		case MouseEvent.MOUSE_CLICKED:
+			interactionManager.clicked(clickCount, x,y);
+			break;
+		}
 	}
 }

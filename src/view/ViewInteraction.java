@@ -164,12 +164,20 @@ public class ViewInteraction implements Observer {
 		interactr.changePartyType(viewParty);
 	}
 	
+	public void selectComponent(int x, int y) {
+		getActiveWindow().selectComponent(x, y);
+	}
+	
 	private ViewComponent selectedComponent() {
 		return getActiveWindow().getSelectedComponent();
 	}
 	
 	public void moveComponent(int x, int y) {
 		getActiveWindow().moveComponent(x, y);
+	}
+	
+	public Party checkLifeLine(int x, int y) {
+		return getActiveWindow().clickLifeline(x, y);
 	}
 	
 	/* LABEL METHODS */

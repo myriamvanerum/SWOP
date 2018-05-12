@@ -295,6 +295,11 @@ public class DiagramWindow extends SubWindow {
 		else
 			viewComponent.select();
 	}
+	
+	@Override 
+	public void selectComponent(int x2, int y2) {
+		setSelectedComponent(clickParty(x2, y2));
+	}
 
 	/**
 	 * Checks if there is a party at the clicked position

@@ -228,28 +228,9 @@ public class InteractionManager {
 	 * Forward the request to delete the selected Component
 	 */
 	public void deleteComponent() {
-		if (getActiveInteraction() == null)
-			return;
+		if (getActiveInteraction() == null) return;
 		System.out.println("Forward Delete Component.");
 		getActiveInteraction().deleteComponent();
-	}
-
-	/**
-	 * Forward the request to add a new message
-	 * 
-	 * @param sender
-	 *            The Message sender
-	 * @param receiver
-	 *            The message receiver
-	 * @param x
-	 *            The clicked x coordinate
-	 * @param y
-	 *            The clicked y coordinate
-	 */
-	public void addMessage(Party sender, Party receiver, int x, int y) {
-		if (getActiveInteraction() == null)
-			return;
-		getActiveInteraction().addMessage(sender, receiver, x, y);
 	}
 
 	/**
@@ -259,8 +240,7 @@ public class InteractionManager {
 	 *            The position to place the Party at
 	 */
 	public void addParty(Point2D position) {
-		if (getActiveInteraction() == null)
-			return;
+		if (getActiveInteraction() == null) return;
 		getActiveInteraction().addParty(position);
 	}
 
@@ -326,7 +306,8 @@ public class InteractionManager {
 	public void setInteractions(ArrayList<ViewInteraction> interactions) {
 		this.interactions = interactions;
 	}
-
+	
+	/* USER OPERATIONS */
 
 	ViewComponent labelClickedOnce = null;
 	public void clicked(int clickCount, int x, int y) {
@@ -366,9 +347,9 @@ public class InteractionManager {
 
 	Party sender, receiver;
 	public void pressed(int x, int y) {
-		SubWindow active = activeInteraction.activeWindow;
-		sender = active.clickLifeline(x, y);
-		active.setSelectedComponent(active.clickParty(x, y));
+		if (getActiveInteraction() == null) return;
+		sender = getActiveInteraction().checkLifeLine(x, y);
+		getActiveInteraction().selectComponent(x, y);
 	}
 
 	public void dragged(int x, int y) {
@@ -377,11 +358,12 @@ public class InteractionManager {
 	}
 
 	public void released(int x, int y) {
-		SubWindow active = getActiveInteraction().getActiveWindow();
-		receiver = active.clickLifeline(x, y);
-		if (sender != null && receiver != null) { // && active.checkCallStack(first, second)) {
-			// TODO add previous message
-			addMessage(sender, receiver, x, y);
+		if (getActiveInteraction() == null) return;
+		receiver = getActiveInteraction().checkLifeLine(x, y);
+		if (sender != null && receiver != null) {
+			getActiveInteraction().addMessage(sender, receiver, x, y);
 		}
+		sender = null;
+		receiver = null;
 	}
 }

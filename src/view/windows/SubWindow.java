@@ -200,10 +200,10 @@ public abstract class SubWindow {
 
 	public void selectParty(Party party) {}
 	public void selectMessage(Message message) {}
-
 	public void setSelectedComponent(ViewComponent viewComponent) {}
 	public ViewComponent getSelectedComponent() {return null;}
 	public void selectComponent() {}
+	public void selectComponent(int x2, int y2) {}
 
 	public void confirmLabel() {}
 	public void removeLabelCharacter() {}
