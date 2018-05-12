@@ -13,6 +13,7 @@ import view.windows.DiagramWindow;
  *
  */
 import view.windows.DialogBox;
+import view.windows.SubWindow;
 public class ViewComponent implements Selectable {
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
@@ -119,7 +120,7 @@ public class ViewComponent implements Selectable {
 		isSelected = false;
 	}
 
-	public void setLabelState(DiagramWindow subwindow) {
+	public void setLabelState(SubWindow subwindow) {
 		System.out.println("Set label state active subwindow");
 	}
 	

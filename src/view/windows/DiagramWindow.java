@@ -21,10 +21,6 @@ import view.components.ViewResultMessage;
 import view.diagramstate.ComState;
 import view.diagramstate.SeqState;
 import view.diagramstate.State;
-import view.labelstate.InvocationState;
-import view.labelstate.LabelState;
-import view.labelstate.PartyState;
-import view.labelstate.ShowState;
 
 /**
  * SubWindow class. A SubWindow contains an Interaction with Parties and
@@ -35,19 +31,12 @@ import view.labelstate.ShowState;
  *
  */
 public class DiagramWindow extends SubWindow {
-	private ViewInteraction viewInteraction;
-
 	private ArrayList<ViewParty> viewParties;
 	private ArrayList<ViewMessage> viewMessages;
 
 	private State windowState;
 	private SeqState seqState = new SeqState();
 	private ComState comState = new ComState();
-
-	private LabelState labelState;
-	private ShowState showState = new ShowState(this);
-	private InvocationState invocationState = new InvocationState(this);
-	private PartyState partyState = new PartyState(this);
 
 	public ViewComponent selectedComponent;
 
@@ -74,8 +63,6 @@ public class DiagramWindow extends SubWindow {
 		setViewMessages(new ArrayList<>());
 
 		setState(seqState);
-		// TODO labelstate
-		setLabelState(showState);
 		setSelectedComponent(null);
 		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
 	}
@@ -107,7 +94,6 @@ public class DiagramWindow extends SubWindow {
 		setViewMessages(messages);
 
 		setState(activeWindow.getState());
-		setLabelState(new ShowState(this));
 		setSelectedComponent(null);
 		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
 	}
@@ -189,37 +175,7 @@ public class DiagramWindow extends SubWindow {
 			setState(seqState);
 	}
 
-	/**
-	 * Change the SubWindows LabelState
-	 * 
-	 * @param state
-	 *            New label state
-	 */
-	public void changeLabelState(String state) {
-		switch (state.toUpperCase()) {
-		case "SHOW":
-			labelState = showState;
-			break;
-		case "MESSAGE":
-			labelState = invocationState;
-			break;
-		case "PARTY":
-			labelState = partyState;
-			break;
-		default:
-			break;
-		}
-	}
-
 	/* GETTERS AND SETTERS */
-
-	public ViewInteraction getViewInteraction() {
-		return viewInteraction;
-	}
-
-	public void setViewInteraction(ViewInteraction viewInteraction) {
-		this.viewInteraction = viewInteraction;
-	}
 
 	public ArrayList<ViewParty> getViewParties() {
 		return viewParties;
@@ -243,18 +199,6 @@ public class DiagramWindow extends SubWindow {
 
 	public void setState(State windowState) {
 		this.windowState = windowState;
-	}
-
-	public LabelState getLabelState() {
-		return labelState;
-	}
-
-	public LabelState getShowState() {
-		return showState;
-	}
-
-	public void setLabelState(LabelState labelState) {
-		this.labelState = labelState;
 	}
 
 	public ViewComponent getSelectedComponent() {
@@ -516,7 +460,7 @@ public class DiagramWindow extends SubWindow {
 
 	@Override
 	public void editViewLabel(Component component) {
-		setLabelState(showState);
+		setLabelState(getShowState());
 		updateLabels(component, component.getLabel());
 		if (getSelectedComponent() != null)
 			getSelectedComponent().unselect();
