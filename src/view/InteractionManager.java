@@ -151,27 +151,31 @@ public class InteractionManager {
 	 * Close a SubWindow if a CloseButton can be found at the clicked coordinates
 	 */
 	public void closeClickedSubwindow(int x, int y) {
-		if (getActiveInteraction().closeWindow(x, y)) {
-			if (getActiveInteraction().hasNoWindows()) {
-				removeInteraction(getActiveInteraction());
-				if (getInteractions().size() > 0) {
-					ViewInteraction topInteraction = getInteractions().get(getInteractions().size() - 1);
-					setActiveInteraction(topInteraction);
-					topInteraction.setActiveWindow(
-							topInteraction.getSubWindows().get(topInteraction.getSubWindows().size() - 1));
-				} else
-					setActiveInteraction(null);
-			}
-			return;
-		}
-
-		for (int i = getInteractions().size() - 1; i >= 0; i--) {
-			ViewInteraction interaction = getInteractions().get(i);
-			if (interaction != getActiveInteraction() && interaction.closeWindow(x, y)) {
-				if (interaction.hasNoWindows())
-					removeInteraction(interaction);
+		try {
+			if (getActiveInteraction().closeWindow(x, y)) {
+				if (getActiveInteraction().hasNoWindows()) {
+					removeInteraction(getActiveInteraction());
+					if (getInteractions().size() > 0) {
+						ViewInteraction topInteraction = getInteractions().get(getInteractions().size() - 1);
+						setActiveInteraction(topInteraction);
+						topInteraction.setActiveWindow(
+								topInteraction.getSubWindows().get(topInteraction.getSubWindows().size() - 1));
+					} else
+						setActiveInteraction(null);
+				}
 				return;
 			}
+	
+			for (int i = getInteractions().size() - 1; i >= 0; i--) {
+				ViewInteraction interaction = getInteractions().get(i);
+				if (interaction != getActiveInteraction() && interaction.closeWindow(x, y)) {
+					if (interaction.hasNoWindows())
+						removeInteraction(interaction);
+					return;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("No active interaction");
 		}
 	}
 
@@ -195,20 +199,27 @@ public class InteractionManager {
 	 *            The clicked x coordinates
 	 * @param y
 	 *            The clicked y coordinates
+	 * @return 
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
-	public void activateSubwindow(int x, int y) {
+	public ViewInteraction activateSubwindow(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-
-		for (int i = getInteractions().size() - 1; i >= 0; i--) {
-			Boolean found = getInteractions().get(i).activateSubwindow(x, y);
-			if (found && getActiveInteraction() != getInteractions().get(i)) {
-				getActiveInteraction().setActiveWindow(null);
-				setActiveInteraction(getInteractions().get(i));
+		
+		if (getActiveInteraction() != null && getActiveInteraction().getActiveWindow() != null && getActiveInteraction().getActiveWindow().clickOutsideActiveSubwindow(x, y))
+		{
+			for (int i = getInteractions().size() - 1; i >= 0; i--) {
+				Boolean found = getInteractions().get(i).activateSubwindow(x, y);
+				if (found && getActiveInteraction() != getInteractions().get(i)) {
+					getActiveInteraction().setActiveWindow(null);
+					setActiveInteraction(getInteractions().get(i));
+					return getInteractions().get(i);
+				}
 			}
 		}
+		
+		return null;
 	}
 
 	/**
@@ -290,12 +301,11 @@ public class InteractionManager {
 	/* USER OPERATIONS */
 
 	public void clickedOnce(int x, int y) {
-		if (getActiveInteraction() == null) return;
-		
 		closeClickedSubwindow(x, y);
 		activateSubwindow(x, y);
 		
-		getActiveInteraction().singleClick(x, y);
+		if (getActiveInteraction() != null)
+			getActiveInteraction().singleClick(x, y);
 	}
 	
 	public void clickedTwice(int x, int y) {

@@ -177,6 +177,21 @@ public abstract class SubWindow {
 		return x >= (getX() + getWidth() - getTitlebar().getHeight()) && x <= (getX() + getWidth()) && y >= getY()
 				&& y <= (getY() + getTitlebar().getHeight());
 	}
+	
+	public void confirmLabel() {
+		if (getLabelState() != getShowState())
+			getLabelState().confirmLabel();
+	}
+	
+	public void removeLabelCharacter() {
+		if (getLabelState() != getShowState())
+			getLabelState().removeCharacter();
+	}
+	
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		if (getLabelState() != getShowState())
+			getLabelState().addCharacter(keyCode, keyChar);
+	}
 
 	public abstract void draw(Graphics2D g);
 	
@@ -204,10 +219,6 @@ public abstract class SubWindow {
 	public ViewComponent getSelectedComponent() {return null;}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
-
-	public void confirmLabel() {}
-	public void removeLabelCharacter() {}
-	public void addLabelCharacter(int keyCode, char keyChar) {}
 
 	public void singleClick(int x2, int y2) {}
 }

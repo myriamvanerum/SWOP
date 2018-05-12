@@ -492,19 +492,4 @@ public class DiagramWindow extends SubWindow {
 			}
 		}
 	}
-
-	@Override
-	public void confirmLabel() {
-		getLabelState().confirmLabel();
-	}
-	
-	@Override
-	public void removeLabelCharacter() {
-		getLabelState().removeCharacter();
-	}
-	
-	@Override
-	public void addLabelCharacter(int keyCode, char keyChar) {
-		getLabelState().addCharacter(keyCode, keyChar);
-	}
 }
