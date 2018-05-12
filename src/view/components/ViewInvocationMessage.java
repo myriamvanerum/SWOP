@@ -126,4 +126,10 @@ public class ViewInvocationMessage extends ViewMessage {
 		Integer heightIncrease = 30;
 		getActivationBar().increaseHeight(heightIncrease);
 	}
+	
+	@Override
+	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {
+		getActivationBar().draw(g, xSender, y);
+		getActivationBar().draw(g, xReceiver, y);	
+	}
 }

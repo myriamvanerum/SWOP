@@ -129,4 +129,6 @@ public class ViewMessage extends ViewComponent {
 	}
 
 	public void lengthenActivationBar(double y) {}
+
+	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {}
 }

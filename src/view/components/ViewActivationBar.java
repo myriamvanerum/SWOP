@@ -26,7 +26,6 @@ public class ViewActivationBar {
 	 */
 	public void draw(Graphics2D g, int x, int y) {
 		Rectangle rectangle = new Rectangle(x, y, 12, getHeight());
-		System.out.println("draw height " + getHeight());
 		g.setColor(new Color(150,150,255));
 		g.fill(rectangle);
 //		g.setColor(new Color(0,0,0));
@@ -40,6 +39,5 @@ public class ViewActivationBar {
 	}
 	public void increaseHeight(Integer heightIncrease) {
 		this.height += heightIncrease;
-		System.out.println("increase " + getHeight());
 	}
 }

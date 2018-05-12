@@ -482,9 +482,6 @@ public class DiagramWindow extends SubWindow {
 
 		getViewMessages().add(viewMessage);
 		getViewMessages().add(resMessage);
-		
-		// TODO verplaats alle lager gelegen messages naar onder om plaats te maken voor deze nieuwe messages
-		// TODO activaction bar verlengen ipv een nieuwe aan te maken? niet zo belangrijk
 	}
 	
 	@Override
