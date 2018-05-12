@@ -7,18 +7,19 @@ import domain.SyntaxChecker;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;
-	DiagramWindow diagram;
+	SubWindow subwindow;
 	
-	public LabelState(DiagramWindow diagram) {
+	public LabelState(SubWindow subwindow) {
 		this.syntaxChecker = new SyntaxChecker();
-		this.diagram = diagram;
+		this.subwindow = subwindow;
 	}
 	
 	public ViewComponent getCurrentViewComponent() {
-		return diagram.getSelectedComponent();
+		return subwindow.getSelectedComponent();
 	}
 	
 	public ViewLabel getCurrentViewLabel() {
@@ -59,7 +60,8 @@ public class LabelState {
 		viewLabel.setColor(Color.BLACK);
 		
 		String newLabel = label.substring(0, label.length() - 1);
-		component.editLabel(diagram.getViewInteraction().getInteraction(), newLabel);
+		// TODO interaction
+		component.editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
 		viewLabel.setOutput(newLabel);	
 	}
 }

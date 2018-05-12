@@ -1,9 +1,9 @@
 package view.labelstate;
 
-import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 public class ShowState extends LabelState {
-	public ShowState(DiagramWindow subwindow) {
+	public ShowState(SubWindow subwindow) {
 		super(subwindow);
 	}
 

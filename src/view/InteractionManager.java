@@ -6,13 +6,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import domain.Component;
 import domain.party.Party;
+import view.components.ViewComponent;
+import view.components.ViewLabel;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
+
 /**
- * An InteractionManager holds a list of all current Interactions. It handles all commands from the eventHandlers
- * and forwards them to the appriopriate class.
+ * An InteractionManager holds a list of all current Interactions. It handles
+ * all commands from the eventHandlers and forwards them to the appriopriate
+ * class.
  * 
  * @author groep 03
  */
@@ -20,28 +26,29 @@ public class InteractionManager {
 	private KeyEventHandler keyEventHandler;
 	private MouseEventHandler mouseEventHandler;
 
-	public ViewInteraction activeInteraction = null;	
+	public ViewInteraction activeInteraction = null;
 	public ArrayList<ViewInteraction> interactions = new ArrayList<>();
-	
+
 	/* CONSTRUCTOR */
 
 	public InteractionManager() {
 		setKeyEventHandler(new KeyEventHandler(this));
 		setMouseEventHandler(new MouseEventHandler(this));
 	}
-	
+
 	/* KEY EVENTS AND MOUSE EVENTS */
 
 	/**
 	 * Method to pick up mouse events
+	 * 
 	 * @param id
-	 * 		The mouseEvent id
+	 *            The mouseEvent id
 	 * @param x
-	 * 		The clicked x coordinates
+	 *            The clicked x coordinates
 	 * @param y
-	 * 		The clicked y coordinates
+	 *            The clicked y coordinates
 	 * @param clickCount
-	 * 		The number of clicks
+	 *            The number of clicks
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount) {
 		getMouseEventHandler().handleMouseEvent(id, x, y, clickCount);
@@ -49,25 +56,28 @@ public class InteractionManager {
 
 	/**
 	 * Method to pick up keyboard events
+	 * 
 	 * @param id
-	 * 		The keyEvent id
+	 *            The keyEvent id
 	 * @param keyCode
-	 * 		The keycode for the entered key
+	 *            The keycode for the entered key
 	 * @param keyChar
-	 * 		The keyChar for the entered key
+	 *            The keyChar for the entered key
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		getKeyEventHandler().handleKeyEvent(id, keyCode, keyChar);
 	}
-	
+
 	/* DRAWING */
 
 	/**
-	 * Method to draw all SubWindows (and their contents) on the screen. The active Interaction (and all its windows)
-	 * is drawn last, so it is on top
-	 * @param g Graphics class
+	 * Method to draw all SubWindows (and their contents) on the screen. The active
+	 * Interaction (and all its windows) is drawn last, so it is on top
+	 * 
+	 * @param g
+	 *            Graphics class
 	 */
-	public void draw(Graphics2D g) {        
+	public void draw(Graphics2D g) {
 		// Draw all but active interaction first
 		for (ViewInteraction interaction : getInteractions()) {
 			if (interaction != activeInteraction)
@@ -78,11 +88,12 @@ public class InteractionManager {
 		if (activeInteraction != null)
 			activeInteraction.drawWindows(g);
 	}
-	
+
 	/* WINDOW OPERATIONS */
 
 	/**
-	 * Create a new Interaction. Also triggers the creation of a new DiagramWindow and sets the window as the active window
+	 * Create a new Interaction. Also triggers the creation of a new DiagramWindow
+	 * and sets the window as the active window
 	 */
 	public void createNewInteraction() {
 		System.out.println("Create New Interaction.");
@@ -91,21 +102,23 @@ public class InteractionManager {
 		if (getActiveInteraction() != null)
 			getActiveInteraction().setActiveWindow(null);
 		setActiveInteraction(viewInteraction);
-		
+
 		Point2D lowestPos = findLowestWindow();
 
 		viewInteraction.createDiagramWindow(lowestPos);
 	}
-	
+
 	/**
-	 * Sends along the request to duplicate the active DiagramWindow to the active Interaction
+	 * Sends along the request to duplicate the active DiagramWindow to the active
+	 * Interaction
 	 */
 	public void duplicateActiveWindow() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		System.out.println("Duplicate Active Window.");
 		getActiveInteraction().duplicateActiveWindow();
 	}
-	
+
 	/**
 	 * Sends along the request to open a new DialogBox to the active Interaction
 	 */
@@ -116,7 +129,9 @@ public class InteractionManager {
 	}
 
 	/**
-	 * Finds the lowest positioned SubWindows out of all the possible Interactions and their SubWindows
+	 * Finds the lowest positioned SubWindows out of all the possible Interactions
+	 * and their SubWindows
+	 * 
 	 * @return the lowest position found, or (5,5) if no SubWindows were found
 	 */
 	private Point2D findLowestWindow() {
@@ -124,11 +139,12 @@ public class InteractionManager {
 		positions.add(new Point2D.Double(5, 5));
 		for (ViewInteraction viewInteraction : getInteractions()) {
 			if (viewInteraction.getSubWindows().size() > 0) {
-				DiagramWindow lowestWindow =  (DiagramWindow)Collections.max(viewInteraction.getSubWindows(), Comparator.comparing(s -> s.getY()));
+				DiagramWindow lowestWindow = (DiagramWindow) Collections.max(viewInteraction.getSubWindows(),
+						Comparator.comparing(s -> s.getY()));
 				positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
 			}
 		}
-		return Collections.max(positions, Comparator.comparing(s -> s.getY()));	
+		return Collections.max(positions, Comparator.comparing(s -> s.getY()));
 	}
 
 	/**
@@ -139,10 +155,12 @@ public class InteractionManager {
 			if (getActiveInteraction().hasNoWindows()) {
 				removeInteraction(getActiveInteraction());
 				if (getInteractions().size() > 0) {
-					ViewInteraction topInteraction = getInteractions().get(getInteractions().size()-1);
+					ViewInteraction topInteraction = getInteractions().get(getInteractions().size() - 1);
 					setActiveInteraction(topInteraction);
-					topInteraction.setActiveWindow(topInteraction.getSubWindows().get(topInteraction.getSubWindows().size()-1));
-				} else setActiveInteraction(null);
+					topInteraction.setActiveWindow(
+							topInteraction.getSubWindows().get(topInteraction.getSubWindows().size() - 1));
+				} else
+					setActiveInteraction(null);
 			}
 			return;
 		}
@@ -158,19 +176,21 @@ public class InteractionManager {
 	}
 
 	/**
-	 * Remove an Interaction from the system. Is triggered when an Interaction has no more SubWindows,
-	 * meaning it is no longer accessible
-	 * @param interaction 
-	 * 		The Interacion to remove
+	 * Remove an Interaction from the system. Is triggered when an Interaction has
+	 * no more SubWindows, meaning it is no longer accessible
+	 * 
+	 * @param interaction
+	 *            The Interacion to remove
 	 */
 	private void removeInteraction(ViewInteraction interaction) {
 		System.out.println("Close Interaction.");
 		getInteractions().remove(interaction);
-		interaction.removeInteractionObserver();		
+		interaction.removeInteractionObserver();
 	}
 
 	/**
 	 * Activate a SubWindow (meaning it is moved to the front) if one can be found
+	 * 
 	 * @param x
 	 *            The clicked x coordinates
 	 * @param y
@@ -187,53 +207,60 @@ public class InteractionManager {
 			if (found && getActiveInteraction() != getInteractions().get(i)) {
 				getActiveInteraction().setActiveWindow(null);
 				setActiveInteraction(getInteractions().get(i));
-			}	
+			}
 		}
 	}
 
 	/**
-	 * Forward the request to change the DiagramState for the active DiagramWindow to the active ViewInteraction
+	 * Forward the request to change the DiagramState for the active DiagramWindow
+	 * to the active ViewInteraction
 	 */
 	public void changeDiagramState() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		System.out.println("Change Window State.");
 		getActiveInteraction().changeActiveWindowState();
 	}
-	
+
 	/* COMPONENT OPERATIONS */
 
 	/**
 	 * Forward the request to delete the selected Component
 	 */
 	public void deleteComponent() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		System.out.println("Forward Delete Component.");
 		getActiveInteraction().deleteComponent();
 	}
 
 	/**
 	 * Forward the request to add a new message
+	 * 
 	 * @param sender
-	 * 		The Message sender
+	 *            The Message sender
 	 * @param receiver
-	 * 		The message receiver
+	 *            The message receiver
 	 * @param x
-	 * 		The clicked x coordinate
+	 *            The clicked x coordinate
 	 * @param y
-	 * 		The clicked y coordinate
+	 *            The clicked y coordinate
 	 */
 	public void addMessage(Party sender, Party receiver, int x, int y) {
-		if (getActiveInteraction() == null) return;
-		getActiveInteraction().addMessage(sender, receiver, x, y);		
+		if (getActiveInteraction() == null)
+			return;
+		getActiveInteraction().addMessage(sender, receiver, x, y);
 	}
 
 	/**
 	 * Forward the request to add a new Party
+	 * 
 	 * @param position
-	 * 		The position to place the Party at
+	 *            The position to place the Party at
 	 */
 	public void addParty(Point2D position) {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		getActiveInteraction().addParty(position);
 	}
 
@@ -241,27 +268,31 @@ public class InteractionManager {
 	 * Forward the request to change the type of the selected Party
 	 */
 	public void changePartyType() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		getActiveInteraction().changePartyType();
 	}
-	
+
 	/* LABEL METHODS */
-	
+
 	public void confirmLabel() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		getActiveInteraction().confirmLabel();
 	}
-	
+
 	public void removeLabelCharacter() {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		getActiveInteraction().removeLabelCharacter();
 	}
-	
+
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (getActiveInteraction() == null) return;
+		if (getActiveInteraction() == null)
+			return;
 		getActiveInteraction().addLabelCharacter(keyCode, keyChar);
 	}
-	
+
 	/* GETTERS AND SETTERS */
 
 	public ViewInteraction getActiveInteraction() {
@@ -294,5 +325,65 @@ public class InteractionManager {
 
 	public void setInteractions(ArrayList<ViewInteraction> interactions) {
 		this.interactions = interactions;
+	}
+
+
+	ViewComponent labelClickedOnce = null;
+	public void click(int clickCount, int x, int y) {
+		SubWindow active = activeInteraction.activeWindow;
+
+		if (clickCount == 1) {
+			closeClickedSubwindow(x, y);
+			activateSubwindow(x, y);
+
+			ViewLabel viewLabel = null;
+			active.setSelectedComponent(active.clickParty(x, y));
+
+			if ((viewLabel = active.clickLabel(x, y)) != null) {
+				System.out.println("label clicked");
+				ViewComponent selectedComponent = active.getSelectedComponent();
+
+				if (clickCount == 1 && labelClickedOnce == null) {
+					active.selectComponent();
+					labelClickedOnce = selectedComponent;
+				} else if (selectedComponent == labelClickedOnce) {
+					selectedComponent.setLabelState(active);
+
+					Component currentComponent = selectedComponent.getComponent();
+					String label = currentComponent.getLabel() + "|";
+					viewLabel.setOutput(label);
+					labelClickedOnce = null;
+				}
+			}
+		} else if (clickCount == 2) {
+			if (active.getSelectedComponent() != null) {
+				changePartyType();
+			}
+
+			addParty(new Point2D.Double(x, y));
+		}
+	}
+
+	Party sender, receiver;
+	public void pressed(int x, int y) {
+		SubWindow active = activeInteraction.activeWindow;
+		sender = active.clickLifeline(x, y);
+		active.setSelectedComponent(active.clickParty(x, y));
+	}
+
+	public void dragged(int x, int y) {
+		SubWindow active = activeInteraction.activeWindow;
+		ViewComponent selectedComponent = active.getSelectedComponent();
+		if (selectedComponent != null && !selectedComponent.isSelected)
+			active.moveComponent(selectedComponent, x, y);
+	}
+
+	public void released(int x, int y) {
+		SubWindow active = getActiveInteraction().getActiveWindow();
+		receiver = active.clickLifeline(x, y);
+		if (sender != null && receiver != null) { // && active.checkCallStack(first, second)) {
+			// TODO add previous message
+			addMessage(sender, receiver, x, y);
+		}
 	}
 }

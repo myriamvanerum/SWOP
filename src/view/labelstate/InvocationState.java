@@ -2,10 +2,10 @@ package view.labelstate;
 
 import java.awt.Color;
 
-import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 public class InvocationState extends LabelState {
-	public InvocationState(DiagramWindow subwindow) {
+	public InvocationState(SubWindow subwindow) {
 		super(subwindow);
 	}
 

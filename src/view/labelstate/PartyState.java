@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 
 public class PartyState extends LabelState {
-	public PartyState(DiagramWindow subwindow) {
+	public PartyState(SubWindow subwindow) {
 		super(subwindow);
 	}
 

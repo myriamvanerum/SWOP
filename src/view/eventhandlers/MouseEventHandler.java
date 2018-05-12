@@ -19,9 +19,6 @@ import view.windows.SubWindow;
 public class MouseEventHandler {
 	InteractionManager interactionManager;
 
-	ViewComponent labelClickedOnce;
-	Party sender, receiver;
-
 	/**
 	 * EventHandler Constructor
 	 * 
@@ -55,70 +52,23 @@ public class MouseEventHandler {
 
 		// TODO opkuisen, zie keyEventHandler
 		// TODO labelstate !!! aanmaken
-		
-		SubWindow active = null;
-		if (interactionManager.getActiveInteraction() != null)
-			active = interactionManager.getActiveInteraction().getActiveWindow();
 
-		if (active == null)
-			return;
+		/*if (active.clickOutsideActiveSubwindow(x, y))
+			return;*/
 
-		if (id == MouseEvent.MOUSE_CLICKED) {
-			interactionManager.closeClickedSubwindow(x, y);
-			if (active.clickOutsideActiveSubwindow(x, y)) {
-				interactionManager.activateSubwindow(x, y);
-			}
-		}
-
-		if (active.clickOutsideActiveSubwindow(x, y))
-			return;
-
-		DiagramWindow diagram = (DiagramWindow)active;
-		if (diagram.getShowState() == diagram.getLabelState()) {
 			switch (id) {
 			case MouseEvent.MOUSE_PRESSED:
-				sender = active.clickLifeline(x, y);
-				active.setSelectedComponent(active.clickParty(x, y));
+				interactionManager.pressed(x,y);
 				break;
 			case MouseEvent.MOUSE_DRAGGED:
-				ViewComponent selectedComponent = active.getSelectedComponent();
-				if (selectedComponent != null && !selectedComponent.isSelected)
-					active.moveComponent(selectedComponent, x, y);
+				interactionManager.dragged(x,y);
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				receiver = active.clickLifeline(x, y);
-				if (sender != null && receiver != null) { // && active.checkCallStack(first, second)) {
-					// TODO add previous message
-					interactionManager.addMessage(sender, receiver, x, y);
-				}
+				interactionManager.released(x,y);
 				break;
 			case MouseEvent.MOUSE_CLICKED:
-				ViewLabel viewLabel = null;
-				active.setSelectedComponent(active.clickParty(x, y));
-
-				if (active.getSelectedComponent() != null) {
-					if (clickCount == 2)
-						interactionManager.changePartyType();
-				} else if ((viewLabel = active.clickLabel(x, y)) != null) {
-					System.out.println("label clicked");
-					selectedComponent = active.getSelectedComponent();
-
-					if (clickCount == 1 && labelClickedOnce == null) {
-						active.selectComponent();
-						labelClickedOnce = selectedComponent;
-					} else if (selectedComponent == labelClickedOnce) {
-						selectedComponent.setLabelState((DiagramWindow)active);
-
-						Component currentComponent = selectedComponent.getComponent();
-						String label = currentComponent.getLabel() + "|";
-						viewLabel.setOutput(label);
-						labelClickedOnce = null;
-					}
-				} else if (clickCount == 2) {
-					interactionManager.addParty(new Point2D.Double(x, y));
-				}
+				interactionManager.click(clickCount, x,y);
 				break;
 			}
-		}
 	}
 }

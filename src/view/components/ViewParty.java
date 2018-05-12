@@ -7,6 +7,7 @@ import domain.Component;
 import domain.party.Party;
 import view.labelstate.PartyState;
 import view.windows.DiagramWindow;
+import view.windows.SubWindow;
 /**
  * ViewParty class. Controls the drawing of Parties
  * @author groep 03
@@ -115,7 +116,7 @@ public class ViewParty extends ViewComponent {
 	}
 	
 	@Override
-	public void setLabelState(DiagramWindow subwindow) {
+	public void setLabelState(SubWindow subwindow) {
 		subwindow.setLabelState(new PartyState(subwindow));
 	}
 }

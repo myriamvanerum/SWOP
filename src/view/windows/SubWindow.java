@@ -8,18 +8,29 @@ import java.awt.geom.Point2D;
 import domain.Component;
 import domain.message.Message;
 import domain.party.Party;
+import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.labelstate.InvocationState;
+import view.labelstate.LabelState;
+import view.labelstate.PartyState;
+import view.labelstate.ShowState;
 
 public abstract class SubWindow {
 	private Integer x;
 	private Integer y;
 	private Integer width;
-	private Integer height;	
+	private Integer height;
 	private Titlebar titlebar;
-	
+	private ViewInteraction viewInteraction;
+
+	private LabelState labelState;
+	private ShowState showState = new ShowState(this);
+	private InvocationState invocationState = new InvocationState(this);
+	private PartyState partyState = new PartyState(this);
+
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
 		setX(x);
@@ -27,60 +38,104 @@ public abstract class SubWindow {
 		setWidth(width);
 		setHeight(height);
 		setTitlebar(titlebar);
+		// TODO labelstate
+		setLabelState(showState);
 	}
 
 	public Integer getX() {
 		return x;
 	}
-	
+
 	public void setX(Integer x) {
 		this.x = x;
 	}
-	
+
 	public Integer getY() {
 		return y;
 	}
-	
+
 	public void setY(Integer y) {
 		this.y = y;
 	}
-	
+
 	public Integer getWidth() {
 		return width;
 	}
-	
+
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
-	
+
 	public Integer getHeight() {
 		return height;
 	}
-	
+
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
-	
+
 	public Titlebar getTitlebar() {
 		return titlebar;
 	}
-	
+
 	public void setTitlebar(Titlebar titlebar) {
 		this.titlebar = titlebar;
-	}	
-	
+	}
+
+	public LabelState getLabelState() {
+		return labelState;
+	}
+
+	public LabelState getShowState() {
+		return showState;
+	}
+
+	public void setLabelState(LabelState labelState) {
+		this.labelState = labelState;
+	}
+
+	public ViewInteraction getViewInteraction() {
+		return viewInteraction;
+	}
+
+	public void setViewInteraction(ViewInteraction viewInteraction) {
+		this.viewInteraction = viewInteraction;
+	}
+
 	public void drawWhiteField(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.BLACK);
 	}
-	
+
 	public void drawBlackBorder(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 	}
-	
+
+	/**
+	 * Change the SubWindows LabelState
+	 * 
+	 * @param state
+	 *            New label state
+	 */
+	public void changeLabelState(String state) {
+		switch (state.toUpperCase()) {
+		case "SHOW":
+			labelState = showState;
+			break;
+		case "MESSAGE":
+			labelState = invocationState;
+			break;
+		case "PARTY":
+			labelState = partyState;
+			break;
+		default:
+			break;
+		}
+	}
+
 	/**
 	 * Checks if clicked position is part of the active subwindow
 	 * 
@@ -100,7 +155,7 @@ public abstract class SubWindow {
 
 		return x < getX() || y < getY() || x > getX() + getWidth() || y > getY() + getHeight();
 	}
-	
+
 	/**
 	 * Checks if the close button of a subwindow is clicked
 	 * 
@@ -124,31 +179,74 @@ public abstract class SubWindow {
 	}
 
 	public abstract void draw(Graphics2D g);
-	
-	public void removeViewParty(Party party) {}
-	public void changeViewParty(Party party, Party partyNew) {}
-	public void addViewParty(Party party, Point2D position) {}
-	public ViewParty findViewParty(Party party) {return null;}
-	public void removeViewMessage(Message message) {}
-	public void addViewMessage(Message message, Point2D position) {}
-	public ViewMessage findViewMessage(Message message) {return null;}
-	public void editViewLabel(Component component) {}
-	public ViewComponent clickParty(int x2, int y2) {return null;}
-	public Party clickLifeline(int x2, int y2) {return null;}
-	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {}
-	
-	public void selectParty(Party party) {}
-	public void selectMessage(Message message) {}
-		
-	public void setSelectedComponent(ViewComponent viewComponent) {}
-	public ViewComponent getSelectedComponent() {return null;}
 
-	public ViewLabel clickLabel(int x2, int y2) {return null;}
-	public void selectComponent() {}
-	public void changeLabelState(String string) {}
-	public void confirmLabel() {}
-	public void removeLabelCharacter() {}
-	public void addLabelCharacter(int keyCode, char keyChar) {}
+	public void removeViewParty(Party party) {
+	}
 
-	public Message getPreviousMessage(int y2) {return null;}
+	public void changeViewParty(Party party, Party partyNew) {
+	}
+
+	public void addViewParty(Party party, Point2D position) {
+	}
+
+	public ViewParty findViewParty(Party party) {
+		return null;
+	}
+
+	public void removeViewMessage(Message message) {
+	}
+
+	public void addViewMessage(Message message, Point2D position) {
+	}
+
+	public ViewMessage findViewMessage(Message message) {
+		return null;
+	}
+
+	public void editViewLabel(Component component) {
+	}
+
+	public ViewComponent clickParty(int x2, int y2) {
+		return null;
+	}
+
+	public Party clickLifeline(int x2, int y2) {
+		return null;
+	}
+
+	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {
+	}
+
+	public void selectParty(Party party) {
+	}
+
+	public void selectMessage(Message message) {
+	}
+
+	public void setSelectedComponent(ViewComponent viewComponent) {
+	}
+
+	public ViewComponent getSelectedComponent() {
+		return null;
+	}
+
+	public ViewLabel clickLabel(int x2, int y2) {
+		return null;
+	}
+
+	public void selectComponent() {
+	}
+
+	public void confirmLabel() {
+	}
+
+	public void removeLabelCharacter() {
+	}
+
+	public void addLabelCharacter(int keyCode, char keyChar) {
+	}
+
+	public Message getPreviousMessage(int y2) {
+		return null;
+	}
 }
