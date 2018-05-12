@@ -67,7 +67,7 @@ public class MouseEventHandler {
 				interactionManager.released(x,y);
 				break;
 			case MouseEvent.MOUSE_CLICKED:
-				interactionManager.click(clickCount, x,y);
+				interactionManager.clicked(clickCount, x,y);
 				break;
 			}
 	}

@@ -329,7 +329,7 @@ public class InteractionManager {
 
 
 	ViewComponent labelClickedOnce = null;
-	public void click(int clickCount, int x, int y) {
+	public void clicked(int clickCount, int x, int y) {
 		SubWindow active = activeInteraction.activeWindow;
 
 		if (clickCount == 1) {
