@@ -105,4 +105,12 @@ public class ViewLabel {
 	public void setOutput(String output) {
 		this.output = output;
 	}
+	
+	public void editLabel(char keyChar) {
+		String label = getOutput();
+		if (label.length() > 0)
+			setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+		else setOutput(keyChar + "|");
+	
+	}
 }

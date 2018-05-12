@@ -208,6 +208,13 @@ public class DiagramWindow extends SubWindow {
 	public void setSelectedComponent(ViewComponent selectedComponent) {
 		this.selectedComponent = selectedComponent;
 	}
+	
+	@Override
+	public ViewLabel getCurrentViewLabel() {
+		if (getSelectedComponent() != null)
+			return getSelectedComponent().getViewLabel();
+		return null;
+	}
 
 	/**
 	 * Draw the Parties and Messages in the SubWindow

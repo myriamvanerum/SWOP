@@ -3,7 +3,6 @@ package view.labelstate;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-import view.windows.DiagramWindow;
 import view.windows.SubWindow;
 
 public class PartyState extends LabelState {
@@ -13,9 +12,9 @@ public class PartyState extends LabelState {
 
 	@Override
 	public void confirmLabel() {
-		if (getCurrentViewLabel().getOutput() != null
-				&& syntaxChecker.correctPartyLabelSyntax(getCurrentViewLabel().getOutput())) {
-			enterLabel(getCurrentViewComponent().getComponent(), getCurrentViewComponent());
+		if (viewLabel.getOutput() != null
+				&& syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput())) {
+			enterLabel(getCurrentViewComponent().getComponent());
 		}
 	}
 
@@ -26,10 +25,10 @@ public class PartyState extends LabelState {
 
 			editLabel(keyChar);
 
-			if (!syntaxChecker.correctPartyLabelSyntax(getCurrentViewLabel().getOutput()))
-				getCurrentViewLabel().setColor(Color.RED);
+			if (!syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput()))
+				viewLabel.setColor(Color.RED);
 			else
-				setLabelColor();
+				viewLabel.setColor(Color.GREEN);
 		}
 	}
 }

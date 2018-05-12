@@ -13,6 +13,7 @@ import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.formelements.WindowControl;
 import view.labelstate.InvocationState;
 import view.labelstate.LabelState;
 import view.labelstate.PartyState;
@@ -101,6 +102,14 @@ public abstract class SubWindow {
 	public void setViewInteraction(ViewInteraction viewInteraction) {
 		this.viewInteraction = viewInteraction;
 	}
+	
+	public WindowControl getControl() {
+		return null;
+	}
+	
+	public ViewLabel getCurrentViewLabel() {
+		return null;
+	}
 
 	public void drawWhiteField(Graphics2D g) {
 		g.setColor(Color.WHITE);
@@ -183,18 +192,24 @@ public abstract class SubWindow {
 	}
 	
 	public void confirmLabel() {
-		if (!actionAllowed())
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
 			getLabelState().confirmLabel();
+		}
 	}
 	
 	public void removeLabelCharacter() {
-		if (!actionAllowed())
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
 			getLabelState().removeCharacter();
+		}
 	}
 	
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (!actionAllowed())
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
 			getLabelState().addCharacter(keyCode, keyChar);
+		}
 	}
 
 	public abstract void draw(Graphics2D g);
