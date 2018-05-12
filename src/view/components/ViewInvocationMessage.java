@@ -118,4 +118,12 @@ public class ViewInvocationMessage extends ViewMessage {
 	public DialogBox createDialogBox(int x, int y) {
 		return new InvocationBox((InvocationMessage)getMessage(), x, y);
 	}
+	
+	@Override
+	public void lengthenActivationBar(double y) {
+		if (getPositionSeq().getY() < y - 30 || getPositionSeq().getY() > y) return;
+		System.out.println("Lengthening Activation Bar.");
+		Integer heightIncrease = 30;
+		getActivationBar().increaseHeight(heightIncrease);
+	}
 }

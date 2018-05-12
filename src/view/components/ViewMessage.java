@@ -126,6 +126,7 @@ public class ViewMessage extends ViewComponent {
 		System.out.println("Moving Message Lower.");
 		Integer heightIncrease = 30;
 		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
-		//getActivationBar().increaseHeight(heightIncrease);
 	}
+
+	public void lengthenActivationBar(double y) {}
 }

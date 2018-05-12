@@ -415,8 +415,10 @@ public class DiagramWindow extends SubWindow {
 		ViewMessage viewMessage;
 		Point2D subwindow = new Point2D.Double((double) getX(), (double) getY());
 		
-		for (ViewMessage vMessage : getViewMessages())
-			vMessage.moveDownIfBelow(position.getY() - subwindow.getY() - 25);
+		for (ViewMessage vMessage : getViewMessages()) {
+			vMessage.moveDownIfBelow(position.getY() - getY() - getTitlebar().getHeight());
+			vMessage.lengthenActivationBar(position.getY() - getY() - getTitlebar().getHeight());
+		}
 
 		viewMessage = new ViewInvocationMessage(message, position, subwindow, sender, receiver);
 		position.setLocation(position.getX(), position.getY() + 30);
