@@ -372,10 +372,8 @@ public class InteractionManager {
 	}
 
 	public void dragged(int x, int y) {
-		SubWindow active = activeInteraction.activeWindow;
-		ViewComponent selectedComponent = active.getSelectedComponent();
-		if (selectedComponent != null && !selectedComponent.isSelected)
-			active.moveComponent(selectedComponent, x, y);
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().moveComponent(x, y);
 	}
 
 	public void released(int x, int y) {

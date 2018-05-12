@@ -308,6 +308,14 @@ public class ViewInteraction implements Observer {
 
 	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
+	}
+
+	public void moveComponent(int x, int y) {
+		SubWindow active = activeInteraction.activeWindow;
+		ViewComponent selectedComponent = active.getSelectedComponent();
+		if (selectedComponent != null && !selectedComponent.isSelected)
+			active.moveComponent(selectedComponent, x, y);
+		
 	}	
 	
 }
