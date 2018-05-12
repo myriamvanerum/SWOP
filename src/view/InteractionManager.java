@@ -321,8 +321,11 @@ public class InteractionManager {
 	Party sender, receiver;
 	public void pressed(int x, int y) {
 		if (getActiveInteraction() == null) return;
-		sender = getActiveInteraction().checkLifeLine(x, y);
-		getActiveInteraction().selectComponent(x, y);
+
+		if (getActiveInteraction().getActiveWindow().actionAllowed()) {
+			sender = getActiveInteraction().checkLifeLine(x, y);
+			getActiveInteraction().selectComponent(x, y);
+		}
 	}
 
 	public void released(int x, int y) {

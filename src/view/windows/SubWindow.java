@@ -113,6 +113,10 @@ public abstract class SubWindow {
 		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 	}
+		
+	public boolean actionAllowed() {
+		return getLabelState() == getShowState();
+	}
 
 	/**
 	 * Change the SubWindows LabelState
@@ -179,17 +183,17 @@ public abstract class SubWindow {
 	}
 	
 	public void confirmLabel() {
-		if (getLabelState() != getShowState())
+		if (!actionAllowed())
 			getLabelState().confirmLabel();
 	}
 	
 	public void removeLabelCharacter() {
-		if (getLabelState() != getShowState())
+		if (!actionAllowed())
 			getLabelState().removeCharacter();
 	}
 	
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (getLabelState() != getShowState())
+		if (!actionAllowed())
 			getLabelState().addCharacter(keyCode, keyChar);
 	}
 

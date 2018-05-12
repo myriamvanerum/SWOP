@@ -229,7 +229,9 @@ public class DiagramWindow extends SubWindow {
 			throw new IllegalArgumentException();
 		
 		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
-		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+		
+		if (actionAllowed()) 
+			getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 
 	/**
@@ -476,19 +478,21 @@ public class DiagramWindow extends SubWindow {
 	ViewComponent labelClickedOnce = null;
 	@Override
 	public void singleClick(int x2, int y2) {
-		ViewLabel viewLabel = null;
-		selectComponent(x2, y2);
-
-		if ((viewLabel = clickLabel(x2, y2)) != null) {
-			System.out.println("Label Clicked.");
-			
-			if (labelClickedOnce == null) {
-				selectComponent();
-				labelClickedOnce = getSelectedComponent();
-			} else if (getSelectedComponent() == labelClickedOnce) {
-				getSelectedComponent().setLabelState(this);
-				viewLabel.setOutput(getSelectedComponent().getComponent().getLabel() + "|");
-				labelClickedOnce = null;
+		if (actionAllowed()) {
+			ViewLabel viewLabel = null;
+			selectComponent(x2, y2);
+	
+			if ((viewLabel = clickLabel(x2, y2)) != null) {
+				System.out.println("Label Clicked.");
+				
+				if (labelClickedOnce == null) {
+					selectComponent();
+					labelClickedOnce = getSelectedComponent();
+				} else if (getSelectedComponent() == labelClickedOnce) {
+					getSelectedComponent().setLabelState(this);
+					viewLabel.setOutput(getSelectedComponent().getComponent().getLabel() + "|");
+					labelClickedOnce = null;
+				}
 			}
 		}
 	}
