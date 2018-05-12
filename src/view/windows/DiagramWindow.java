@@ -224,11 +224,12 @@ public class DiagramWindow extends SubWindow {
 				viewMessages);
 	}
 
-	public void moveComponent(ViewComponent component, int x, int y) {
+	public void moveComponent(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-
-		getState().moveComponent(component, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+		
+		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
+		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 
 	/**

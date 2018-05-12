@@ -179,74 +179,33 @@ public abstract class SubWindow {
 	}
 
 	public abstract void draw(Graphics2D g);
+	
+	public void removeViewParty(Party party) {}
+	public void changeViewParty(Party party, Party partyNew) {}
+	public void addViewParty(Party party, Point2D position) {}
+	public ViewParty findViewParty(Party party) {return null;}
 
-	public void removeViewParty(Party party) {
-	}
+	public void removeViewMessage(Message message) {}
+	public void addViewMessage(Message message, Point2D position) {}
+	public ViewMessage findViewMessage(Message message) {return null;}
+	public Message getPreviousMessage(int y2) {return null;}
 
-	public void changeViewParty(Party party, Party partyNew) {
-	}
+	public void editViewLabel(Component component) {}
 
-	public void addViewParty(Party party, Point2D position) {
-	}
+	public ViewComponent clickParty(int x2, int y2) {return null;}
+	public Party clickLifeline(int x2, int y2) {return null;}
+	public ViewLabel clickLabel(int x2, int y2) {return null;}
 
-	public ViewParty findViewParty(Party party) {
-		return null;
-	}
+	public void moveComponent(int x2, int y2) {}
 
-	public void removeViewMessage(Message message) {
-	}
+	public void selectParty(Party party) {}
+	public void selectMessage(Message message) {}
 
-	public void addViewMessage(Message message, Point2D position) {
-	}
+	public void setSelectedComponent(ViewComponent viewComponent) {}
+	public ViewComponent getSelectedComponent() {return null;}
+	public void selectComponent() {}
 
-	public ViewMessage findViewMessage(Message message) {
-		return null;
-	}
-
-	public void editViewLabel(Component component) {
-	}
-
-	public ViewComponent clickParty(int x2, int y2) {
-		return null;
-	}
-
-	public Party clickLifeline(int x2, int y2) {
-		return null;
-	}
-
-	public void moveComponent(ViewComponent selectedComponent, int x2, int y2) {
-	}
-
-	public void selectParty(Party party) {
-	}
-
-	public void selectMessage(Message message) {
-	}
-
-	public void setSelectedComponent(ViewComponent viewComponent) {
-	}
-
-	public ViewComponent getSelectedComponent() {
-		return null;
-	}
-
-	public ViewLabel clickLabel(int x2, int y2) {
-		return null;
-	}
-
-	public void selectComponent() {
-	}
-
-	public void confirmLabel() {
-	}
-
-	public void removeLabelCharacter() {
-	}
-
-	public void addLabelCharacter(int keyCode, char keyChar) {
-	}
-
-	public Message getPreviousMessage(int y2) {
-		return null;
-	}
+	public void confirmLabel() {}
+	public void removeLabelCharacter() {}
+	public void addLabelCharacter(int keyCode, char keyChar) {}
 }

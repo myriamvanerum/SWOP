@@ -141,10 +141,6 @@ public class ViewInteraction implements Observer {
 		subWindows.add(dialogBox);
 		activeWindow = dialogBox;
 	}
-
-	private ViewComponent selectedComponent() {
-		return getActiveWindow().getSelectedComponent();
-	}
 	
 	/* COMPONENT OPERATIONS */
 
@@ -166,6 +162,14 @@ public class ViewInteraction implements Observer {
 	public void changePartyType() {
 		ViewParty viewParty = (ViewParty) selectedComponent();
 		interactr.changePartyType(viewParty);
+	}
+	
+	private ViewComponent selectedComponent() {
+		return getActiveWindow().getSelectedComponent();
+	}
+	
+	public void moveComponent(int x, int y) {
+		getActiveWindow().moveComponent(x, y);
 	}
 	
 	/* LABEL METHODS */
@@ -308,14 +312,5 @@ public class ViewInteraction implements Observer {
 
 	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
-	}
-
-	public void moveComponent(int x, int y) {
-		SubWindow active = activeInteraction.activeWindow;
-		ViewComponent selectedComponent = active.getSelectedComponent();
-		if (selectedComponent != null && !selectedComponent.isSelected)
-			active.moveComponent(selectedComponent, x, y);
-		
 	}	
-	
 }
