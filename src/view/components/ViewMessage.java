@@ -115,7 +115,6 @@ public class ViewMessage extends ViewComponent {
 	public Component getComponent() {
 		return this.getMessage();
 	}
-	
 
 	@Override
 	public void setLabelState(DiagramWindow subwindow) {
@@ -123,7 +122,10 @@ public class ViewMessage extends ViewComponent {
 	}
 
 	public void moveDownIfBelow(double y) {
-		if (getPositionSeq().getY() >= y)
-			setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + 50));
+		if (getPositionSeq().getY() < y) return;
+		System.out.println("Moving Message Lower.");
+		Integer heightIncrease = 30;
+		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
+		getActivationBar().increaseHeight(heightIncrease);
 	}
 }

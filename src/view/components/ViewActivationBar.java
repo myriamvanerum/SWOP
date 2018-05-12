@@ -9,6 +9,12 @@ import java.awt.Rectangle;
  *
  */
 public class ViewActivationBar {
+	private Integer height;
+	
+	public ViewActivationBar() {
+		super();
+		setHeight(40);
+	}
 	/**
 	 * Draw an Activation Bar at the specified location
 	 * @param g
@@ -19,10 +25,19 @@ public class ViewActivationBar {
 	 * 		Y coordinate
 	 */
 	public void draw(Graphics2D g, int x, int y) {
-		Rectangle rectangle = new Rectangle(x, y, 12, 40);
-		g.setColor(new Color(255,255,255));
+		Rectangle rectangle = new Rectangle(x, y, 12, height);
+		g.setColor(new Color(150,150,255));
 		g.fill(rectangle);
 		g.setColor(new Color(0,0,0));
 		g.draw(rectangle);
+	}
+	public Integer getHeight() {
+		return height;
+	}
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
+	public void increaseHeight(Integer heightIncrease) {
+		this.height += heightIncrease;
 	}
 }

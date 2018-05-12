@@ -59,7 +59,9 @@ public class SeqState implements State {
 			viewMessage.draw(g, xSender, xReceiver, y, y);
 			viewMessage.resetColor(g);
 			
-			if (viewMessage.getClass() == ViewInvocationMessage.class) {
+			// TODO instanceof weg
+			// vervang door viewMEssage.drawActivationBar, enkel uitwerken in InvocationMessage (met Override)
+			if (viewMessage instanceof ViewInvocationMessage) {
 				viewMessage.getActivationBar().draw(g, xSender - 5, y - 5);
 				viewMessage.getActivationBar().draw(g, xReceiver - 5, y - 5);	
 			}
