@@ -208,4 +208,6 @@ public abstract class SubWindow {
 	public void confirmLabel() {}
 	public void removeLabelCharacter() {}
 	public void addLabelCharacter(int keyCode, char keyChar) {}
+
+	public void singleClick(int x2, int y2) {}
 }

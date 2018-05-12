@@ -10,6 +10,7 @@ import domain.Interactr;
 import domain.message.Message;
 import domain.party.Party;
 import view.components.ViewComponent;
+import view.components.ViewLabel;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
 import view.windows.DialogBox;
@@ -187,6 +188,10 @@ public class ViewInteraction implements Observer {
 			addParty(new Point2D.Double(x, y));
 	}
 	
+	public void singleClick(int x, int y) {
+		getActiveWindow().singleClick(x, y);
+	}	
+	
 	/* LABEL METHODS */
 	
 	public void confirmLabel() {
@@ -327,5 +332,5 @@ public class ViewInteraction implements Observer {
 
 	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
-	}	
+	}
 }

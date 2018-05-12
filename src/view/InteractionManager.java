@@ -289,31 +289,13 @@ public class InteractionManager {
 	
 	/* USER OPERATIONS */
 
-	ViewComponent labelClickedOnce = null;
 	public void clickedOnce(int x, int y) {
-		SubWindow active = activeInteraction.activeWindow;
-
+		if (getActiveInteraction() == null) return;
+		
 		closeClickedSubwindow(x, y);
 		activateSubwindow(x, y);
-
-		ViewLabel viewLabel = null;
-		active.setSelectedComponent(active.clickParty(x, y));
-
-		if ((viewLabel = active.clickLabel(x, y)) != null) {
-			System.out.println("Label Clicked.");
-			ViewComponent selectedComponent = active.getSelectedComponent();
-			
-			if (labelClickedOnce == null) {
-				active.selectComponent();
-				labelClickedOnce = selectedComponent;
-			} else if (selectedComponent == labelClickedOnce) {
-				selectedComponent.setLabelState(active);
-				Component currentComponent = selectedComponent.getComponent();
-				String label = currentComponent.getLabel() + "|";
-				viewLabel.setOutput(label);
-				labelClickedOnce = null;
-			}
-		}
+		
+		getActiveInteraction().singleClick(x, y);
 	}
 	
 	public void clickedTwice(int x, int y) {
