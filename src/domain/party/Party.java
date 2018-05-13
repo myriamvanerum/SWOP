@@ -12,9 +12,6 @@ import domain.message.Message;
  * @author  groep 03
  */
 public abstract class Party extends Component {
-
-    private Message sendingMessage;
-
     /**
      * Party constructor
 	 * @param label
@@ -36,7 +33,6 @@ public abstract class Party extends Component {
     		throw new NullPointerException();
     	
 		setLabel(party.label);
-		setSendingMessage(party.getSendingMessage());
 	}
     
     @Override
@@ -59,14 +55,4 @@ public abstract class Party extends Component {
 		for (Message message : messages)
 			interaction.notifyDelete(message);
 	}
-
-    /* GETTERS AND SETTERS */
-
-	public Message getSendingMessage() {
-        return sendingMessage;
-    }
-
-    public void setSendingMessage(Message sendingMessage) {
-        this.sendingMessage = sendingMessage;
-    }
 }
