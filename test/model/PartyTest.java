@@ -27,17 +27,12 @@ class PartyTest {
 		
 		assertEquals("test", actor.getLabel());
 		assertEquals("test", object.getLabel());	
-		assertEquals(actor, actor.getSendingMessage().getSender());
-		assertEquals(object, actor.getSendingMessage().getReceiver());
-		assertEquals("message", actor.getSendingMessage().getLabel());
 		
 		Party newActor = new Actor(object);
 		assertEquals(object.getLabel(), newActor.getLabel());
-		assertEquals(object.getSendingMessage(), newActor.getSendingMessage());
 		
 		Party newObject = new Object(actor);
 		assertEquals(actor.getLabel(), newObject.getLabel());
-		assertEquals(actor.getSendingMessage(), newObject.getSendingMessage());
 	}
 	
 	@Test

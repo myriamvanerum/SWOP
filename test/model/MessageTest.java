@@ -30,7 +30,6 @@ class MessageTest {
 		
 		InvocationMessage invocation = new InvocationMessage("message", actor, object, result);		
 			
-		assertEquals(invocation, actor.getSendingMessage());
 		assertEquals(actor, invocation.getSender());
 		assertEquals(object, invocation.getReceiver());
 		

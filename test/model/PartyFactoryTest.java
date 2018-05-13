@@ -20,12 +20,10 @@ class PartyFactoryTest {
 		Party actor = factory.createParty("Actor");
 		
 		assertEquals("|", actor.getLabel());
-		assertNull(actor.getSendingMessage());
 		
 		Party object = factory.createParty("Object");
 		
 		assertEquals("|", object.getLabel());
-		assertNull(object.getSendingMessage());
 	}
 
 	@Test
