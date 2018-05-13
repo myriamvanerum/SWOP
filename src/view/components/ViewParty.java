@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import domain.Component;
 import domain.party.Party;
 import view.labelstate.PartyState;
-import view.windows.DiagramWindow;
 import view.windows.SubWindow;
 /**
  * ViewParty class. Controls the drawing of Parties

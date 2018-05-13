@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.geom.Point2D;
-
 import domain.message.Message;
 import domain.party.Party;
 import view.Observer;
@@ -45,10 +43,8 @@ public interface Observable {
 	 * Notify all Observers a Party has been added
 	 * @param party
 	 * 		The party that was added
-	 * @param position
-	 * 		The position the party must be painted at
 	 */
-	public void notifyAdd(Party party, Point2D position);
+	public void notifyAdd(Party party);
 	
 	/**
 	 * Notify all Observers a Message has been deleted
@@ -61,10 +57,8 @@ public interface Observable {
 	 * Notify all Observers a Message has been added
 	 * @param message
 	 * 		The message that was added
-	 * @param position
-	 * 		The position the message must be painted at
 	 */
-	public void notifyAdd(Message message, Point2D position);
+	public void notifyAdd(Message message);
 	
 	/**
 	 * Notify all Observers a label has been edited

@@ -10,7 +10,6 @@ import domain.Interactr;
 import domain.message.Message;
 import domain.party.Party;
 import view.components.ViewComponent;
-import view.components.ViewLabel;
 import view.components.ViewParty;
 import view.windows.DiagramWindow;
 import view.windows.DialogBox;
@@ -22,6 +21,8 @@ public class ViewInteraction implements Observer {
 	
 	public SubWindow activeWindow = null;
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
+	
+	private Point2D lastClickedPosition;
 
 	/* CONSTRUCTOR */
 	
@@ -141,7 +142,7 @@ public class ViewInteraction implements Observer {
 	public void openDialogBox(Point2D lowestPosition) {
 		if (selectedComponent() == null) return;
 		DialogBox dialogBox = selectedComponent().createDialogBox((int)lowestPosition.getX(), (int)lowestPosition.getY());
-		subWindows.add(dialogBox);
+		getSubWindows().add(dialogBox);
 		setActiveWindow(dialogBox);
 	}
 	
@@ -151,22 +152,22 @@ public class ViewInteraction implements Observer {
 		if (getActiveWindow().actionAllowed()) {
 			ViewComponent viewComponent = selectedComponent();
 			if (viewComponent == null) return;
-			interactr.deleteComponent(viewComponent);
+			getInteractr().deleteComponent(viewComponent);
 		}
 	}
 
-	public Message addMessage(Party sender, Party receiver, int x, int y) {
+	public void addMessage(Party sender, Party receiver, int x, int y) {
 		Message previous = getActiveWindow().getPreviousMessage(y);
-		return interactr.addMessage(sender, receiver, previous, x, y);
+		getInteractr().addMessage(sender, receiver, previous);
 	}
 
-	public Party addParty(Point2D position) {
-		return interactr.addParty(position);
+	public void addParty() {
+		getInteractr().addParty();
 	}
 
 	public void changePartyType() {
 		ViewParty viewParty = (ViewParty) selectedComponent();
-		interactr.changePartyType(viewParty);
+		getInteractr().changePartyType(viewParty);
 	}
 	
 	public void selectComponent(int x, int y) {
@@ -178,6 +179,7 @@ public class ViewInteraction implements Observer {
 	}
 	
 	public void moveComponent(int x, int y) {
+		setLastClickedPosition(new Point2D.Double(x, y));
 		getActiveWindow().moveComponent(x, y);
 	}
 	
@@ -185,16 +187,20 @@ public class ViewInteraction implements Observer {
 		return getActiveWindow().clickLifeline(x, y);
 	}
 	
+	/* USER EVENTS */
+	
 	public void doubleClick(int x, int y) {
+		setLastClickedPosition(new Point2D.Double(x, y));
 		if (getActiveWindow().actionAllowed()) {
 			if (getActiveWindow().getSelectedComponent() != null)
 				changePartyType();
 			else
-				addParty(new Point2D.Double(x, y));
+				addParty();
 		}
 	}
 	
 	public void singleClick(int x, int y) {
+		setLastClickedPosition(new Point2D.Double(x, y));
 		getActiveWindow().singleClick(x, y);
 	}	
 	
@@ -245,18 +251,11 @@ public class ViewInteraction implements Observer {
 	 * 
 	 * @param party
 	 *            The Party that was added
-	 * @param position
-	 *            The position the Party must be painted at
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
 	 */
 	@Override
-	public void onAddParty(Party party, Point2D position) {
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
-		
+	public void onAddParty(Party party) {
 		for (SubWindow window : getSubWindows()) {
-			window.addViewParty(party, position);
+			window.addViewParty(party, getLastClickedPosition());
 			if (window == getActiveWindow()) {
 				window.selectParty(party);
 			}
@@ -281,18 +280,12 @@ public class ViewInteraction implements Observer {
 	 * 
 	 * @param message
 	 *            The Message that was added
-	 * @param position
-	 *            The position the Message must be painted at
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
 	 */
 	@Override
-	public void onAddMessage(Message message, Point2D position) {
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
+	public void onAddMessage(Message message) {
 		
 		for (SubWindow window : getSubWindows()) {
-			window.addViewMessage(message, position);
+			window.addViewMessage(message, getLastClickedPosition());
 			if (window == getActiveWindow()) {
 				window.selectMessage(message);
 			}
@@ -338,5 +331,13 @@ public class ViewInteraction implements Observer {
 
 	public void setSubWindows(ArrayList<SubWindow> subWindows) {
 		this.subWindows = subWindows;
+	}
+
+	public Point2D getLastClickedPosition() {
+		return lastClickedPosition;
+	}
+
+	public void setLastClickedPosition(Point2D lastClickedPosition) {
+		this.lastClickedPosition = lastClickedPosition;
 	}
 }

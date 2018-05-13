@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.geom.Point2D;
-
 import domain.Component;
 import domain.message.Message;
 import domain.party.Party;
@@ -32,10 +30,8 @@ public interface Observer {
 	 * Method to be called when a Party is added
 	 * @param party
 	 * 		The Party that was added
-	 * @param position
-	 * 		The position the Party must be painted at
 	 */
-	public void onAddParty(Party party, Point2D position);
+	public void onAddParty(Party party);
 	
 	/**
 	 * Method to be called when a Message is deleted
@@ -48,10 +44,8 @@ public interface Observer {
 	 * Method to be called when a Message is added
 	 * @param message
 	 * 		The Message that was added
-	 * @param position
-	 * 		The position the Message must be painted at
 	 */
-	public void onAddMessage(Message message, Point2D position);
+	public void onAddMessage(Message message);
 	
 	/**
 	 * Method to be called when a Component's label has been edited
