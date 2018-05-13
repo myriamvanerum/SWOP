@@ -66,21 +66,6 @@ public class ViewComponent implements Selectable {
 	public void setPositionSeq(Point2D positionSeq) {
 		this.positionSeq = positionSeq;
 	}
-
-	/**
-	 * Checks if the Component's Label is positioned at the clicked coordinates
-	 * 
-	 * @param coordinates
-	 *            The coordinates of a click event
-	 * @param positionState
-	 * 			  The Party's position
-	 * @param windowPosition
-	 * 			  The SubWindow's position
-	 * @return true if label positioned at clicked coordinates
-	 */
-	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
-		return false;
-	}
 	
 	/**
 	 * Add the Party position and SubWindow position to get new coordinates

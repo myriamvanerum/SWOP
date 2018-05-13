@@ -98,30 +98,7 @@ public class ViewActor extends ViewParty {
 		new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50).contains(coordinates.getX(), coordinates.getY()) ||	// legs actor
 		new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
 	}
-	
-	/**
-	 * Checks if the Actor's Label is positioned at the clicked coordinates
-	 * 
-	 * @param coordinates
-	 *            The coordinates of a click event
-	 * @param positionState
-	 * 			  The Actor's position
-	 * @param windowPosition
-	 * 			  The SubWindow's position
-	 */
-	@Override
-	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
-		Point2D position = positionWindow(positionState, windowPosition);
 		
-		double positionX = position.getX() - (viewLabel.getWidth() / 2);
-		double positionY = position.getY() + 110;
-		
-		return coordinates.getX() >= positionX &&
-			   coordinates.getX() <= positionX + viewLabel.getWidth() &&
-			   coordinates.getY() >= positionY - viewLabel.getHeight() &&
-			   coordinates.getY() >= positionY;
-	}
-	
 	@Override
 	public ViewParty copy() {
 		return new ViewActor(this);

@@ -62,9 +62,6 @@ public class ViewObject extends ViewParty {
 		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
 		String label = viewLabel.getOutput();
 		
-		viewLabel.setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
-		viewLabel.setWidth(g.getFontMetrics().stringWidth(label));
-		
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > 80)
 			setWidth(viewLabel.getWidth() + 10);
@@ -92,37 +89,9 @@ public class ViewObject extends ViewParty {
 			coordinates.getX() <= position.getX() - 5 + getWidth() && 
 			coordinates.getY() >= position.getY() - 5 &&
 			coordinates.getY() <= position.getY() + getHeight() + 25 &&
-			!checkLabelPosition(coordinates, position, null);
+			!getViewLabel().clicked((int)coordinates.getX(), (int)coordinates.getX());
 	}
-	
-	/**
-	 * Checks if the Object's Label is positioned at the clicked coordinates
-	 * 
-	 * @param coordinates
-	 *            The coordinates of a click event
-	 * @param positionState
-	 * 			  The Object's position
-	 * @param windowPosition
-	 * 			  The SubWindow's position
-	 */
-	@Override
-	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) { 
-		Point2D position;
-		if (windowPosition != null)
-			position = positionWindow(positionState, windowPosition);
-		else position = positionState;
 		
-		position.setLocation(position.getX(), position.getY() + 25); 
-		
-		double startPositionLabel = position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2);
-		double yPositionLabel = position.getY() + (getHeight()/2);
-				
-		return coordinates.getX() >= startPositionLabel && 
-			   coordinates.getX() <= (startPositionLabel + viewLabel.getWidth()) &&
-			   coordinates.getY() >= yPositionLabel - viewLabel.getHeight() &&
-			   coordinates.getY() <= yPositionLabel;
-	}
-	
 	@Override
 	public ViewParty copy() {
 		return new ViewObject(this);

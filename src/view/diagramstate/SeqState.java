@@ -72,11 +72,6 @@ public class SeqState implements State {
 		return party.checkCoordinates(clickPosition, party.getPositionSeq(), windowPosition);
 	}
 	
-	@Override
-	public boolean checkLabelPosition(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
-		return component.checkLabelPosition(clickPosition, component.getPositionSeq(), windowPosition);
-	}
-
 	/**
 	 * Get the State of this SubWindow
 	 * @return the current state

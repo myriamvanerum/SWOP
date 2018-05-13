@@ -58,32 +58,32 @@ public class KeyEventHandler {
     				interactionManager.openDialogBox();
     				break;
     			}
-            }
-            
-			switch (keyCode) {
-			case KeyEvent.VK_TAB:
-				interactionManager.pressTab();
-				break;
-			case KeyEvent.VK_DELETE:
-				interactionManager.deleteComponent();
-				break;
-			case KeyEvent.VK_ENTER:
-				interactionManager.confirmLabel();
-				break;
-			case KeyEvent.VK_BACK_SPACE:
-				interactionManager.removeLabelCharacter();
-				break;
-			}
-
-			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z)
-					|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
-					|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
-					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
-					|| keyCode == KeyEvent.VK_SPACE || keyCode == KeyEvent.VK_COMMA)) {
-
-				// TODO voor partylabel enkel bepaalde karakters toelaten
-				// TODO voor messagelabel (bijna) alle karakters toelaten
-				interactionManager.addLabelCharacter(keyCode, keyChar);
+            } else {
+				switch (keyCode) {
+				case KeyEvent.VK_TAB:
+					interactionManager.pressTab();
+					break;
+				case KeyEvent.VK_DELETE:
+					interactionManager.deleteComponent();
+					break;
+				case KeyEvent.VK_ENTER:
+					interactionManager.confirmLabel();
+					break;
+				case KeyEvent.VK_BACK_SPACE:
+					interactionManager.removeLabelCharacter();
+					break;
+				}
+	
+				if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z)
+						|| keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9 || keyCode == KeyEvent.VK_COLON
+						|| keyCode == KeyEvent.VK_SEMICOLON || keyCode == KeyEvent.VK_UNDERSCORE
+						|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS || keyCode == KeyEvent.VK_RIGHT_PARENTHESIS
+						|| keyCode == KeyEvent.VK_SPACE || keyCode == KeyEvent.VK_COMMA)) {
+	
+					// TODO voor partylabel enkel bepaalde karakters toelaten
+					// TODO voor messagelabel (bijna) alle karakters toelaten
+					interactionManager.addLabelCharacter(keyCode, keyChar);
+				}
 			}
 		}
 	}
