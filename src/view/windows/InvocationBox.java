@@ -3,6 +3,7 @@ package view.windows;
 import java.util.ArrayList;
 
 import domain.message.InvocationMessage;
+import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.formelements.Button;
 import view.formelements.ListBox;
@@ -15,14 +16,16 @@ public class InvocationBox extends DialogBox {
 	private ViewLabel labelMethod;
 	private ViewLabel labelArguments;
 	
-	public InvocationBox(InvocationMessage message, int x, int y) {
-		super(x, y, 250, 275, new Titlebar(x,y,250));
+	public InvocationBox(ViewInteraction viewInteraction, InvocationMessage message, int x, int y) {
+		super(viewInteraction, x, y, 250, 275, new Titlebar(x,y,250));
 		this.message = message;	
 		this.labelMethod = new ViewLabel(message.getMethod());
 		this.labelArguments = new ViewLabel("");
 		setTitle("Invocation message");
 		addControls(labelMethod);
-		setLabelState(new InvocationState(this));
+		setLabelState(new InvocationState(this, labelMethod));
+		setCurrentViewLabel(labelMethod);
+		setViewInteraction(viewInteraction);
 	}
 
 	private void addControls(ViewLabel method) {
@@ -37,5 +40,21 @@ public class InvocationBox extends DialogBox {
 		
 		setControls(controls);
 		setCurrentControl(0);
+	}
+	
+	public InvocationMessage getMessage() {
+		return message;
+	}
+
+	public void setMessage(InvocationMessage message) {
+		this.message = message;
+	}
+
+	@Override
+	public void confirmLabel() {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getCurrentViewLabel());
+			getLabelState().confirmLabel(getMessage());
+		}
 	}
 }

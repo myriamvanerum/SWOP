@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 
 import domain.message.InvocationMessage;
 import domain.message.Message;
+import view.ViewInteraction;
 import view.windows.DialogBox;
 import view.windows.InvocationBox;
 /**
@@ -87,8 +88,8 @@ public class ViewInvocationMessage extends ViewMessage {
 	}
 	
 	@Override
-	public DialogBox createDialogBox(int x, int y) {
-		return new InvocationBox((InvocationMessage)getMessage(), x, y);
+	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
+		return new InvocationBox(viewInteraction, (InvocationMessage)getMessage(), x, y);
 	}
 	
 	@Override

@@ -19,6 +19,12 @@ public class LabelState {
 		this.viewLabel = null;
 	}
 	
+	public LabelState(SubWindow subwindow, ViewLabel viewLabel) {
+		this.syntaxChecker = new SyntaxChecker();
+		this.subwindow = subwindow;
+		this.viewLabel = viewLabel;
+	}
+	
 	public ViewLabel getViewLabel() {
 		return viewLabel;
 	}
@@ -52,6 +58,10 @@ public class LabelState {
 	
 	public void confirmLabel() {
 		enterLabel(getCurrentViewComponent().getComponent());
+	}
+	
+	public void confirmLabel(Component component) {
+		enterLabel(component);
 	}
 	
 	public void enterLabel(Component component) {

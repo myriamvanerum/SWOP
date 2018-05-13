@@ -3,6 +3,7 @@ package view.windows;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.formelements.WindowControl;
 
@@ -12,9 +13,10 @@ public class DialogBox extends SubWindow {
 	public String title;
 	private ViewLabel currentViewLabel;
 	
-	public DialogBox(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
+	public DialogBox(ViewInteraction viewInteraction, Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
 		this.currentViewLabel = null;
+		setViewInteraction(viewInteraction);
 	}
 		
 	public void drawControls(Graphics2D g2) {		
@@ -71,13 +73,13 @@ public class DialogBox extends SubWindow {
 		drawControls(g);
 	}
 
-	@Override
+	/*@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
 			getLabelState().confirmLabel();
 		}
-	}
+	}*/
 
 	@Override
 	public void removeLabelCharacter() {

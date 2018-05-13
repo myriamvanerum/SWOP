@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import domain.Component;
+import view.ViewInteraction;
 /**
  * ViewComponent class. Controls the drawing of Components
  * @author groep 03
@@ -107,7 +108,7 @@ public class ViewComponent implements Selectable {
 		System.out.println("Set label state active subwindow");
 	}
 	
-	public DialogBox createDialogBox(int x, int y) {
+	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
 		return null;
 	}
 }

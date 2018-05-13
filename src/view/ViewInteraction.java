@@ -138,7 +138,7 @@ public class ViewInteraction implements Observer {
 
 	public void openDialogBox(Point2D lowestPosition) {
 		if (selectedComponent() == null) return;
-		DialogBox dialogBox = selectedComponent().createDialogBox((int)lowestPosition.getX(), (int)lowestPosition.getY());
+		DialogBox dialogBox = selectedComponent().createDialogBox(this, (int)lowestPosition.getX(), (int)lowestPosition.getY());
 		getSubWindows().add(dialogBox);
 		setActiveWindow(dialogBox);
 	}

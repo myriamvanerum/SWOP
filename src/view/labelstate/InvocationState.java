@@ -2,11 +2,16 @@ package view.labelstate;
 
 import java.awt.Color;
 
+import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class InvocationState extends LabelState {
 	public InvocationState(SubWindow subwindow) {
 		super(subwindow);
+	}
+	
+	public InvocationState(SubWindow subwindow, ViewLabel viewLabel) {
+		super(subwindow, viewLabel);
 	}
 
 	@Override
