@@ -132,8 +132,10 @@ public class ViewInteraction implements Observer {
 	}
 
 	public void changeActiveWindowState() {
-		DiagramWindow active = (DiagramWindow)getActiveWindow();
-		active.changeState();
+		if (getActiveWindow().actionAllowed()) {
+			DiagramWindow active = (DiagramWindow)getActiveWindow();
+			active.changeState();
+		}
 	}
 
 	public void openDialogBox(Point2D lowestPosition) {
@@ -146,9 +148,11 @@ public class ViewInteraction implements Observer {
 	/* COMPONENT OPERATIONS */
 
 	public void deleteComponent() {
-		ViewComponent viewComponent = selectedComponent();
-		if (viewComponent == null) return;
-		interactr.deleteComponent(viewComponent);
+		if (getActiveWindow().actionAllowed()) {
+			ViewComponent viewComponent = selectedComponent();
+			if (viewComponent == null) return;
+			interactr.deleteComponent(viewComponent);
+		}
 	}
 
 	public Message addMessage(Party sender, Party receiver, int x, int y) {
@@ -182,10 +186,12 @@ public class ViewInteraction implements Observer {
 	}
 	
 	public void doubleClick(int x, int y) {
-		if (getActiveWindow().getSelectedComponent() != null)
-			changePartyType();
-		else
-			addParty(new Point2D.Double(x, y));
+		if (getActiveWindow().actionAllowed()) {
+			if (getActiveWindow().getSelectedComponent() != null)
+				changePartyType();
+			else
+				addParty(new Point2D.Double(x, y));
+		}
 	}
 	
 	public void singleClick(int x, int y) {

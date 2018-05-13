@@ -6,62 +6,60 @@ import domain.Component;
 import domain.SyntaxChecker;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
-import view.windows.DiagramWindow;
 import view.windows.SubWindow;
 
 public class LabelState {
 	SyntaxChecker syntaxChecker;
 	SubWindow subwindow;
+	ViewLabel viewLabel;
 	
 	public LabelState(SubWindow subwindow) {
 		this.syntaxChecker = new SyntaxChecker();
 		this.subwindow = subwindow;
+		this.viewLabel = null;
 	}
 	
+	public ViewLabel getViewLabel() {
+		return viewLabel;
+	}
+
+	public void setViewLabel(ViewLabel viewLabel) {
+		this.viewLabel = viewLabel;
+	}
+
 	public ViewComponent getCurrentViewComponent() {
 		return subwindow.getSelectedComponent();
 	}
 	
-	public ViewLabel getCurrentViewLabel() {
-		return getCurrentViewComponent().getViewLabel();
-	}
-	
-	public void setLabelColor() {
-		getCurrentViewLabel().setColor(Color.GREEN);
-	}
-	
 	public void removeCharacter() {
-		String label = getCurrentViewLabel().getOutput();
+		String label = getViewLabel().getOutput();
 		
 		if (label.length() > 1)
-			getCurrentViewLabel().setOutput(label.substring(0, label.length() - 2) + "|");		
+			getViewLabel().setOutput(label.substring(0, label.length() - 2) + "|");		
 	}
 	
 	public void addCharacter(int keyCode, char keyChar) {
-		editLabel(keyChar);
-		setLabelColor();
+		getViewLabel().editLabel(keyChar);
+		getViewLabel().setColor(Color.GREEN);
 	}
 	
 	public void editLabel(char keyChar) {
-		String label = getCurrentViewLabel().getOutput();
+		String label = getViewLabel().getOutput();
 		if (label.length() > 0)
-			getCurrentViewLabel().setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
-		else getCurrentViewLabel().setOutput(keyChar + "|");
+			getViewLabel().setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+		else getViewLabel().setOutput(keyChar + "|");
 	}
 	
 	public void confirmLabel() {
-		enterLabel(getCurrentViewComponent().getComponent(), getCurrentViewComponent());
+		enterLabel(getCurrentViewComponent().getComponent());
 	}
 	
-	public void enterLabel(Component component, ViewComponent viewComponent) {
-		ViewLabel viewLabel = getCurrentViewLabel();
-		String label = getCurrentViewLabel().getOutput();
-		
-		viewLabel.setColor(Color.BLACK);
-		
+	public void enterLabel(Component component) {
+		String label = getViewLabel().getOutput();		
+		getViewLabel().setColor(Color.BLACK);		
 		String newLabel = label.substring(0, label.length() - 1);
 		// TODO interaction
 		component.editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
-		viewLabel.setOutput(newLabel);	
+		getViewLabel().setOutput(newLabel);	
 	}
 }

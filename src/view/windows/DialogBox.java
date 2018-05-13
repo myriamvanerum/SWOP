@@ -3,15 +3,18 @@ package view.windows;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import view.components.ViewLabel;
 import view.formelements.WindowControl;
 
 public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
 	public int currentControl;
 	public String title;
+	private ViewLabel currentViewLabel;
 	
 	public DialogBox(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
+		this.currentViewLabel = null;
 	}
 		
 	public void drawControls(Graphics2D g2) {		
@@ -43,6 +46,22 @@ public class DialogBox extends SubWindow {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	@Override
+	public ViewLabel getCurrentViewLabel() {
+		return currentViewLabel;
+	}
+
+	public void setCurrentViewLabel(ViewLabel currentViewLabel) {
+		this.currentViewLabel = currentViewLabel;
+	}
+
+	@Override
+	public WindowControl getControl() {
+		if (getCurrentControl() >= 0)
+			return getControls().get(getCurrentControl());
+		return null;
+	}
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -50,5 +69,29 @@ public class DialogBox extends SubWindow {
 		getTitlebar().draw(g, getTitle());
 		drawBlackBorder(g);
 		drawControls(g);
+	}
+
+	@Override
+	public void confirmLabel() {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getCurrentViewLabel());
+			getLabelState().confirmLabel();
+		}
+	}
+
+	@Override
+	public void removeLabelCharacter() {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getCurrentViewLabel());
+			getLabelState().removeCharacter();
+		}
+	}
+
+	@Override
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getCurrentViewLabel());
+			getLabelState().addCharacter(keyCode, keyChar);
+		}
 	}
 }

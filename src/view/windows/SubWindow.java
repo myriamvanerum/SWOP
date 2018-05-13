@@ -13,6 +13,7 @@ import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.formelements.WindowControl;
 import view.labelstate.InvocationState;
 import view.labelstate.LabelState;
 import view.labelstate.PartyState;
@@ -101,6 +102,14 @@ public abstract class SubWindow {
 	public void setViewInteraction(ViewInteraction viewInteraction) {
 		this.viewInteraction = viewInteraction;
 	}
+	
+	public WindowControl getControl() {
+		return null;
+	}
+	
+	public ViewLabel getCurrentViewLabel() {
+		return null;
+	}
 
 	public void drawWhiteField(Graphics2D g) {
 		g.setColor(Color.WHITE);
@@ -112,6 +121,10 @@ public abstract class SubWindow {
 		g.setColor(Color.BLACK);
 		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
+	}
+		
+	public boolean actionAllowed() {
+		return getLabelState() == getShowState();
 	}
 
 	/**
@@ -177,6 +190,27 @@ public abstract class SubWindow {
 		return x >= (getX() + getWidth() - getTitlebar().getHeight()) && x <= (getX() + getWidth()) && y >= getY()
 				&& y <= (getY() + getTitlebar().getHeight());
 	}
+	
+	public void confirmLabel() {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+			getLabelState().confirmLabel();
+		}
+	}
+	
+	public void removeLabelCharacter() {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+			getLabelState().removeCharacter();
+		}
+	}
+	
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		if (!actionAllowed()) {
+			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+			getLabelState().addCharacter(keyCode, keyChar);
+		}
+	}
 
 	public abstract void draw(Graphics2D g);
 	
@@ -204,10 +238,6 @@ public abstract class SubWindow {
 	public ViewComponent getSelectedComponent() {return null;}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
-
-	public void confirmLabel() {}
-	public void removeLabelCharacter() {}
-	public void addLabelCharacter(int keyCode, char keyChar) {}
 
 	public void singleClick(int x2, int y2) {}
 }

@@ -2,6 +2,7 @@ package view.labelstate;
 
 import java.awt.Color;
 
+import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class InvocationState extends LabelState {
@@ -11,20 +12,20 @@ public class InvocationState extends LabelState {
 
 	@Override
 	public void confirmLabel() {
-		String label = getCurrentViewLabel().getOutput();
+		String label = viewLabel.getOutput();
 		
-		if (getCurrentViewLabel().getOutput() != null && syntaxChecker.correctInvocationMessageLabelSyntax(label.substring(0, label.length()-1))) {
-			enterLabel(getCurrentViewComponent().getComponent(), getCurrentViewComponent());
+		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageLabelSyntax(label.substring(0, label.length()-1))) {
+			enterLabel(getCurrentViewComponent().getComponent());
 		}
 	}
 	
 	@Override
 	public void addCharacter(int keyCode, char keyChar) {
 		editLabel(keyChar);
-		String label = getCurrentViewLabel().getOutput();
+		String label = viewLabel.getOutput();
 		
 		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label.substring(0, label.length()-1)))
-			getCurrentViewLabel().setColor(Color.RED);
-		else setLabelColor();
+			viewLabel.setColor(Color.RED);
+		else viewLabel.setColor(Color.GREEN);
 	}
 }

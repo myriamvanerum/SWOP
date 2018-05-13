@@ -8,6 +8,7 @@ import view.formelements.Button;
 import view.formelements.ListBox;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
+import view.labelstate.InvocationState;
 
 public class InvocationBox extends DialogBox {
 	private InvocationMessage message;
@@ -21,6 +22,7 @@ public class InvocationBox extends DialogBox {
 		this.labelArguments = new ViewLabel("");
 		setTitle("Invocation message");
 		addControls(labelMethod);
+		setLabelState(new InvocationState(this));
 	}
 
 	private void addControls(ViewLabel method) {

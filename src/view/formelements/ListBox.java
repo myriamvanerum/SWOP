@@ -34,10 +34,11 @@ public class ListBox extends WindowControl {
 	}
 
 	private void drawItems(Graphics2D g) {
+		int y = getY();
 		for (int i = 0; i < items.size(); i++) {
 			if (i == selectedItem) {
 				g.setColor(Color.GRAY);
-				Rectangle rectangle = new Rectangle(getX(), getY(), 150 - 2, 20 - 2);
+				Rectangle rectangle = new Rectangle(getX(), y, 150 - 2, 20 - 2);
 				g.draw(rectangle);
 				g.fill(rectangle);
 				g.setColor(Color.BLACK);
@@ -45,8 +46,8 @@ public class ListBox extends WindowControl {
 
 			String item = items.get(i);
 			int stringHeight = (int) g.getFontMetrics().getStringBounds(item, g).getHeight();
-			g.drawString(items.get(i), getX() + 5, getY() + stringHeight);
-			setY(getY() + 20);
+			g.drawString(items.get(i), getX() + 5, y + stringHeight);
+			y += 20;
 		}
 	}
 
