@@ -21,9 +21,8 @@ public class InvocationState extends LabelState {
 	@Override
 	public void addCharacter(int keyCode, char keyChar) {
 		editLabel(keyChar);
-		String label = viewLabel.getOutput();
 		
-		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label.substring(0, label.length()-1)))
+		if (!syntaxChecker.correctInvocationMessageLabelSyntax(viewLabel.getOutput()))
 			viewLabel.setColor(Color.RED);
 		else viewLabel.setColor(Color.GREEN);
 	}
