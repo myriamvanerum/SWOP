@@ -140,7 +140,7 @@ public class ViewInteraction implements Observer {
 		if (selectedComponent() == null) return;
 		DialogBox dialogBox = selectedComponent().createDialogBox((int)lowestPosition.getX(), (int)lowestPosition.getY());
 		subWindows.add(dialogBox);
-		activeWindow = dialogBox;
+		setActiveWindow(dialogBox);
 	}
 	
 	/* COMPONENT OPERATIONS */
