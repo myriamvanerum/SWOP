@@ -6,6 +6,7 @@ import domain.message.Message;
 import view.components.ViewLabel;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
+import view.labelstate.LabelState;
 
 public class ResultBox extends DialogBox {
 	private Message message;
@@ -15,10 +16,11 @@ public class ResultBox extends DialogBox {
 		super(x, y, 250, 60, new Titlebar(x,y,250));
 		this.message = message;
 		this.viewLabel = new ViewLabel(message.getLabel());
+		setTitle("Result message");
 		this.controls = new ArrayList<WindowControl>();
 		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewLabel));
 		this.currentControl = 0;
-		setTitle("Result message");
+		setLabelState(new LabelState(this));
 	}
 	
 	public Message getMessage() {

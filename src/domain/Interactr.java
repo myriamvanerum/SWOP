@@ -12,7 +12,7 @@ import view.components.ViewParty;
  * @author groep 03
  */
 public class Interactr {
-	Interaction interaction;
+	ViewInteraction manager;
 	PartyFactory partyFactory;
 	MessageFactory messageFactory;
 	
@@ -26,7 +26,7 @@ public class Interactr {
 		if (manager == null)
 			throw new NullPointerException();
 		
-		this.interaction = manager.getInteraction();
+		this.manager = manager;
 		this.partyFactory = new PartyFactory();
 		this.messageFactory = new MessageFactory();
 	}
@@ -38,7 +38,8 @@ public class Interactr {
 	 */
 	public void addParty() {
 		Party party = partyFactory.createParty("object");
-		interaction.addParty(party);
+		Interaction currentInteraction = manager.getInteraction();
+		currentInteraction.addParty(party);
 		System.out.println("Create New Party.");
 	}
 	
@@ -54,7 +55,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Change Party Type.");
-		interaction.changePartyType(viewParty.getParty());
+		manager.getInteraction().changePartyType(viewParty.getParty());
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		interaction.removeComponent(viewComponent.getComponent());
+		manager.getInteraction().removeComponent(viewComponent.getComponent());
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class Interactr {
 		System.out.println("Create New Message.");
 		InvocationMessage message = messageFactory.createMessage(sender, receiver);
 		
-		interaction.addMessage(message, previous);	
+		manager.getInteraction().addMessage(message, previous);	
 	}
 	
 	/**

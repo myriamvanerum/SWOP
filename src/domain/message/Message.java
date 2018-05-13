@@ -33,8 +33,6 @@ public abstract class Message extends Component {
         this.sender = sender;
         this.receiver = receiver;
         this.messageNumber = "";
-
-        sender.setSendingMessage(this);
     }    
     
     @Override
