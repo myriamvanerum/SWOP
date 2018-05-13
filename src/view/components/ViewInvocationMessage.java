@@ -80,35 +80,7 @@ public class ViewInvocationMessage extends ViewMessage {
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, getMessage().getMessageNumber(), new Point2D.Double(labelX, ySender-(ySender-yReceiver)/2));
 	}
-	
-
-	/**
-	 * Checks if the invocation message's Label is positioned at the clicked coordinates
-	 * 
-	 * @param coordinates
-	 *            The coordinates of a click event
-	 * @param positionState
-	 * 			  The Message's position
-	 * @param windowPosition
-	 * 			  The SubWindow's position
-	 */
-	@Override
-	public boolean checkLabelPosition(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
-		ViewLifeLine senderLifeline = getSender().getViewLifeLine();
-		ViewLifeLine receiverLifeline = getReceiver().getViewLifeLine();
-		int xSender = senderLifeline.getX();
-		int xReceiver = receiverLifeline.getX();
 		
-		double positionX = xSender + ((xReceiver - xSender)/2) - (viewLabel.getWidth()/2); 
-		double positionYSeq = (positionState.getY())-2;
-		double positionYCom = getSender().getPositionCom().getY() + windowPosition.getY() + 25;
-		
-		return coordinates.getX() >= positionX &&
-			   coordinates.getX() <= positionX + viewLabel.getWidth() &&
-			   coordinates.getY() +5 >= positionYSeq - viewLabel.getHeight() || coordinates.getY() +5 >= positionYCom - viewLabel.getHeight() &&
-			   coordinates.getY() +5 >= positionYSeq || coordinates.getY() +5 >= positionYCom;
-	}
-	
 	@Override
 	public ViewMessage copy() {
 		return new ViewInvocationMessage(this);

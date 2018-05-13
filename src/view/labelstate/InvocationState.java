@@ -11,9 +11,7 @@ public class InvocationState extends LabelState {
 
 	@Override
 	public void confirmLabel() {
-		String label = viewLabel.getOutput();
-		
-		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageLabelSyntax(label.substring(0, label.length()-1))) {
+		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageLabelSyntax(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1))) {
 			enterLabel(getCurrentViewComponent().getComponent());
 		}
 	}
@@ -22,7 +20,7 @@ public class InvocationState extends LabelState {
 	public void addCharacter(int keyCode, char keyChar) {
 		editLabel(keyChar);
 		
-		if (!syntaxChecker.correctInvocationMessageLabelSyntax(viewLabel.getOutput()))
+		if (!syntaxChecker.correctInvocationMessageLabelSyntax(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))
 			viewLabel.setColor(Color.RED);
 		else viewLabel.setColor(Color.GREEN);
 	}

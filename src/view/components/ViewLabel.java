@@ -12,6 +12,7 @@ public class ViewLabel {
 	int width, height;
 	Color color;
 	String output;
+	Point2D lastPosition;
 	
 	/**
 	 * ViewLabel Constructor
@@ -19,9 +20,10 @@ public class ViewLabel {
 	 * 		The text of the label
 	 */
 	public ViewLabel(String label) {
-		output = label;
+		this.output = label;
+		this.lastPosition = null;
 	}
-	
+
 	/**
 	 * Copy Constructor
 	 */
@@ -61,11 +63,14 @@ public class ViewLabel {
 	protected void draw(Graphics2D g, String labelPrefix, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();		
-		
+
 		drawLabel(g, labelPrefix + "  " + output, position);
 	}
 	
 	public void drawLabel(Graphics2D g, String label, Point2D position) {
+		setLastPosition(position);
+		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
+		setWidth(g.getFontMetrics().stringWidth(label));
 		Color colorOrig = g.getColor();
 		g.setColor(getColor());
 		g.drawString(label, (int)position.getX(), (int)position.getY());
@@ -105,12 +110,27 @@ public class ViewLabel {
 	public void setOutput(String output) {
 		this.output = output;
 	}
+		
+	public Point2D getLastPosition() {
+		return lastPosition;
+	}
+
+
+	public void setLastPosition(Point2D lastPosition) {
+		this.lastPosition = lastPosition;
+	}
 	
 	public void editLabel(char keyChar) {
 		String label = getOutput();
 		if (label.length() > 0)
 			setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
 		else setOutput(keyChar + "|");
+	}
 	
+	public boolean clicked(int clickedX, int clickedY) {
+		int x = (int)getLastPosition().getX();
+		int y = (int)getLastPosition().getY();
+		
+		return clickedX >= x && clickedX <= x + getWidth() && clickedY >= y - getHeight() && clickedY <= y;
 	}
 }

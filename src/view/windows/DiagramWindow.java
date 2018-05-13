@@ -353,15 +353,15 @@ public class DiagramWindow extends SubWindow {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
-		for (ViewParty party : getViewParties()) {
-			if (getState().checkLabelPosition(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+		for (ViewParty party : getViewParties()) {			
+			if (party.getViewLabel().clicked(x, y)) {
 				setSelectedComponent(party);
 				return party.getViewLabel();
 			}
 		}
 
 		for (ViewMessage message : getViewMessages()) {
-			if (getState().checkLabelPosition(message, new Point2D.Double(x, y), new Point2D.Double(getX(), getY()))) {
+			if (message.getViewLabel().clicked(x, y)) {
 				setSelectedComponent(message);
 				return message.getViewLabel();
 			}

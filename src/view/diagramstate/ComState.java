@@ -70,11 +70,6 @@ public class ComState implements State {
 		return party.checkCoordinates(clickPosition, party.getPositionCom(), windowPosition);
 	}
 	
-	@Override
-	public boolean checkLabelPosition(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
-		return component.checkLabelPosition(clickPosition, component.getPositionCom(), windowPosition);
-	}
-
 	/**
 	 * Get the State of this SubWindow
 	 */

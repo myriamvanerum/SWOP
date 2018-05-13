@@ -7,7 +7,7 @@ import domain.party.Party;
 public class MessageFactory {
 	public InvocationMessage createMessage(Party sender, Party receiver) {
 		InvocationMessage invocationMessage = new InvocationMessage("|", sender, receiver);
-		ResultMessage resultMessage = new ResultMessage("", receiver, sender);
+		ResultMessage resultMessage = new ResultMessage("return", receiver, sender);
 		invocationMessage.setCompanion(resultMessage);
 		resultMessage.setCompanion(invocationMessage);
 		

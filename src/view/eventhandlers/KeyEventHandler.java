@@ -58,37 +58,37 @@ public class KeyEventHandler {
     				interactionManager.openDialogBox();
     				break;
     			}
-            }
-            
-			switch (keyCode) {
-			case KeyEvent.VK_TAB:
-				interactionManager.pressTab();
-				break;
-			case KeyEvent.VK_DELETE:
-				interactionManager.deleteComponent();
-				break;
-			case KeyEvent.VK_ENTER:
-				interactionManager.confirmLabel();
-				break;
-			case KeyEvent.VK_BACK_SPACE:
-				interactionManager.removeLabelCharacter();
-				break;
-			}
+            } else {
+            	switch (keyCode) {
+    			case KeyEvent.VK_TAB:
+    				interactionManager.pressTab();
+    				break;
+    			case KeyEvent.VK_DELETE:
+    				interactionManager.deleteComponent();
+    				break;
+    			case KeyEvent.VK_ENTER:
+    				interactionManager.confirmLabel();
+    				break;
+    			case KeyEvent.VK_BACK_SPACE:
+    				interactionManager.removeLabelCharacter();
+    				break;
+    			}
 
-			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
-					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
-					|| (keyCode >= KeyEvent.VK_NUMPAD0 && keyCode <= KeyEvent.VK_NUMPAD9) // alle cijfers
-					|| keyCode == KeyEvent.VK_COLON // een dubbelpunt
-					|| keyCode == KeyEvent.VK_SEMICOLON // een puntkomma
-					|| keyCode == KeyEvent.VK_UNDERSCORE // een underscore
-					|| keyCode == KeyEvent.VK_MINUS // een liggend streepje
-					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS // een linkerhaakje
-					|| keyCode == KeyEvent.VK_RIGHT_PARENTHESIS // een rechterhaakje
-					|| keyCode == KeyEvent.VK_SPACE // een spatie
-					|| keyCode == KeyEvent.VK_COMMA)) // een komma
-			{
-				interactionManager.addLabelCharacter(keyCode, keyChar);
-			}
+    			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
+    					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
+    					|| (keyCode >= KeyEvent.VK_NUMPAD0 && keyCode <= KeyEvent.VK_NUMPAD9) // alle cijfers
+    					|| keyCode == KeyEvent.VK_COLON // een dubbelpunt
+    					|| keyCode == KeyEvent.VK_SEMICOLON // een puntkomma
+    					|| keyCode == KeyEvent.VK_UNDERSCORE // een underscore
+    					|| keyCode == KeyEvent.VK_MINUS // een liggend streepje
+    					|| keyCode == KeyEvent.VK_LEFT_PARENTHESIS // een linkerhaakje
+    					|| keyCode == KeyEvent.VK_RIGHT_PARENTHESIS // een rechterhaakje
+    					|| keyCode == KeyEvent.VK_SPACE // een spatie
+    					|| keyCode == KeyEvent.VK_COMMA)) // een komma
+    			{
+    				interactionManager.addLabelCharacter(keyCode, keyChar);
+    			}
+            }
 		}
 	}
 }
