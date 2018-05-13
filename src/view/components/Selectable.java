@@ -1,4 +1,4 @@
-package view;
+package view.components;
 /**
  * An interface Selectable that determines what properties a Selectable has.
  * 

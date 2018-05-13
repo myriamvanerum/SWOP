@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import domain.Component;
-import view.Selectable;
 /**
  * ViewComponent class. Controls the drawing of Components
  * @author groep 03
