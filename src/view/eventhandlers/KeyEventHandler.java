@@ -62,7 +62,7 @@ public class KeyEventHandler {
             
 			switch (keyCode) {
 			case KeyEvent.VK_TAB:
-				interactionManager.changeDiagramState();
+				interactionManager.pressTab();
 				break;
 			case KeyEvent.VK_DELETE:
 				interactionManager.deleteComponent();

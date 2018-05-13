@@ -131,11 +131,8 @@ public class ViewInteraction implements Observer {
 		getInteraction().removeObserver(this);
 	}
 
-	public void changeActiveWindowState() {
-		if (getActiveWindow().actionAllowed()) {
-			DiagramWindow active = (DiagramWindow)getActiveWindow();
-			active.changeState();
-		}
+	public void pressTab() {
+		getActiveWindow().pressTab();
 	}
 
 	public void openDialogBox(Point2D lowestPosition) {

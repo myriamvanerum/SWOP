@@ -240,4 +240,8 @@ public abstract class SubWindow {
 	public void selectComponent(int x2, int y2) {}
 
 	public void singleClick(int x2, int y2) {}
+
+	public void pressTab() {
+		System.out.println("Press tab");
+	}
 }

@@ -503,4 +503,10 @@ public class DiagramWindow extends SubWindow {
 			}
 		}
 	}
+	
+	@Override
+	public void pressTab() {
+		if(actionAllowed())
+			changeState();
+	}
 }
