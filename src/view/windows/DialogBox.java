@@ -94,4 +94,12 @@ public class DialogBox extends SubWindow {
 			getLabelState().addCharacter(keyCode, keyChar);
 		}
 	}
+	
+
+	@Override
+	public void pressTab() {
+		// TODO 	
+		//if(actionAllowed())
+		//	changeControl()
+	}
 }

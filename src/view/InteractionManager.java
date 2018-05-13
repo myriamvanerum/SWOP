@@ -222,11 +222,11 @@ public class InteractionManager {
 	 * Forward the request to change the DiagramState for the active DiagramWindow
 	 * to the active ViewInteraction
 	 */
-	public void changeDiagramState() {
+	public void pressTab() {
 		if (getActiveInteraction() == null)
 			return;
 		System.out.println("Change Window State.");
-		getActiveInteraction().changeActiveWindowState();
+		getActiveInteraction().pressTab();
 	}
 
 	/* COMPONENT OPERATIONS */
