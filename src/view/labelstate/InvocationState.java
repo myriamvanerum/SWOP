@@ -2,7 +2,6 @@ package view.labelstate;
 
 import java.awt.Color;
 
-import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class InvocationState extends LabelState {

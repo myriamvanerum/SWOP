@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import domain.message.Message;
@@ -48,44 +47,29 @@ public class Interaction implements Observable {
 	 * Add a new Party to the Interaction
 	 * @param party
 	 * 		The Party to add
-	 * @param position
-	 * 		The position for this Party
-	 * @throws NullPointerException
-	 * 		No party or position supplied
-	 * @throws IllegalArgumentException
-	 * 		Illegal position
 	 */
-	public void addParty(Party party, Point2D position) {
-		if (party == null || position == null)
+	public void addParty(Party party) {
+		if (party == null)
 			throw new NullPointerException();
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
-		
 		this.parties.add(party);
-		notifyAdd(party, position);
+		notifyAdd(party);
 	}
 	
 	/** 
 	 * Add a new Message to the Interaction
 	 * @param message
 	 * 		The Message to add
-	 * @param position
-	 * 		The position for this Message
 	 * @throws NullPointerException
-	 * 		No message or position supplied
-	 * @throws IllegalArgumentException
-	 * 		Illegal position
+	 * 		No message supplied
 	 */
-	public void addMessage(Message message, Message previous, Point2D position) {
-		if (message == null || position == null)
+	public void addMessage(Message message, Message previous) {
+		if (message == null)
 			throw new NullPointerException();
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
 		
 		// add message and companion to flow. If successfull, tell observers
 		if (getMessageSequence().addMessage(message, previous)) {
 			// TODO verbeter zodat positie niet moet worden doorgestuurd
-			notifyAdd(message, position);
+			notifyAdd(message);
 		}
 	}
 	
@@ -169,26 +153,22 @@ public class Interaction implements Observable {
 	 * Notify all Observers a Party has been added
 	 * @param party
 	 * 		The party that was added
-	 * @param position
-	 * 		The position the party must be painted at
 	 */
 	@Override
-	public void notifyAdd(Party party, Point2D position) {
+	public void notifyAdd(Party party) {
 		for (Observer observer : observers)
-			observer.onAddParty(party, position);
+			observer.onAddParty(party);
 	}
 	
 	/**
 	 * Notify all Observers a Message has been added
 	 * @param message
 	 * 		The message that was added
-	 * @param position
-	 * 		The position the message must be painted at
 	 */
 	@Override
-	public void notifyAdd(Message message, Point2D position) {
+	public void notifyAdd(Message message) {
 		for (Observer observer : observers)
-			observer.onAddMessage(message, position);
+			observer.onAddMessage(message);
 	}
 
 	/**

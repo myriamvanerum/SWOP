@@ -5,7 +5,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.components.ViewComponent;
-import view.components.ViewInvocationMessage;
 import view.components.ViewLifeLine;
 import view.components.ViewMessage;
 import view.components.ViewParty;

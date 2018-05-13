@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.geom.Point2D;
-
 import domain.message.InvocationMessage;
 import domain.message.Message;
 import domain.party.Party;
@@ -36,27 +34,13 @@ public class Interactr {
 
 	/**
 	 * Create a new Party in the active Interaction
-	 * @param position
-	 * 		The clicked position, where the party must be placed on the screen
 	 * @return the created Party
-	 * @throws NullPointerException
-	 * 		No position supplied
-	 * @throws IllegalArgumentException
-	 * 		Illegal position
 	 */
-	public Party addParty(Point2D position) {
-		if (position == null)
-			throw new NullPointerException();
-		if (position.getX() < 0 || position.getY() < 0)
-			throw new IllegalArgumentException();
-		
+	public void addParty() {
 		Party party = partyFactory.createParty("object");
-		
 		Interaction currentInteraction = manager.getInteraction();
-		currentInteraction.addParty(party, position);
-		
+		currentInteraction.addParty(party);
 		System.out.println("Create New Party.");
-		return party;
 	}
 	
 	/**
@@ -95,29 +79,17 @@ public class Interactr {
 	 * 		The Message sender
 	 * @param receiver
 	 * 		The Message receiver
-	 * @param x
-	 * 		The clicked x coordinates
-	 * @param y
-	 * 		The clicked y coordinates
-	 * @return
-	 * 		The created Message
 	 * @throws NullPointerException
 	 * 		No sender or receiver supplied
-	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
 	 */
-	public Message addMessage(Party sender, Party receiver, Message previous, int x, int y) {
+	public void addMessage(Party sender, Party receiver, Message previous) {
 		if (sender == null || receiver == null)
 			throw new NullPointerException();
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
 		
 		System.out.println("Create New Message.");
 		InvocationMessage message = messageFactory.createMessage(sender, receiver);
 		
-		manager.getInteraction().addMessage(message, previous, new Point2D.Double(x,y));	
-						
-		return message;
+		manager.getInteraction().addMessage(message, previous);	
 	}
 	
 	/**

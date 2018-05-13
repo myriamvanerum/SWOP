@@ -6,14 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import domain.Component;
 import domain.party.Party;
-import view.components.ViewComponent;
-import view.components.ViewLabel;
 import view.eventhandlers.KeyEventHandler;
 import view.eventhandlers.MouseEventHandler;
 import view.windows.DiagramWindow;
-import view.windows.SubWindow;
 
 /**
  * An InteractionManager holds a list of all current Interactions. It handles
@@ -321,6 +317,7 @@ public class InteractionManager {
 	Party sender, receiver;
 	public void pressed(int x, int y) {
 		if (getActiveInteraction() == null) return;
+		getActiveInteraction().setLastClickedPosition(new Point2D.Double(x, y));
 
 		if (getActiveInteraction().getActiveWindow().actionAllowed()) {
 			sender = getActiveInteraction().checkLifeLine(x, y);
@@ -330,6 +327,7 @@ public class InteractionManager {
 
 	public void released(int x, int y) {
 		if (getActiveInteraction() == null) return;
+		getActiveInteraction().setLastClickedPosition(new Point2D.Double(x, y));
 		receiver = getActiveInteraction().checkLifeLine(x, y);
 		if (sender != null && receiver != null) {
 			getActiveInteraction().addMessage(sender, receiver, x, y);
