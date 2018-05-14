@@ -201,6 +201,26 @@ public class ViewInteraction implements Observer {
 		getActiveWindow().singleClick(x, y);
 	}	
 	
+	Party sender, receiver;
+	public void pressed(int x, int y) {
+		setLastClickedPosition(new Point2D.Double(x, y));
+
+		if (getActiveWindow().actionAllowed()) {
+			sender = checkLifeLine(x, y);
+			selectComponent(x, y);
+		}
+	}
+
+	public void released(int x, int y) {
+		setLastClickedPosition(new Point2D.Double(x, y));
+		receiver = checkLifeLine(x, y);
+		if (sender != null && receiver != null) {
+			addMessage(sender, receiver, x, y);
+		}
+		sender = null;
+		receiver = null;
+	}
+	
 	/* LABEL METHODS */
 	
 	public void confirmLabel() {

@@ -314,25 +314,13 @@ public class InteractionManager {
 		getActiveInteraction().moveComponent(x, y);
 	}
 
-	Party sender, receiver;
 	public void pressed(int x, int y) {
 		if (getActiveInteraction() == null) return;
-		getActiveInteraction().setLastClickedPosition(new Point2D.Double(x, y));
-
-		if (getActiveInteraction().getActiveWindow().actionAllowed()) {
-			sender = getActiveInteraction().checkLifeLine(x, y);
-			getActiveInteraction().selectComponent(x, y);
-		}
+		getActiveInteraction().pressed(x, y);
 	}
 
 	public void released(int x, int y) {
 		if (getActiveInteraction() == null) return;
-		getActiveInteraction().setLastClickedPosition(new Point2D.Double(x, y));
-		receiver = getActiveInteraction().checkLifeLine(x, y);
-		if (sender != null && receiver != null) {
-			getActiveInteraction().addMessage(sender, receiver, x, y);
-		}
-		sender = null;
-		receiver = null;
+		getActiveInteraction().released(x, y);
 	}
 }
