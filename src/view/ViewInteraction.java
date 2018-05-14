@@ -27,8 +27,8 @@ public class ViewInteraction implements Observer {
 	/* CONSTRUCTOR */
 	
 	public ViewInteraction() {
+		setInteraction(new Interaction());
 		setInteractr(new Interactr(this));
-		setInteraction(interactr.addInteraction());
 		getInteraction().addObserver(this);
 	}
 	

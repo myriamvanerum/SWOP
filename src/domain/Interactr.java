@@ -13,6 +13,7 @@ import view.components.ViewParty;
  */
 public class Interactr {
 	ViewInteraction manager;
+	Interaction interaction;
 	PartyFactory partyFactory;
 	MessageFactory messageFactory;
 	
@@ -27,10 +28,10 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		this.manager = manager;
+		this.interaction = manager.getInteraction();
 		this.partyFactory = new PartyFactory();
 		this.messageFactory = new MessageFactory();
 	}
-	
 
 	/**
 	 * Create a new Party in the active Interaction
@@ -38,8 +39,7 @@ public class Interactr {
 	 */
 	public void addParty() {
 		Party party = partyFactory.createParty("object");
-		Interaction currentInteraction = manager.getInteraction();
-		currentInteraction.addParty(party);
+		interaction.addParty(party);
 		System.out.println("Create New Party.");
 	}
 	
@@ -55,7 +55,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Change Party Type.");
-		manager.getInteraction().changePartyType(viewParty.getParty());
+		interaction.changePartyType(viewParty.getParty());
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		manager.getInteraction().removeComponent(viewComponent.getComponent());
+		interaction.removeComponent(viewComponent.getComponent());
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Interactr {
 		System.out.println("Create New Message.");
 		InvocationMessage message = messageFactory.createMessage(sender, receiver);
 		
-		manager.getInteraction().addMessage(message, previous);	
+		interaction.addMessage(message, previous);	
 	}
 	
 	/**
@@ -105,17 +105,10 @@ public class Interactr {
 
 	/**
 	 * Method to be called when a Label has to be saved
-	 * @param interaction
-	 * 		The Interaction the component belongs to
 	 * @param currentComponent
 	 * 		The component with a new label
 	 */
-	public void editLabel(Interaction interaction, Component currentComponent, String label) {
+	public void editLabel(Component currentComponent, String label) {
 		currentComponent.editLabel(interaction, label);
-	}
-
-
-	public Interaction addInteraction() {
-		return new Interaction();
 	}
 }
