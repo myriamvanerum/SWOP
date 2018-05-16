@@ -92,6 +92,15 @@ class SyntaxCheckerTest {
 	}
 	
 	@Test
+	void testInvocationMessageLabelFailNoLowerCase() {
+		
+		String label = "Label()";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
+		
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
 	void testInvocationMessageLabelFailNoLeftParenthesis() {
 		
 		String label = "label)";

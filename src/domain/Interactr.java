@@ -1,6 +1,5 @@
 package domain;
 
-import domain.message.InvocationMessage;
 import domain.message.Message;
 import domain.party.Party;
 import view.ViewInteraction;
@@ -14,8 +13,6 @@ import view.components.ViewParty;
 public class Interactr {
 	ViewInteraction manager;
 	Interaction interaction;
-	PartyFactory partyFactory;
-	MessageFactory messageFactory;
 	
 	/**
 	 * Controller constructor
@@ -29,8 +26,6 @@ public class Interactr {
 		
 		this.manager = manager;
 		this.interaction = manager.getInteraction();
-		this.partyFactory = new PartyFactory();
-		this.messageFactory = new MessageFactory();
 	}
 
 	/**
@@ -38,8 +33,7 @@ public class Interactr {
 	 * @return the created Party
 	 */
 	public void addParty() {
-		Party party = partyFactory.createParty("object");
-		interaction.addParty(party);
+		interaction.addParty();
 		System.out.println("Create New Party.");
 	}
 	
@@ -87,9 +81,8 @@ public class Interactr {
 			throw new NullPointerException();
 		
 		System.out.println("Create New Message.");
-		InvocationMessage message = messageFactory.createMessage(sender, receiver);
 		
-		interaction.addMessage(message, previous);	
+		interaction.addMessage(sender, receiver, previous);	
 	}
 	
 	/**

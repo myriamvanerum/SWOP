@@ -2,8 +2,11 @@ package domain;
 
 import java.util.ArrayList;
 
+import domain.message.InvocationMessage;
 import domain.message.Message;
 import domain.message.MessageSequence;
+import domain.message.ResultMessage;
+import domain.party.Object;
 import domain.party.Party;
 import view.Observer;
 
@@ -45,12 +48,9 @@ public class Interaction implements Observable {
 
 	/** 
 	 * Add a new Party to the Interaction
-	 * @param party
-	 * 		The Party to add
 	 */
-	public void addParty(Party party) {
-		if (party == null)
-			throw new NullPointerException();
+	public void addParty() {
+		Party party = new Object("|");
 		this.parties.add(party);
 		notifyAdd(party);
 	}
@@ -62,9 +62,11 @@ public class Interaction implements Observable {
 	 * @throws NullPointerException
 	 * 		No message supplied
 	 */
-	public void addMessage(Message message, Message previous) {
-		if (message == null)
-			throw new NullPointerException();
+	public void addMessage(Party sender, Party receiver, Message previous) {
+		InvocationMessage message = new InvocationMessage("|", sender, receiver);
+		ResultMessage resultMessage = new ResultMessage("return", receiver, sender);
+		message.setCompanion(resultMessage);
+		resultMessage.setCompanion(message);
 		
 		// add message and companion to flow. If successfull, tell observers
 		if (getMessageSequence().addMessage(message, previous)) {
