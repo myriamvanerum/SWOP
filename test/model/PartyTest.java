@@ -3,7 +3,7 @@
  */
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +17,11 @@ import domain.party.Party;
  *
  */
 class PartyTest {
+	Party actor = new Actor("test");
+	Party object = new Object("test");
 	
 	@Test
 	void testPartyBasic() {
-		Party actor = new Actor("test");
-		Party object = new Object("test");
-		
 		new InvocationMessage("message", actor, object);		
 		
 		assertEquals("test", actor.getLabel());
@@ -33,6 +32,15 @@ class PartyTest {
 		
 		Party newObject = new Object(actor);
 		assertEquals(actor.getLabel(), newObject.getLabel());
+	}
+	
+	@Test
+	void testPartyChangeType() {
+		actor = actor.changeType();
+		assertTrue(actor instanceof Object);
+		
+		actor = actor.changeType();
+		assertTrue(actor instanceof Actor);
 	}
 	
 	@Test
