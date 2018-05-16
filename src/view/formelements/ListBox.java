@@ -16,6 +16,9 @@ public class ListBox extends WindowControl {
 		setY(y);
 		setHeight(100);
 		setWidth(150);
+		
+		if (items.size() > 0)
+			setSelectedItem(0);
 	}
 
 	public ArrayList<String> getItems() {

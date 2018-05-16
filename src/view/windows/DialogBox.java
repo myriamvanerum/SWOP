@@ -110,6 +110,11 @@ public class DialogBox extends SubWindow {
 			getCurrentControl().changeLabelState(this);
 		}
 	}
+	
+	@Override
+	public void pressSpace() {
+		System.out.println("Press space.");
+	}
 
 	public void setLabelState(ViewLabel viewLabel) {
 		System.out.println("Set label mode dialog box.");

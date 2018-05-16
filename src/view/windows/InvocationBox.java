@@ -12,29 +12,34 @@ import view.formelements.ListBox;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
 import view.labelstate.InvocationState;
+import view.listboxcommand.Operator;
 
 public class InvocationBox extends DialogBox {
 	private InvocationMessage message;
 	private ViewMessage viewMessage;
+	private Operator operator;
 	
 	public InvocationBox(ViewInteraction viewInteraction, ViewInvocationMessage message, int x, int y) {
 		super(viewInteraction, x, y, 250, 275, new Titlebar(x,y,250));
 		setTitle("Invocation message");
 		this.viewMessage = message;
 		this.message = (InvocationMessage) getViewMessage().getMessage();	// TODO code smell?
-		addControls(message);
+		addControls(getMessage());
 		setViewInteraction(viewInteraction);
 	}
 
-	private void addControls(ViewMessage message) {
+	private void addControls(InvocationMessage message) {
+		ListBox listbox = new ListBox(getMessage().getArguments(), getX()+10, getY()+130);
 		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Method: ", getX()+10, getY()+50, message.getViewLabel()));
+		controls.add(new TextBox("Method: ", getX()+10, getY()+50, new ViewLabel(message.getMethod())));
 		controls.add(new TextBox("New: ", getX()+10, getY()+80));
-		controls.add(new ListBox(getMessage().getArguments(), getX()+10, getY()+130));
+		controls.add(listbox);
 		controls.add(new Button("\u02C4", getX()+175,getY()+130,25,20));
 		controls.add(new Button("\u02C5", getX()+175,getY()+160,25,20));
 		controls.add(new Button("X", getX()+175,getY()+190,25,20));
 		controls.add(new Button("Add", getX()+175,getY()+220,25,40));
+		
+		operator = new Operator(listbox);
 		
 		setControls(controls);
 		setCurrentControlIndex(0);
@@ -52,8 +57,12 @@ public class InvocationBox extends DialogBox {
 	public void setMessage(ViewMessage viewMessage) {
 		this.viewMessage = viewMessage;
 	}	
+	
+	public Operator getOperator() {
+		return operator;
+	}
 
-	//@Override
+	@Override
 	public void setDialogBoxState(ViewLabel viewLabel) {
 		if (viewLabel != null)
 			setLabelState(new InvocationState(this, viewLabel));
@@ -63,7 +72,22 @@ public class InvocationBox extends DialogBox {
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
-		//	getLabelState().confirmLabel(getMessage());				// TODO
+			getLabelState().confirmLabel(getMessage());				// TODO
 		}
+	}
+	
+	@Override
+	public void moveUp() {
+		getOperator().moveUp();
+	}
+	
+	@Override
+	public void moveDown() {
+		getOperator().moveDown();
+	}
+	
+	@Override
+	public void deleteItem() {
+		getOperator().delete();
 	}
 }

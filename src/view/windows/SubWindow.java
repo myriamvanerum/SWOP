@@ -248,4 +248,20 @@ public class SubWindow {
 	public void setDialogBoxState(ViewLabel viewLabel) {
 		System.out.println("Set label state.");
 	}
+
+	public void pressSpace() {
+		System.out.println("Press space.");
+	}
+
+	public void moveUp() {
+		System.out.println("Press arrow up.");		
+	}
+	
+	public void moveDown() {
+		System.out.println("Press arrow down.");		
+	}
+
+	public void deleteItem() {
+		System.out.println("Delete listbox item.");			
+	}
 }
