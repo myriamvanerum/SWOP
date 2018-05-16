@@ -60,7 +60,6 @@ public class ViewObject extends ViewParty {
 			throw new IllegalArgumentException();
 										
 		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
-		String label = viewLabel.getOutput();
 		
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > 80)

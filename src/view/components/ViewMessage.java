@@ -118,7 +118,7 @@ public class ViewMessage extends ViewComponent {
 
 	@Override
 	public void setLabelState(SubWindow subwindow) {
-		subwindow.setLabelState(new InvocationState(subwindow));
+		subwindow.setLabelState(new InvocationState(subwindow, getViewLabel()));
 	}
 
 	public void moveDownIfBelow(double y) {

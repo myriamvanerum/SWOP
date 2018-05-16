@@ -3,11 +3,13 @@ package view.labelstate;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
+import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class PartyState extends LabelState {
-	public PartyState(SubWindow subwindow) {
-		super(subwindow);
+
+	public PartyState(SubWindow subwindow, ViewLabel viewLabel) {
+		super(subwindow, viewLabel);
 	}
 
 	@Override

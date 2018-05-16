@@ -90,6 +90,6 @@ public class ViewResultMessage extends ViewMessage {
 	
 	@Override
 	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
-		return new ResultBox(viewInteraction, (ResultMessage)getMessage(), x, y);
+		return new ResultBox(viewInteraction, this, x, y);
 	}
 }
