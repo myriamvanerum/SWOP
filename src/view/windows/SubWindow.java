@@ -253,15 +253,23 @@ public class SubWindow {
 		System.out.println("Press space.");
 	}
 
-	public void moveUp() {
+	public void moveItemUp() {
 		System.out.println("Press arrow up.");		
 	}
 	
-	public void moveDown() {
+	public void moveItemDown() {
 		System.out.println("Press arrow down.");		
 	}
 
 	public void deleteItem() {
 		System.out.println("Delete listbox item.");			
+	}
+	
+	public void scrollUp() {
+		System.out.println("Scroll up.");		
+	}
+
+	public void scrollDown() {
+		System.out.println("Scroll down.");			
 	}
 }
