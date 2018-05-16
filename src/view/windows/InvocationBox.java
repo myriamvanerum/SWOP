@@ -15,21 +15,14 @@ import view.labelstate.InvocationState;
 
 public class InvocationBox extends DialogBox {
 	private InvocationMessage message;
-	//private ViewLabel labelMethod;
-	//private ViewLabel labelArguments;
 	private ViewMessage viewMessage;
 	
 	public InvocationBox(ViewInteraction viewInteraction, ViewInvocationMessage message, int x, int y) {
 		super(viewInteraction, x, y, 250, 275, new Titlebar(x,y,250));
-		/*
-		this.labelMethod = new ViewLabel(message.getMethod());
-		this.labelArguments = new ViewLabel("");*/
 		setTitle("Invocation message");
 		this.viewMessage = message;
 		this.message = (InvocationMessage) getViewMessage().getMessage();	// TODO code smell?
 		addControls(message);
-		//setLabelState(new InvocationState(this, labelMethod));
-	//	setCurrentViewLabel(labelMethod);
 		setViewInteraction(viewInteraction);
 	}
 
@@ -70,7 +63,7 @@ public class InvocationBox extends DialogBox {
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
-		//	getLabelState().confirmLabel(getMessage());
+		//	getLabelState().confirmLabel(getMessage());				// TODO
 		}
 	}
 }

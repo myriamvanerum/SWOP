@@ -7,9 +7,6 @@ import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class PartyState extends LabelState {
-	/*public PartyState(SubWindow subwindow) {
-		super(subwindow);
-	}*/
 
 	public PartyState(SubWindow subwindow, ViewLabel viewLabel) {
 		super(subwindow, viewLabel);

@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import view.components.ViewLabel;
-import view.windows.DialogBox;
 import view.windows.SubWindow;
 
 public class TextBox extends WindowControl{

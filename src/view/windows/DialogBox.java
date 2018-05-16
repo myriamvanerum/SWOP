@@ -7,15 +7,13 @@ import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.formelements.WindowControl;
 
-public class DialogBox extends SubWindow implements DialogBoxHandler {
+public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
 	public int currentControlIndex;
 	public String title;
-	//private ViewLabel currentViewLabel;
 	
 	public DialogBox(ViewInteraction viewInteraction, Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
-		//this.currentViewLabel = null;
 		setViewInteraction(viewInteraction);
 	}
 		
@@ -111,16 +109,6 @@ public class DialogBox extends SubWindow implements DialogBoxHandler {
 			
 			getCurrentControl().changeLabelState(this);
 		}
-	}
-
-	@Override
-	public void handle() {
-		// TODO override in subwindows
-		System.out.println("Handle user input for dialog boxes");
-	}
-
-	@Override
-	public void activeControl() {		
 	}
 
 	public void setLabelState(ViewLabel viewLabel) {
