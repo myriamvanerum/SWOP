@@ -146,11 +146,10 @@ public class ViewInteraction implements Observer {
 	/* COMPONENT OPERATIONS */
 
 	public void deleteComponent() {
-		if (getActiveWindow().actionAllowed()) {
-			ViewComponent viewComponent = selectedComponent();
-			if (viewComponent == null) return;
-			getInteractr().deleteComponent(viewComponent);
-		}
+		if (!getActiveWindow().actionAllowed()) return;
+		ViewComponent viewComponent = selectedComponent();
+		if (viewComponent == null) return;
+		getInteractr().deleteComponent(viewComponent);
 	}
 
 	public void addMessage(Party sender, Party receiver, int x, int y) {
@@ -188,12 +187,11 @@ public class ViewInteraction implements Observer {
 	
 	public void doubleClick(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
-		if (getActiveWindow().actionAllowed()) {
-			if (getActiveWindow().getSelectedComponent() != null)
-				changePartyType();
-			else
-				addParty();
-		}
+		if (!getActiveWindow().actionAllowed()) return;
+		if (getActiveWindow().getSelectedComponent() != null)
+			changePartyType();
+		else
+			addParty();
 	}
 	
 	public void singleClick(int x, int y) {
@@ -205,10 +203,9 @@ public class ViewInteraction implements Observer {
 	public void pressed(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
 
-		if (getActiveWindow().actionAllowed()) {
-			sender = checkLifeLine(x, y);
-			selectComponent(x, y);
-		}
+		if (!getActiveWindow().actionAllowed()) return;
+		sender = checkLifeLine(x, y);
+		selectComponent(x, y);
 	}
 
 	public void released(int x, int y) {
@@ -273,10 +270,8 @@ public class ViewInteraction implements Observer {
 	public void onAddParty(Party party) {
 		for (SubWindow window : getSubWindows()) {
 			window.addViewParty(party, getLastClickedPosition());
-			if (window == getActiveWindow()) {
-				window.selectParty(party);
-			}
 		}
+		getActiveWindow().selectParty(party);
 	}
 
 	/**
@@ -303,10 +298,8 @@ public class ViewInteraction implements Observer {
 		
 		for (SubWindow window : getSubWindows()) {
 			window.addViewMessage(message, getLastClickedPosition());
-			if (window == getActiveWindow()) {
-				window.selectMessage(message);
-			}
 		}
+		getActiveWindow().selectMessage(message);
 	}
 	
 	@Override
