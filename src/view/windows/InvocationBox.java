@@ -11,7 +11,8 @@ import view.formelements.Button;
 import view.formelements.ListBox;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
-import view.labelstate.InvocationState;
+import view.labelstate.EditInvocationMessageMethodState;
+import view.labelstate.EditInvocationMessageLabelState;
 import view.listboxcommand.Operator;
 
 public class InvocationBox extends DialogBox {
@@ -65,14 +66,14 @@ public class InvocationBox extends DialogBox {
 	@Override
 	public void setDialogBoxState(ViewLabel viewLabel) {
 		if (viewLabel != null)
-			setLabelState(new InvocationState(this, viewLabel));
+			setLabelState(new EditInvocationMessageMethodState(this, viewLabel, message));
 	}
 
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel(getMessage());				// TODO
+			getLabelState().confirmLabel();				// TODO
 		}
 	}
 	

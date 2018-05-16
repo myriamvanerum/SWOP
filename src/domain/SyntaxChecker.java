@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SyntaxChecker {
@@ -62,5 +63,21 @@ public class SyntaxChecker {
 		}
 		
 		return true;
+	}
+	
+	public boolean correctInvocationMessageMethod(String input) {
+		String result = "";
+		Pattern pattern = Pattern.compile("[a-zA-Z0-9\\_]*");
+		Matcher matcher = pattern.matcher(input);
+		if (matcher.find())
+		{
+			result += matcher.group(0);
+		}    
+		
+		char first = input.charAt(0);
+
+		if (result.equals(input) && Character.isLowerCase(first))
+			return true;
+		return false;    
 	}
 }

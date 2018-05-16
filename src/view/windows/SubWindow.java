@@ -14,10 +14,10 @@ import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
 import view.formelements.WindowControl;
-import view.labelstate.InvocationState;
-import view.labelstate.LabelState;
-import view.labelstate.PartyState;
-import view.labelstate.ShowState;
+import view.labelstate.EditInvocationMessageLabelState;
+import view.labelstate.EditLabelState;
+import view.labelstate.EditPartyLabelState;
+import view.labelstate.ShowLabelState;
 
 public class SubWindow {
 	private Integer x;
@@ -26,11 +26,12 @@ public class SubWindow {
 	private Integer height;
 	private Titlebar titlebar;
 	private ViewInteraction viewInteraction;
+	private ViewComponent selectedComponent;
 
-	private LabelState labelState;
-	private ShowState showState = new ShowState(this, null);
-	private InvocationState invocationState = new InvocationState(this, null);
-	private PartyState partyState = new PartyState(this, null);
+	private EditLabelState labelState;
+	private ShowLabelState showState = new ShowLabelState(this, null);
+	private EditInvocationMessageLabelState invocationState = new EditInvocationMessageLabelState(this, null);
+	private EditPartyLabelState partyState = new EditPartyLabelState(this, null);
 
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
@@ -83,15 +84,15 @@ public class SubWindow {
 		this.titlebar = titlebar;
 	}
 
-	public LabelState getLabelState() {
+	public EditLabelState getLabelState() {
 		return labelState;
 	}
 
-	public LabelState getShowState() {
+	public EditLabelState getShowState() {
 		return showState;
 	}
 
-	public void setLabelState(LabelState labelState) {
+	public void setLabelState(EditLabelState labelState) {
 		this.labelState = labelState;
 	}
 
@@ -109,6 +110,14 @@ public class SubWindow {
 	
 	public ViewLabel getCurrentViewLabel() {
 		return null;
+	}
+
+	public ViewComponent getSelectedComponent() {
+		return selectedComponent;
+	}
+
+	public void setSelectedComponent(ViewComponent selectedComponent) {
+		this.selectedComponent = selectedComponent;
 	}
 
 	public void drawWhiteField(Graphics2D g) {
@@ -234,8 +243,6 @@ public class SubWindow {
 
 	public void selectParty(Party party) {}
 	public void selectMessage(Message message) {}
-	public void setSelectedComponent(ViewComponent viewComponent) {}
-	public ViewComponent getSelectedComponent() {return null;}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
 

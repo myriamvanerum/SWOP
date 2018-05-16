@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 import domain.Component;
 import domain.party.Party;
-import view.labelstate.PartyState;
+import view.labelstate.EditPartyLabelState;
 import view.windows.SubWindow;
 /**
  * ViewParty class. Controls the drawing of Parties
@@ -116,6 +116,6 @@ public class ViewParty extends ViewComponent {
 	
 	@Override
 	public void setLabelState(SubWindow subwindow) {
-		subwindow.setLabelState(new PartyState(subwindow, getViewLabel()));
+		subwindow.setLabelState(new EditPartyLabelState(subwindow, getViewLabel()));
 	}
 }

@@ -7,7 +7,7 @@ import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
-import view.labelstate.LabelState;
+import view.labelstate.EditLabelState;
 
 public class ResultBox extends DialogBox {
 	private ViewMessage viewMessage;
@@ -21,6 +21,7 @@ public class ResultBox extends DialogBox {
 		this.currentControlIndex = 0;
 		getCurrentControl().changeLabelState(this);
 		setViewInteraction(viewInteraction);
+		setSelectedComponent(viewMessage);
 	}
 	
 	public ViewMessage getViewMessage() {
@@ -36,14 +37,14 @@ public class ResultBox extends DialogBox {
 		if (viewLabel == null)
 			throw new IllegalArgumentException();
 			
-		setLabelState(new LabelState(this, viewLabel));
+		setLabelState(new EditLabelState(this, viewLabel));
 	}
 	
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel(getViewMessage().getMessage());
+			getLabelState().confirmLabel();
 		}
 	}
 }
