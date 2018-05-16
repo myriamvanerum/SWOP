@@ -43,22 +43,6 @@ public class InvocationMessage extends Message {
 	public void setArguments(ArrayList<String> arguments) {
 		this.arguments = arguments;
 	}
-
-	/**
-	 * Invocation message constructor
-	 * @param label
-	 * 		The message label
-	 * @param sender
-	 * 		The party that sends the message
-	 * @param receiver
-	 * 		The party that receives the message
-	 * @param resMessage
-	 * 		The resultMessage for this invocation message
-	 */
-    public InvocationMessage(String label, Party sender, Party receiver, ResultMessage resMessage) {
-        super(label, sender, receiver);
-        setCompanion(resMessage);
-    }
     
     @Override
 	public void remove(Interaction interaction) {
@@ -71,9 +55,9 @@ public class InvocationMessage extends Message {
     public String argumentsToString() {
     	String value = "";
     	for (String argument : arguments) {
-    		if (argument.equals(arguments.get(arguments.size()-1)))
-    			value += argument;
-    		value += argument +", ";
+    		value += argument;
+    		if (!argument.equals(arguments.get(arguments.size()-1)))
+    			value += ", ";
     	}
     	return value;
     }
