@@ -9,6 +9,7 @@ public class ListBox extends WindowControl {
 	private ArrayList<String> items = new ArrayList<String>();
 	private int selectedItem = -1;
 
+
 	public ListBox(ArrayList<String> items, int x, int y) {
 		this.items = items;
 		setX(x);

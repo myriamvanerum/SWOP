@@ -89,7 +89,7 @@ public class ViewInvocationMessage extends ViewMessage {
 	
 	@Override
 	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
-		return new InvocationBox(viewInteraction, (InvocationMessage)getMessage(), x, y);
+		return new InvocationBox(viewInteraction, this, x, y);
 	}
 	
 	@Override

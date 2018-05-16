@@ -2,43 +2,53 @@ package view.windows;
 
 import java.util.ArrayList;
 
-import domain.message.Message;
 import view.ViewInteraction;
 import view.components.ViewLabel;
+import view.components.ViewMessage;
 import view.formelements.TextBox;
 import view.formelements.WindowControl;
 import view.labelstate.LabelState;
 
 public class ResultBox extends DialogBox {
-	private Message message;
-	private ViewLabel messageLabel;
+	//private Message message;
+	private ViewMessage viewMessage;
+	//private ViewLabel messageLabel;
 		
-	public ResultBox(ViewInteraction viewInteraction, Message message, int x, int y) {
+	public ResultBox(ViewInteraction viewInteraction, ViewMessage viewMessage, int x, int y) {
 		super(viewInteraction, x, y, 250, 60, new Titlebar(x,y,250));
-		this.message = message;
-		this.messageLabel = new ViewLabel(message.getLabel());
+		this.viewMessage = viewMessage;
+		//ViewLabel new ViewLabel(message.getLabel());
 		setTitle("Result message");
 		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Label: ", getX()+10, getY()+40, messageLabel));
-		this.currentControl = 0;
-		setLabelState(new LabelState(this, messageLabel));
-		setCurrentViewLabel(messageLabel);
+		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewMessage.getViewLabel()));
+		this.currentControlIndex = 0;
+		getCurrentControl().changeLabelState(this);
+		/*setLabelState(new LabelState(this, messageLabel));
+		setCurrentViewLabel(messageLabel);*/
 		setViewInteraction(viewInteraction);
 	}
 	
-	public Message getMessage() {
-		return message;
+	public ViewMessage getViewMessage() {
+		return viewMessage;
 	}
 
-	public void setMessage(Message message) {
-		this.message = message;
+	public void setMessage(ViewMessage viewMessage) {
+		this.viewMessage = viewMessage;
+	}
+	
+	@Override
+	public void setDialogBoxState(ViewLabel viewLabel) {
+		if (viewLabel == null)
+			throw new IllegalArgumentException();
+			
+		setLabelState(new LabelState(this, viewLabel));
 	}
 	
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel(getMessage());
+			getLabelState().confirmLabel(getViewMessage().getMessage());
 		}
 	}
 }

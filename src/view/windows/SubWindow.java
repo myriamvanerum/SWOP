@@ -19,7 +19,7 @@ import view.labelstate.LabelState;
 import view.labelstate.PartyState;
 import view.labelstate.ShowState;
 
-public abstract class SubWindow {
+public class SubWindow {
 	private Integer x;
 	private Integer y;
 	private Integer width;
@@ -28,9 +28,9 @@ public abstract class SubWindow {
 	private ViewInteraction viewInteraction;
 
 	private LabelState labelState;
-	private ShowState showState = new ShowState(this);
-	private InvocationState invocationState = new InvocationState(this);
-	private PartyState partyState = new PartyState(this);
+	private ShowState showState = new ShowState(this, null);
+	private InvocationState invocationState = new InvocationState(this, null);
+	private PartyState partyState = new PartyState(this, null);
 
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
@@ -212,7 +212,7 @@ public abstract class SubWindow {
 		}
 	}
 
-	public abstract void draw(Graphics2D g);
+	public void draw(Graphics2D g) {};
 	
 	public void removeViewParty(Party party) {}
 	public void changeViewParty(Party party, Party partyNew) {}
@@ -242,6 +242,10 @@ public abstract class SubWindow {
 	public void singleClick(int x2, int y2) {}
 
 	public void pressTab() {
-		System.out.println("Press tab");
+		System.out.println("Press tab.");
+	}
+	
+	public void setDialogBoxState(ViewLabel viewLabel) {
+		System.out.println("Set label state.");
 	}
 }

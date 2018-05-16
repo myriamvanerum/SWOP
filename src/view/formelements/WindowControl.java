@@ -2,6 +2,9 @@ package view.formelements;
 
 import java.awt.Graphics2D;
 
+import view.components.ViewLabel;
+import view.windows.SubWindow;
+
 public abstract class WindowControl {
 	private int x;
 	private int y;
@@ -40,5 +43,14 @@ public abstract class WindowControl {
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+	
+	public void changeLabelState(SubWindow subwindow) {
+		if (!subwindow.actionAllowed())
+			subwindow.changeLabelState("SHOW");
+	}
+
+	public ViewLabel getViewLabel() {
+		return null;
 	}
 }

@@ -225,7 +225,7 @@ public class InteractionManager {
 	public void pressTab() {
 		if (getActiveInteraction() == null)
 			return;
-		System.out.println("Change Window State.");
+		System.out.println("Press tab.");
 		getActiveInteraction().pressTab();
 	}
 

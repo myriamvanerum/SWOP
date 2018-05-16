@@ -1,10 +1,15 @@
 package view.labelstate;
 
+import view.components.ViewLabel;
 import view.windows.SubWindow;
 
 public class ShowState extends LabelState {
-	public ShowState(SubWindow subwindow) {
+	/*public ShowState(SubWindow subwindow) {
 		super(subwindow);
+	}*/
+
+	public ShowState(SubWindow subwindow, ViewLabel viewLabel) {
+		super(subwindow, viewLabel);
 	}
 
 	@Override

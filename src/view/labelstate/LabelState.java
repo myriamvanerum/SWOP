@@ -13,11 +13,11 @@ public class LabelState {
 	SubWindow subwindow;
 	ViewLabel viewLabel;
 	
-	public LabelState(SubWindow subwindow) {
+	/*public LabelState(SubWindow subwindow) {
 		this.syntaxChecker = new SyntaxChecker();
 		this.subwindow = subwindow;
 		this.viewLabel = null;
-	}
+	}*/
 	
 	public LabelState(SubWindow subwindow, ViewLabel viewLabel) {
 		this.syntaxChecker = new SyntaxChecker();

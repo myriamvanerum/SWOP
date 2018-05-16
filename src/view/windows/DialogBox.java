@@ -7,15 +7,15 @@ import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.formelements.WindowControl;
 
-public class DialogBox extends SubWindow {
+public class DialogBox extends SubWindow implements DialogBoxHandler {
 	public ArrayList<WindowControl> controls;
-	public int currentControl;
+	public int currentControlIndex;
 	public String title;
-	private ViewLabel currentViewLabel;
+	//private ViewLabel currentViewLabel;
 	
 	public DialogBox(ViewInteraction viewInteraction, Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
-		this.currentViewLabel = null;
+		//this.currentViewLabel = null;
 		setViewInteraction(viewInteraction);
 	}
 		
@@ -33,12 +33,16 @@ public class DialogBox extends SubWindow {
 		this.controls = controls;
 	}
 	
-	public int getCurrentControl() {
-		return currentControl;
+	public WindowControl getCurrentControl() {
+		return getControls().get(getCurrentControlIndex());
 	}
 	
-	public void setCurrentControl(int currentControl) {
-		this.currentControl = currentControl;
+	public int getCurrentControlIndex() {
+		return currentControlIndex;
+	}
+	
+	public void setCurrentControlIndex(int index) {
+		this.currentControlIndex = index;
 	}	
 	
 	public String getTitle() {
@@ -50,18 +54,9 @@ public class DialogBox extends SubWindow {
 	}
 	
 	@Override
-	public ViewLabel getCurrentViewLabel() {
-		return currentViewLabel;
-	}
-
-	public void setCurrentViewLabel(ViewLabel currentViewLabel) {
-		this.currentViewLabel = currentViewLabel;
-	}
-
-	@Override
 	public WindowControl getControl() {
-		if (getCurrentControl() >= 0)
-			return getControls().get(getCurrentControl());
+		if (getCurrentControlIndex() >= 0)
+			return getCurrentControl();
 		return null;
 	}
 
@@ -71,6 +66,13 @@ public class DialogBox extends SubWindow {
 		getTitlebar().draw(g, getTitle());
 		drawBlackBorder(g);
 		drawControls(g);
+	}
+	
+	@Override
+	public ViewLabel getCurrentViewLabel() {
+		if (getCurrentControl().getViewLabel() != null) 
+			return getCurrentControl().getViewLabel();
+		return null;
 	}
 
 	/*@Override
@@ -91,17 +93,37 @@ public class DialogBox extends SubWindow {
 
 	@Override
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().addCharacter(keyCode, keyChar);
+		if (!actionAllowed() && getCurrentViewLabel() != null) {
+				getLabelState().setViewLabel(getCurrentViewLabel());
+				getLabelState().addCharacter(keyCode, keyChar);	
 		}
 	}
 	
 
 	@Override
 	public void pressTab() {
-		// TODO 	
-		//if(actionAllowed())
-		//	changeControl()
+		System.out.println("Change active control.");
+		if(actionAllowed() && getControls().size() > 1) {
+			if (getCurrentControlIndex() < getControls().size() - 1) 
+				setCurrentControlIndex(getCurrentControlIndex() + 1);
+			else 
+				setCurrentControlIndex(0);
+			
+			getCurrentControl().changeLabelState(this);
+		}
+	}
+
+	@Override
+	public void handle() {
+		// TODO override in subwindows
+		System.out.println("Handle user input for dialog boxes");
+	}
+
+	@Override
+	public void activeControl() {		
+	}
+
+	public void setLabelState(ViewLabel viewLabel) {
+		System.out.println("Set label mode dialog box.");
 	}
 }
