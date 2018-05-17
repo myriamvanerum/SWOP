@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
-public class PartyState extends LabelState {
+public class EditPartyLabelState extends EditLabelState {
 
-	public PartyState(SubWindow subwindow, ViewLabel viewLabel) {
+	public EditPartyLabelState(SubWindow subwindow, ViewLabel viewLabel) {
 		super(subwindow, viewLabel);
 	}
 
@@ -16,7 +16,7 @@ public class PartyState extends LabelState {
 	public void confirmLabel() {
 		if (viewLabel.getOutput() != null
 				&& syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput())) {
-			enterLabel(getCurrentViewComponent().getComponent());
+			enterLabel();
 		}
 	}
 

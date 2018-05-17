@@ -38,8 +38,6 @@ public class DiagramWindow extends SubWindow {
 	private SeqState seqState = new SeqState();
 	private ComState comState = new ComState();
 
-	public ViewComponent selectedComponent;
-
 	/**
 	 * Create a new SubWinow for a new Interaction
 	 * 
@@ -199,14 +197,6 @@ public class DiagramWindow extends SubWindow {
 
 	public void setState(State windowState) {
 		this.windowState = windowState;
-	}
-
-	public ViewComponent getSelectedComponent() {
-		return selectedComponent;
-	}
-
-	public void setSelectedComponent(ViewComponent selectedComponent) {
-		this.selectedComponent = selectedComponent;
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package view.formelements;
+package view.controls;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -11,11 +11,15 @@ public class ListBox extends WindowControl {
 
 
 	public ListBox(ArrayList<String> items, int x, int y) {
+		super();
 		this.items = items;
 		setX(x);
 		setY(y);
 		setHeight(100);
 		setWidth(150);
+		
+		if (items.size() > 0)
+			setSelectedItem(0);
 	}
 
 	public ArrayList<String> getItems() {
@@ -60,6 +64,11 @@ public class ListBox extends WindowControl {
 		g.fill(rectangle);
 		g.setColor(Color.BLACK);
 		drawItems(g);
+		
+		if (isActive())
+			g.setColor(new Color(255, 145, 70));
+		
 		g.draw(rectangle);
+		g.setColor(Color.BLACK);
 	}
 }

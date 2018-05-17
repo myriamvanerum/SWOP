@@ -3,9 +3,9 @@ package view.labelstate;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
-public class ShowState extends LabelState {
+public class ShowLabelState extends EditLabelState {
 
-	public ShowState(SubWindow subwindow, ViewLabel viewLabel) {
+	public ShowLabelState(SubWindow subwindow, ViewLabel viewLabel) {
 		super(subwindow, viewLabel);
 	}
 

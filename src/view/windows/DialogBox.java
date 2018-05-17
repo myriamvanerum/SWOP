@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import view.ViewInteraction;
 import view.components.ViewLabel;
-import view.formelements.WindowControl;
+import view.controls.WindowControl;
 
 public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
@@ -101,14 +101,21 @@ public class DialogBox extends SubWindow {
 	@Override
 	public void pressTab() {
 		System.out.println("Change active control.");
-		if(actionAllowed() && getControls().size() > 1) {
-			if (getCurrentControlIndex() < getControls().size() - 1) 
-				setCurrentControlIndex(getCurrentControlIndex() + 1);
-			else 
-				setCurrentControlIndex(0);
-			
-			getCurrentControl().changeLabelState(this);
-		}
+		getCurrentControl().setActive(false);
+		getCurrentControl().currentControl(this);
+		
+		if (getCurrentControlIndex() < getControls().size() - 1) 
+			setCurrentControlIndex(getCurrentControlIndex() + 1);
+		else 
+			setCurrentControlIndex(0);
+
+		getCurrentControl().setActive(true);
+		getCurrentControl().currentControl(this);
+	}
+	
+	@Override
+	public void pressSpace() {
+		System.out.println("Press space.");
 	}
 
 	public void setLabelState(ViewLabel viewLabel) {

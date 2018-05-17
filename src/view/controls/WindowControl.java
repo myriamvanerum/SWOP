@@ -1,4 +1,4 @@
-package view.formelements;
+package view.controls;
 
 import java.awt.Graphics2D;
 
@@ -10,6 +10,11 @@ public abstract class WindowControl {
 	private int y;
 	private int height;
 	private int width;
+	private boolean isActive;
+	
+	public WindowControl() {
+		this.isActive = false;
+	}
 	
 	public abstract void draw(Graphics2D g);
 
@@ -44,8 +49,16 @@ public abstract class WindowControl {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	
-	public void changeLabelState(SubWindow subwindow) {
+		
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public void currentControl(SubWindow subwindow) {
 		if (!subwindow.actionAllowed())
 			subwindow.changeLabelState("SHOW");
 	}

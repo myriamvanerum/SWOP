@@ -1,15 +1,20 @@
-package view.formelements;
+package view.controls;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 
+import view.listboxcommand.ListBoxOperator;
+
 public class Button extends WindowControl {
 	private String text;
 	private boolean isAvailable;
+	private ListBoxOperator operator;
 
-	public Button(String text, int x, int y, int height, int width) {
+	public Button(String text, int x, int y, int height, int width, ListBoxOperator operator) {
+		super();
 		this.text = text;
+		this.operator = operator;
 		setX(x);
 		setY(y);
 		setHeight(height);
@@ -37,9 +42,17 @@ public class Button extends WindowControl {
 			g.setColor(new Color(195, 195, 195));
 
 		g.fill(rec);
-		g.setColor(Color.BLACK);
+		
+		if (isActive())
+			g.setColor(new Color(255, 145, 70));
+		
 		g.draw(rec);
+		g.setColor(Color.BLACK);
 		int textWidth = g.getFontMetrics().stringWidth(text);
 		g.drawString(text, (getX() + getWidth() / 2) - (textWidth/2), getY() + 15);
+	}
+	
+	public void click() {
+		operator.action();
 	}
 }

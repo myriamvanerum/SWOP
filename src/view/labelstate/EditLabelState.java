@@ -8,12 +8,12 @@ import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
-public class LabelState {
+public class EditLabelState {
 	SyntaxChecker syntaxChecker;
 	SubWindow subwindow;
 	ViewLabel viewLabel;
 		
-	public LabelState(SubWindow subwindow, ViewLabel viewLabel) {
+	public EditLabelState(SubWindow subwindow, ViewLabel viewLabel) {
 		this.syntaxChecker = new SyntaxChecker();
 		this.subwindow = subwindow;
 		this.viewLabel = viewLabel;
@@ -51,14 +51,11 @@ public class LabelState {
 	}
 	
 	public void confirmLabel() {
-		enterLabel(getCurrentViewComponent().getComponent());
+		enterLabel();
 	}
 	
-	public void confirmLabel(Component component) {
-		enterLabel(component);
-	}
-	
-	public void enterLabel(Component component) {
+	public void enterLabel() {
+		Component component = getCurrentViewComponent().getComponent();
 		String label = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
 		String newLabel = label.substring(0, label.length() - 1);

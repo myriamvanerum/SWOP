@@ -5,16 +5,16 @@ import java.awt.Color;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
-public class InvocationState extends LabelState {
+public class EditInvocationMessageLabelState extends EditLabelState {
 	
-	public InvocationState(SubWindow subwindow, ViewLabel viewLabel) {
+	public EditInvocationMessageLabelState(SubWindow subwindow, ViewLabel viewLabel) {
 		super(subwindow, viewLabel);
 	}
 
 	@Override
 	public void confirmLabel() {
 		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageLabelSyntax(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1))) {
-			enterLabel(getCurrentViewComponent().getComponent());
+			enterLabel();
 		}
 	}
 	
