@@ -1,6 +1,6 @@
 package view.listboxcommand;
 
-import view.formelements.ListBox;
+import view.controls.ListBox;
 
 public class ScrollUp implements ListBoxOperator {
 	ListBox listBox;

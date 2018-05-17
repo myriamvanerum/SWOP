@@ -6,10 +6,10 @@ import domain.message.InvocationMessage;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
-public class EditInvocationMessageMethodState extends EditLabelState {
+public class EditInvocationMessageArgumentState extends EditLabelState {
 	private InvocationMessage message;
 	
-	public EditInvocationMessageMethodState(SubWindow subwindow, ViewLabel viewLabel, InvocationMessage message) {
+	public EditInvocationMessageArgumentState(SubWindow subwindow, ViewLabel viewLabel, InvocationMessage message) {
 		super(subwindow, viewLabel);
 		this.message = message;
 	}
@@ -20,7 +20,7 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 
 	@Override
 	public void confirmLabel() {
-		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageMethod((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) {
+		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageArgument((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) {
 			enterLabel();
 		}
 	}
@@ -29,7 +29,7 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 	public void addCharacter(int keyCode, char keyChar) {
 		editLabel(keyChar);
 		
-		if (!syntaxChecker.correctInvocationMessageMethod(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))
+		if (!syntaxChecker.correctInvocationMessageArgument(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))
 			viewLabel.setColor(Color.RED);
 		else viewLabel.setColor(Color.GREEN);
 	}
@@ -38,10 +38,10 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 	public void enterLabel() {
 		String label = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
-		String method = label.substring(0, label.length() - 1);
-		String newLabel = method + "(" + getInvocationMessage().argumentsToString() + ")";
+		String argument = label.substring(0, label.length() - 1);
+		String newLabel = getInvocationMessage().getMethod() + "(" + getInvocationMessage().argumentsToString() + ", " + argument +  ")";
 		// TODO interaction
 		getInvocationMessage().editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
-		getViewLabel().setOutput(method);	
+		getViewLabel().setOutput("");	
 	}
 }

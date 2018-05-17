@@ -1,30 +1,42 @@
-package view.formelements;
+package view.controls;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import view.components.ViewLabel;
+import view.labelstate.EditLabelState;
 import view.windows.SubWindow;
 
 public class TextBox extends WindowControl{
 	private String description;
 	private ViewLabel label;
+	private EditLabelState state;
 
-	public TextBox(String description, int x, int y) {
+	public TextBox(String description, int x, int y, EditLabelState state) {
+		super();
 		this.description = description;
+		this.label = new ViewLabel("");
+		this.state = state;
 		setX(x);
 		setY(y);
 		setHeight(20);
 		setWidth(150);
 	}
 	
-	public TextBox(String description, int x, int y, ViewLabel label) {
+	public TextBox(String description, int x, int y, ViewLabel label, EditLabelState state) {
+		super();
 		this.description = description;
 		this.label = label;
+		this.state = state;
 		setX(x);
 		setY(y);
 		setHeight(20);
 		setWidth(150);
+	}
+	
+	public EditLabelState getState() {
+		return state;
 	}
 
 	public ViewLabel getLabel() {
@@ -51,7 +63,12 @@ public class TextBox extends WindowControl{
 		int boxY = getY() - getHeight()/2;
 				
 		Rectangle box = new Rectangle(boxX, boxY, getWidth(), getHeight());
+		
+		if (isActive())
+			g.setColor(new Color(255, 145, 70));
+
 		g.draw(box);
+		g.setColor(Color.BLACK);
 		
 		if (getLabel() != null) {
 			String value = getLabel().getOutput();
@@ -65,8 +82,11 @@ public class TextBox extends WindowControl{
 	}
 	
 	@Override
-	public void changeLabelState(SubWindow subwindow) {
-		if (subwindow.actionAllowed())
-			subwindow.setDialogBoxState(getViewLabel());
+	public void currentControl(SubWindow subwindow) {
+		if (isActive()) {
+			String output = getViewLabel().getOutput();
+			getViewLabel().setOutput(output + "|");
+			subwindow.setLabelState(getState());
+		} else subwindow.changeLabelState("SHOW");
 	}
 }

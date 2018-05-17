@@ -80,4 +80,8 @@ public class SyntaxChecker {
 			return true;
 		return false;    
 	}
+	
+	public boolean correctInvocationMessageArgument(String input) {
+		return input.indexOf(',') < 0 && input.indexOf('(') < 0 && input.indexOf(')') < 0 && input.indexOf(' ') < 0;
+	}
 }

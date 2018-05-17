@@ -3,10 +3,9 @@ package view.windows;
 import java.util.ArrayList;
 
 import view.ViewInteraction;
-import view.components.ViewLabel;
 import view.components.ViewMessage;
-import view.formelements.TextBox;
-import view.formelements.WindowControl;
+import view.controls.TextBox;
+import view.controls.WindowControl;
 import view.labelstate.EditLabelState;
 
 public class ResultBox extends DialogBox {
@@ -17,9 +16,10 @@ public class ResultBox extends DialogBox {
 		this.viewMessage = viewMessage;
 		setTitle("Result message");
 		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewMessage.getViewLabel()));
+		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewMessage.getViewLabel(), new EditLabelState(this, null)));
 		this.currentControlIndex = 0;
-		getCurrentControl().changeLabelState(this);
+		getCurrentControl().setActive(true);
+		getCurrentControl().currentControl(this);
 		setViewInteraction(viewInteraction);
 		setSelectedComponent(viewMessage);
 	}
@@ -31,15 +31,7 @@ public class ResultBox extends DialogBox {
 	public void setMessage(ViewMessage viewMessage) {
 		this.viewMessage = viewMessage;
 	}
-	
-	@Override
-	public void setDialogBoxState(ViewLabel viewLabel) {
-		if (viewLabel == null)
-			throw new IllegalArgumentException();
-			
-		setLabelState(new EditLabelState(this, viewLabel));
-	}
-	
+		
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {

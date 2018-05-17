@@ -13,7 +13,7 @@ import view.components.ViewComponent;
 import view.components.ViewLabel;
 import view.components.ViewMessage;
 import view.components.ViewParty;
-import view.formelements.WindowControl;
+import view.controls.WindowControl;
 import view.labelstate.EditInvocationMessageLabelState;
 import view.labelstate.EditLabelState;
 import view.labelstate.EditPartyLabelState;
@@ -252,10 +252,6 @@ public class SubWindow {
 		System.out.println("Press tab.");
 	}
 	
-	public void setDialogBoxState(ViewLabel viewLabel) {
-		System.out.println("Set label state.");
-	}
-
 	public void pressSpace() {
 		System.out.println("Press space.");
 	}

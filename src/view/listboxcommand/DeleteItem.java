@@ -2,7 +2,7 @@ package view.listboxcommand;
 
 import java.util.ArrayList;
 
-import view.formelements.ListBox;
+import view.controls.ListBox;
 
 public class DeleteItem implements ListBoxOperator {
 	ListBox listBox;
