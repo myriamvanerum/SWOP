@@ -10,7 +10,6 @@ import domain.message.ResultMessage;
 import domain.party.Actor;
 import domain.party.Object;
 import domain.party.Party;
-import purecollections.PList;
 
 class MessageSequenceTest {
 	MessageSequence messageSequence = new MessageSequence();
