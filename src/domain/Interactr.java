@@ -75,24 +75,13 @@ public class Interactr {
 		
 		interaction.addMessage(sender, receiver, previous);	
 	}
-	
-	/**
-	 * Check the syntax of a Party's Label
-	 * @param label
-	 * 		The label to check
-	 * @return true if syntax correct
-	 */
-	public boolean checkPartyLabelSyntax(String label) {
-		SyntaxChecker syntaxChecker = new SyntaxChecker();
-		return syntaxChecker.correctPartyLabelSyntax(label);
-	}
 
 	/**
 	 * Method to be called when a Label has to be saved
-	 * @param currentComponent
+	 * @param component
 	 * 		The component with a new label
 	 */
-	public void editLabel(Component currentComponent, String label) {
-		currentComponent.editLabel(interaction, label);
+	public void editLabel(Component component, String label) {
+		component.editLabel(interaction, label);
 	}
 }

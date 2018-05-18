@@ -1,4 +1,4 @@
-package model;
+package domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import domain.Interaction;
 import domain.message.InvocationMessage;
 import domain.message.MessageSequence;
 import domain.message.ResultMessage;
@@ -45,16 +44,8 @@ class InteractionTest {
 		result3.setCompanion(invocation3);
 		
 		messageSequence.addMessage(invocation, null);
-		assertTrue(messageSequence.getMessages().contains(invocation));
-		assertTrue(messageSequence.getMessages().contains(result));
-		
 		messageSequence.addMessage(invocation2, result);
-		assertTrue(messageSequence.getMessages().contains(invocation2));
-		assertTrue(messageSequence.getMessages().contains(result2));
-		
 		messageSequence.addMessage(invocation3, invocation2);
-		assertTrue(messageSequence.getMessages().contains(invocation3));
-		assertTrue(messageSequence.getMessages().contains(result3));
 		
 		parties.add(actor);
 		parties.add(object);

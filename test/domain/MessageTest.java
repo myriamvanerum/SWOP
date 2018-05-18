@@ -1,7 +1,7 @@
 /**
  * A test to see if the message has the right input.
  */
-package model;
+package domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

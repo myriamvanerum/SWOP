@@ -12,6 +12,8 @@ import domain.message.Message;
  * @author  groep 03
  */
 public abstract class Party extends Component {
+	SyntaxChecker syntaxChecker = new SyntaxChecker();
+	
     /**
      * Party constructor
 	 * @param label
@@ -37,11 +39,9 @@ public abstract class Party extends Component {
     
     @Override
     public void editLabel(Interaction interaction, String label) {
-		SyntaxChecker syntaxChecker = new SyntaxChecker();
-		if (syntaxChecker.correctPartyLabelSyntax(label)) {
-			setLabel(label);
-			interaction.notifyEditLabel(this);
-		}
+		if (!syntaxChecker.correctPartyLabelSyntax(label)) return;
+		setLabel(label);
+		interaction.notifyEditLabel(this);
     }
 
     public Party changeType() { return null;}
