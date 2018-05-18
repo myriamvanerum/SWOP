@@ -323,4 +323,21 @@ public class InteractionManager {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().released(x, y);
 	}
+
+	public void arrowUp() {
+		if (getActiveInteraction() == null) return;
+		System.out.println("Press arrow up.");
+		getActiveInteraction().arrowUp(); 
+	}
+
+	public void arrowDown() {
+		if (getActiveInteraction() == null) return;
+		System.out.println("Press arrow down.");
+		getActiveInteraction().arrowDown(); 
+	}
+
+	public void pressSpace() {
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().pressSpace();		
+	}
 }

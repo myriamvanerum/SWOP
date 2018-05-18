@@ -350,4 +350,16 @@ public class ViewInteraction implements Observer {
 	public void setLastClickedPosition(Point2D lastClickedPosition) {
 		this.lastClickedPosition = lastClickedPosition;
 	}
+
+	public void arrowUp() {
+		getActiveWindow().scrollUp();
+	}
+
+	public void arrowDown() {
+		getActiveWindow().scrollDown();
+	}
+
+	public void pressSpace() {
+		getActiveWindow().pressSpace();		
+	}
 }

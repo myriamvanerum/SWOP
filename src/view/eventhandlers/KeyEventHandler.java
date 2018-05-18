@@ -42,6 +42,13 @@ public class KeyEventHandler {
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
+		
+		// TODO moeten bovenaan blijven omdat ze ook undefined zijn
+		if (keyCode == 38)
+			interactionManager.arrowUp();
+
+		if (keyCode == 40)
+			interactionManager.arrowDown(); 
 
 		if (keyChar == KeyEvent.CHAR_UNDEFINED) {
 			keyModifierHandler.setModifier(keyCode);
@@ -71,6 +78,9 @@ public class KeyEventHandler {
     				break;
     			case KeyEvent.VK_BACK_SPACE:
     				interactionManager.removeLabelCharacter();
+    				break;
+    			case KeyEvent.VK_SPACE:
+    				interactionManager.pressSpace();
     				break;
     			}
 

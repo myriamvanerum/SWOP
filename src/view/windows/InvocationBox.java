@@ -90,7 +90,7 @@ public class InvocationBox extends DialogBox {
 	@Override
 	public void deleteItem() {
 		getOperator().delete();
-	}
+	}*/
 	
 	@Override
 	public void scrollUp() {
@@ -100,5 +100,10 @@ public class InvocationBox extends DialogBox {
 	@Override
 	public void scrollDown() {
 		getOperator().scrollDown();
-	}*/
+	}	
+
+	@Override
+	public void pressSpace() {
+		getCurrentControl().space();
+	}
 }
