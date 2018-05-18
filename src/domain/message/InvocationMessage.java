@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import domain.Interaction;
+import domain.SyntaxChecker;
 import domain.party.Party;
 
 /**
@@ -14,6 +15,8 @@ import domain.party.Party;
 public class InvocationMessage extends Message {
 	private String method;
 	private ArrayList<String> arguments;
+	
+	SyntaxChecker syntaxChecker = new SyntaxChecker();
 		
 	/**
 	 * Invocation message constructor
@@ -64,6 +67,8 @@ public class InvocationMessage extends Message {
     
     @Override
     public void editLabel(Interaction interaction, String label) {
+		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label)) return;
+
 		setLabel(label);
 		
 		String method = getMethodFromLabel(label);
