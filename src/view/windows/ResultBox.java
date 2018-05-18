@@ -8,6 +8,12 @@ import view.controls.TextBox;
 import view.controls.WindowControl;
 import view.labelstate.EditLabelState;
 
+/**
+ * ResultBox class.
+ * Represents a dialogbox used for editing the characteristics of a result message, subclass of the DialogBox class
+ * @author groep 03
+ *
+ */
 public class ResultBox extends DialogBox {
 	private ViewMessage viewMessage;
 		
@@ -32,6 +38,9 @@ public class ResultBox extends DialogBox {
 		this.viewMessage = viewMessage;
 	}
 		
+	/**
+	 * Confirm that the entered label should be set as new label
+	 */
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {

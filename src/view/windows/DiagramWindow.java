@@ -23,12 +23,11 @@ import view.diagramstate.SeqState;
 import view.diagramstate.State;
 
 /**
- * SubWindow class. A SubWindow contains an Interaction with Parties and
- * Messages. Several SubWindows can display the same Interaction in different
- * forms.
+ * DiagramWindow class. 
+ * A DiagramWindow contains Parties and Messages. 
+ * Several DiagramWindows can display the same Interaction in different forms.
  * 
  * @author groep 03
- *
  */
 public class DiagramWindow extends SubWindow {
 	private ArrayList<ViewParty> viewParties;
@@ -39,14 +38,14 @@ public class DiagramWindow extends SubWindow {
 	private ComState comState = new ComState();
 
 	/**
-	 * Create a new SubWinow for a new Interaction
+	 * Create a new DiagramWindow for a new Interaction
 	 * 
 	 * @param interaction
-	 *            The Interaction for this Subwindow
+	 *            The Interaction for this DiagramWindow
 	 * @param x
-	 *            The SubWindow's x coordinate
+	 *            The DiagramWindow's x coordinate
 	 * @param y
-	 *            The SubWindow's y coordinate
+	 *            The DiagramWindow's y coordinate
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
@@ -66,14 +65,14 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Create a new SubWindow by duplicating another SubWindow
+	 * Create a new DiagramWindow by duplicating another DiagramWindow
 	 * 
 	 * @param activeWindow
-	 *            The SubWindow to duplicate
+	 *            The DiagramWindow to duplicate
 	 * @param x
-	 *            The SubWindow's x coordinate
+	 *            The DiagramWindow's x coordinate
 	 * @param y
-	 *            The SubWindow's y coordinate
+	 *            The DiagramWindow's y coordinate
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
@@ -97,10 +96,10 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Duplicate the ViewMessages of the original subwindow
+	 * Duplicate the ViewMessages of the original DiagramWindow
 	 * 
 	 * @param viewMessages
-	 *            The Messages in the SubWindow
+	 *            The Messages in the DiagramWindow
 	 * @return Copy of the viewMessages arraylist
 	 */
 	private ArrayList<ViewMessage> copyMessages(ArrayList<ViewMessage> viewMessages) {
@@ -119,10 +118,10 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Duplicate the ViewParties of the original subwindow
+	 * Duplicate the ViewParties of the original DiagramWindow
 	 * 
 	 * @param viewParties
-	 *            The Parties in the SubWindow
+	 *            The Parties in the DiagramWindow
 	 * @return Copy of the viewParties arraylist
 	 */
 	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
@@ -137,7 +136,7 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Method to draw a SubWindow and all its contents
+	 * Method to draw a DiagramWindow and all its contents
 	 * 
 	 * @param gOrig
 	 *            Graphics class
@@ -164,7 +163,7 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Change the SubWindows State
+	 * Change the DiagramWindow State
 	 */
 	public void changeState() {
 		if (getState() == seqState)
@@ -174,7 +173,6 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/* GETTERS AND SETTERS */
-
 	public ArrayList<ViewParty> getViewParties() {
 		return viewParties;
 	}
@@ -221,6 +219,14 @@ public class DiagramWindow extends SubWindow {
 				viewMessages);
 	}
 
+	/**
+	 * Change the position of a component in the DiagramWindow to the given coordinates
+	 * 
+	 *  @param	x
+	 *            The new x coordinate of the selected component
+	 *  @param 	y
+	 *            The new y coordinate of the selected component
+	 */
 	public void moveComponent(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
@@ -262,6 +268,14 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 
+	/**
+	 * Update all the labels of the ViewComponents that have the same component
+	 * 
+	 * @param component
+	 * 		  The component whose label has been changed
+	 * @param label
+	 * 		  The value of the new label
+	 */
 	private void updateLabels(Component component, String label) {
 		ArrayList<ViewComponent> components = new ArrayList<>();
 		components.addAll(getViewParties());
@@ -295,23 +309,29 @@ public class DiagramWindow extends SubWindow {
 			viewComponent.select();
 	}
 	
+	/**
+	 * Select the component that is positioned at the clicked position
+	 * 
+	 * @param	x
+	 *          The x coordinate of the clicked position
+	 * @param 	y
+	 *          The y coordinate of the clicked position*/
 	@Override 
-	public void selectComponent(int x2, int y2) {
-		setSelectedComponent(clickParty(x2, y2));
+	public void selectComponent(int x, int y) {
+		setSelectedComponent(clickParty(x, y));
 	}
 
 	/**
 	 * Checks if there is a party at the clicked position
 	 * 
-	 * @param x
-	 *            The x coordinate of the clicked position
-	 * @param y
-	 *            The y coordinate of the clicked position
-	 * @return Null if there is no party on the position given by the coordinates x
-	 *         and y The ViewParty that is on the position given by the coordinates
-	 *         x and y
-	 * @throws IllegalArgumentException
-	 *             Illegal coordinates
+	 * @param	x
+	 *          The x coordinate of the clicked position
+	 * @param 	y
+	 *          The y coordinate of the clicked position
+	 * @return 	Null if there is no party on the position given by the coordinates x and y 
+	 *         	The ViewParty that is on the position given by the coordinates x and y
+	 * @throws 	IllegalArgumentException
+	 *          	Illegal coordinates
 	 */
 	@Override
 	public ViewParty clickParty(int x, int y) {
@@ -386,12 +406,27 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 
+	/**
+	 * Remove the ViewParty that belongs to the given party
+	 * 
+	 * @param	party
+	 * 			The party that belongs to the viewparty that has to be removed
+	 * 			
+	 */
 	@Override
 	public void removeViewParty(Party party) {
 		ViewParty viewParty = findViewParty(party);
 		getViewParties().remove(viewParty);
 	}
 
+	/**
+	 * Change party type
+	 * 
+	 * @param party
+	 * 			The original party
+	 * @param partyNew
+	 * 			The new party
+	 */
 	@Override
 	public void changeViewParty(Party party, Party partyNew) {
 		// TODO FIXME als changePartyType, bij move gaan messages niet meer mee. Link met message gaat verloren
@@ -494,6 +529,9 @@ public class DiagramWindow extends SubWindow {
 		}
 	}
 	
+	/**
+	 *  The tab key is pressed
+	 */
 	@Override
 	public void pressTab() {
 		if(actionAllowed())

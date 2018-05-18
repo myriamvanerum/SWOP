@@ -3,6 +3,12 @@ package view.windows;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+/**
+ * Titlebar class.
+ * Represents the Titlebar of a subwindow
+ * @author groep 03
+ *
+ */
 public class Titlebar {
 	private Integer x, y, width, height = 25;
 	private CloseButton closeButton;
@@ -14,6 +20,7 @@ public class Titlebar {
 		setCloseButton(new CloseButton());
 	}
 	
+	/* GETTERS AND SETTERS */
 	public Integer getX() {
 		return x;
 	}
@@ -54,6 +61,13 @@ public class Titlebar {
 		this.closeButton = closeButton;
 	}
 
+	/**
+	 * Draw the titlebar
+	 * @param g
+	 *          Graphics class
+	 * @param title
+	 * 			The title that is displayed by the titlebar
+	 */
 	public void draw(Graphics2D g, String title) {
 		Integer padding = 7;
 		Integer paddingBig = padding + 10;

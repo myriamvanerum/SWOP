@@ -19,6 +19,12 @@ import view.listboxcommand.MoveItemDown;
 import view.listboxcommand.MoveItemUp;
 import view.listboxcommand.Operator;
 
+/**
+ * InvocationBox class.
+ * Represents a dialogbox used for editing the characteristics of a invocation message, subclass of the DialogBox class
+ * @author groep 03
+ *
+ */
 public class InvocationBox extends DialogBox {
 	private InvocationMessage message;
 	private ViewMessage viewMessage;
@@ -33,6 +39,11 @@ public class InvocationBox extends DialogBox {
 		setViewInteraction(viewInteraction);
 	}
 
+	/**
+	 * Define all the controls of an invocation box
+	 * @param message
+	 * 			The invocation message that is being edited
+	 */
 	private void addControls(InvocationMessage message) {
 		ListBox listbox = new ListBox(getMessage().getArguments(), getX()+10, getY()+130);
 		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
@@ -68,7 +79,10 @@ public class InvocationBox extends DialogBox {
 	public Operator getOperator() {
 		return operator;
 	}
-
+	
+	/**
+	 * Confirm that the entered label should be set as new label
+	 */
 	@Override
 	public void confirmLabel() {
 		if (!actionAllowed()) {
@@ -92,16 +106,25 @@ public class InvocationBox extends DialogBox {
 		getOperator().delete();
 	}*/
 	
+	/**
+	 * Arrow up key is pressed, selected the item in the listbox above the selected item
+	 */
 	@Override
 	public void scrollUp() {
 		getOperator().scrollUp();
 	}
 	
+	/**
+	 * Arrow down key is pressed, selected the item in the listbox underneath the selected item
+	 */
 	@Override
 	public void scrollDown() {
 		getOperator().scrollDown();
 	}	
 
+	/**
+	 * Activate the selected control
+	 */
 	@Override
 	public void pressSpace() {
 		getCurrentControl().space();

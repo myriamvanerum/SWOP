@@ -19,6 +19,11 @@ import view.labelstate.EditLabelState;
 import view.labelstate.EditPartyLabelState;
 import view.labelstate.ShowLabelState;
 
+/**
+ * SubWindow class. 
+ * @author groep 03
+ *
+ */
 public class SubWindow {
 	private Integer x;
 	private Integer y;
@@ -44,6 +49,7 @@ public class SubWindow {
 		setLabelState(showState);
 	}
 
+	/* GETTERS AND SETTERS */
 	public Integer getX() {
 		return x;
 	}
@@ -120,18 +126,34 @@ public class SubWindow {
 		this.selectedComponent = selectedComponent;
 	}
 
+	/**
+	 * Draw the white background of the subwindow
+	 * @param g
+	 *            Graphics class
+	 */
 	public void drawWhiteField(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.BLACK);
 	}
 
+	/**
+	 * Draw the black border of the subwindow
+	 * @param g
+	 *            Graphics class
+	 */
 	public void drawBlackBorder(Graphics2D g) {
 		g.setColor(Color.BLACK);
 		Rectangle r = new Rectangle(getX(), getY(), getWidth(), getHeight());
 		g.draw(r);
 	}
 		
+	/**
+	 * Checks if action within the subwindow are allowed
+	 * 
+	 * @return	True if the subwindow is in a show label state
+	 * 			False if the subwindow is not in a show label state
+	 */
 	public boolean actionAllowed() {
 		return getLabelState() == getShowState();
 	}
@@ -161,13 +183,14 @@ public class SubWindow {
 	/**
 	 * Checks if clicked position is part of the active subwindow
 	 * 
-	 * @param x
+	 * @param 	x
 	 *            The x coordinate of the clicked position
-	 * @param y
+	 * @param 	y
 	 *            The y coordinate of the clicked position
-	 * @param subwindow
+	 * @param 	subwindow
 	 *            The current active subwindow
-	 * @return true if the clickevent occured outside of the active subwindow
+	 * @return 	True if the clickevent occured outside of the active subwindow
+	 * 			False if the clickevent did not occure outside of the active subwindow
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
@@ -185,10 +208,8 @@ public class SubWindow {
 	 *            The x coordinate of the clicked position
 	 * @param y
 	 *            The y coordinate of the clicked position
-	 * @param subwindow
-	 *            The current active subwindow
-	 * @return True if the close button of the subwindow is clicked False if the
-	 *         close butten of the subwindow isn't clicked
+	 * @return 	True if the close button of the subwindow is clicked 
+	 * 			False if the close butten of the subwindow isn't clicked
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
@@ -200,6 +221,9 @@ public class SubWindow {
 				&& y <= (getY() + getTitlebar().getHeight());
 	}
 	
+	/**
+	 * Confirm that the entered label should be set as new label
+	 */
 	public void confirmLabel() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
@@ -207,6 +231,9 @@ public class SubWindow {
 		}
 	}
 	
+	/**
+	 * Remove a character of the label that is being edited
+	 */
 	public void removeLabelCharacter() {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
@@ -214,6 +241,14 @@ public class SubWindow {
 		}
 	}
 	
+	/**
+	 * Add a character to the label that is being edited
+	 * 
+     * @param keyCode
+     * 		The keycode for the entered key
+     * @param keyChar
+     * 		The keyChar for the entered key
+	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		if (!actionAllowed()) {
 			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());

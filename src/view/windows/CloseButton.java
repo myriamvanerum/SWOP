@@ -5,8 +5,29 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
+/**
+ * CloseButton class.
+ * Represents the CloseButton of a subwindow
+ * @author groep 03
+ *
+ */
 public class CloseButton {
 
+	/**
+	 * Draw a closebutton
+	 * @param g
+	 *          Graphics class
+	 * @param x
+	 *          The CloseButton's x coordinate
+	 * @param y
+	 *          The CloseButton's y coordinate
+	 * @param height
+	 *          The CloseButton's height
+	 * @param padding
+	 * 			The padding used to draw the close button
+	 * @param paddingBig
+	 * 			The extra padding used to draw the close button
+	 */
 	public void draw(Graphics2D g, Integer x, Integer y, Integer height, Integer padding, Integer paddingBig) {
 		g.setColor(Color.RED);
 		g.fillRect(x - height, y, height, height);

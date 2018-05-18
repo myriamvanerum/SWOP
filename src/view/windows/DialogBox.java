@@ -8,6 +8,12 @@ import view.components.ViewLabel;
 import view.controls.WindowControl;
 import view.listboxcommand.Operator;
 
+/**
+ * DialogBox class.
+ * Represents a dialogbox, subclass of the SubWindow class
+ * @author groep 03
+ *
+ */
 public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
 	public int currentControlIndex;
@@ -19,6 +25,11 @@ public class DialogBox extends SubWindow {
 		setViewInteraction(viewInteraction);
 	}
 		
+	/**
+	 * Draw all the controls of the dialogbox
+	 * @param g2
+	 *          Graphics class
+	 */
 	public void drawControls(Graphics2D g2) {		
 		for (WindowControl control : getControls()) {
 			control.draw(g2);
@@ -60,6 +71,9 @@ public class DialogBox extends SubWindow {
 		return null;
 	}
 
+	/**
+	 *  Draw the dialogbox
+	 */
 	@Override
 	public void draw(Graphics2D g) {
 		drawWhiteField(g);	
@@ -83,6 +97,9 @@ public class DialogBox extends SubWindow {
 		}
 	}*/
 
+	/**
+	 * Remove a character of the label that is being edited
+	 */
 	@Override
 	public void removeLabelCharacter() {
 		if (!actionAllowed()) {
@@ -91,6 +108,14 @@ public class DialogBox extends SubWindow {
 		}
 	}
 
+	/**
+	 * Add a character to the label that is being edited
+	 * 
+     * @param keyCode
+     * 		The keycode for the entered key
+     * @param keyChar
+     * 		The keyChar for the entered key
+	 */
 	@Override
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		if (!actionAllowed() && getCurrentViewLabel() != null) {
@@ -99,7 +124,9 @@ public class DialogBox extends SubWindow {
 		}
 	}
 	
-
+	/**
+	 *  The tab key is pressed
+	 */
 	@Override
 	public void pressTab() {
 		System.out.println("Change active control.");
@@ -115,11 +142,10 @@ public class DialogBox extends SubWindow {
 		getCurrentControl().currentControl(this);
 	}
 	
+	/**
+	 * Set label state according to the current viewlabel
+	 */
 	public void setLabelState(ViewLabel viewLabel) {
 		System.out.println("Set label mode dialog box.");
-	}
-	
-	public void scrollUp() {
-		System.out.println("Scroll up.");		
 	}
 }
