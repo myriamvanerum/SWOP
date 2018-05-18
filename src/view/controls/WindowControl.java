@@ -66,4 +66,8 @@ public abstract class WindowControl {
 	public ViewLabel getViewLabel() {
 		return null;
 	}
+
+	public void space() {
+		System.out.println("Activate control.");
+	}
 }

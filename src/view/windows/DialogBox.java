@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.controls.WindowControl;
+import view.listboxcommand.Operator;
 
 public class DialogBox extends SubWindow {
 	public ArrayList<WindowControl> controls;
 	public int currentControlIndex;
 	public String title;
+	public Operator operator;
 	
 	public DialogBox(ViewInteraction viewInteraction, Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
@@ -113,12 +115,11 @@ public class DialogBox extends SubWindow {
 		getCurrentControl().currentControl(this);
 	}
 	
-	@Override
-	public void pressSpace() {
-		System.out.println("Press space.");
-	}
-
 	public void setLabelState(ViewLabel viewLabel) {
 		System.out.println("Set label mode dialog box.");
+	}
+	
+	public void scrollUp() {
+		System.out.println("Scroll up.");		
 	}
 }

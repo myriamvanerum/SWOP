@@ -28,6 +28,10 @@ public class Button extends WindowControl {
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
 	}
+	
+	public ListBoxOperator getOperator() {
+		return operator;
+	}
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -54,5 +58,10 @@ public class Button extends WindowControl {
 	
 	public void click() {
 		operator.action();
+	}
+	
+	@Override
+	public void space() {
+		getOperator().action();
 	}
 }
