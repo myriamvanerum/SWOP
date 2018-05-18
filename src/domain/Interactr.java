@@ -3,29 +3,20 @@ package domain;
 import domain.message.Message;
 import domain.party.Party;
 import view.ViewInteraction;
-import view.components.ViewComponent;
-import view.components.ViewParty;
 
 /**
- * A Controller Class
+ * A Facade Class
  * @author groep 03
  */
 public class Interactr {
-	ViewInteraction manager;
 	Interaction interaction;
 	
 	/**
-	 * Controller constructor
-	 * @param manager
-	 * @throws NullPointerException
-	 * 		No window supplied
+	 * Interactr constructor
+	 * @param viewInteraction
 	 */
-	public Interactr(ViewInteraction manager) {
-		if (manager == null)
-			throw new NullPointerException();
-		
-		this.manager = manager;
-		this.interaction = manager.getInteraction();
+	public Interactr(ViewInteraction viewInteraction) {
+		this.interaction = viewInteraction.getInteraction();
 	}
 
 	/**
@@ -39,32 +30,32 @@ public class Interactr {
 	
 	/**
 	 * Change the type of a Party. An Actor becomes an Object and vice versa
-	 * @param viewParty
-	 * 		The ViewParty that was clicked
+	 * @param party
+	 * 		The Party to be changed
 	 * @throws NullPointerException
-	 * 		No ViewParty supplied
+	 * 		No Party supplied
 	 */
-	public void changePartyType(ViewParty viewParty) {
-		if (viewParty == null)
+	public void changePartyType(Party party) {
+		if (party == null)
 			throw new NullPointerException();
 		
 		System.out.println("Change Party Type.");
-		interaction.changePartyType(viewParty.getParty());
+		interaction.changePartyType(party);
 	}
 
 	/**
 	 * Delete a Party or Message from an Interaction
-	 * @param viewComponent
+	 * @param component
 	 * 		The Party or Message to delete
 	 * @throws NullPointerException
-	 * 		No ViewComponent supplied
+	 * 		No Component supplied
 	 */
-	public void deleteComponent(ViewComponent viewComponent) {
-		if (viewComponent == null)
+	public void deleteComponent(Component component) {
+		if (component == null)
 			throw new NullPointerException();
 		
 		System.out.println("Delete component.");
-		interaction.removeComponent(viewComponent.getComponent());
+		interaction.removeComponent(component);
 	}
 
 	/**

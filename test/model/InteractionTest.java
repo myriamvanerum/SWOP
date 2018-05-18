@@ -112,4 +112,44 @@ class InteractionTest {
 		interaction.changePartyType(actor);
 		assertTrue(interaction.getParties().get(0) instanceof Object);
 	}
+	
+	@Test
+	void InteractionTestChangePartyTypeNull() {
+		setup();
+		
+		try {
+			interaction.changePartyType(null);
+	        assert false;
+	    } catch (NullPointerException e) {
+	        assert true;
+	    }
+	}
+	
+	@Test
+	void InteractionTestRemoveParty() {
+		setup();
+		
+		interaction.setParties(parties);
+		interaction.setMessageSequence(messageSequence);
+		
+		interaction.removeComponent(actor);
+		assertFalse(interaction.getParties().contains(actor));
+		assertTrue(interaction.getMessageSequence().getMessages().isEmpty());
+	}
+	
+	@Test
+	void InteractionTestRemoveMessage() {
+		setup();
+		
+		interaction.setParties(parties);
+		interaction.setMessageSequence(messageSequence);
+		
+		interaction.removeComponent(invocation2);
+		assertTrue(interaction.getMessageSequence().getMessages().contains(invocation));
+		assertTrue(interaction.getMessageSequence().getMessages().contains(result));
+		assertFalse(interaction.getMessageSequence().getMessages().contains(invocation2));
+		assertFalse(interaction.getMessageSequence().getMessages().contains(result2));
+		assertFalse(interaction.getMessageSequence().getMessages().contains(invocation3));
+		assertFalse(interaction.getMessageSequence().getMessages().contains(result3));
+	}
 }

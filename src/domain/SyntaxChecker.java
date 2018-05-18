@@ -60,6 +60,7 @@ public class SyntaxChecker {
 		// An argument is any sequence of characters, not including commas or parentheses. 
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].contains("(") || args[i].contains(")")) return false;
+			if (args.length > 1 && args[i].length() < 1) return false;
 		}
 		
 		return true;

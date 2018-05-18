@@ -149,7 +149,7 @@ public class ViewInteraction implements Observer {
 		if (!getActiveWindow().actionAllowed()) return;
 		ViewComponent viewComponent = selectedComponent();
 		if (viewComponent == null) return;
-		getInteractr().deleteComponent(viewComponent);
+		getInteractr().deleteComponent(viewComponent.getComponent());
 	}
 
 	public void addMessage(Party sender, Party receiver, int x, int y) {
@@ -163,7 +163,7 @@ public class ViewInteraction implements Observer {
 
 	public void changePartyType() {
 		ViewParty viewParty = (ViewParty) selectedComponent();
-		getInteractr().changePartyType(viewParty);
+		getInteractr().changePartyType(viewParty.getParty());
 	}
 	
 	public void selectComponent(int x, int y) {

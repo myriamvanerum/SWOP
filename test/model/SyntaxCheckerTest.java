@@ -144,4 +144,67 @@ class SyntaxCheckerTest {
 		
 		assertFalse(syntaxCorrect);
 	}
+	
+	@Test
+	void testInvocationMessageLabelMethodSuccess() {
+		
+		String label = "labEL123";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageMethod(label);
+		
+		assertTrue(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelMethodFailNoLowerCase() {
+		
+		String label = "LabEL123";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageMethod(label);
+		
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelMethodFailCharacterNotAllowed() {
+		
+		String label = "label@123";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageMethod(label);
+		
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelArgumentSuccess() {
+		
+		String label = "arg1_here";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageArgument(label);
+		
+		assertTrue(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelArgumentFailContainsComma() {
+		
+		String label = "arg1_he,re";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageArgument(label);
+		
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelArgumentFailContainsParentheses() {
+		String label = "arg1_he)re";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageArgument(label);
+		assertFalse(syntaxCorrect);
+		
+		label = "arg1_he(re";
+		syntaxCorrect = syntaxChecker.correctInvocationMessageArgument(label);
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelArgumentFailContainsSpace() {
+		String label = "arg1 here";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageArgument(label);
+		assertFalse(syntaxCorrect);
+	}
 }
