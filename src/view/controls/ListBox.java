@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class ListBox extends WindowControl {
 	private ArrayList<String> items = new ArrayList<String>();
-	private int selectedItem = -1;
-
+	private int selectedItem = -1;	
 
 	public ListBox(ArrayList<String> items, int x, int y) {
 		super();
@@ -40,7 +39,14 @@ public class ListBox extends WindowControl {
 
 	private void drawItems(Graphics2D g) {
 		int y = getY();
-		for (int i = 0; i < items.size(); i++) {
+		int start = 0, end = 5;
+		
+		if (items.size() > 5 && selectedItem > 4) {
+			start = selectedItem - 4;
+			end = selectedItem + 1;
+		}
+				
+		for (int i = start; i < end; i++) {
 			if (i == selectedItem) {
 				g.setColor(Color.GRAY);
 				Rectangle rectangle = new Rectangle(getX(), y, 150 - 2, 20 - 2);
