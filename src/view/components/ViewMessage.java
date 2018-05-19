@@ -131,4 +131,9 @@ public class ViewMessage extends ViewComponent {
 	public void lengthenActivationBar(double y) {}
 
 	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {}
+
+	public void changeViewParty(ViewParty viewParty, ViewParty newViewParty) {
+		if (viewParty.equals(getSender())) setSender(newViewParty);
+		if (viewParty.equals(getReceiver())) setReceiver(newViewParty);
+	}
 }

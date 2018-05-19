@@ -429,12 +429,13 @@ public class DiagramWindow extends SubWindow {
 	 */
 	@Override
 	public void changeViewParty(Party party, Party partyNew) {
-		// TODO FIXME als changePartyType, bij move gaan messages niet meer mee. Link met message gaat verloren
 		ViewParty viewParty = findViewParty(party);
 		viewParty.setParty(partyNew);
 		getViewParties().remove(viewParty);
 		ViewParty newViewParty = viewParty.changeType();
 		getViewParties().add(newViewParty);
+		for (ViewMessage viewMessage : getViewMessages())
+			viewMessage.changeViewParty(viewParty, newViewParty);
 	}
 
 	@Override
