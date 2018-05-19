@@ -39,13 +39,17 @@ public class ListBox extends WindowControl {
 
 	private void drawItems(Graphics2D g) {
 		int y = getY();
-		int start = 0, end = 5;
+		int start = 0, end = items.size();
 		
-		if (items.size() > 5 && selectedItem > 4) {
-			start = selectedItem - 4;
-			end = selectedItem + 1;
+		if (items.size() > 5) {
+			end = start + 5;
+			
+			if (selectedItem > 4) {
+				start = selectedItem - 4;
+				end = selectedItem + 1;
+			}
 		}
-				
+		
 		for (int i = start; i < end; i++) {
 			if (i == selectedItem) {
 				g.setColor(Color.GRAY);
@@ -76,5 +80,10 @@ public class ListBox extends WindowControl {
 		
 		g.draw(rectangle);
 		g.setColor(Color.BLACK);
+	}
+	
+	@Override
+	public void update(ArrayList<String> items) {
+		setItems(items);
 	}
 }

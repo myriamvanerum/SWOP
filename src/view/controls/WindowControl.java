@@ -1,6 +1,7 @@
 package view.controls;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import view.components.ViewLabel;
 import view.windows.SubWindow;
@@ -69,5 +70,9 @@ public abstract class WindowControl {
 
 	public void space() {
 		System.out.println("Activate control.");
+	}
+
+	public void update(ArrayList<String> items) {
+		System.out.println("Update control.");
 	}
 }
