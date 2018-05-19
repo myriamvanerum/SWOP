@@ -56,6 +56,7 @@ public class Button extends WindowControl {
 		g.drawString(text, (getX() + getWidth() / 2) - (textWidth/2), getY() + 15);
 	}
 	
+	@Override
 	public void click() {
 		operator.action();
 	}

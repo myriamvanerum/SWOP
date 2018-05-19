@@ -75,4 +75,12 @@ public abstract class WindowControl {
 	public void update(ArrayList<String> items) {
 		System.out.println("Update control.");
 	}
+
+	public WindowControl click(int x, int y) {
+		if (x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getHeight())
+			return this;
+		return null;
+	}	
+
+	public abstract void click();
 }

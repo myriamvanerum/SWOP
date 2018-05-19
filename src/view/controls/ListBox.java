@@ -86,4 +86,9 @@ public class ListBox extends WindowControl {
 	public void update(ArrayList<String> items) {
 		setItems(items);
 	}
+
+	@Override
+	public void click() {
+		// TODO Auto-generated method stub
+	}
 }

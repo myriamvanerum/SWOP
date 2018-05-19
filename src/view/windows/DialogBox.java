@@ -130,16 +130,15 @@ public class DialogBox extends SubWindow {
 	@Override
 	public void pressTab() {
 		System.out.println("Change active control.");
-		getCurrentControl().setActive(false);
-		getCurrentControl().currentControl(this);
+		
+		changeCurrentControl(false);
 		
 		if (getCurrentControlIndex() < getControls().size() - 1) 
 			setCurrentControlIndex(getCurrentControlIndex() + 1);
 		else 
 			setCurrentControlIndex(0);
 
-		getCurrentControl().setActive(true);
-		getCurrentControl().currentControl(this);
+		changeCurrentControl(true);
 	}
 	
 	/**
@@ -147,5 +146,22 @@ public class DialogBox extends SubWindow {
 	 */
 	public void setLabelState(ViewLabel viewLabel) {
 		System.out.println("Set label mode dialog box.");
+	}
+	
+	@Override
+	public void singleClick(int x, int y) {
+		for (WindowControl control : getControls()) {
+			if (control.click(x, y) != null) {
+				changeCurrentControl(false);
+				setCurrentControlIndex(getControls().indexOf(control));
+				changeCurrentControl(true);
+				control.click();
+			}
+		}
+	}
+
+	private void changeCurrentControl(boolean isNew) {
+		getCurrentControl().setActive(isNew);
+		getCurrentControl().currentControl(this);
 	}
 }

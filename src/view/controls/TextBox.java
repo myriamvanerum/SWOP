@@ -89,4 +89,9 @@ public class TextBox extends WindowControl{
 			subwindow.setLabelState(getState());
 		} else subwindow.changeLabelState("SHOW");
 	}
+
+	@Override
+	public void click() {
+		// TODO Auto-generated method stub		
+	}
 }
