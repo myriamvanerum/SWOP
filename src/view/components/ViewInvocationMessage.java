@@ -78,10 +78,6 @@ public class ViewInvocationMessage extends ViewMessage {
 		else
 			xReceiver += 5;
 		drawArrow(xSender, ySender, xReceiver, yReceiver, g);
-		// draw arrow
-//		int[] xCoord = {xReceiver - 10, xReceiver - 10, xReceiver - 5};
-//		int[] yCoord = {yReceiver - 5, yReceiver + 5, yReceiver};
-//		g.fillPolygon(xCoord, yCoord, 3);
 		
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
@@ -105,7 +101,7 @@ public class ViewInvocationMessage extends ViewMessage {
         int yCorner2 = (int) (Math.sin(Math.toRadians(angle - 40)) * 10);
         
         int[] xCoord = {xReceiver, xReceiver - xCorner1, xReceiver - xCorner2};
-		int[] yCoord = {yReceiver};
+		int[] yCoord = {yReceiver, yReceiver - yCorner1, yReceiver - yCorner2};
 		g.fillPolygon(xCoord, yCoord, 3);
     }
 		
