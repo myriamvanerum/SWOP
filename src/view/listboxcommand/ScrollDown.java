@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 import view.controls.ListBox;
 
+/**
+ * ScrollDown class.
+ * Used to select the item beneath the selected item in the listbox
+ * 
+ * @author groep 03
+ *
+ */
 public class ScrollDown implements ListBoxOperator {
 	ListBox listBox;
 
@@ -11,6 +18,9 @@ public class ScrollDown implements ListBoxOperator {
 		this.listBox = listbox;
 	}
 
+	/**
+	 * Selected the item beneath the current selected item
+	 */
 	@Override
 	public void action() {
 		ArrayList<String> items = listBox.getItems();

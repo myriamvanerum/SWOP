@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import view.controls.ListBox;
 import view.controls.TextBox;
 
+/**
+ * AddItem class.
+ * Used to add an item to the listbox
+ * 
+ * @author groep 03
+ *
+ */
 public class AddItem implements ListBoxOperator {
 	private ListBox listBox;
 	private TextBox textBox;
@@ -22,6 +29,9 @@ public class AddItem implements ListBoxOperator {
 		return getTextbox().getViewLabel().getOutput();
 	}
 
+	/**
+	 * Add a new item to the listbox 
+	 */
 	@Override
 	public void action() {
 		ArrayList<String> items = listBox.getItems();
