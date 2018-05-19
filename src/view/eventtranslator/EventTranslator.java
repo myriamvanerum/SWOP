@@ -1,16 +1,17 @@
-package view.eventhandlers;
+package view.eventtranslator;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
-import view.InteractionManager;
+import view.UI;
 
 /**
  * EventHandler class. Translates user input for Controller
  * 
  * @author groep 03
  */
-public class KeyEventHandler {
-	private InteractionManager interactionManager;
+public class EventTranslator {
+	private UI interactionManager;
 	private KeyModifierHandler keyModifierHandler;
 
 	/**
@@ -19,7 +20,7 @@ public class KeyEventHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public KeyEventHandler(InteractionManager interactionManager) {
+	public EventTranslator(UI interactionManager) {
 		this.interactionManager = interactionManager;
 		keyModifierHandler = new KeyModifierHandler();
 	}
@@ -43,14 +44,7 @@ public class KeyEventHandler {
 		if (id < 0 || keyCode < 0)
 			throw new IllegalArgumentException();
 		
-		// TODO moeten bovenaan blijven omdat ze ook undefined zijn
-		if (keyCode == 38)
-			interactionManager.arrowUp();
-
-		if (keyCode == 40)
-			interactionManager.arrowDown(); 
-
-		if (keyChar == KeyEvent.CHAR_UNDEFINED) {
+		if (keyCode == KeyEvent.VK_CONTROL) {
 			keyModifierHandler.setModifier(keyCode);
 		} else {
             if (keyModifierHandler.ctrlModifierActive()) {
@@ -83,6 +77,12 @@ public class KeyEventHandler {
     				interactionManager.pressSpace();
     				break;
     			}
+            	
+            	if (keyCode == 38)
+        			interactionManager.arrowUp();
+
+        		if (keyCode == 40)
+        			interactionManager.arrowDown(); 
 
     			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
     					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
@@ -95,10 +95,52 @@ public class KeyEventHandler {
     					|| keyCode == KeyEvent.VK_RIGHT_PARENTHESIS // een rechterhaakje
     					|| keyCode == KeyEvent.VK_SPACE // een spatie
     					|| keyCode == KeyEvent.VK_COMMA)) // een komma
-    			{
     				interactionManager.addLabelCharacter(keyCode, keyChar);
-    			}
             }
+		}
+	}
+	
+	/**
+	 * When a mouse event occurs, it is handled in this method. If the mouse is
+	 * pressed, the object is focused, if it's dragged, the object should move (if
+	 * it's a party), if the mouse has clicked, it gets focused or unfocused at one
+	 * click, it draws a new party.
+	 * 
+	 * @param id
+	 *            mouseEvent id
+	 * @param x
+	 *            coordinate x
+	 * @param y
+	 *            coordinate y
+	 * @param clickCount
+	 *            the number of times the mouse has clicked.
+	 * @throws IllegalArgumentException
+	 *             Illegal id, coordinates or clickCount
+	 */
+	public void handleMouseEvent(int id, int x, int y, int clickCount) {
+		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
+			throw new IllegalArgumentException();
+
+		switch (id) {
+		case MouseEvent.MOUSE_PRESSED:
+			interactionManager.pressed(x,y);
+			break;
+		case MouseEvent.MOUSE_DRAGGED:
+			interactionManager.dragged(x,y);
+			break;
+		case MouseEvent.MOUSE_RELEASED:
+			interactionManager.released(x,y);
+			break;
+		case MouseEvent.MOUSE_CLICKED:
+			switch (clickCount) {
+			case 1:
+				interactionManager.clickedOnce(x, y);
+				break;
+			case 2: 
+				interactionManager.clickedTwice(x, y);
+				break;
+			}
+			break;
 		}
 	}
 }

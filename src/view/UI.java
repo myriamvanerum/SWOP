@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import domain.party.Party;
-import view.eventhandlers.KeyEventHandler;
-import view.eventhandlers.MouseEventHandler;
-import view.windows.DiagramWindow;
+import view.eventtranslator.EventTranslator;
 
 /**
  * An InteractionManager holds a list of all current Interactions. It handles
@@ -18,18 +15,15 @@ import view.windows.DiagramWindow;
  * 
  * @author groep 03
  */
-public class InteractionManager {
-	private KeyEventHandler keyEventHandler;
-	private MouseEventHandler mouseEventHandler;
-
+public class UI {
+	private EventTranslator eventTranslator;
 	public ViewInteraction activeInteraction = null;
 	public ArrayList<ViewInteraction> interactions = new ArrayList<>();
 
 	/* CONSTRUCTOR */
 
-	public InteractionManager() {
-		setKeyEventHandler(new KeyEventHandler(this));
-		setMouseEventHandler(new MouseEventHandler(this));
+	public UI() {
+		setEventTranslator(new EventTranslator(this));
 	}
 
 	/* KEY EVENTS AND MOUSE EVENTS */
@@ -47,7 +41,7 @@ public class InteractionManager {
 	 *            The number of clicks
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount) {
-		getMouseEventHandler().handleMouseEvent(id, x, y, clickCount);
+		getEventTranslator().handleMouseEvent(id, x, y, clickCount);
 	}
 
 	/**
@@ -61,7 +55,7 @@ public class InteractionManager {
 	 *            The keyChar for the entered key
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {
-		getKeyEventHandler().handleKeyEvent(id, keyCode, keyChar);
+		getEventTranslator().handleKeyEvent(id, keyCode, keyChar);
 	}
 
 	/* DRAWING */
@@ -134,11 +128,7 @@ public class InteractionManager {
 		ArrayList<Point2D> positions = new ArrayList<>();
 		positions.add(new Point2D.Double(5, 5));
 		for (ViewInteraction viewInteraction : getInteractions()) {
-			if (viewInteraction.getSubWindows().size() > 0) {
-				DiagramWindow lowestWindow = (DiagramWindow) Collections.max(viewInteraction.getSubWindows(),
-						Comparator.comparing(s -> s.getY()));
-				positions.add(new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10));
-			}
+			positions.add(viewInteraction.findLowestWindow());
 		}
 		return Collections.max(positions, Comparator.comparing(s -> s.getY()));
 	}
@@ -270,20 +260,12 @@ public class InteractionManager {
 		this.activeInteraction = activeInteraction;
 	}
 
-	public KeyEventHandler getKeyEventHandler() {
-		return keyEventHandler;
+	public EventTranslator getEventTranslator() {
+		return eventTranslator;
 	}
 
-	public void setKeyEventHandler(KeyEventHandler keyEventHandler) {
-		this.keyEventHandler = keyEventHandler;
-	}
-
-	public MouseEventHandler getMouseEventHandler() {
-		return mouseEventHandler;
-	}
-
-	public void setMouseEventHandler(MouseEventHandler mouseEventHandler) {
-		this.mouseEventHandler = mouseEventHandler;
+	public void setEventTranslator(EventTranslator eventTranslator) {
+		this.eventTranslator = eventTranslator;
 	}
 
 	public ArrayList<ViewInteraction> getInteractions() {
