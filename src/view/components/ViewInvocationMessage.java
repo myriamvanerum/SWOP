@@ -69,18 +69,45 @@ public class ViewInvocationMessage extends ViewMessage {
 		if (xSender < 0 || xReceiver < 0 || ySender < 0 || yReceiver < 0)
 			throw new IllegalArgumentException();
 		
+		setColor(g);
+		
 		Stroke full = new BasicStroke(1);
 		g.setStroke(full);
-		g.drawLine(xSender, ySender, xReceiver, yReceiver);
+		if (xSender < xReceiver)
+			xReceiver -= 5;
+		else
+			xReceiver += 5;
+		drawArrow(xSender, ySender, xReceiver, yReceiver, g);
 		// draw arrow
-		int[] xCoord = {xReceiver - 10, xReceiver - 10, xReceiver - 5};
-		int[] yCoord = {yReceiver - 5, yReceiver + 5, yReceiver};
-		g.fillPolygon(xCoord, yCoord, 3);
+//		int[] xCoord = {xReceiver - 10, xReceiver - 10, xReceiver - 5};
+//		int[] yCoord = {yReceiver - 5, yReceiver + 5, yReceiver};
+//		g.fillPolygon(xCoord, yCoord, 3);
 		
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, getMessage().getMessageNumber(), new Point2D.Double(labelX, ySender-(ySender-yReceiver)/2));
+		
+		resetColor(g);
 	}
+	
+	/**
+     * Draws an arrow with a filled arrow head
+     */
+    public static void drawArrow(int xSender, int ySender, int xReceiver, int yReceiver, Graphics2D g) {
+        g.drawLine(xSender, ySender, xReceiver, yReceiver);
+
+        int angle = (int) Math.toDegrees(Math.atan2(yReceiver - ySender, xReceiver - xSender));
+
+        int xCorner1 = (int) (Math.cos(Math.toRadians(angle + 40)) * 10);
+        int yCorner1 = (int) (Math.sin(Math.toRadians(angle + 40)) * 10);
+
+        int xCorner2 = (int) (Math.cos(Math.toRadians(angle - 40)) * 10);
+        int yCorner2 = (int) (Math.sin(Math.toRadians(angle - 40)) * 10);
+        
+        int[] xCoord = {xReceiver, xReceiver - xCorner1, xReceiver - xCorner2};
+		int[] yCoord = {yReceiver};
+		g.fillPolygon(xCoord, yCoord, 3);
+    }
 		
 	@Override
 	public ViewMessage copy() {

@@ -41,10 +41,8 @@ public class SeqState implements State {
 			throw new IllegalArgumentException();
 		
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.setColor(g);
 	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionSeq(), windowPosition));
 	        viewParty.getViewLifeLine().draw(g);
-	        viewParty.resetColor(g);
 	    }
 
     	for (ViewMessage viewMessage : viewMessages) {
@@ -54,17 +52,14 @@ public class SeqState implements State {
 			int xReceiver = receiverLifeline.getX();
 			int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
 					
-			viewMessage.setColor(g);
 			viewMessage.draw(g, xSender, xReceiver, y, y);
-			viewMessage.resetColor(g);
-			
 			viewMessage.drawActivationBar(g, xSender-5, xReceiver-5, y-5);
-	    }		
+	    }	
 	}
 	
 	@Override
 	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
-		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 40));
+		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 10));
 	}
 	
 	@Override

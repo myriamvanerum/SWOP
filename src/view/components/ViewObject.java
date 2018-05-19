@@ -58,6 +58,8 @@ public class ViewObject extends ViewParty {
 	public void draw(Graphics2D g, Point2D position) {
 		if (position.getX() < 0 || position.getY() < 0)
 			throw new IllegalArgumentException();
+		
+		setColor(g);
 										
 		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
 		
@@ -69,6 +71,8 @@ public class ViewObject extends ViewParty {
 		Rectangle r = new Rectangle((int) position.getX(), (int) position.getY(), getWidth(), getHeight());
 		g.draw(r);
 		getViewLabel().draw(g, new Point2D.Double((position.getX() + (getWidth()/2)-(viewLabel.getWidth()/2)), position.getY() + (getHeight()/2)));
+	
+		resetColor(g);
 	}
 		
 	/**

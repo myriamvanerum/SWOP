@@ -58,6 +58,7 @@ public class ViewActor extends ViewParty {
 	 */
 	@Override
 	public void draw(Graphics2D g, Point2D position) {	
+		setColor(g);
 		// TODO lifeline andere plaats
 		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 110, 375);
 				
@@ -74,6 +75,8 @@ public class ViewActor extends ViewParty {
 		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70));
 
 		getViewLabel().draw(g, new Point2D.Double(position.getX() - (viewLabel.getWidth() / 2), position.getY() + 100));
+		
+		resetColor(g);
 	}
 	
 	/**

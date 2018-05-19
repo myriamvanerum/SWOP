@@ -32,5 +32,4 @@ public class KeyModifierHandler {
     private boolean expired() {
         return System.currentTimeMillis() - keyEnteredTime > validFor;
     }
-
 }

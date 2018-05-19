@@ -69,18 +69,44 @@ public class ViewResultMessage extends ViewMessage {
 		if (xSender < 0 || xReceiver < 0 || ySender < 0 || yReceiver < 0)
 			throw new IllegalArgumentException();
 		
+		setColor(g);
+		
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		g.drawLine(xSender - 7, ySender, xReceiver + 7, yReceiver);
-		// draw arrow
-		g.drawLine(xReceiver + 12, yReceiver - 5, xReceiver + 7, yReceiver);
-		g.drawLine(xReceiver + 12, yReceiver + 5, xReceiver + 7, yReceiver);
+		if (xSender > xReceiver) {
+			xReceiver += 5;
+			xSender -= 5;
+		} else {
+			xReceiver -= 5;
+			xSender += 5;
+		}
+		drawArrow(xSender, ySender, xReceiver, yReceiver, g);
 				
 		String label = getMessage().getLabel();
 		int labelX = xSender + ((xReceiver - xSender)/2) - ((g.getFontMetrics().stringWidth(label))/2); 
 		getViewLabel().draw(g, new Point2D.Double(labelX, ySender+12));
+		
+		resetColor(g);
 	}
+	
+	/**
+     * Draws an arrow with an open arrow head
+     */
+    public static void drawArrow(int xSender, int ySender, int xReceiver, int yReceiver, Graphics2D g) {
+        g.drawLine(xSender, ySender, xReceiver, yReceiver);
+
+        int angle = (int) Math.toDegrees(Math.atan2(yReceiver - ySender, xReceiver - xSender));
+
+        int xCorner1 = (int) (Math.cos(Math.toRadians(angle + 40)) * 10);
+        int yCorner1 = (int) (Math.sin(Math.toRadians(angle + 40)) * 10);
+
+        int xCorner2 = (int) (Math.cos(Math.toRadians(angle - 40)) * 10);
+        int yCorner2 = (int) (Math.sin(Math.toRadians(angle - 40)) * 10);
+
+        g.drawLine(xReceiver, yReceiver, xReceiver - xCorner1, yReceiver - yCorner1);
+        g.drawLine(xReceiver, yReceiver, xReceiver - xCorner2, yReceiver - yCorner2);
+    }
 	
 	@Override
 	public ViewMessage copy() {

@@ -41,12 +41,9 @@ public class ComState implements State {
 			throw new IllegalArgumentException();
 		
 		for (ViewParty viewParty : viewParties) {
-	        viewParty.setColor(g);
 	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionCom(), windowPosition));
-	        viewParty.resetColor(g);
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
-	    	viewMessage.setColor(g);
 	    	// TODO message labels boven elkaar tonen als meerdere messages tussen zelfde parties
 	    	if (viewMessage instanceof ViewInvocationMessage) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
@@ -56,8 +53,7 @@ public class ComState implements State {
 	    				(int) (sender.getY() + windowPosition.getY() + 25),
 	    				(int) (receiver.getY() + windowPosition.getY() + 25));
 	    	}
-	    	viewMessage.resetColor(g);
-	    }		
+	    }
 	}
 	
 	@Override
