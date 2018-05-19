@@ -55,16 +55,18 @@ public class ComState implements State {
 	    		if (mesNumber.length() > 1)
 	    			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
 	    		
-	    		if (sender.getX() <= receiver.getX())
-	    			viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + 80), 
-	    				(int) (receiver.getX() + windowPosition.getX()), 
+	    		Integer senderExtra, receiverExtra;
+	    		if (sender.getX() <= receiver.getX()) {
+	    			senderExtra = 80;
+	    			receiverExtra = 0;
+	    		} else {
+	    			senderExtra = 0;
+	    			receiverExtra = 80;
+	    		}
+	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + senderExtra), 
+	    				(int) (receiver.getX() + windowPosition.getX() + receiverExtra), 
 	    				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
 	    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
-	    		else
-	    			viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX()), 
-		    				(int) (receiver.getX() + windowPosition.getX() + 80), 
-		    				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
-		    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
 	    	}
 	    }
 	}
