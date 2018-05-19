@@ -48,10 +48,23 @@ public class ComState implements State {
 	    	if (viewMessage instanceof ViewInvocationMessage) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
-	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + 80), 
-	    				(int) (receiver.getX()+ windowPosition.getX()), 
-	    				(int) (sender.getY() + windowPosition.getY() + 25),
-	    				(int) (receiver.getY() + windowPosition.getY() + 25));
+	    		
+	    		Integer padding = -40;
+	    		String mesNumber = viewMessage.getMessage().getMessageNumber();
+	    		padding += 30 * Integer.parseInt(mesNumber.substring(0, 1));
+	    		if (mesNumber.length() > 1)
+	    			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
+	    		
+	    		if (sender.getX() <= receiver.getX())
+	    			viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + 80), 
+	    				(int) (receiver.getX() + windowPosition.getX()), 
+	    				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
+	    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
+	    		else
+	    			viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX()), 
+		    				(int) (receiver.getX() + windowPosition.getX() + 80), 
+		    				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
+		    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
 	    	}
 	    }
 	}
