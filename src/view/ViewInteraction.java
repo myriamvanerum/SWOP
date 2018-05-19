@@ -3,6 +3,8 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import domain.Component;
 import domain.Interaction;
@@ -94,6 +96,15 @@ public class ViewInteraction implements Observer {
 			}
 		}
 		return null;
+	}
+	
+	public Point2D findLowestWindow() {
+		Point2D position = new Point2D.Double(0,0);
+		if (getSubWindows().size() > 0) {
+			SubWindow lowestWindow = Collections.max(getSubWindows(), Comparator.comparing(s -> s.getY()));
+			position = new Point2D.Double(lowestWindow.getX() + 10, lowestWindow.getY() + 10);
+		}
+		return position;
 	}
 
 	public boolean closeWindow(int x, int y) {
@@ -216,6 +227,18 @@ public class ViewInteraction implements Observer {
 		}
 		sender = null;
 		receiver = null;
+	}
+	
+	public void arrowUp() {
+		getActiveWindow().scrollUp();
+	}
+
+	public void arrowDown() {
+		getActiveWindow().scrollDown();
+	}
+
+	public void pressSpace() {
+		getActiveWindow().pressSpace();		
 	}
 	
 	/* LABEL METHODS */
@@ -349,17 +372,5 @@ public class ViewInteraction implements Observer {
 
 	public void setLastClickedPosition(Point2D lastClickedPosition) {
 		this.lastClickedPosition = lastClickedPosition;
-	}
-
-	public void arrowUp() {
-		getActiveWindow().scrollUp();
-	}
-
-	public void arrowDown() {
-		getActiveWindow().scrollDown();
-	}
-
-	public void pressSpace() {
-		getActiveWindow().pressSpace();		
 	}
 }

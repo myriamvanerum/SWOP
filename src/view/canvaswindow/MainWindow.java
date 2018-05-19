@@ -3,7 +3,7 @@ package view.canvaswindow;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import view.InteractionManager;
+import view.UI;
 /**
  * MainWindow class, inherits CanvasWindow class
  * @author groep 03
@@ -15,11 +15,11 @@ public class MainWindow extends CanvasWindow {
         java.awt.EventQueue.invokeLater(() -> {new MainWindow("Interactr").show();});
     }
 	
-	private InteractionManager interactionManager;
+	private UI interactionManager;
 
 	public MainWindow(String title) {
         super(title);
-        setInteractionManager(new InteractionManager());
+        setInteractionManager(new UI());
     }	
 	
 	/**
@@ -68,11 +68,11 @@ public class MainWindow extends CanvasWindow {
     
     /* GETTERS AND SETTERS */
 
-	public InteractionManager getInteractionManager() {
+	public UI getInteractionManager() {
 		return interactionManager;
 	}
 
-	public void setInteractionManager(InteractionManager interactionManager) {
+	public void setInteractionManager(UI interactionManager) {
 		this.interactionManager = interactionManager;
 	}
 }
