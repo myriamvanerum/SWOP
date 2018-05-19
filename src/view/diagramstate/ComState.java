@@ -65,13 +65,4 @@ public class ComState implements State {
 	public boolean checkCoordinates(ViewParty party, Point2D clickPosition, Point2D windowPosition) {
 		return party.checkCoordinates(clickPosition, party.getPositionCom(), windowPosition);
 	}
-	
-	/**
-	 * Get the State of this SubWindow
-	 */
-	@Override
-	public String getCurrentState() {
-		return "COM";
-	}
-
 }

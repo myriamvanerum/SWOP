@@ -66,13 +66,4 @@ public class SeqState implements State {
 	public boolean checkCoordinates(ViewParty party, Point2D clickPosition, Point2D windowPosition) {
 		return party.checkCoordinates(clickPosition, party.getPositionSeq(), windowPosition);
 	}
-	
-	/**
-	 * Get the State of this SubWindow
-	 * @return the current state
-	 */
-	@Override
-	public String getCurrentState() {
-		return "SEQ";
-	}
 }
