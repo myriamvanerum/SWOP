@@ -26,7 +26,7 @@ import view.listboxcommand.Operator;
  * @author groep 03
  *
  */
-public class InvocationBox extends DialogBox {
+public class InvocationBox extends DialogBox implements ListBoxListener {
 	private InvocationMessage message;
 	private ViewMessage viewMessage;
 	private Operator operator;
@@ -46,16 +46,16 @@ public class InvocationBox extends DialogBox {
 	 * 			The invocation message that is being edited
 	 */
 	private void addControls(InvocationMessage message) {
-		ListBox listbox = new ListBox(getMessage().getArguments(), getX()+10, getY()+130);
+		ListBox listbox = new ListBox(getMessage().getArguments(), getX()+10, getY()+130, this);
 		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
 		controls.add(new TextBox("Method: ", getX()+10, getY()+50, new ViewLabel(message.getMethod()), new EditInvocationMessageMethodState(this, null, message)));
 		TextBox add = new TextBox("New: ", getX()+10, getY()+80, new EditInvocationMessageArgumentState(this, null, getMessage()));
 		controls.add(add);
-		controls.add(new Button("Add", getX()+175,getY()+220,25,40, new AddItem(listbox, add)));
+		controls.add(new Button("Add", getX()+175,getY()+220,25,40, new AddItem(listbox, add), true, new int[]{-2,-2}));
 		controls.add(listbox);
-		controls.add(new Button("\u02C4", getX()+175,getY()+130,25,20, new MoveItemUp(listbox)));
-		controls.add(new Button("\u02C5", getX()+175,getY()+160,25,20, new MoveItemDown(listbox)));
-		controls.add(new Button("X", getX()+175,getY()+190,25,20, new DeleteItem(listbox)));
+		controls.add(new Button("\u02C4", getX()+175,getY()+130,25,20, new MoveItemUp(listbox), false, new int[]{0,1}));
+		controls.add(new Button("\u02C5", getX()+175,getY()+160,25,20, new MoveItemDown(listbox), false, new int[]{-1}));
+		controls.add(new Button("X", getX()+175,getY()+190,25,20, new DeleteItem(listbox), false, new int[]{-1,0}));
 		
 		operator = new Operator(listbox);
 		
@@ -92,21 +92,6 @@ public class InvocationBox extends DialogBox {
 		}
 	}
 	
-	/*@Override
-	public void moveItemUp() {
-		getOperator().moveUp();
-	}
-	
-	@Override
-	public void moveItemDown() {
-		getOperator().moveDown();
-	}
-	
-	@Override
-	public void deleteItem() {
-		getOperator().delete();
-	}*/
-	
 	/**
 	 * Arrow up key is pressed, selected the item in the listbox above the selected item
 	 */
@@ -135,5 +120,33 @@ public class InvocationBox extends DialogBox {
 	public void editViewLabel(Component component) {
 		for (WindowControl control : controls)
 			control.update(getMessage().getArguments());
+	}
+
+	@Override
+	public void addItem(ArrayList<String> arguments) {
+		getMessage().setArguments(arguments);
+		
+	}
+	
+	@Override
+	public void moveItemUp(ArrayList<String> arguments) {
+		getMessage().setArguments(arguments);
+	}
+	
+	@Override
+	public void moveItemDown(ArrayList<String> arguments) {
+		getMessage().setArguments(arguments);
+	}
+	
+	@Override
+	public void deleteItem(ArrayList<String> arguments) {
+		getMessage().setArguments(arguments);
+	}
+	
+	@Override
+	public void availabilityButtons(int value, int limit) {
+		for (WindowControl control : getControls()) {
+			control.checkAvailability(value, limit);
+		}
 	}
 }

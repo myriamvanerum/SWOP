@@ -28,5 +28,8 @@ public class ScrollDown implements ListBoxOperator {
 		
 		if (index != items.size()-1) 
 			listBox.setSelectedItem(index+1);
+		else listBox.setSelectedItem(0);
+		
+		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
 	}
 }

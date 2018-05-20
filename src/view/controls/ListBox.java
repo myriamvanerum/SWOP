@@ -5,20 +5,24 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import view.windows.ListBoxListener;
+
 public class ListBox extends WindowControl {
 	private ArrayList<String> items = new ArrayList<String>();
+	private ListBoxListener listener;
 	private int selectedItem = -1;	
 
-	public ListBox(ArrayList<String> items, int x, int y) {
+	public ListBox(ArrayList<String> items, int x, int y, ListBoxListener listener) {
 		super();
 		this.items = items;
+		this.listener = listener;
 		setX(x);
 		setY(y);
 		setHeight(100);
 		setWidth(150);
 		
-		if (items.size() > 0)
-			setSelectedItem(0);
+		/*if (items.size() > 0)
+			setSelectedItem(0);*/
 	}
 
 	public ArrayList<String> getItems() {
@@ -35,6 +39,14 @@ public class ListBox extends WindowControl {
 
 	public void setSelectedItem(int selectedItem) {
 		this.selectedItem = selectedItem;
+	}
+
+	public ListBoxListener getListener() {
+		return listener;
+	}
+
+	public void setListener(ListBoxListener listener) {
+		this.listener = listener;
 	}
 
 	private void drawItems(Graphics2D g) {

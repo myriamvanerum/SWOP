@@ -36,5 +36,7 @@ public class AddItem implements ListBoxOperator {
 	public void action() {
 		ArrayList<String> items = listBox.getItems();
 		items.add(getValue());
+		listBox.getListener().moveItemDown(listBox.getItems());
+		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
 	}
 }

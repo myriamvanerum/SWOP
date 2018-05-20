@@ -32,6 +32,8 @@ public class MoveItemDown implements ListBoxOperator {
 			items.set(index, temp);
 			listBox.setSelectedItem(index+1);
 		}
+		listBox.getListener().moveItemDown(listBox.getItems());
+		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
 	}
 
 }

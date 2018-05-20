@@ -33,5 +33,8 @@ public class DeleteItem implements ListBoxOperator {
 			
 			items.remove(index);		
 		}
+		
+		listBox.getListener().moveItemDown(listBox.getItems());
+		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
 	}
 }

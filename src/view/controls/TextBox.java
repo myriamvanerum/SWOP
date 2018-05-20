@@ -83,11 +83,19 @@ public class TextBox extends WindowControl{
 	
 	@Override
 	public void currentControl(SubWindow subwindow) {
+		String output = getViewLabel().getOutput();
+		
 		if (isActive()) {
-			String output = getViewLabel().getOutput();
 			getViewLabel().setOutput(output + "|");
 			subwindow.setLabelState(getState());
-		} else subwindow.changeLabelState("SHOW");
+		} else {
+						
+			if (output.indexOf("|") > -1) {
+				getViewLabel().setOutput(output.substring(0, output.length()-1));
+			}
+				
+			subwindow.changeLabelState("SHOW");
+		}
 	}
 
 	@Override

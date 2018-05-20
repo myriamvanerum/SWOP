@@ -18,6 +18,7 @@ public abstract class WindowControl {
 	}
 	
 	public abstract void draw(Graphics2D g);
+	public abstract void click();
 
 	public int getX() {
 		return x;
@@ -81,6 +82,8 @@ public abstract class WindowControl {
 			return this;
 		return null;
 	}	
-
-	public abstract void click();
+	
+	public void checkAvailability(int value, int limit) {
+		System.out.println("No action");
+	}
 }

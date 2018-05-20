@@ -10,11 +10,14 @@ public class Button extends WindowControl {
 	private String text;
 	private boolean isAvailable;
 	private ListBoxOperator operator;
+	private int[] limits = new int[2];
 
-	public Button(String text, int x, int y, int height, int width, ListBoxOperator operator) {
+	public Button(String text, int x, int y, int height, int width, ListBoxOperator operator, boolean isAvailable, int[] limits) {
 		super();
 		this.text = text;
 		this.operator = operator;
+		this.isAvailable = isAvailable;
+		this.limits = limits;
 		setX(x);
 		setY(y);
 		setHeight(height);
@@ -27,6 +30,10 @@ public class Button extends WindowControl {
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+	
+	private int[] getLimits() {
+		return limits;
 	}
 	
 	public ListBoxOperator getOperator() {
@@ -43,7 +50,7 @@ public class Button extends WindowControl {
 		if (isAvailable)
 			g.setColor(new Color(165, 170, 200));
 		else
-			g.setColor(new Color(195, 195, 195));
+			g.setColor(new Color(60, 60, 60));
 
 		g.fill(rec);
 		
@@ -58,11 +65,26 @@ public class Button extends WindowControl {
 	
 	@Override
 	public void click() {
-		operator.action();
+		if (isAvailable())
+			getOperator().action();
+		else System.out.println("Button unavailable.");
 	}
 	
 	@Override
 	public void space() {
-		getOperator().action();
+		if (isAvailable())
+			getOperator().action();
+		else System.out.println("Button unavailable.");
+	}
+	
+	@Override
+	public void checkAvailability(int value, int size) {
+		if (getLimits().length != 2) {
+			if (value != size-1 && value > -1)
+				setAvailable(true);
+			else setAvailable(false);
+		} else if (value > getLimits()[0] && size > getLimits()[1])
+			setAvailable(true);
+		else setAvailable(false);
 	}
 }
