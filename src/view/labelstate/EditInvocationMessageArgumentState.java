@@ -41,10 +41,14 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 	
 	@Override
 	public void enterLabel() {
-		String label = getViewLabel().getOutput();		
+		String argument = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
-		String argument = label.substring(0, label.length() - 1);
-		String newLabel = getInvocationMessage().getMethod() + "(" + getInvocationMessage().argumentsToString() + ", " + argument +  ")";
+		String newLabel = argument;
+		
+		if (getInvocationMessage().argumentsToString().trim().length() > 0)
+			newLabel = getInvocationMessage().getMethod() + "(" + getInvocationMessage().argumentsToString() + ", " + argument +  ")";
+		else newLabel = getInvocationMessage().getMethod() + "(" + argument +  ")";
+		
 		// TODO FIXME niet echt goed design
 		subwindow.getViewInteraction().editLabel(getInvocationMessage(), newLabel);
 		getViewLabel().setOutput("");

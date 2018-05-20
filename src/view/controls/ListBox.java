@@ -105,7 +105,7 @@ public class ListBox extends WindowControl {
 		
 		if (value.trim().length() > 0) {
 			textBox.getState().addArgument();			
-			getItems().add(value);
+			getListener().updateArguments(getItems());
 			getListener().availabilityButtons(getSelectedItem(), getItems().size());			
 		}
 	}
