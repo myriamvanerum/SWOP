@@ -100,7 +100,71 @@ public class ListBox extends WindowControl {
 	}
 
 	@Override
-	public void click() {
-		// TODO Auto-generated method stub
+	public void click() {}
+	
+	public void add(String value) {
+		getItems().add(value);
+		getListener().moveItemDown(getItems());
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+	}
+
+	public void remove() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+				
+		if (items.size() <= 0) return;			
+		if (items.size() > 1)
+			setSelectedItem(0);
+		else 
+			setSelectedItem(-1);
+			
+		items.remove(index);	
+		
+		getListener().moveItemDown(getItems());
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+	}
+
+	public void moveDown() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+		
+		if (index >= items.size()-1) return;
+		switchItems(items, index, index+1);
+		
+		getListener().moveItemDown(getItems());
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		
+	}
+
+	public void moveUp() {
+		int index = getSelectedItem();
+		
+		if (index == 0) return;
+		switchItems(getItems(), index, index-1);
+		
+		getListener().moveItemDown(getItems());
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+	}
+	
+	public void switchItems(ArrayList<String> items, int i, int j) {
+		String temp = items.get(j);
+		items.set(j, items.get(i));
+		items.set(i, temp);
+		setSelectedItem(j);
+	}
+
+	public void scrollDown() {
+		int index = getSelectedItem();
+		
+		if (index >= getItems().size()-1) return;
+		setSelectedItem(index+1);
+		
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+	}
+
+	public void scrollUp() {
+		if (getSelectedItem() == 0) return;
+		setSelectedItem(getSelectedItem()-1);
+		getListener().availabilityButtons(getSelectedItem(), getItems().size());
 	}
 }

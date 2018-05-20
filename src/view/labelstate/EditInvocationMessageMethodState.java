@@ -37,7 +37,7 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 	@Override
 	public void enterLabel() {
 		String label = getViewLabel().getOutput();		
-		getViewLabel().setColor(Color.BLACK);		
+		getViewLabel().setColor(Color.BLACK);
 		String method = label.substring(0, label.length() - 1);
 		String newLabel = method + "(" + getInvocationMessage().argumentsToString() + ")";
 		// TODO FIXME niet echt goed design

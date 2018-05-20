@@ -20,12 +20,7 @@ public class ScrollUp implements ListBoxOperator {
 	 * Selected the item above the current selected item
 	 */
 	@Override
-	public void action() {		
-		if (listBox.getSelectedItem() == -1)
-			listBox.setSelectedItem(0);
-		else if (listBox.getSelectedItem() != 0) 
-			listBox.setSelectedItem(listBox.getSelectedItem()-1);
-		
-		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
+	public void action() {	
+		listBox.scrollUp();
 	}
 }

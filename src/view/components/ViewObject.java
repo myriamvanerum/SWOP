@@ -61,7 +61,7 @@ public class ViewObject extends ViewParty {
 		
 		setColor(g);
 										
-		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 200);		
+		getViewLifeLine().setPosition((int) position.getX() + (width/2), (int) position.getY() + (height + 5), ((int) position.getY() + (height + 5)) + 230);		
 		
 		// label width dynamisch maken met label width				
 		if (viewLabel.getWidth() > 80)

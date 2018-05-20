@@ -31,7 +31,8 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 		
 		if (!syntaxChecker.correctInvocationMessageArgument(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))
 			viewLabel.setColor(Color.RED);
-		else viewLabel.setColor(Color.GREEN);
+		else 
+			viewLabel.setColor(Color.GREEN);
 	}
 	
 	@Override

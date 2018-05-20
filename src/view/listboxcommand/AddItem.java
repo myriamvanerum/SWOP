@@ -1,7 +1,5 @@
 package view.listboxcommand;
 
-import java.util.ArrayList;
-
 import view.controls.ListBox;
 import view.controls.TextBox;
 
@@ -26,7 +24,7 @@ public class AddItem implements ListBoxOperator {
 	}
 	
 	public String getValue() {
-		return getTextbox().getViewLabel().getOutput();
+		return getTextbox().getValue();
 	}
 
 	/**
@@ -34,9 +32,6 @@ public class AddItem implements ListBoxOperator {
 	 */
 	@Override
 	public void action() {
-		ArrayList<String> items = listBox.getItems();
-		items.add(getValue());
-		listBox.getListener().moveItemDown(listBox.getItems());
-		listBox.getListener().availabilityButtons(listBox.getSelectedItem(), listBox.getItems().size());
+		listBox.add(getValue());
 	}
 }
