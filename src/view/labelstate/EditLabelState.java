@@ -58,10 +58,10 @@ public class EditLabelState {
 		Component component = getCurrentViewComponent().getComponent();
 		String label = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
-		String newLabel = label.substring(0, label.length() - 1);
+		label = label.substring(0, label.length() - 1);
 		// TODO FIXME niet echt goed design
-		subwindow.getViewInteraction().getInteractr().editLabel(component, newLabel);
-		getViewLabel().setOutput(newLabel);	
+		subwindow.getViewInteraction().editLabel(component, label);
+		getViewLabel().setOutput(label);	
 	}
 
 	public void addArgument() {}

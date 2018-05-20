@@ -1,15 +1,18 @@
-package view.inputhandler;
+package view;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import view.UI;
+import view.inputhandler.InputHandler;
 
 import static java.awt.event.KeyEvent.*;
+import static java.awt.event.MouseEvent.*;
 import static org.mockito.Mockito.*;
 
 public class InputHandlerTests {
@@ -131,42 +134,48 @@ public class InputHandlerTests {
         verify(ui, times(3)).addLabelCharacter(VK_L, 'l');
     }
 
-//    @Test
-//    public void testShouldCallOnlyHandleSelect() {
-//    	inputHandler.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 0, 1);
-//        verify(ui, times(1)).handleSelect(Mockito.any(Location.class));
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 0, 1);
-//        verify(ui, times(2)).handleSelect(Mockito.any(Location.class));
-//        verify(ui, times(0)).handleHalt(Mockito.any(Location.class));
-//    }
-//
-//    @Test
-//    public void testShouldCallOnlyHandleDoubleSelect() {
-//    	inputHandler.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 0, 2);
-//        verify(ui, times(1)).handleDoubleSelect(Mockito.any(Location.class));
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_PRESSED, 0, 0, 2);
-//        verify(ui, times(2)).handleDoubleSelect(Mockito.any(Location.class));
-//        verify(ui, times(0)).handleHalt(Mockito.any(Location.class));
-//    }
-//
-//    @Test
-//    public void testShouldCallOnlyHandleMove() {
-//    	inputHandler.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, 0, 0, 1);
-//        verify(ui, times(1)).handleMove(Mockito.any(Location.class));
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, 0, 0, 1);
-//        verify(ui, times(2)).handleMove(Mockito.any(Location.class));
-//        verify(ui, times(0)).handleHalt(Mockito.any(Location.class));
-//    }
-//
-//    @Test
-//    public void testShouldCallHandleHaltOnlyAfterDrag() {
-//    	inputHandler.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, 0, 0, 1);
-//    	inputHandler.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 1);
-//        verify(ui, times(1)).handleHalt(Mockito.any(Location.class));
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 1);
-//        verify(ui, times(1)).handleHalt(Mockito.any(Location.class));
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_DRAGGED, 0, 0, 1);
-//        inputHandler.handleMouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 1);
-//        verify(ui, times(2)).handleHalt(Mockito.any(Location.class));
-//    }
+    @Test
+    public void testClickedOnce() {
+    	inputHandler.handleMouseEvent(MOUSE_CLICKED, 0, 0, 1);
+        verify(ui, times(1)).clickedOnce(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        inputHandler.handleMouseEvent(MOUSE_CLICKED, 0, 0, 1);
+        verify(ui, times(2)).clickedOnce(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        verify(ui, times(0)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+    }
+
+    @Test
+    public void testClickedTwice() {
+    	inputHandler.handleMouseEvent(MOUSE_CLICKED, 0, 0, 2);
+        verify(ui, times(1)).clickedTwice(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        inputHandler.handleMouseEvent(MOUSE_CLICKED, 0, 0, 2);
+        verify(ui, times(2)).clickedTwice(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        verify(ui, times(0)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+    }
+    
+    @Test
+    public void testPressed() {
+    	inputHandler.handleMouseEvent(MOUSE_PRESSED, 0, 0, 1);
+        verify(ui, times(1)).pressed(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        inputHandler.handleMouseEvent(MOUSE_PRESSED, 0, 0, 1);
+        verify(ui, times(2)).pressed(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        verify(ui, times(0)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+    }
+
+    @Test
+    public void testDragged() {
+    	inputHandler.handleMouseEvent(MOUSE_DRAGGED, 0, 0, 1);
+        verify(ui, times(1)).dragged(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        inputHandler.handleMouseEvent(MOUSE_DRAGGED, 0, 0, 1);
+        verify(ui, times(2)).dragged(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        verify(ui, times(0)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+    }
+
+    @Test
+    public void testReleased() {
+    	inputHandler.handleMouseEvent(MOUSE_RELEASED, 0, 0, 1);
+        verify(ui, times(1)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        inputHandler.handleMouseEvent(MOUSE_RELEASED, 0, 0, 1);
+        verify(ui, times(2)).released(Mockito.any(Integer.class), Mockito.any(Integer.class));
+        verify(ui, times(0)).pressed(Mockito.any(Integer.class), Mockito.any(Integer.class));
+    }
 }

@@ -154,7 +154,7 @@ public class ViewInteraction implements Observer {
 		setActiveWindow(dialogBox);
 	}
 	
-	/* COMPONENT OPERATIONS */
+	/* DOMAIN OPERATIONS */
 
 	public void deleteComponent() {
 		if (!getActiveWindow().actionAllowed()) return;
@@ -176,6 +176,12 @@ public class ViewInteraction implements Observer {
 		ViewParty viewParty = (ViewParty) selectedComponent();
 		getInteractr().changePartyType(viewParty.getParty());
 	}
+	
+	public void editLabel(Component component, String label) {
+		getInteractr().editLabel(component, label);
+	}
+	
+	/* COMPONENT OPERATIONS */
 	
 	public void selectComponent(int x, int y) {
 		getActiveWindow().selectComponent(x, y);
