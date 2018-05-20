@@ -94,4 +94,8 @@ public class TextBox extends WindowControl{
 	public void click() {
 		// TODO Auto-generated method stub		
 	}
+
+	public String getValue() {
+		return getViewLabel().getOutput();
+	}
 }

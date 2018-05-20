@@ -91,4 +91,59 @@ public class ListBox extends WindowControl {
 	public void click() {
 		// TODO Auto-generated method stub
 	}
+	
+	public void add(String value) {
+		ArrayList<String> items = getItems();
+		items.add(value);
+	}
+
+	public void remove() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+				
+		if (items.size() <= 0) return;			
+		if (items.size() > 1)
+			setSelectedItem(0);
+		else 
+			setSelectedItem(-1);
+			
+		items.remove(index);		
+	}
+
+	public void moveDown() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+		
+		if (index >= items.size()-1) return;
+		switchItems(items, index, index+1);
+		
+	}
+
+	public void moveUp() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+		
+		if (index == 0) return;
+		switchItems(items, index, index-1);
+	}
+	
+	public void switchItems(ArrayList<String> items, int i, int j) {
+		String temp = items.get(j);
+		items.set(j, items.get(i));
+		items.set(i, temp);
+		setSelectedItem(j);
+	}
+
+	public void scrollDown() {
+		ArrayList<String> items = getItems();
+		int index = getSelectedItem();
+		
+		if (index >= items.size()-1) return;
+		setSelectedItem(index+1);
+	}
+
+	public void scrollUp() {
+		if (getSelectedItem() == 0) return;
+		setSelectedItem(getSelectedItem()-1);
+	}
 }

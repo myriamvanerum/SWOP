@@ -21,7 +21,6 @@ public class ScrollUp implements ListBoxOperator {
 	 */
 	@Override
 	public void action() {		
-		if (listBox.getSelectedItem() != 0) 
-			listBox.setSelectedItem(listBox.getSelectedItem()-1);
+		listBox.scrollUp();
 	}
 }
