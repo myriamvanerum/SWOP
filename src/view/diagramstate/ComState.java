@@ -44,7 +44,6 @@ public class ComState implements State {
 	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionCom(), windowPosition));
 	    }
 	    for (ViewMessage viewMessage : viewMessages) {
-	    	// TODO message labels boven elkaar tonen als meerdere messages tussen zelfde parties
 	    	if (viewMessage instanceof ViewInvocationMessage) {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
