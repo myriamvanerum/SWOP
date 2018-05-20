@@ -59,7 +59,7 @@ public class SeqState implements State {
 	
 	@Override
 	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition) {
-		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 10));
+		component.setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 30));
 	}
 	
 	@Override

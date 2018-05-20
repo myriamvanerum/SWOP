@@ -8,26 +8,25 @@ import view.components.ViewLabel;
 import view.labelstate.EditLabelState;
 import view.windows.SubWindow;
 
-public class TextBox extends WindowControl{
+public class TextBox extends WindowControl {
 	private String description;
 	private ViewLabel label;
 	private EditLabelState state;
 
 	public TextBox(String description, int x, int y, EditLabelState state) {
 		super();
-		this.description = description;
+		setParameters(description, x, y, state);
 		this.label = new ViewLabel("");
-		this.state = state;
-		setX(x);
-		setY(y);
-		setHeight(20);
-		setWidth(150);
 	}
 	
 	public TextBox(String description, int x, int y, ViewLabel label, EditLabelState state) {
 		super();
-		this.description = description;
+		setParameters(description, x, y, state);
 		this.label = label;
+	}
+	
+	public void setParameters(String description, int x, int y, EditLabelState state) {
+		this.description = description;
 		this.state = state;
 		setX(x);
 		setY(y);
@@ -91,9 +90,7 @@ public class TextBox extends WindowControl{
 	}
 
 	@Override
-	public void click() {
-		// TODO Auto-generated method stub		
-	}
+	public void click() {}
 
 	public String getValue() {
 		return getViewLabel().getOutput();

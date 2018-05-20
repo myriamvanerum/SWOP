@@ -28,8 +28,6 @@ public class ViewActivationBar {
 		Rectangle rectangle = new Rectangle(x, y, 12, getHeight());
 		g.setColor(new Color(150,150,255));
 		g.fill(rectangle);
-//		g.setColor(new Color(0,0,0));
-//		g.draw(rectangle);
 	}
 	public Integer getHeight() {
 		return height;

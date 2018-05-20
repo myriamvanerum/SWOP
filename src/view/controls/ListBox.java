@@ -88,13 +88,10 @@ public class ListBox extends WindowControl {
 	}
 
 	@Override
-	public void click() {
-		// TODO Auto-generated method stub
-	}
+	public void click() {}
 	
 	public void add(String value) {
-		ArrayList<String> items = getItems();
-		items.add(value);
+		getItems().add(value);
 	}
 
 	public void remove() {
@@ -120,11 +117,10 @@ public class ListBox extends WindowControl {
 	}
 
 	public void moveUp() {
-		ArrayList<String> items = getItems();
 		int index = getSelectedItem();
 		
 		if (index == 0) return;
-		switchItems(items, index, index-1);
+		switchItems(getItems(), index, index-1);
 	}
 	
 	public void switchItems(ArrayList<String> items, int i, int j) {
@@ -135,10 +131,9 @@ public class ListBox extends WindowControl {
 	}
 
 	public void scrollDown() {
-		ArrayList<String> items = getItems();
 		int index = getSelectedItem();
 		
-		if (index >= items.size()-1) return;
+		if (index >= getItems().size()-1) return;
 		setSelectedItem(index+1);
 	}
 

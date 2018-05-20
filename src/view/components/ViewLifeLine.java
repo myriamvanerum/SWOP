@@ -11,7 +11,7 @@ import java.awt.geom.Line2D;
  *
  */
 public class ViewLifeLine {
-	int x, startY,  endY;
+	int x, startY, endY;
 		
 	/**
 	 * ViewLifeLine Constructor

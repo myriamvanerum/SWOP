@@ -31,7 +31,7 @@ public class ViewParty extends ViewComponent {
 		viewLifeLine = new ViewLifeLine();
 		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
 				clickPosition.getY() - windowPosition.getY() - 25));
-		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 10));
+		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 30));
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class ViewParty extends ViewComponent {
 		viewLabel = new ViewLabel(party.getLabel());
 		viewLifeLine = new ViewLifeLine();
 		setPositionCom(new Point2D.Double(position.getX(), position.getY()));
-		setPositionSeq(new Point2D.Double(position.getX(), 10));
+		setPositionSeq(new Point2D.Double(position.getX(), 30));
 	}
 
 	/**
