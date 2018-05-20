@@ -1,4 +1,4 @@
-package test;
+package recording;
 
 import static view.canvaswindow.CanvasWindow.replayRecording;
 

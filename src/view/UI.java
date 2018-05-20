@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import view.eventtranslator.EventTranslator;
+import view.inputhandler.InputHandler;
 
 /**
  * An InteractionManager holds a list of all current Interactions. It handles
@@ -16,14 +16,14 @@ import view.eventtranslator.EventTranslator;
  * @author groep 03
  */
 public class UI {
-	private EventTranslator eventTranslator;
+	private InputHandler eventTranslator;
 	public ViewInteraction activeInteraction = null;
 	public ArrayList<ViewInteraction> interactions = new ArrayList<>();
 
 	/* CONSTRUCTOR */
 
 	public UI() {
-		setEventTranslator(new EventTranslator(this));
+		setEventTranslator(new InputHandler(this));
 	}
 
 	/* KEY EVENTS AND MOUSE EVENTS */
@@ -260,11 +260,11 @@ public class UI {
 		this.activeInteraction = activeInteraction;
 	}
 
-	public EventTranslator getEventTranslator() {
+	public InputHandler getEventTranslator() {
 		return eventTranslator;
 	}
 
-	public void setEventTranslator(EventTranslator eventTranslator) {
+	public void setEventTranslator(InputHandler eventTranslator) {
 		this.eventTranslator = eventTranslator;
 	}
 

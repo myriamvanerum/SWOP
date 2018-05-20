@@ -1,4 +1,4 @@
-package view.eventtranslator;
+package view.inputhandler;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

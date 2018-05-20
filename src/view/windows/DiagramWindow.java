@@ -511,6 +511,7 @@ public class DiagramWindow extends SubWindow {
 	ViewComponent labelClickedOnce = null;
 	@Override
 	public void singleClick(int x2, int y2) {
+		// TODO code fixen, kan beter qua design. Lege klik -> unselect
 		if (actionAllowed()) {
 			ViewLabel viewLabel = null;
 			selectComponent(x2, y2);

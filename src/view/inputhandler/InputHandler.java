@@ -1,4 +1,4 @@
-package view.eventtranslator;
+package view.inputhandler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -10,7 +10,7 @@ import view.UI;
  * 
  * @author groep 03
  */
-public class EventTranslator {
+public class InputHandler {
 	private UI interactionManager;
 	private KeyModifierHandler keyModifierHandler;
 
@@ -20,7 +20,7 @@ public class EventTranslator {
 	 * @param window
 	 *            Main Window
 	 */
-	public EventTranslator(UI interactionManager) {
+	public InputHandler(UI interactionManager) {
 		this.interactionManager = interactionManager;
 		keyModifierHandler = new KeyModifierHandler();
 	}
@@ -78,10 +78,10 @@ public class EventTranslator {
     				break;
     			}
             	
-            	if (keyCode == 38)
+            	if (keyCode == KeyEvent.VK_UP)
         			interactionManager.arrowUp();
 
-        		if (keyCode == 40)
+        		if (keyCode == KeyEvent.VK_DOWN)
         			interactionManager.arrowDown(); 
 
     			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z

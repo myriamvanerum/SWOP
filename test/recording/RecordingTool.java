@@ -1,4 +1,4 @@
-package test;
+package recording;
 
 import java.io.File;
 import java.util.Scanner;
