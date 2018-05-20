@@ -39,7 +39,6 @@ public class MessageSequence {
 	}
 	
 	public ArrayList<Message> removeMessageAndDependents(Message message) {
-		// TODO notifyDelete for dependents
 		if (!getMessages().contains(message) || !getMessages().contains(message.getCompanion()))
             throw new IllegalArgumentException();
 
@@ -85,7 +84,6 @@ public class MessageSequence {
 	}
 	
 	private void setMessageNumbers() {
-		// TODO
         Stack<Integer> messageNumber = new Stack<>();
         int count = -1;
         boolean foundRes = false;
