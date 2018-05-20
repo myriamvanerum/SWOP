@@ -2,6 +2,7 @@ package view.windows;
 
 import java.util.ArrayList;
 
+import domain.Component;
 import domain.message.InvocationMessage;
 import view.ViewInteraction;
 import view.components.ViewInvocationMessage;
@@ -128,5 +129,11 @@ public class InvocationBox extends DialogBox {
 	@Override
 	public void pressSpace() {
 		getCurrentControl().space();
+	}
+	
+	@Override
+	public void editViewLabel(Component component) {
+		for (WindowControl control : controls)
+			control.update(getMessage().getArguments());
 	}
 }

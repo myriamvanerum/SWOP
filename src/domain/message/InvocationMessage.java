@@ -58,7 +58,7 @@ public class InvocationMessage extends Message {
     public String argumentsToString() {
     	String value = "";
     	for (String argument : arguments) {
-    		value += argument;
+    		value += argument.trim();
     		if (!argument.equals(arguments.get(arguments.size()-1)))
     			value += ", ";
     	}
