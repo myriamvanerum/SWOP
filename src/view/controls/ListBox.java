@@ -70,7 +70,7 @@ public class ListBox extends WindowControl {
 				g.fill(rectangle);
 				g.setColor(Color.BLACK);
 			}
-
+	
 			String item = items.get(i);
 			int stringHeight = (int) g.getFontMetrics().getStringBounds(item, g).getHeight();
 			g.drawString(items.get(i), getX() + 5, y + stringHeight);
@@ -103,9 +103,11 @@ public class ListBox extends WindowControl {
 	public void click() {}
 	
 	public void add(String value) {
-		getItems().add(value);
-		getListener().moveItemDown(getItems());
-		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		if (value.trim().length() > 0) {
+			getItems().add(value);
+			getListener().moveItemDown(getItems());
+			getListener().availabilityButtons(getSelectedItem(), getItems().size());			
+		}
 	}
 
 	public void remove() {
