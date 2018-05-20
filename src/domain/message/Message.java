@@ -36,9 +36,9 @@ public abstract class Message extends Component {
     }    
     
     @Override
-    public void editLabel(Interaction interaction, String label) {
+    public Boolean editLabel(String label) {
 		setLabel(label);
-		interaction.notifyEditLabel(this);
+		return true;
 	}
         
     /* GETTERS AND SETTERS */

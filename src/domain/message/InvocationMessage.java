@@ -66,8 +66,8 @@ public class InvocationMessage extends Message {
     }
     
     @Override
-    public void editLabel(Interaction interaction, String label) {
-		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label)) return;
+    public Boolean editLabel(String label) {
+		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label)) return false;
 
 		setLabel(label);
 		
@@ -78,7 +78,7 @@ public class InvocationMessage extends Message {
 		if (arguments != null) 
 			setArguments(arguments);
 		
-		interaction.notifyEditLabel(this);
+		return true;
 	}
     
 

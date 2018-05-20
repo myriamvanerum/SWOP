@@ -82,6 +82,7 @@ public class Interactr {
 	 * 		The component with a new label
 	 */
 	public void editLabel(Component component, String label) {
-		component.editLabel(interaction, label);
+		if (component.editLabel(label))
+			interaction.notifyEditLabel(component);
 	}
 }

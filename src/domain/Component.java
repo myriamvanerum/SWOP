@@ -25,5 +25,5 @@ public class Component {
 	 * @param component
 	 * @param label
 	 */
-	public void editLabel(Interaction interaction, String label) {}
+	public Boolean editLabel(String label) {return false;}
 }

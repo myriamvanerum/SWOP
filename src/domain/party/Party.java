@@ -38,10 +38,10 @@ public abstract class Party extends Component {
 	}
     
     @Override
-    public void editLabel(Interaction interaction, String label) {
-		if (!syntaxChecker.correctPartyLabelSyntax(label)) return;
+    public Boolean editLabel(String label) {
+		if (!syntaxChecker.correctPartyLabelSyntax(label)) return false;
 		setLabel(label);
-		interaction.notifyEditLabel(this);
+		return true;
     }
 
     public Party changeType() { return null;}
