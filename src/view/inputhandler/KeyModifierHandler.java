@@ -17,7 +17,7 @@ public class KeyModifierHandler {
 	
 	public boolean ctrlModifierActive() {
 		resetExpired();
-		return (keyCodes.contains(KeyEvent.VK_CONTROL)) ? true : false;
+		return (keyCodes.contains(KeyEvent.VK_CONTROL));
 	}
 	
 	private void resetExpired() {
