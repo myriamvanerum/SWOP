@@ -121,32 +121,17 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 		for (WindowControl control : controls)
 			control.update(getMessage().getArguments());
 	}
-
-	@Override
-	public void addItem(ArrayList<String> arguments) {
-		getMessage().setArguments(arguments);
-		
-	}
-	
-	@Override
-	public void moveItemUp(ArrayList<String> arguments) {
-		getMessage().setArguments(arguments);
-	}
-	
-	@Override
-	public void moveItemDown(ArrayList<String> arguments) {
-		getMessage().setArguments(arguments);
-	}
-	
-	@Override
-	public void deleteItem(ArrayList<String> arguments) {
-		getMessage().setArguments(arguments);
-	}
 	
 	@Override
 	public void availabilityButtons(int value, int limit) {
 		for (WindowControl control : getControls()) {
 			control.checkAvailability(value, limit);
 		}
+	}
+
+	@Override
+	public void updateArguments(ArrayList<String> arguments) {
+		System.err.println("LISTENER");
+		getMessage().setArguments(arguments);
 	}
 }

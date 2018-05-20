@@ -32,6 +32,6 @@ public class AddItem implements ListBoxOperator {
 	 */
 	@Override
 	public void action() {
-		listBox.add(getValue());
+		listBox.add(getTextbox());
 	}
 }
