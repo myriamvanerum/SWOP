@@ -40,8 +40,8 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 		getViewLabel().setColor(Color.BLACK);		
 		String argument = label.substring(0, label.length() - 1);
 		String newLabel = getInvocationMessage().getMethod() + "(" + getInvocationMessage().argumentsToString() + ", " + argument +  ")";
-		// TODO interaction
-		getInvocationMessage().editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
-		getViewLabel().setOutput("");	
+		// TODO FIXME niet echt goed design
+		subwindow.getViewInteraction().getInteractr().editLabel(getInvocationMessage(), newLabel);
+		getViewLabel().setOutput("");
 	}
 }

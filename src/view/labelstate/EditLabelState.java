@@ -59,8 +59,8 @@ public class EditLabelState {
 		String label = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
 		String newLabel = label.substring(0, label.length() - 1);
-		// TODO interaction
-		component.editLabel(subwindow.getViewInteraction().getInteraction(), newLabel);
+		// TODO FIXME niet echt goed design
+		subwindow.getViewInteraction().getInteractr().editLabel(component, newLabel);
 		getViewLabel().setOutput(newLabel);	
 	}
 }
