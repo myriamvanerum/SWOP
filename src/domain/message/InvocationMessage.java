@@ -108,10 +108,11 @@ public class InvocationMessage extends Message {
 		String[] split = result.split(",");
 		
 		for (String s : split)
-			list.add(s);
+	        if (s.trim().length() > 0) 
+	        	list.add(s);
 		
 		if (list.size() < 1)
-			return null;
+			return new ArrayList<String>();
 		return list;
 	}
 }

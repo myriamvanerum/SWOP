@@ -143,6 +143,20 @@ class SyntaxCheckerTest {
 	}
 	
 	@Test
+	void testInvocationMessageLabelFailOnlyComma() {
+		String label = "label(,)";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelFailArgumentsEndWithComma() {
+		String label = "label(argument,)";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
 	void testInvocationMessageLabelMethodSuccess() {
 		
 		String label = "labEL123";

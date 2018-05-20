@@ -20,6 +20,10 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 
 	@Override
 	public void confirmLabel() {
+		System.out.println("Use the \"add\" button");
+	}
+	
+	public void addArgument() {
 		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageArgument((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) {
 			enterLabel();
 		}
