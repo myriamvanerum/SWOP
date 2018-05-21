@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import view.components.ViewLabel;
 import view.windows.ListBoxListener;
 
 public class ListBox extends WindowControl {
@@ -20,9 +21,6 @@ public class ListBox extends WindowControl {
 		setY(y);
 		setHeight(100);
 		setWidth(150);
-		
-		/*if (items.size() > 0)
-			setSelectedItem(0);*/
 	}
 
 	public ArrayList<String> getItems() {
@@ -102,10 +100,12 @@ public class ListBox extends WindowControl {
 	@Override
 	public void click() {}
 	
-	public void add(String value) {
+	public void add(TextBox textBox) {
+		String value = textBox.getValue();
+		
 		if (value.trim().length() > 0) {
-			getItems().add(value);
-			getListener().moveItemDown(getItems());
+			textBox.getState().addArgument();			
+			getListener().updateArguments(getItems());
 			getListener().availabilityButtons(getSelectedItem(), getItems().size());			
 		}
 	}
@@ -122,7 +122,7 @@ public class ListBox extends WindowControl {
 			
 		items.remove(index);	
 		
-		getListener().moveItemDown(getItems());
+		getListener().updateArguments(getItems());
 		getListener().availabilityButtons(getSelectedItem(), getItems().size());
 	}
 
@@ -133,7 +133,7 @@ public class ListBox extends WindowControl {
 		if (index >= items.size()-1) return;
 		switchItems(items, index, index+1);
 		
-		getListener().moveItemDown(getItems());
+		getListener().updateArguments(getItems());
 		getListener().availabilityButtons(getSelectedItem(), getItems().size());
 		
 	}
@@ -144,7 +144,7 @@ public class ListBox extends WindowControl {
 		if (index == 0) return;
 		switchItems(getItems(), index, index-1);
 		
-		getListener().moveItemDown(getItems());
+		getListener().updateArguments(getItems());
 		getListener().availabilityButtons(getSelectedItem(), getItems().size());
 	}
 	

@@ -63,4 +63,6 @@ public class EditLabelState {
 		subwindow.getViewInteraction().editLabel(component, label);
 		getViewLabel().setOutput(label);	
 	}
+
+	public void addArgument() {}
 }

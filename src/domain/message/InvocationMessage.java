@@ -37,6 +37,7 @@ public class InvocationMessage extends Message {
 
 	public void setMethod(String method) {
 		this.method = method;
+		updateLabel();
 	}
 
 	public ArrayList<String> getArguments() {
@@ -45,6 +46,7 @@ public class InvocationMessage extends Message {
 
 	public void setArguments(ArrayList<String> arguments) {
 		this.arguments = arguments;
+		updateLabel();
 	}
     
     @Override
@@ -80,9 +82,7 @@ public class InvocationMessage extends Message {
 		
 		return true;
 	}
-    
-
-	
+    	
 	public String getMethodFromLabel(String string) {		
 		String result = "";
 		Pattern pattern = Pattern.compile("^(.*?)\\(");
@@ -114,5 +114,9 @@ public class InvocationMessage extends Message {
 		if (list.size() < 1)
 			return new ArrayList<String>();
 		return list;
+	}
+	
+	public void updateLabel() {
+		setLabel(getMethod() + "(" + argumentsToString() + ")");
 	}
 }
