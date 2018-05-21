@@ -3,6 +3,13 @@ package domain;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * SyntaxChecker class.
+ * Used to check certain string 
+ * 
+ * @author groep 03
+ *
+ */
 public class SyntaxChecker {
 	/**
 	 * Checks if the Party Label's syntax is correct.
@@ -69,6 +76,15 @@ public class SyntaxChecker {
 		return true;
 	}
 	
+	/**
+	 * Checks if the Invocation Message method's syntax is correct.
+	 * A method name starts with a lowercase letter and consists 
+	 * only of letters, digits, and underscores.
+	 * 
+	 * @param input
+	 * 		The label input
+	 * @return true if correct, false if not
+	 */
 	public boolean correctInvocationMessageMethod(String input) {
 		String result = "";
 		Pattern pattern = Pattern.compile("[a-zA-Z0-9\\_]*");
@@ -85,6 +101,14 @@ public class SyntaxChecker {
 		return false;    
 	}
 	
+	/**
+	 * Checks if the Invocation Message argument syntax is correct.
+	 * An argument is any sequence of characters, not including commas or parentheses. 
+	 * 
+	 * @param input
+	 * 		The label input
+	 * @return true if correct, false if not
+	 */
 	public boolean correctInvocationMessageArgument(String input) {
 		return input.indexOf(',') < 0 && input.indexOf('(') < 0 && input.indexOf(')') < 0 && input.indexOf(' ') < 0;
 	}

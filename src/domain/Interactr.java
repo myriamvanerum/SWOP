@@ -21,7 +21,6 @@ public class Interactr {
 
 	/**
 	 * Create a new Party in the active Interaction
-	 * @return the created Party
 	 */
 	public void addParty() {
 		interaction.addParty();
@@ -64,6 +63,8 @@ public class Interactr {
 	 * 		The Message sender
 	 * @param receiver
 	 * 		The Message receiver
+	 * @param previous
+	 * 		The previous message in the callstack
 	 * @throws NullPointerException
 	 * 		No sender or receiver supplied
 	 */
@@ -80,6 +81,8 @@ public class Interactr {
 	 * Method to be called when a Label has to be saved
 	 * @param component
 	 * 		The component with a new label
+	 * @param label
+	 * 		The new label of the component
 	 */
 	public void editLabel(Component component, String label) {
 		if (component.editLabel(label))

@@ -11,6 +11,7 @@ import domain.party.Party;
 import view.Observer;
 
 /**
+ * Interaction Class.
  * An Interaction is composed of a number of Parties and Messages, and can be shown in multiple SubWindows
  * @author groep 03
  */
@@ -57,10 +58,13 @@ public class Interaction implements Observable {
 	
 	/** 
 	 * Add a new Message to the Interaction
-	 * @param message
-	 * 		The Message to add
-	 * @throws NullPointerException
-	 * 		No message supplied
+	 * 
+	 * @param sender
+	 * 		The party that sends the message
+	 * @param receiver
+	 * 		The party that receives the message 
+	 * @param previous
+	 * 		The previous message in the callstack
 	 */
 	public void addMessage(Party sender, Party receiver, Message previous) {
 		InvocationMessage message = new InvocationMessage("|", sender, receiver);
@@ -75,6 +79,11 @@ public class Interaction implements Observable {
 		}
 	}
 	
+	/** 
+	 * Remove a component from the Interaction
+	 * @param component
+	 * 		The component to remove
+	 */
 	public void removeComponent(Component component) {
 		component.remove(this);
 	}
