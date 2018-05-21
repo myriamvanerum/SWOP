@@ -55,7 +55,8 @@ public class TextBox extends WindowControl {
 	}
 
 	@Override
-	public void draw(Graphics2D g) {
+	public void draw(Graphics2D gOrig) {
+		Graphics2D g =  (Graphics2D) gOrig.create();
 		g.drawString(getDescription(), getX() , getY() + 4);		
 		
 		int boxX = getX() + g.getFontMetrics().stringWidth(getDescription()) + 5; 
@@ -68,6 +69,7 @@ public class TextBox extends WindowControl {
 
 		g.draw(box);
 		g.setColor(Color.BLACK);
+		g.setClip(box);
 				
 		if (getLabel() != null) {
 			String value = getLabel().getOutput();
@@ -78,6 +80,8 @@ public class TextBox extends WindowControl {
 				g.drawString(value, boxX + 10, boxY + 15);
 			}
 		}
+		
+		g.dispose();
 	}
 	
 	@Override

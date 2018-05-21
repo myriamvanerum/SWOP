@@ -130,7 +130,6 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 
 	@Override
 	public void updateArguments(ArrayList<String> arguments) {
-		System.err.println("LISTENER");
 		getMessage().setArguments(arguments);
 	}
 }
