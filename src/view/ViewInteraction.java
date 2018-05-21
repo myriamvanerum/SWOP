@@ -198,7 +198,7 @@ public class ViewInteraction implements Observer {
 		Party party;
 		if ((party = getActiveWindow().getSelectedParty()) != null)
 			getInteractr().changePartyType(party);
-		else
+		else if (!getActiveWindow().editingLabel() && getActiveWindow().doubleClick())
 			getInteractr().addParty();
 	}
 	

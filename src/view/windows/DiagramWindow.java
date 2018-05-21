@@ -538,4 +538,10 @@ public class DiagramWindow extends SubWindow {
 		if (editingLabel()) return;
 		changeState();
 	}
+	
+	@Override
+	public boolean doubleClick() {
+		return true;
+	}
+	
 }
