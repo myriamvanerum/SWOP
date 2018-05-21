@@ -61,8 +61,8 @@ public abstract class WindowControl {
 	}
 
 	public void currentControl(SubWindow subwindow) {
-		if (!subwindow.actionAllowed())
-			subwindow.changeLabelState("SHOW");
+		if (!subwindow.editingLabel()) return;
+		subwindow.changeLabelState("SHOW");
 	}
 
 	public ViewLabel getViewLabel() {

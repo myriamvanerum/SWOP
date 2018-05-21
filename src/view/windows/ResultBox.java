@@ -43,9 +43,8 @@ public class ResultBox extends DialogBox {
 	 */
 	@Override
 	public void confirmLabel() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel();
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getCurrentViewLabel());
+		getLabelState().confirmLabel();
 	}
 }

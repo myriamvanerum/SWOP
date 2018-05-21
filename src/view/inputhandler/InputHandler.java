@@ -11,7 +11,7 @@ import view.UI;
  * @author groep 03
  */
 public class InputHandler {
-	private UI interactionManager;
+	private UI ui;
 	private KeyModifierHandler keyModifierHandler;
 
 	/**
@@ -20,8 +20,8 @@ public class InputHandler {
 	 * @param window
 	 *            Main Window
 	 */
-	public InputHandler(UI interactionManager) {
-		this.interactionManager = interactionManager;
+	public InputHandler(UI ui) {
+		this.ui = ui;
 		keyModifierHandler = new KeyModifierHandler();
 	}
 
@@ -50,39 +50,39 @@ public class InputHandler {
             if (keyModifierHandler.ctrlModifierActive()) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
-    				interactionManager.createNewInteraction();
+    				ui.createNewInteraction();
     				break;
     			case KeyEvent.VK_D:
-    				interactionManager.duplicateActiveWindow();
+    				ui.duplicateActiveWindow();
     				break;
     			case KeyEvent.VK_ENTER:
-    				interactionManager.openDialogBox();
+    				ui.openDialogBox();
     				break;
     			}
             } else {
             	switch (keyCode) {
     			case KeyEvent.VK_TAB:
-    				interactionManager.pressTab();
+    				ui.pressTab();
     				break;
     			case KeyEvent.VK_DELETE:
-    				interactionManager.deleteComponent();
+    				ui.deleteComponent();
     				break;
     			case KeyEvent.VK_ENTER:
-    				interactionManager.confirmLabel();
+    				ui.confirmLabel();
     				break;
     			case KeyEvent.VK_BACK_SPACE:
-    				interactionManager.removeLabelCharacter();
+    				ui.removeLabelCharacter();
     				break;
     			case KeyEvent.VK_SPACE:
-    				interactionManager.pressSpace();
+    				ui.pressSpace();
     				break;
     			}
             	
             	if (keyCode == KeyEvent.VK_UP)
-        			interactionManager.arrowUp();
+            		ui.arrowUp();
 
         		if (keyCode == KeyEvent.VK_DOWN)
-        			interactionManager.arrowDown(); 
+        			ui.arrowDown(); 
 
     			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
     					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
@@ -95,7 +95,7 @@ public class InputHandler {
     					|| keyCode == KeyEvent.VK_RIGHT_PARENTHESIS // een rechterhaakje
     					|| keyCode == KeyEvent.VK_SPACE // een spatie
     					|| keyCode == KeyEvent.VK_COMMA)) // een komma
-    				interactionManager.addLabelCharacter(keyCode, keyChar);
+    				ui.addLabelCharacter(keyCode, keyChar);
             }
 		}
 	}
@@ -123,21 +123,21 @@ public class InputHandler {
 
 		switch (id) {
 		case MouseEvent.MOUSE_PRESSED:
-			interactionManager.pressed(x,y);
+			ui.pressed(x,y);
 			break;
 		case MouseEvent.MOUSE_DRAGGED:
-			interactionManager.dragged(x,y);
+			ui.dragged(x,y);
 			break;
 		case MouseEvent.MOUSE_RELEASED:
-			interactionManager.released(x,y);
+			ui.released(x,y);
 			break;
 		case MouseEvent.MOUSE_CLICKED:
 			switch (clickCount) {
 			case 1:
-				interactionManager.clickedOnce(x, y);
+				ui.clickedOnce(x, y);
 				break;
 			case 2: 
-				interactionManager.clickedTwice(x, y);
+				ui.clickedTwice(x, y);
 				break;
 			}
 			break;
