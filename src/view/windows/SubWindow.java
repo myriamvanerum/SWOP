@@ -118,9 +118,9 @@ public class SubWindow {
 		return null;
 	}
 	
-	public ViewComponent getSelectedComponentIfNotEditingLabel() {
+	public Party getSelectedParty() {
 		if (editingLabel()) return null;
-		return getSelectedComponent();
+		return ((ViewParty)getSelectedComponent()).getParty();
 	}
 
 	public ViewComponent getSelectedComponent() {

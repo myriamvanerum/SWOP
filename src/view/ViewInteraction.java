@@ -167,11 +167,6 @@ public class ViewInteraction implements Observer {
 		Message previous = getActiveWindow().getPreviousMessage(y);
 		getInteractr().addMessage(sender, receiver, previous);
 	}
-
-	public void changePartyType() {
-		ViewParty viewParty = (ViewParty) selectedComponent();
-		getInteractr().changePartyType(viewParty.getParty());
-	}
 	
 	public void editLabel(Component component, String label) {
 		getInteractr().editLabel(component, label);
@@ -200,8 +195,9 @@ public class ViewInteraction implements Observer {
 	
 	public void doubleClick(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
-		if (getActiveWindow().getSelectedComponentIfNotEditingLabel() != null)
-			changePartyType();
+		Party party;
+		if ((party = getActiveWindow().getSelectedParty()) != null)
+			getInteractr().changePartyType(party);
 		else if (!getActiveWindow().editingLabel() && getActiveWindow().doubleClick())
 			getInteractr().addParty();
 	}
