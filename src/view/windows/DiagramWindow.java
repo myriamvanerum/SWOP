@@ -539,4 +539,10 @@ public class DiagramWindow extends SubWindow {
 		if(actionAllowed())
 			changeState();
 	}
+	
+	@Override
+	public boolean doubleClick() {
+		return true;
+	}
+	
 }

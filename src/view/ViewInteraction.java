@@ -204,10 +204,10 @@ public class ViewInteraction implements Observer {
 	
 	public void doubleClick(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
-		if (!getActiveWindow().actionAllowed()) return;
+		if (!getActiveWindow().actionAllowed()) return;			
 		if (getActiveWindow().getSelectedComponent() != null)
 			changePartyType();
-		else
+		else if (getActiveWindow().doubleClick())
 			addParty();
 	}
 	

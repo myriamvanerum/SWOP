@@ -310,4 +310,8 @@ public class SubWindow {
 	public void scrollDown() {
 		System.out.println("Scroll down.");			
 	}
+
+	public boolean doubleClick() {
+		return false;
+	}
 }

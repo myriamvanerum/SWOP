@@ -68,10 +68,15 @@ public class TextBox extends WindowControl {
 
 		g.draw(box);
 		g.setColor(Color.BLACK);
-		
+				
 		if (getLabel() != null) {
 			String value = getLabel().getOutput();
-			g.drawString(value, boxX + 10, boxY + 15);
+			if (getLabel().getWidth() > getWidth()) {
+				int counter = (getLabel().getWidth() - getWidth())/2;
+				g.drawString(value.substring(counter, value.length()-1), boxX + 10, boxY + 15);
+			} else {
+				g.drawString(value, boxX + 10, boxY + 15);
+			}
 		}
 	}
 	
