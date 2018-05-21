@@ -86,10 +86,9 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	 */
 	@Override
 	public void confirmLabel() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel();				// TODO
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getCurrentViewLabel());
+		getLabelState().confirmLabel();				// TODO
 	}
 	
 	/**

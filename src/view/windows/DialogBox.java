@@ -102,10 +102,9 @@ public class DialogBox extends SubWindow {
 	 */
 	@Override
 	public void removeLabelCharacter() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().removeCharacter();
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getCurrentViewLabel());
+		getLabelState().removeCharacter();
 	}
 
 	/**
@@ -118,7 +117,7 @@ public class DialogBox extends SubWindow {
 	 */
 	@Override
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (!actionAllowed() && getCurrentViewLabel() != null) {
+		if (editingLabel() && getCurrentViewLabel() != null) {
 				getLabelState().setViewLabel(getCurrentViewLabel());
 				getLabelState().addCharacter(keyCode, keyChar);	
 		}

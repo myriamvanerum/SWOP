@@ -28,35 +28,35 @@ public class UI {
 
 	/* KEY EVENTS AND MOUSE EVENTS */
 
-	/**
-	 * Method to pick up mouse events
-	 * 
-	 * @param id
-	 *            The mouseEvent id
-	 * @param x
-	 *            The clicked x coordinates
-	 * @param y
-	 *            The clicked y coordinates
-	 * @param clickCount
-	 *            The number of clicks
-	 */
-	public void handleMouseEvent(int id, int x, int y, int clickCount) {
-		getEventTranslator().handleMouseEvent(id, x, y, clickCount);
-	}
-
-	/**
-	 * Method to pick up keyboard events
-	 * 
-	 * @param id
-	 *            The keyEvent id
-	 * @param keyCode
-	 *            The keycode for the entered key
-	 * @param keyChar
-	 *            The keyChar for the entered key
-	 */
-	public void handleKeyEvent(int id, int keyCode, char keyChar) {
-		getEventTranslator().handleKeyEvent(id, keyCode, keyChar);
-	}
+//	/**
+//	 * Method to pick up mouse events
+//	 * 
+//	 * @param id
+//	 *            The mouseEvent id
+//	 * @param x
+//	 *            The clicked x coordinates
+//	 * @param y
+//	 *            The clicked y coordinates
+//	 * @param clickCount
+//	 *            The number of clicks
+//	 */
+//	public void handleMouseEvent(int id, int x, int y, int clickCount) {
+//		getEventTranslator().handleMouseEvent(id, x, y, clickCount);
+//	}
+//
+//	/**
+//	 * Method to pick up keyboard events
+//	 * 
+//	 * @param id
+//	 *            The keyEvent id
+//	 * @param keyCode
+//	 *            The keycode for the entered key
+//	 * @param keyChar
+//	 *            The keyChar for the entered key
+//	 */
+//	public void handleKeyEvent(int id, int keyCode, char keyChar) {
+//		getEventTranslator().handleKeyEvent(id, keyCode, keyChar);
+//	}
 
 	/* DRAWING */
 
@@ -208,17 +208,6 @@ public class UI {
 		return null;
 	}
 
-	/**
-	 * Forward the request to change the DiagramState for the active DiagramWindow
-	 * to the active ViewInteraction
-	 */
-	public void pressTab() {
-		if (getActiveInteraction() == null)
-			return;
-		System.out.println("Press tab.");
-		getActiveInteraction().pressTab();
-	}
-
 	/* COMPONENT OPERATIONS */
 
 	/**
@@ -321,5 +310,16 @@ public class UI {
 	public void pressSpace() {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().pressSpace();		
+	}
+	
+	/**
+	 * Forward the request to change the DiagramState for the active DiagramWindow
+	 * to the active ViewInteraction
+	 */
+	public void pressTab() {
+		if (getActiveInteraction() == null)
+			return;
+		System.out.println("Press tab.");
+		getActiveInteraction().pressTab();
 	}
 }

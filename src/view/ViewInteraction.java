@@ -157,7 +157,7 @@ public class ViewInteraction implements Observer {
 	/* DOMAIN OPERATIONS */
 
 	public void deleteComponent() {
-		if (!getActiveWindow().actionAllowed()) return;
+		if (getActiveWindow().editingLabel()) return;
 		ViewComponent viewComponent = selectedComponent();
 		if (viewComponent == null) return;
 		getInteractr().deleteComponent(viewComponent.getComponent());
@@ -166,10 +166,6 @@ public class ViewInteraction implements Observer {
 	public void addMessage(Party sender, Party receiver, int x, int y) {
 		Message previous = getActiveWindow().getPreviousMessage(y);
 		getInteractr().addMessage(sender, receiver, previous);
-	}
-
-	public void addParty() {
-		getInteractr().addParty();
 	}
 
 	public void changePartyType() {
@@ -204,11 +200,10 @@ public class ViewInteraction implements Observer {
 	
 	public void doubleClick(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
-		if (!getActiveWindow().actionAllowed()) return;			
-		if (getActiveWindow().getSelectedComponent() != null)
+		if (getActiveWindow().getSelectedComponentIfNotEditingLabel() != null)
 			changePartyType();
-		else if (getActiveWindow().doubleClick())
-			addParty();
+		else if (!getActiveWindow().editingLabel() && getActiveWindow().doubleClick())
+			getInteractr().addParty();
 	}
 	
 	public void singleClick(int x, int y) {
@@ -220,7 +215,7 @@ public class ViewInteraction implements Observer {
 	public void pressed(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
 
-		if (!getActiveWindow().actionAllowed()) return;
+		if (getActiveWindow().editingLabel()) return;
 		sender = checkLifeLine(x, y);
 		selectComponent(x, y);
 	}

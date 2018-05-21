@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import view.UI;
+import view.inputhandler.InputHandler;
 /**
  * MainWindow class, inherits CanvasWindow class
  * @author groep 03
@@ -15,11 +16,13 @@ public class MainWindow extends CanvasWindow {
         java.awt.EventQueue.invokeLater(() -> {new MainWindow("Interactr").show();});
     }
 	
-	private UI interactionManager;
+	private UI ui;
+	private InputHandler inputHandler;
 
 	public MainWindow(String title) {
         super(title);
-        setInteractionManager(new UI());
+        setUI(new UI());
+        setInputHandler(new InputHandler(getUI()));
     }	
 	
 	/**
@@ -31,7 +34,7 @@ public class MainWindow extends CanvasWindow {
     @Override
     protected void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        getInteractionManager().draw(g2);
+        getUI().draw(g2);
     }
 
     /**
@@ -47,7 +50,7 @@ public class MainWindow extends CanvasWindow {
      */
 	@Override
     protected void handleMouseEvent(int id, int x, int y, int clickCount) {
-		getInteractionManager().handleMouseEvent(id, x, y, clickCount);
+		getInputHandler().handleMouseEvent(id, x, y, clickCount);
 		repaint();
     }
     
@@ -62,17 +65,25 @@ public class MainWindow extends CanvasWindow {
      */
     @Override
     protected void handleKeyEvent(int id, int keyCode, char keyChar) {
-        getInteractionManager().handleKeyEvent(id, keyCode, keyChar);
+    	getInputHandler().handleKeyEvent(id, keyCode, keyChar);
         repaint();
     }
     
     /* GETTERS AND SETTERS */
 
-	public UI getInteractionManager() {
-		return interactionManager;
+	public UI getUI() {
+		return ui;
 	}
 
-	public void setInteractionManager(UI interactionManager) {
-		this.interactionManager = interactionManager;
+	public void setUI(UI ui) {
+		this.ui = ui;
+	}
+
+	public InputHandler getInputHandler() {
+		return inputHandler;
+	}
+
+	public void setInputHandler(InputHandler inputHandler) {
+		this.inputHandler = inputHandler;
 	}
 }

@@ -117,6 +117,11 @@ public class SubWindow {
 	public ViewLabel getCurrentViewLabel() {
 		return null;
 	}
+	
+	public ViewComponent getSelectedComponentIfNotEditingLabel() {
+		if (editingLabel()) return null;
+		return getSelectedComponent();
+	}
 
 	public ViewComponent getSelectedComponent() {
 		return selectedComponent;
@@ -151,11 +156,11 @@ public class SubWindow {
 	/**
 	 * Checks if action within the subwindow are allowed
 	 * 
-	 * @return	True if the subwindow is in a show label state
-	 * 			False if the subwindow is not in a show label state
+	 * @return	False if the subwindow is in a show label state
+	 * 			True if the subwindow is not in a show label state
 	 */
-	public boolean actionAllowed() {
-		return getLabelState() == getShowState();
+	public boolean editingLabel() {
+		return getLabelState() != getShowState();
 	}
 
 	/**
@@ -225,20 +230,18 @@ public class SubWindow {
 	 * Confirm that the entered label should be set as new label
 	 */
 	public void confirmLabel() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
-			getLabelState().confirmLabel();
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+		getLabelState().confirmLabel();
 	}
 	
 	/**
 	 * Remove a character of the label that is being edited
 	 */
 	public void removeLabelCharacter() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
-			getLabelState().removeCharacter();
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+		getLabelState().removeCharacter();
 	}
 	
 	/**
@@ -250,10 +253,9 @@ public class SubWindow {
      * 		The keyChar for the entered key
 	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
-			getLabelState().addCharacter(keyCode, keyChar);
-		}
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
+		getLabelState().addCharacter(keyCode, keyChar);
 	}
 
 	public void draw(Graphics2D g) {};
