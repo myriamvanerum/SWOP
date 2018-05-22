@@ -211,7 +211,6 @@ public class ViewInteraction implements Observer {
 	public void pressed(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
 
-		if (getActiveWindow().editingLabel()) return;
 		sender = checkLifeLine(x, y);
 		selectComponent(x, y);
 	}
