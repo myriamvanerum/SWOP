@@ -129,7 +129,9 @@ public class SubWindow {
 	}
 
 	public void setSelectedComponent(ViewComponent selectedComponent) {
+		unselectComponent();
 		this.selectedComponent = selectedComponent;
+		selectComponent();
 	}
 
 	/**
@@ -283,6 +285,7 @@ public class SubWindow {
 	public void selectMessage(Message message) {}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
+	public void unselectComponent() {}
 
 	public void singleClick(int x2, int y2) {}
 
