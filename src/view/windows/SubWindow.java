@@ -120,6 +120,7 @@ public class SubWindow {
 	
 	public Party getSelectedParty() {
 		if (editingLabel()) return null;
+		if (getSelectedComponent() == null) return null;
 		return ((ViewParty)getSelectedComponent()).getParty();
 	}
 

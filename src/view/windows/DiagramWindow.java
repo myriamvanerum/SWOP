@@ -232,9 +232,8 @@ public class DiagramWindow extends SubWindow {
 			throw new IllegalArgumentException();
 		
 		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
-		
-		if (!editingLabel()) 
-			getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+		if (editingLabel()) return;
+		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 
 	/**
@@ -318,6 +317,7 @@ public class DiagramWindow extends SubWindow {
 	 *          The y coordinate of the clicked position*/
 	@Override 
 	public void selectComponent(int x, int y) {
+		if (editingLabel()) return;
 		setSelectedComponent(clickParty(x, y));
 	}
 
@@ -396,6 +396,8 @@ public class DiagramWindow extends SubWindow {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 
+		if (editingLabel()) return null;
+		
 		for (ViewParty party : getViewParties()) {
 			ViewLifeLine lifeline = party.getViewLifeLine();
 			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
