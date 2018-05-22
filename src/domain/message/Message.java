@@ -1,7 +1,6 @@
 package domain.message;
 
 import domain.Component;
-import domain.Interaction;
 import domain.party.Party;
 
 /**
@@ -35,6 +34,12 @@ public abstract class Message extends Component {
         this.messageNumber = "";
     }    
     
+    /**
+     * Edit the label of the message
+     * 
+     * @param label
+     * 		the label of the message.
+     */
     @Override
     public Boolean editLabel(String label) {
 		setLabel(label);
@@ -59,6 +64,7 @@ public abstract class Message extends Component {
         return receiver;
     }
 
+    /* GETTERS & SETTERS */
 	public Message getCompanion() {
 		return companion;
 	}

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
+/**
+ * WindowControl class.
+ * A window control can be used to get data from the user
+ * @author groep 03
+ */
 public abstract class WindowControl {
 	private int x;
 	private int y;
@@ -13,13 +18,77 @@ public abstract class WindowControl {
 	private int width;
 	private boolean isActive;
 	
+	/**
+	 * WindowControl Constructor
+	 */
 	public WindowControl() {
 		this.isActive = false;
 	}
 	
+	/**
+	 * Draw the window control
+	 * @param g
+	 * 			Graphics class
+	 */
 	public abstract void draw(Graphics2D g);
+	
+	/**
+	 * Click action window control
+	 */
 	public abstract void click();
+	
+	/**
+	 * When current control is changed set label state subwindow to "show"
+	 * @param subwindow
+	 * 			The subwindow to which the window control belongs
+	 */
+	public void currentControl(SubWindow subwindow) {
+		if (!subwindow.editingLabel()) return;
+		subwindow.changeLabelState("SHOW");
+	}
 
+	/**
+	 * Space key is pressed
+	 */
+	public void space() {
+		System.out.println("Activate control.");
+	}
+
+	/**
+	 * Update the control data
+	 * @param items
+	 */
+	public void update(ArrayList<String> items) {
+		System.out.println("Update control.");
+	}
+
+	/**
+	 * Check if the window control is clicked
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 * @return A windowcontrol if it's clicked
+	 * 			Null if no windowcontrol is clicked
+	 */
+	public WindowControl click(int x, int y) {
+		if (x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getHeight())
+			return this;
+		return null;
+	}	
+	
+	/**
+	 * Check if a window control should be available in the current situation
+	 * @param lowerbound
+	 * 			The lowerbound limit
+	 * @param upperbound
+	 * 			The upperbound limit
+	 */
+	public void checkAvailability(int lowerbound, int upperbound) {
+		System.out.println("No action");
+	}
+	
+	/* Getters & Setters */
 	public int getX() {
 		return x;
 	}
@@ -59,31 +128,8 @@ public abstract class WindowControl {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	public void currentControl(SubWindow subwindow) {
-		if (!subwindow.editingLabel()) return;
-		subwindow.changeLabelState("SHOW");
-	}
-
+	
 	public ViewLabel getViewLabel() {
 		return null;
-	}
-
-	public void space() {
-		System.out.println("Activate control.");
-	}
-
-	public void update(ArrayList<String> items) {
-		System.out.println("Update control.");
-	}
-
-	public WindowControl click(int x, int y) {
-		if (x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getHeight())
-			return this;
-		return null;
-	}	
-	
-	public void checkAvailability(int value, int limit) {
-		System.out.println("No action");
 	}
 }
