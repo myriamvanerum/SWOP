@@ -16,47 +16,15 @@ import view.inputhandler.InputHandler;
  * @author groep 03
  */
 public class UI {
-	private InputHandler eventTranslator;
+	private InputHandler inputHandler;
 	public ViewInteraction activeInteraction = null;
 	public ArrayList<ViewInteraction> interactions = new ArrayList<>();
 
 	/* CONSTRUCTOR */
 
 	public UI() {
-		setEventTranslator(new InputHandler(this));
+		setInputHandler(new InputHandler(this));
 	}
-
-	/* KEY EVENTS AND MOUSE EVENTS */
-
-//	/**
-//	 * Method to pick up mouse events
-//	 * 
-//	 * @param id
-//	 *            The mouseEvent id
-//	 * @param x
-//	 *            The clicked x coordinates
-//	 * @param y
-//	 *            The clicked y coordinates
-//	 * @param clickCount
-//	 *            The number of clicks
-//	 */
-//	public void handleMouseEvent(int id, int x, int y, int clickCount) {
-//		getEventTranslator().handleMouseEvent(id, x, y, clickCount);
-//	}
-//
-//	/**
-//	 * Method to pick up keyboard events
-//	 * 
-//	 * @param id
-//	 *            The keyEvent id
-//	 * @param keyCode
-//	 *            The keycode for the entered key
-//	 * @param keyChar
-//	 *            The keyChar for the entered key
-//	 */
-//	public void handleKeyEvent(int id, int keyCode, char keyChar) {
-//		getEventTranslator().handleKeyEvent(id, keyCode, keyChar);
-//	}
 
 	/* DRAWING */
 
@@ -114,8 +82,8 @@ public class UI {
 	 */
 	public void openDialogBox() {
 		System.out.println("Open dialog box.");
-		if (getActiveInteraction() != null)
-			getActiveInteraction().openDialogBox(findLowestWindow());
+		if (getActiveInteraction() == null) return;
+		getActiveInteraction().openDialogBox(findLowestWindow());
 	}
 
 	/**
@@ -249,12 +217,12 @@ public class UI {
 		this.activeInteraction = activeInteraction;
 	}
 
-	public InputHandler getEventTranslator() {
-		return eventTranslator;
+	public InputHandler getInputHandler() {
+		return inputHandler;
 	}
 
-	public void setEventTranslator(InputHandler eventTranslator) {
-		this.eventTranslator = eventTranslator;
+	public void setInputHandler(InputHandler inputHandler) {
+		this.inputHandler = inputHandler;
 	}
 
 	public ArrayList<ViewInteraction> getInteractions() {

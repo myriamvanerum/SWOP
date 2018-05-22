@@ -48,11 +48,7 @@ public class ComState implements State {
 	    		Point2D sender = viewMessage.getSender().getPositionCom();
 	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
 	    		
-	    		Integer padding = -40;
-	    		String mesNumber = viewMessage.getMessage().getMessageNumber();
-	    		padding += 30 * Integer.parseInt(mesNumber.substring(0, 1));
-	    		if (mesNumber.length() > 1)
-	    			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
+	    		Integer padding = setPadding(viewMessage);
 	    		
 	    		Integer senderExtra, receiverExtra;
 	    		if (sender.getX() <= receiver.getX()) {
@@ -68,6 +64,16 @@ public class ComState implements State {
 	    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
 	    	}
 	    }
+	}
+	
+	public Integer setPadding(ViewMessage viewMessage) {
+		//TODO werkt nog niet voor diepere messages
+		Integer padding = -40;
+		String mesNumber = viewMessage.getMessage().getMessageNumber();
+		padding += 30 * Integer.parseInt(mesNumber.substring(0, 1));
+		if (mesNumber.length() > 1)
+			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
+		return padding;
 	}
 	
 	@Override
