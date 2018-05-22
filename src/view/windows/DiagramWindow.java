@@ -94,6 +94,24 @@ public class DiagramWindow extends SubWindow {
 		setSelectedComponent(null);
 		setTitlebar(new Titlebar(getX(), getY(), getWidth()));
 	}
+	
+	/**
+	 * Duplicate the ViewParties of the original DiagramWindow
+	 * 
+	 * @param viewParties
+	 *            The Parties in the DiagramWindow
+	 * @return Copy of the viewParties arraylist
+	 */
+	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
+		ArrayList<ViewParty> copy = new ArrayList<>();
+
+		for (ViewParty viewParty : viewParties) {
+			ViewParty newViewParty = viewParty.copy();
+			copy.add(newViewParty);
+		}
+
+		return copy;
+	}
 
 	/**
 	 * Duplicate the ViewMessages of the original DiagramWindow
@@ -116,24 +134,8 @@ public class DiagramWindow extends SubWindow {
 
 		return copy;
 	}
-
-	/**
-	 * Duplicate the ViewParties of the original DiagramWindow
-	 * 
-	 * @param viewParties
-	 *            The Parties in the DiagramWindow
-	 * @return Copy of the viewParties arraylist
-	 */
-	private ArrayList<ViewParty> copyParties(ArrayList<ViewParty> viewParties) {
-		ArrayList<ViewParty> copy = new ArrayList<>();
-
-		for (ViewParty viewParty : viewParties) {
-			ViewParty newViewParty = viewParty.copy();
-			copy.add(newViewParty);
-		}
-
-		return copy;
-	}
+	
+	/* DRAWING */
 
 	/**
 	 * Method to draw a DiagramWindow and all its contents
@@ -145,65 +147,15 @@ public class DiagramWindow extends SubWindow {
 	public void draw(Graphics2D gOrig) {
 		// Create a new Graphics object so clip can be used to only clip contents for this SubWindow
 		Graphics2D g = (Graphics2D) gOrig.create();
-
-		// Draw white field
 		drawWhiteField(g);
-
-		// Draw title bar
 		getTitlebar().draw(g, getState().getTitle());
-
-		// Draw black border
 		drawBlackBorder(g);
-
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1, getHeight() - getTitlebar().getHeight());
-		// Draw contents
 		drawContents(g, getViewParties(), getViewMessages());
 		g.dispose();
 	}
-
-	/**
-	 * Change the DiagramWindow State
-	 */
-	public void changeState() {
-		if (getState() == seqState)
-			setState(comState);
-		else
-			setState(seqState);
-	}
-
-	/* GETTERS AND SETTERS */
-	public ArrayList<ViewParty> getViewParties() {
-		return viewParties;
-	}
-
-	public void setViewParties(ArrayList<ViewParty> viewParties) {
-		this.viewParties = viewParties;
-	}
-
-	public ArrayList<ViewMessage> getViewMessages() {
-		return viewMessages;
-	}
-
-	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
-		this.viewMessages = viewMessages;
-	}
-
-	public State getState() {
-		return windowState;
-	}
-
-	public void setState(State windowState) {
-		this.windowState = windowState;
-	}
 	
-	@Override
-	public ViewLabel getCurrentViewLabel() {
-		if (getSelectedComponent() != null)
-			return getSelectedComponent().getViewLabel();
-		return null;
-	}
-
 	/**
 	 * Draw the Parties and Messages in the SubWindow
 	 * 
@@ -220,51 +172,21 @@ public class DiagramWindow extends SubWindow {
 	}
 
 	/**
-	 * Change the position of a component in the DiagramWindow to the given coordinates
-	 * 
-	 *  @param	x
-	 *            The new x coordinate of the selected component
-	 *  @param 	y
-	 *            The new y coordinate of the selected component
+	 * Change the DiagramWindow State
 	 */
-	public void moveComponent(int x, int y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-		
-		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
-		if (editingLabel()) return;
-		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+	public void changeState() {
+		if (getState() == seqState)
+			setState(comState);
+		else
+			setState(seqState);
 	}
-
-	/**
-	 * Find the ViewParty for a Party
-	 * 
-	 * @param party
-	 *            The Party to find
-	 * @return The ViewParty to find, or null
-	 */
-	public ViewParty findViewParty(Party party) {
-		for (ViewParty viewParty : getViewParties()) {
-			if (viewParty.getParty() == party)
-				return viewParty;
-		}
-		return null;
-	}
-
-	/**
-	 * Find the ViewMessage for a Message
-	 * 
-	 * @param message
-	 *            The Message to find
-	 * @return The ViewMessage to find, or null
-	 */
+	
+	/* LABEL METHODS */
+	
 	@Override
-	public ViewMessage findViewMessage(Message message) {
-		for (ViewMessage viewMessage : getViewMessages()) {
-			if (viewMessage.getMessage() == message)
-				return viewMessage;
-		}
-		return null;
+	public ViewLabel getCurrentViewLabel() {
+		if (getSelectedComponent() == null) return null;
+		return getSelectedComponent().getViewLabel();
 	}
 
 	/**
@@ -287,64 +209,7 @@ public class DiagramWindow extends SubWindow {
 			}
 		}
 	}
-
-	/**
-	 * Select a Party or Message
-	 * 
-	 * @throws NullPointerException
-	 *             No ViewComponent supplied
-	 */
-	@Override
-	public void selectComponent() {
-		ViewComponent viewComponent = getSelectedComponent();
-		if (viewComponent == null)
-			throw new NullPointerException();
-
-		System.out.println("Select component.");
-
-		if (viewComponent.selected())
-			viewComponent.unselect();
-		else
-			viewComponent.select();
-	}
 	
-	/**
-	 * Select the component that is positioned at the clicked position
-	 * 
-	 * @param	x
-	 *          The x coordinate of the clicked position
-	 * @param 	y
-	 *          The y coordinate of the clicked position*/
-	@Override 
-	public void selectComponent(int x, int y) {
-		if (editingLabel()) return;
-		setSelectedComponent(clickParty(x, y));
-	}
-
-	/**
-	 * Checks if there is a party at the clicked position
-	 * 
-	 * @param	x
-	 *          The x coordinate of the clicked position
-	 * @param 	y
-	 *          The y coordinate of the clicked position
-	 * @return 	Null if there is no party on the position given by the coordinates x and y 
-	 *         	The ViewParty that is on the position given by the coordinates x and y
-	 * @throws 	IllegalArgumentException
-	 *          	Illegal coordinates
-	 */
-	@Override
-	public ViewParty clickParty(int x, int y) {
-		if (x < 0 || y < 0)
-			throw new IllegalArgumentException();
-
-		for (ViewParty party : getViewParties()) {
-			if (getState().checkCoordinates(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY())))
-				return party;
-		}
-		return null;
-	}
-
 	/**
 	 * Checks if a Label was clicked
 	 * 
@@ -379,6 +244,108 @@ public class DiagramWindow extends SubWindow {
 
 		return null;
 	}
+	
+	@Override
+	public void editViewLabel(Component component) {
+		setLabelState(getShowState());
+		updateLabels(component, component.getLabel());
+		if (getSelectedComponent() != null)
+			getSelectedComponent().unselect();
+		setSelectedComponent(null);
+	}
+	
+	/* COMPONENT METHODS */
+
+	/**
+	 * Change the position of a component in the DiagramWindow to the given coordinates
+	 * 
+	 *  @param	x
+	 *            The new x coordinate of the selected component
+	 *  @param 	y
+	 *            The new y coordinate of the selected component
+	 */
+	public void moveComponent(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+		
+		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
+		if (editingLabel()) return;
+		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
+	}
+	
+	/**
+	 * Select a Party or Message
+	 * 
+	 * @throws NullPointerException
+	 *             No ViewComponent supplied
+	 */
+	@Override
+	public void selectComponent() {
+		ViewComponent viewComponent = getSelectedComponent();
+		if (viewComponent == null)
+			throw new NullPointerException();
+
+		System.out.println("Select component.");
+
+		if (viewComponent.selected())
+			viewComponent.unselect();
+		else
+			viewComponent.select();
+	}
+	
+	/**
+	 * Select the component that is positioned at the clicked position
+	 * 
+	 * @param	x
+	 *          The x coordinate of the clicked position
+	 * @param 	y
+	 *          The y coordinate of the clicked position*/
+	@Override 
+	public void selectComponent(int x, int y) {
+		if (editingLabel()) return;
+		setSelectedComponent(clickParty(x, y));
+	}
+	
+	/* PARTY METHODS */
+	
+	/**
+	 * Find the ViewParty for a Party
+	 * 
+	 * @param party
+	 *            The Party to find
+	 * @return The ViewParty to find, or null
+	 */
+	public ViewParty findViewParty(Party party) {
+		for (ViewParty viewParty : getViewParties()) {
+			if (viewParty.getParty() == party)
+				return viewParty;
+		}
+		return null;
+	}
+	
+	/**
+	 * Checks if there is a party at the clicked position
+	 * 
+	 * @param	x
+	 *          The x coordinate of the clicked position
+	 * @param 	y
+	 *          The y coordinate of the clicked position
+	 * @return 	Null if there is no party on the position given by the coordinates x and y 
+	 *         	The ViewParty that is on the position given by the coordinates x and y
+	 * @throws 	IllegalArgumentException
+	 *          	Illegal coordinates
+	 */
+	@Override
+	public ViewParty clickParty(int x, int y) {
+		if (x < 0 || y < 0)
+			throw new IllegalArgumentException();
+
+		for (ViewParty party : getViewParties()) {
+			if (getState().checkCoordinates(party, new Point2D.Double(x, y), new Point2D.Double(getX(), getY())))
+				return party;
+		}
+		return null;
+	}
 
 	/**
 	 * Checks if a LifeLine was clicked
@@ -400,27 +367,18 @@ public class DiagramWindow extends SubWindow {
 		
 		for (ViewParty party : getViewParties()) {
 			ViewLifeLine lifeline = party.getViewLifeLine();
-			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY()
-					&& y <= lifeline.getEndY())
+			if (x >= lifeline.getX() - 3 && x <= lifeline.getX() + 3 && y >= lifeline.getStartY() && y <= lifeline.getEndY())
 				return party.getParty();
 		}
-
 		return null;
 	}
-
-	/**
-	 * Remove the ViewParty that belongs to the given party
-	 * 
-	 * @param	party
-	 * 			The party that belongs to the viewparty that has to be removed
-	 * 			
-	 */
+	
 	@Override
-	public void removeViewParty(Party party) {
-		ViewParty viewParty = findViewParty(party);
-		getViewParties().remove(viewParty);
+	public void addViewParty(Party party, Point2D position) {
+		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
+		getViewParties().add(viewParty);
 	}
-
+	
 	/**
 	 * Change party type
 	 * 
@@ -440,16 +398,41 @@ public class DiagramWindow extends SubWindow {
 			viewMessage.changeViewParty(viewParty, newViewParty);
 	}
 
+	/**
+	 * Remove the ViewParty that belongs to the given party
+	 * 
+	 * @param	party
+	 * 			The party that belongs to the viewparty that has to be removed
+	 * 			
+	 */
 	@Override
-	public void addViewParty(Party party, Point2D position) {
-		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
-		getViewParties().add(viewParty);
+	public void removeViewParty(Party party) {
+		ViewParty viewParty = findViewParty(party);
+		getViewParties().remove(viewParty);
 	}
-
+	
 	@Override
-	public void removeViewMessage(Message message) {
-		ViewMessage viewMessage = findViewMessage(message);
-		getViewMessages().remove(viewMessage);
+	public void selectParty(Party party) {
+		setSelectedComponent(findViewParty(party));
+		changeLabelState("PARTY");
+	}
+	
+	/* MESSAGE METHODS */
+
+	/**
+	 * Find the ViewMessage for a Message
+	 * 
+	 * @param message
+	 *            The Message to find
+	 * @return The ViewMessage to find, or null
+	 */
+	@Override
+	public ViewMessage findViewMessage(Message message) {
+		for (ViewMessage viewMessage : getViewMessages()) {
+			if (viewMessage.getMessage() == message)
+				return viewMessage;
+		}
+		return null;
 	}
 
 	@Override
@@ -471,13 +454,13 @@ public class DiagramWindow extends SubWindow {
 		getViewMessages().add(viewMessage);
 		getViewMessages().add(resMessage);
 	}
-	
+
 	@Override
-	public void selectParty(Party party) {
-		setSelectedComponent(findViewParty(party));
-		changeLabelState("PARTY");
+	public void removeViewMessage(Message message) {
+		ViewMessage viewMessage = findViewMessage(message);
+		getViewMessages().remove(viewMessage);
 	}
-	
+
 	@Override
 	public void selectMessage(Message message) {
 		setSelectedComponent(findViewMessage(message));
@@ -501,14 +484,7 @@ public class DiagramWindow extends SubWindow {
 		return previous;
 	}
 
-	@Override
-	public void editViewLabel(Component component) {
-		setLabelState(getShowState());
-		updateLabels(component, component.getLabel());
-		if (getSelectedComponent() != null)
-			getSelectedComponent().unselect();
-		setSelectedComponent(null);
-	}
+	/* USER OPERATIONS */
 	
 	ViewComponent labelClickedOnce = null;
 	@Override
@@ -546,4 +522,29 @@ public class DiagramWindow extends SubWindow {
 		return true;
 	}
 	
+	/* GETTERS AND SETTERS */
+	
+	public ArrayList<ViewParty> getViewParties() {
+		return viewParties;
+	}
+
+	public void setViewParties(ArrayList<ViewParty> viewParties) {
+		this.viewParties = viewParties;
+	}
+
+	public ArrayList<ViewMessage> getViewMessages() {
+		return viewMessages;
+	}
+
+	public void setViewMessages(ArrayList<ViewMessage> viewMessages) {
+		this.viewMessages = viewMessages;
+	}
+
+	public State getState() {
+		return windowState;
+	}
+
+	public void setState(State windowState) {
+		this.windowState = windowState;
+	}
 }
