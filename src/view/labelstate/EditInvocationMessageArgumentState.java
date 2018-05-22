@@ -24,9 +24,8 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 	}
 	
 	public void addArgument() {
-		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageArgument((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) {
-			enterLabel();
-		}
+		if (viewLabel.getOutput() == null || !syntaxChecker.correctInvocationMessageArgument((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) return;
+		enterLabel();
 	}
 	
 	@Override
@@ -47,7 +46,8 @@ public class EditInvocationMessageArgumentState extends EditLabelState {
 		
 		if (getInvocationMessage().argumentsToString().trim().length() > 0)
 			newLabel = getInvocationMessage().getMethod() + "(" + getInvocationMessage().argumentsToString() + ", " + argument +  ")";
-		else newLabel = getInvocationMessage().getMethod() + "(" + argument +  ")";
+		else 
+			newLabel = getInvocationMessage().getMethod() + "(" + argument +  ")";
 		
 		// TODO FIXME niet echt goed design
 		subwindow.getViewInteraction().editLabel(getInvocationMessage(), newLabel);

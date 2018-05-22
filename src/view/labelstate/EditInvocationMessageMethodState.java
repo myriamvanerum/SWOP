@@ -20,9 +20,8 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 
 	@Override
 	public void confirmLabel() {
-		if (viewLabel.getOutput() != null && syntaxChecker.correctInvocationMessageMethod((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) {
-			enterLabel();
-		}
+		if (viewLabel.getOutput() == null || !syntaxChecker.correctInvocationMessageMethod((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) return;
+		enterLabel();
 	}
 	
 	@Override
@@ -31,7 +30,8 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 		
 		if (!syntaxChecker.correctInvocationMessageMethod(viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))
 			viewLabel.setColor(Color.RED);
-		else viewLabel.setColor(Color.GREEN);
+		else 
+			viewLabel.setColor(Color.GREEN);
 	}
 	
 	@Override

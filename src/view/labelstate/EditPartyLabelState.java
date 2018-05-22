@@ -14,23 +14,20 @@ public class EditPartyLabelState extends EditLabelState {
 
 	@Override
 	public void confirmLabel() {
-		if (viewLabel.getOutput() != null
-				&& syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput())) {
-			enterLabel();
-		}
+		if (viewLabel.getOutput() == null || !syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput())) return;
+		enterLabel();
 	}
 
 	@Override
 	public void addCharacter(int keyCode, char keyChar) {
-		if (keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || keyCode == KeyEvent.VK_COLON
-				|| keyCode == KeyEvent.VK_SEMICOLON) {
+		if (!(keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z || keyCode == KeyEvent.VK_COLON
+				|| keyCode == KeyEvent.VK_SEMICOLON)) return;
 
-			editLabel(keyChar);
+		editLabel(keyChar);
 
-			if (!syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput()))
-				viewLabel.setColor(Color.RED);
-			else
-				viewLabel.setColor(Color.GREEN);
-		}
+		if (!syntaxChecker.correctPartyLabelSyntax(viewLabel.getOutput()))
+			viewLabel.setColor(Color.RED);
+		else
+			viewLabel.setColor(Color.GREEN);
 	}
 }
