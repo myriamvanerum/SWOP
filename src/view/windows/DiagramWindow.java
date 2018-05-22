@@ -230,7 +230,6 @@ public class DiagramWindow extends SubWindow {
 				return viewComponent.getViewLabel();
 			}
 		}
-
 		return null;
 	}
 	
@@ -257,8 +256,7 @@ public class DiagramWindow extends SubWindow {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
 		
-		if (getSelectedComponent() == null || getSelectedComponent().isSelected) return;
-		if (editingLabel()) return;
+		if (getSelectedComponent() == null || getSelectedComponent().isSelected || editingLabel()) return;
 		getState().moveComponent(getSelectedComponent(), new Point2D.Double(x, y), new Point2D.Double(getX(), getY()));
 	}
 	
@@ -391,8 +389,7 @@ public class DiagramWindow extends SubWindow {
 	 * Remove the ViewParty that belongs to the given party
 	 * 
 	 * @param	party
-	 * 			The party that belongs to the viewparty that has to be removed
-	 * 			
+	 * 			The party that belongs to the viewparty that has to be removed	
 	 */
 	@Override
 	public void removeViewParty(Party party) {

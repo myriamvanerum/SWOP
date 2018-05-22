@@ -24,7 +24,7 @@ import view.labelstate.ShowLabelState;
  * @author groep 03
  *
  */
-public class SubWindow {
+public abstract class SubWindow {
 	private Integer x;
 	private Integer y;
 	private Integer width;
@@ -45,7 +45,6 @@ public class SubWindow {
 		setWidth(width);
 		setHeight(height);
 		setTitlebar(titlebar);
-		// TODO labelstate
 		setLabelState(showState);
 	}
 
@@ -259,7 +258,12 @@ public class SubWindow {
 		getLabelState().addCharacter(keyCode, keyChar);
 	}
 
-	public void draw(Graphics2D g) {};
+	public abstract void draw(Graphics2D g);
+	public abstract void singleClick(int x2, int y2);
+	public abstract void pressTab();
+
+	
+	/* DIAGRAMWINDOW METHODS */
 	
 	public void removeViewParty(Party party) {}
 	public void changeViewParty(Party party, Party partyNew) {}
@@ -283,38 +287,15 @@ public class SubWindow {
 	public void selectMessage(Message message) {}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
-
-	public void singleClick(int x2, int y2) {}
-
-	public void pressTab() {
-		System.out.println("Press tab.");
-	}
 	
-	public void pressSpace() {
-		System.out.println("Press space.");
-	}
+	public boolean doubleClick() {return false;}
 
-	public void moveItemUp() {
-		System.out.println("Press arrow up.");		
-	}
+	/* DIALOGBOX METHODS */
 	
-	public void moveItemDown() {
-		System.out.println("Press arrow down.");		
-	}
-
-	public void deleteItem() {
-		System.out.println("Delete listbox item.");			
-	}
-	
-	public void scrollUp() {
-		System.out.println("Scroll up.");		
-	}
-
-	public void scrollDown() {
-		System.out.println("Scroll down.");			
-	}
-
-	public boolean doubleClick() {
-		return false;
-	}
+	public void pressSpace() {}
+	public void moveItemUp() {}
+	public void moveItemDown() {}
+	public void deleteItem() {}
+	public void scrollUp() {}
+	public void scrollDown() {}
 }
