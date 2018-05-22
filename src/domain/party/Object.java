@@ -24,6 +24,11 @@ public class Object extends Party {
 		super(party);
 	}
 	
+	/**
+     * Change the type of a party, this object becomes an actor
+     * @return The new party
+     */
+	@Override
 	public Party changeType() {
 		return new Actor(this);
 	}

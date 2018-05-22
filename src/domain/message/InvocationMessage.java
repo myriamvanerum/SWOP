@@ -31,6 +31,7 @@ public class InvocationMessage extends Message {
         super(label, sender, receiver);
     }
     
+    /* Getters & Setters */
     public String getMethod() {
 		return method;
 	}
@@ -47,6 +48,12 @@ public class InvocationMessage extends Message {
 		this.arguments = arguments;
 	}
     
+	/**
+	 * Remove the message and all its dependents
+	 * 
+	 * @param interaction
+	 * 			the interaction to which the message belangs
+	 */
     @Override
 	public void remove(Interaction interaction) {
     	ArrayList<Message> messages = interaction.getMessageSequence().removeMessageAndDependents(this);
@@ -55,6 +62,10 @@ public class InvocationMessage extends Message {
 			interaction.notifyDelete(message);
 	}
     
+    /**
+     * Make a string of all the arguments of the invocation message
+     * @return a string of all the arguments of the invocation message
+     */
     public String argumentsToString() {
     	String value = "";
     	if (getArguments().size() > 0) {
@@ -67,6 +78,12 @@ public class InvocationMessage extends Message {
     	return value;
     }
     
+    /**
+     * Edit the label of the message
+     * 
+     * @param label
+     * 		the label of the message.
+     */
     @Override
     public Boolean editLabel(String label) {
 		if (!syntaxChecker.correctInvocationMessageLabelSyntax(label)) return false;
@@ -82,6 +99,12 @@ public class InvocationMessage extends Message {
 		return true;
 	}
     	
+    /**
+     * Get the method of the invocation message from a string
+     * @param string
+     * 		The label of the invocation message
+     * @return the method of the invocation message
+     */
 	public String getMethodFromLabel(String string) {		
 		String result = "";
 		Pattern pattern = Pattern.compile("^(.*?)\\(");
@@ -94,6 +117,12 @@ public class InvocationMessage extends Message {
 		return result;
 	}
 	
+	/**
+	 * Makes an arraylist of all the arguments in the label
+	 * @param string
+     * 		The label of the invocation message
+	 * @return an arraylist of all the arguments of the invocation message
+	 */
 	public ArrayList<String> getArgumentsFromLabel(String string) {
 		ArrayList<String> list = new ArrayList<>();
 		String result = "";

@@ -13,12 +13,35 @@ public class TextBox extends WindowControl {
 	private ViewLabel label;
 	private EditLabelState state;
 
+	/**
+	 * TextBox constructor
+	 * @param description
+	 * 			Description for the textbox
+	 * @param x
+	 * 			The x coordinate of the textbox
+	 * @param y
+	 * 			The y coordinate of the textbox
+	 * @param state
+	 * 		 	LabelState of the textbox
+	 */
 	public TextBox(String description, int x, int y, EditLabelState state) {
 		super();
 		setParameters(description, x, y, state);
 		this.label = new ViewLabel("");
 	}
-	
+	/**
+	 * TextBox constructor
+	 * @param description
+	 * 			Description for the textbox
+	 * @param x
+	 * 			The x coordinate of the textbox
+	 * @param y
+	 * 			The y coordinate of the textbox
+	 * @param label
+	 * 			viewlabel that contains the value of the textbox
+	 * @param state
+	 * 		 	LabelState of the textbox
+	 */
 	public TextBox(String description, int x, int y, ViewLabel label, EditLabelState state) {
 		super();
 		setParameters(description, x, y, state);
@@ -53,7 +76,21 @@ public class TextBox extends WindowControl {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Override
+	public ViewLabel getViewLabel() {
+		return getLabel();
+	}
+	
+	public String getValue() {
+		return getViewLabel().getOutput();
+	}
 
+	/**
+	 * Draw the window control
+	 * @param g
+	 * 			Graphics class
+	 */
 	@Override
 	public void draw(Graphics2D gOrig) {
 		Graphics2D g =  (Graphics2D) gOrig.create();
@@ -84,11 +121,11 @@ public class TextBox extends WindowControl {
 		g.dispose();
 	}
 	
-	@Override
-	public ViewLabel getViewLabel() {
-		return getLabel();
-	}
-	
+	/**
+	 * When current control is changed, label state is set
+	 * @param subwindow
+	 * 			The subwindow to which the window control belongs
+	 */
 	@Override
 	public void currentControl(SubWindow subwindow) {
 		String output = getViewLabel().getOutput();
@@ -106,10 +143,9 @@ public class TextBox extends WindowControl {
 		}
 	}
 
+	/**
+	 * Click action window control
+	 */
 	@Override
 	public void click() {}
-
-	public String getValue() {
-		return getViewLabel().getOutput();
-	}
 }

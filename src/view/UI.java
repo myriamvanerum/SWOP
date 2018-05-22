@@ -103,6 +103,11 @@ public class UI {
 
 	/**
 	 * Close a SubWindow if a CloseButton can be found at the clicked coordinates
+	 * 
+	 * @param x
+	 * 		The x coordinate of the clicked position
+	 * @param y
+	 * 		The y coordinate of the clicked position
 	 */
 	public void closeClickedSubwindow(int x, int y) {
 		try {
@@ -189,18 +194,27 @@ public class UI {
 
 	/* LABEL METHODS */
 
+	/**
+	 * The user has pressed the enter key and wants to confirm the current label
+	 */
 	public void confirmLabel() {
 		if (getActiveInteraction() == null)
 			return;
 		getActiveInteraction().confirmLabel();
 	}
 
+	/**
+	 *  The user has pressed the back space key and wants to remove a character from the current label
+	 */
 	public void removeLabelCharacter() {
 		if (getActiveInteraction() == null)
 			return;
 		getActiveInteraction().removeLabelCharacter();
 	}
 
+	/**
+	 *  The user has pressed a key and wants to add a character to the current label
+	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		if (getActiveInteraction() == null)
 			return;
@@ -234,7 +248,13 @@ public class UI {
 	}
 	
 	/* USER OPERATIONS */
-
+	/**
+	 * Forward the mouse clicked event
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 */
 	public void clickedOnce(int x, int y) {
 		closeClickedSubwindow(x, y);
 		activateSubwindow(x, y);
@@ -243,38 +263,75 @@ public class UI {
 			getActiveInteraction().singleClick(x, y);
 	}
 	
+	/**
+	 * Forward the mouse double clicked event
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 */
 	public void clickedTwice(int x, int y) {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().doubleClick(x, y);
 	}
 	
+	/**
+	 * Forward the mouse dragged event
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 */
 	public void dragged(int x, int y) {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().moveComponent(x, y);
 	}
 
+	/**
+	 * Forward the mouse pressed event
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 */
 	public void pressed(int x, int y) {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().pressed(x, y);
 	}
 
+	/**
+	 * Forward the mouse released event
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 */
 	public void released(int x, int y) {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().released(x, y);
 	}
 
+	/**
+	 * Forward the request to select the window control above the current control
+	 */
 	public void arrowUp() {
 		if (getActiveInteraction() == null) return;
 		System.out.println("Press arrow up.");
 		getActiveInteraction().arrowUp(); 
 	}
 
+	/**
+	 * Forward the request to select the window control underneath the current control
+	 */
 	public void arrowDown() {
 		if (getActiveInteraction() == null) return;
 		System.out.println("Press arrow down.");
 		getActiveInteraction().arrowDown(); 
 	}
 
+	/**
+	 * Forward the request to activate a window control
+	 */
 	public void pressSpace() {
 		if (getActiveInteraction() == null) return;
 		getActiveInteraction().pressSpace();		

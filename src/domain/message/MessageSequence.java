@@ -6,9 +6,16 @@ import java.util.Stack;
 import domain.party.Party;
 import purecollections.PList;
 
+/**
+ * MessageSequence class.
+ * @author  groep 03
+ */
 public class MessageSequence {
 	private PList<Message> messages;
 	
+	/**
+     * Constructor of MessageSequence.
+     */
 	public MessageSequence() {
 		messages = PList.empty();
 	}
@@ -21,6 +28,15 @@ public class MessageSequence {
 		this.messages = messages;
 	}
 
+	/**
+	 * Add a message to the message sequence
+	 * @param message
+	 * 			The message that will be added to the sequence
+	 * @param previous
+	 * 			The previous message in the callstack
+	 * @return  True if the message has been added to the sequenced
+	 * 			False if the message couldn't be added to the sequence
+	 */
 	public boolean addMessage(Message message, Message previous) {
         if (!checkCallStack(previous, message)) {
         	System.out.println("Call Stack Rejection.");
@@ -38,6 +54,13 @@ public class MessageSequence {
         return true;
 	}
 	
+	/**
+	 * Get the message and all its dependents that should be removed
+	 * 
+	 * @param message
+	 * 			The message that should be removed
+	 * @return an arraylist of messages the should be removed
+	 */
 	public ArrayList<Message> removeMessageAndDependents(Message message) {
 		if (!getMessages().contains(message) || !getMessages().contains(message.getCompanion()))
             throw new IllegalArgumentException();
@@ -58,6 +81,12 @@ public class MessageSequence {
         return messagesToDelete;
 	}
 	
+	/**
+	 * Get all messages that should be removed with a party
+	 * @param party
+	 * 			The party that is going to be removed
+	 * @return an arraylist of message that belong to the given party
+	 */
 	public ArrayList<Message> removePartyDependents(Party party) {
 		ArrayList<Message> messagesToDelete = new ArrayList<>();
 		Message message = findPartyMessage(party);
@@ -70,6 +99,12 @@ public class MessageSequence {
         return messagesToDelete;
 	}
 	
+	/**
+	 * Find the party that belongs to a party
+	 * @param party
+	 * @return A message that belongs to the given party
+	 * 		   Null if the party has no messages
+	 */
 	private Message findPartyMessage(Party party) {
         for (Message message : getMessages()) {
             if (message.getSender() == party || message.getReceiver() == party) {
@@ -79,6 +114,15 @@ public class MessageSequence {
         return null;
     }
 	
+	/**
+	 * Check the call stack of messages
+	 * @param previous
+	 * 		  The previous message in the callstack
+	 * @param message
+	 * 		  The new message in the callstack
+	 * @return  True if callstack is valid
+	 * 			False if callstack is invalid
+	 */
 	public boolean checkCallStack(Message previous, Message message) {
 		return ((
 					(getMessages().contains(previous) && previous.getReceiver() == message.getSender()) 
@@ -87,6 +131,9 @@ public class MessageSequence {
 				&& message.getSender() != message.getReceiver());
 	}
 	
+	/**
+	 * Reset all message numbers in the message sequence
+	 */
 	private void setMessageNumbers() {
         Stack<Integer> messageNumber = new Stack<>();
         int count = -1;

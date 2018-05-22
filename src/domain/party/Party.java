@@ -37,6 +37,12 @@ public abstract class Party extends Component {
 		setLabel(party.label);
 	}
     
+    /**
+     * Edit the label of the party
+     * 
+     * @param label
+     * 		the label of the party
+     */
     @Override
     public Boolean editLabel(String label) {
 		if (!syntaxChecker.correctPartyLabelSyntax(label)) return false;
@@ -44,8 +50,18 @@ public abstract class Party extends Component {
 		return true;
     }
 
+    /**
+     * Change the type of a party
+     * @return The new party
+     */
     public Party changeType() { return null;}
     
+    /**
+     * Remove a party from an interaction
+     * 
+     * @param interaction
+     * 			The interaction to which the party belongs
+     */
 	@Override
 	public void remove(Interaction interaction) {
 		interaction.parties.remove(this);
