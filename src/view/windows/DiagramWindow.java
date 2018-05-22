@@ -109,7 +109,6 @@ public class DiagramWindow extends SubWindow {
 			ViewParty newViewParty = viewParty.copy();
 			copy.add(newViewParty);
 		}
-
 		return copy;
 	}
 
@@ -131,7 +130,6 @@ public class DiagramWindow extends SubWindow {
 			newViewMessage.setReceiver(receiver);
 			copy.add(newViewMessage);
 		}
-
 		return copy;
 	}
 	
@@ -167,8 +165,7 @@ public class DiagramWindow extends SubWindow {
 	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties,
-				viewMessages);
+		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties, viewMessages);
 	}
 
 	/**
@@ -198,14 +195,13 @@ public class DiagramWindow extends SubWindow {
 	 * 		  The value of the new label
 	 */
 	private void updateLabels(Component component, String label) {
-		ArrayList<ViewComponent> components = new ArrayList<>();
-		components.addAll(getViewParties());
-		components.addAll(getViewMessages());
-		for (ViewComponent viewComponent : components) {
+		// TODO mss met observer ofzo doen?
+		for (ViewComponent viewComponent : getComponents()) {
 			if (viewComponent.getComponent() == component) {
 				ViewLabel viewLabel = viewComponent.getViewLabel();
 				viewLabel.setColor(Color.BLACK);
 				viewLabel.setOutput(label);
+				return;
 			}
 		}
 	}
@@ -227,18 +223,11 @@ public class DiagramWindow extends SubWindow {
 	public ViewLabel clickLabel(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-
-		for (ViewParty party : getViewParties()) {			
-			if (party.getViewLabel().clicked(x, y)) {
-				setSelectedComponent(party);
-				return party.getViewLabel();
-			}
-		}
-
-		for (ViewMessage message : getViewMessages()) {
-			if (message.getViewLabel().clicked(x, y)) {
-				setSelectedComponent(message);
-				return message.getViewLabel();
+		
+		for (ViewComponent viewComponent : getComponents()) {
+			if (viewComponent.getViewLabel().clicked(x, y)) {
+				setSelectedComponent(viewComponent);
+				return viewComponent.getViewLabel();
 			}
 		}
 
@@ -546,5 +535,12 @@ public class DiagramWindow extends SubWindow {
 
 	public void setState(State windowState) {
 		this.windowState = windowState;
+	}
+	
+	public ArrayList<ViewComponent> getComponents() {
+		ArrayList<ViewComponent> components = new ArrayList<>();
+		components.addAll(getViewParties());
+		components.addAll(getViewMessages());
+		return components;
 	}
 }
