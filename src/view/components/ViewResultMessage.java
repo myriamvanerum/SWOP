@@ -113,7 +113,6 @@ public class ViewResultMessage extends ViewMessage {
 		return new ViewResultMessage(this);
 	}
 
-	
 	@Override
 	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
 		return new ResultBox(viewInteraction, this, x, y);

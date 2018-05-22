@@ -72,9 +72,8 @@ public class Interaction implements Observable {
 		message.setCompanion(resultMessage);
 		resultMessage.setCompanion(message);
 		
-		// add message and companion to flow. If successfull, tell observers
+		// add message and companion to sequence. If successfull, tell observers
 		if (getMessageSequence().addMessage(message, previous)) {
-			// TODO verbeter zodat positie niet moet worden doorgestuurd
 			notifyAdd(message);
 		}
 	}

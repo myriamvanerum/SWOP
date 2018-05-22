@@ -119,7 +119,7 @@ public class ViewInvocationMessage extends ViewMessage {
 	public void lengthenActivationBar(double y) {
 		if (getPositionSeq().getY() < y - 30 || getPositionSeq().getY() > y) return;
 		System.out.println("Lengthening Activation Bar.");
-		Integer heightIncrease = 30;
+		Integer heightIncrease = 40;
 		getActivationBar().increaseHeight(heightIncrease);
 	}
 	

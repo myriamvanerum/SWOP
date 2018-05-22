@@ -53,8 +53,8 @@ public class ViewLabel {
 	 * This method draws a label for the components
 	 * @param g
 	 * 		The graphics class
-	 * @param label
-	 * 		The text of the label
+	 * @param labelPrefix
+	 * 		The label's prefix
 	 * @param position
 	 * 		The position to draw the label at
 	 * @throws IllegalArgumentException
@@ -75,6 +75,20 @@ public class ViewLabel {
 		g.setColor(getColor());
 		g.drawString(label, (int)position.getX(), (int)position.getY());
 		g.setColor(colorOrig);
+	}
+	
+	public void editLabel(char keyChar) {
+		String label = getOutput();
+		if (label.length() > 0)
+			setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
+		else setOutput(keyChar + "|");
+	}
+	
+	public boolean clicked(int clickedX, int clickedY) {
+		int x = (int)getLastPosition().getX();
+		int y = (int)getLastPosition().getY();
+		
+		return clickedX >= x && clickedX <= x + getWidth() && clickedY >= y - getHeight() && clickedY <= y;
 	}
 	
 	/* GETTERS AND SETTERS */
@@ -115,22 +129,7 @@ public class ViewLabel {
 		return lastPosition;
 	}
 
-
 	public void setLastPosition(Point2D lastPosition) {
 		this.lastPosition = lastPosition;
-	}
-	
-	public void editLabel(char keyChar) {
-		String label = getOutput();
-		if (label.length() > 0)
-			setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
-		else setOutput(keyChar + "|");
-	}
-	
-	public boolean clicked(int clickedX, int clickedY) {
-		int x = (int)getLastPosition().getX();
-		int y = (int)getLastPosition().getY();
-		
-		return clickedX >= x && clickedX <= x + getWidth() && clickedY >= y - getHeight() && clickedY <= y;
 	}
 }

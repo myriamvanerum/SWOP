@@ -126,12 +126,6 @@ public class ListBox extends WindowControl {
 	public void update(ArrayList<String> items) {
 		setItems(items);
 	}
-
-	/**
-	 * Click action window control
-	 */
-	@Override
-	public void click() {}
 	
 	/**
 	 * Add a new list item to the listbox
@@ -139,60 +133,50 @@ public class ListBox extends WindowControl {
 	 * 			The textbox that contains the new list item
 	 */
 	public void add(TextBox textBox) {
-		String value = textBox.getValue();
-		
-		if (value.trim().length() > 0) {
-			textBox.getState().addArgument();			
-			getListener().updateArguments(getItems());
-			getListener().availabilityButtons(getSelectedItem(), getItems().size());			
-		}
+		if (!textBox.add()) return;		
+		getListener().updateArguments(getItems());
+		setAvailabilityButtons();
 	}
 
 	/**
 	 * Remove a list item from the listbox
 	 */
 	public void remove() {
-		ArrayList<String> items = getItems();
-		int index = getSelectedItem();
+		int removeIndex = getSelectedItem();
 				
-		if (items.size() <= 0) return;			
-		if (items.size() > 1)
+		if (getItems().size() <= 0) return;			
+		if (getItems().size() > 1)
 			setSelectedItem(0);
 		else 
 			setSelectedItem(-1);
 			
-		items.remove(index);	
+		getItems().remove(removeIndex);	
 		
 		getListener().updateArguments(getItems());
-		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		setAvailabilityButtons();
 	}
 
 	/**
 	 * Move the selected item to the next position
 	 */
-	public void moveDown() {
-		ArrayList<String> items = getItems();
-		int index = getSelectedItem();
-		
-		if (index >= items.size()-1) return;
-		switchItems(items, index, index+1);
+	public void moveDown() {	
+		if (getSelectedItem() >= getItems().size()-1) return;
+		switchItems(getItems(), getSelectedItem(), getSelectedItem()+1);
 		
 		getListener().updateArguments(getItems());
-		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		setAvailabilityButtons();
 		
 	}
 
 	/**
 	 * Move the selected item to the previous position
 	 */
-	public void moveUp() {
-		int index = getSelectedItem();
-		
-		if (index == 0) return;
-		switchItems(getItems(), index, index-1);
+	public void moveUp() {		
+		if (getSelectedItem() == 0) return;
+		switchItems(getItems(), getSelectedItem(), getSelectedItem()-1);
 		
 		getListener().updateArguments(getItems());
-		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		setAvailabilityButtons();
 	}
 	
 	/**
@@ -214,13 +198,11 @@ public class ListBox extends WindowControl {
 	/**
 	 * Select the next list item
 	 */
-	public void scrollDown() {
-		int index = getSelectedItem();
+	public void scrollDown() {		
+		if (getSelectedItem() >= getItems().size()-1) return;
+		setSelectedItem(getSelectedItem()+1);
 		
-		if (index >= getItems().size()-1) return;
-		setSelectedItem(index+1);
-		
-		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+		setAvailabilityButtons();
 	}
 
 	/**
@@ -229,6 +211,11 @@ public class ListBox extends WindowControl {
 	public void scrollUp() {
 		if (getSelectedItem() == 0) return;
 		setSelectedItem(getSelectedItem()-1);
+		
+		setAvailabilityButtons();
+	}
+	
+	public void setAvailabilityButtons() {
 		getListener().availabilityButtons(getSelectedItem(), getItems().size());
 	}
 }

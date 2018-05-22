@@ -13,7 +13,7 @@ import view.ViewInteraction;
  */
 import view.windows.DialogBox;
 import view.windows.SubWindow;
-public class ViewComponent implements Selectable {
+public abstract class ViewComponent implements Selectable {
 	public boolean isSelected;
 	protected ViewLabel viewLabel;
 
@@ -37,11 +37,15 @@ public class ViewComponent implements Selectable {
 		g.setPaint(new Color(0, 0, 0));
 	}
 	
-	/* GETTERS AND SETTERS */
+	public abstract void setLabelState(SubWindow subwindow);
 	
-	public Component getComponent() {
+	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
 		return null;
 	}
+	
+	/* GETTERS AND SETTERS */
+	
+	public abstract Component getComponent();
 	
 	public ViewLabel getViewLabel() {
 		return viewLabel;
@@ -68,18 +72,6 @@ public class ViewComponent implements Selectable {
 	}
 	
 	/**
-	 * Add the Party position and SubWindow position to get new coordinates
-	 * @param position
-	 * 		Party position
-	 * @param windowPosition
-	 * 		SubWindow position
-	 * @return added coordinates
-	 */
-	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
-		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
-	}
-	
-	/**
      * This method determines if the Component is selected
 	 * @return true is selected, false if not selected
 	 */
@@ -102,13 +94,5 @@ public class ViewComponent implements Selectable {
 	@Override
 	public void unselect() {
 		isSelected = false;
-	}
-
-	public void setLabelState(SubWindow subwindow) {
-		System.out.println("Set label state active subwindow");
-	}
-	
-	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
-		return null;
 	}
 }

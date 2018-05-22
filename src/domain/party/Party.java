@@ -34,7 +34,7 @@ public abstract class Party extends Component {
     	if (party == null)
     		throw new NullPointerException();
     	
-		setLabel(party.label);
+		setLabel(party.getLabel());
 	}
     
     /**
@@ -54,7 +54,7 @@ public abstract class Party extends Component {
      * Change the type of a party
      * @return The new party
      */
-    public Party changeType() { return null;}
+    public abstract Party changeType();
     
     /**
      * Remove a party from an interaction

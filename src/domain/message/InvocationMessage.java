@@ -31,23 +31,6 @@ public class InvocationMessage extends Message {
         super(label, sender, receiver);
     }
     
-    /* Getters & Setters */
-    public String getMethod() {
-		return method;
-	}
-
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	public ArrayList<String> getArguments() {
-		return arguments;
-	}
-
-	public void setArguments(ArrayList<String> arguments) {
-		this.arguments = arguments;
-	}
-    
 	/**
 	 * Remove the message and all its dependents
 	 * 
@@ -142,5 +125,22 @@ public class InvocationMessage extends Message {
 		if (list.size() < 1)
 			return new ArrayList<String>();
 		return list;
+	}
+	
+    /* Getters & Setters */
+    public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	public ArrayList<String> getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(ArrayList<String> arguments) {
+		this.arguments = arguments;
 	}
 }

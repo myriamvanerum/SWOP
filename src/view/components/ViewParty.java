@@ -12,7 +12,7 @@ import view.windows.SubWindow;
  * @author groep 03
  *
  */
-public class ViewParty extends ViewComponent {
+public abstract class ViewParty extends ViewComponent {
 	private Party party;
 	protected ViewLifeLine viewLifeLine;
 
@@ -32,21 +32,6 @@ public class ViewParty extends ViewComponent {
 		setPositionCom(new Point2D.Double(clickPosition.getX() - windowPosition.getX(),
 				clickPosition.getY() - windowPosition.getY() - 25));
 		setPositionSeq(new Point2D.Double(clickPosition.getX() - windowPosition.getX(), 30));
-	}
-	
-	/**
-	 * ViewParty Constructor
-	 * @param party
-	 * 		Party to draw
-	 * @param position
-	 * 		Chosen position
-	 */
-	public ViewParty(Party party, Point2D position) {
-		setParty(party);
-		viewLabel = new ViewLabel(party.getLabel());
-		viewLifeLine = new ViewLifeLine();
-		setPositionCom(new Point2D.Double(position.getX(), position.getY()));
-		setPositionSeq(new Point2D.Double(position.getX(), 30));
 	}
 
 	/**
@@ -73,8 +58,18 @@ public class ViewParty extends ViewComponent {
 	 * 			  The SubWindow's position
 	 * @return true if Party positioned at coordinates, false if not
 	 */
-	public boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition) {
-		return false;
+	public abstract boolean checkCoordinates(Point2D coordinates, Point2D position, Point2D windowPosition);
+	
+	/**
+	 * Add the Component position and SubWindow position to get new coordinates
+	 * @param position
+	 * 		Component position
+	 * @param windowPosition
+	 * 		SubWindow position
+	 * @return added coordinates
+	 */
+	public Point2D positionWindow(Point2D position, Point2D windowPosition) {		
+		return new Point2D.Double(position.getX() + windowPosition.getX(), position.getY() + windowPosition.getY());
 	}
 
 	/**
@@ -85,11 +80,11 @@ public class ViewParty extends ViewComponent {
 	 * @param position
 	 * 			  The position to draw the Party
 	 */
-	public void draw(Graphics2D g, Point2D position) {}
+	public abstract void draw(Graphics2D g, Point2D position);
 	
-	public ViewParty copy() {return null;}
+	public abstract ViewParty copy();
 	
-	public ViewParty changeType() { return null;}
+	public abstract ViewParty changeType();
 	
 	/* GETTERS AND SETTERS */
 
