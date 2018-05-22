@@ -31,24 +31,22 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	private ViewMessage viewMessage;
 	private Operator operator;
 	
-	public InvocationBox(ViewInteraction viewInteraction, ViewInvocationMessage message, int x, int y) {
+	public InvocationBox(ViewInteraction viewInteraction, ViewInvocationMessage viewMessage, int x, int y) {
 		super(viewInteraction, x, y, 250, 275, new Titlebar(x,y,250));
 		setTitle("Invocation message");
-		this.viewMessage = message;
+		this.viewMessage = viewMessage;
 		this.message = (InvocationMessage) getViewMessage().getMessage();	// TODO code smell?
-		addControls(getMessage());
+		addControls();
 		setViewInteraction(viewInteraction);
 	}
 
 	/**
 	 * Define all the controls of an invocation box
-	 * @param message
-	 * 			The invocation message that is being edited
 	 */
-	private void addControls(InvocationMessage message) {
+	private void addControls() {
 		ListBox listbox = new ListBox(getMessage().getArguments(), getX()+10, getY()+130, this);
 		ArrayList<WindowControl> controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Method: ", getX()+10, getY()+50, new ViewLabel(message.getMethod()), new EditInvocationMessageMethodState(this, null, message)));
+		controls.add(new TextBox("Method: ", getX()+10, getY()+50, new ViewLabel(getMessage().getMethod()), new EditInvocationMessageMethodState(this, null, getMessage())));
 		TextBox add = new TextBox("New: ", getX()+10, getY()+80, new EditInvocationMessageArgumentState(this, null, getMessage()));
 		controls.add(add);
 		controls.add(new Button("Add", getX()+175,getY()+220,25,40, new AddItem(listbox, add), true, new int[]{-2,-2}));

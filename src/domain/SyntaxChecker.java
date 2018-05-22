@@ -64,7 +64,7 @@ public class SyntaxChecker {
 		String argList = parts[1].substring(0, parts[1].length()-1);
 		String args[] = argList.split(",");
 		
-		// An argument list ends with a comma
+		// An argument list doesn't end with a comma
 		if (argList.length() > 0 && argList.trim().charAt(argList.length()-1) == ',') return false;
 					
 		// An argument is any sequence of characters, not including commas or parentheses. 

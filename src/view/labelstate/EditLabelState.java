@@ -34,8 +34,8 @@ public class EditLabelState {
 	public void removeCharacter() {
 		String label = getViewLabel().getOutput();
 		
-		if (label.length() > 1)
-			getViewLabel().setOutput(label.substring(0, label.length() - 2) + "|");		
+		if (label.length() <= 1) return;
+		getViewLabel().setOutput(label.substring(0, label.length() - 2) + "|");		
 	}
 	
 	public void addCharacter(int keyCode, char keyChar) {
@@ -47,7 +47,8 @@ public class EditLabelState {
 		String label = getViewLabel().getOutput();
 		if (label.length() > 0)
 			getViewLabel().setOutput(label.substring(0, label.length() - 1) + keyChar + "|");
-		else getViewLabel().setOutput(keyChar + "|");
+		else 
+			getViewLabel().setOutput(keyChar + "|");
 	}
 	
 	public void confirmLabel() {

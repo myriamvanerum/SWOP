@@ -21,8 +21,7 @@ public class ResultBox extends DialogBox {
 		super(viewInteraction, x, y, 250, 60, new Titlebar(x,y,250));
 		this.viewMessage = viewMessage;
 		setTitle("Result message");
-		this.controls = new ArrayList<WindowControl>();
-		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewMessage.getViewLabel(), new EditLabelState(this, null)));
+		setControls();
 		this.currentControlIndex = 0;
 		getCurrentControl().setActive(true);
 		getCurrentControl().currentControl(this);
@@ -36,6 +35,11 @@ public class ResultBox extends DialogBox {
 
 	public void setMessage(ViewMessage viewMessage) {
 		this.viewMessage = viewMessage;
+	}
+	
+	public void setControls() {
+		this.controls = new ArrayList<WindowControl>();
+		controls.add(new TextBox("Label: ", getX()+10, getY()+40, viewMessage.getViewLabel(), new EditLabelState(this, null)));
 	}
 		
 	/**

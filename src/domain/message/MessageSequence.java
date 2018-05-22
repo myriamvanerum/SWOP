@@ -100,7 +100,7 @@ public class MessageSequence {
 	}
 	
 	/**
-	 * Find the party that belongs to a party
+	 * Find the message that belongs to a party
 	 * @param party
 	 * @return A message that belongs to the given party
 	 * 		   Null if the party has no messages
@@ -115,7 +115,7 @@ public class MessageSequence {
     }
 	
 	/**
-	 * Check the call stack of messages
+	 * Check the call stack of messages, to see if this message can be added
 	 * @param previous
 	 * 		  The previous message in the callstack
 	 * @param message

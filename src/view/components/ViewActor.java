@@ -29,17 +29,6 @@ public class ViewActor extends ViewParty {
 	}
 	
 	/**
-	 * ViewActor Constructor
-	 * @param party
-	 * 		Party to draw
-	 * @param clickPosition
-	 * 		Chosen position
-	 */
-	public ViewActor(Party party, Point2D clickPosition) {
-		super(party, clickPosition);
-	}
-	
-	/**
 	 * Copy Constructor
 	 * @param viewParty
 	 * 		The ViewParty to copy
@@ -61,7 +50,15 @@ public class ViewActor extends ViewParty {
 		setColor(g);
 		// TODO lifeline andere plaats
 		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 110, 375);
-				
+		
+		drawStickman(g, position, size);
+
+		getViewLabel().draw(g, new Point2D.Double(position.getX() - (viewLabel.getWidth() / 2), position.getY() + 100));
+		
+		resetColor(g);
+	}
+	
+	public void drawStickman(Graphics2D g, Point2D position, Integer size) {
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
 		
@@ -73,10 +70,6 @@ public class ViewActor extends ViewParty {
 		// draw legs actor
 		g.draw(new Line2D.Double(position.getX() - 20, position.getY() + size + 70, position.getX(), position.getY() + size + 50));
 		g.draw(new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70));
-
-		getViewLabel().draw(g, new Point2D.Double(position.getX() - (viewLabel.getWidth() / 2), position.getY() + 100));
-		
-		resetColor(g);
 	}
 	
 	/**

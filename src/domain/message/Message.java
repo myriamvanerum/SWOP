@@ -64,7 +64,6 @@ public abstract class Message extends Component {
         return receiver;
     }
 
-    /* GETTERS & SETTERS */
 	public Message getCompanion() {
 		return companion;
 	}

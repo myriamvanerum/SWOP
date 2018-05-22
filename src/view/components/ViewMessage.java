@@ -12,7 +12,7 @@ import view.windows.SubWindow;
  * @author groep 03
  *
  */
-public class ViewMessage extends ViewComponent {
+public abstract class ViewMessage extends ViewComponent {
 	Message message;
 	ViewParty sender;
 	ViewParty receiver;
@@ -73,9 +73,35 @@ public class ViewMessage extends ViewComponent {
 	 * @param yReceiver
 	 * 		Receiver y coordinate
 	 */
-	public void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver) {}
+	public abstract void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver);
 	
-	public ViewMessage copy() {return null;}
+	public abstract ViewMessage copy();
+	
+	@Override 
+	public Component getComponent() {
+		return this.getMessage();
+	}
+
+	@Override
+	public void setLabelState(SubWindow subwindow) {
+		subwindow.setLabelState(new EditInvocationMessageLabelState(subwindow, getViewLabel()));
+	}
+
+	public void moveDownIfBelow(double y) {
+		if (getPositionSeq().getY() < y) return;
+		System.out.println("Moving Message Lower.");
+		Integer heightIncrease = 40;
+		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
+	}
+
+	public void lengthenActivationBar(double y) {}
+
+	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {}
+
+	public void changeViewParty(ViewParty viewParty, ViewParty newViewParty) {
+		if (viewParty.equals(getSender())) setSender(newViewParty);
+		if (viewParty.equals(getReceiver())) setReceiver(newViewParty);
+	}
 	
 	/* GETTERS AND SETTERS */
 	
@@ -109,31 +135,5 @@ public class ViewMessage extends ViewComponent {
 
 	public void setActivationBar(ViewActivationBar activationBar) {
 		this.activationBar = activationBar;
-	}
-
-	@Override 
-	public Component getComponent() {
-		return this.getMessage();
-	}
-
-	@Override
-	public void setLabelState(SubWindow subwindow) {
-		subwindow.setLabelState(new EditInvocationMessageLabelState(subwindow, getViewLabel()));
-	}
-
-	public void moveDownIfBelow(double y) {
-		if (getPositionSeq().getY() < y) return;
-		System.out.println("Moving Message Lower.");
-		Integer heightIncrease = 30;
-		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
-	}
-
-	public void lengthenActivationBar(double y) {}
-
-	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {}
-
-	public void changeViewParty(ViewParty viewParty, ViewParty newViewParty) {
-		if (viewParty.equals(getSender())) setSender(newViewParty);
-		if (viewParty.equals(getReceiver())) setReceiver(newViewParty);
 	}
 }

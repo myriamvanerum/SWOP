@@ -24,6 +24,19 @@ public class DialogBox extends SubWindow {
 		super(x, y, width, height, titlebar);
 		setViewInteraction(viewInteraction);
 	}
+	
+	/* DRAWING */
+	
+	/**
+	 *  Draw the dialogbox
+	 */
+	@Override
+	public void draw(Graphics2D g) {
+		drawWhiteField(g);	
+		getTitlebar().draw(g, getTitle());
+		drawBlackBorder(g);
+		drawControls(g);
+	}
 		
 	/**
 	 * Draw all the controls of the dialogbox
@@ -35,6 +48,80 @@ public class DialogBox extends SubWindow {
 			control.draw(g2);
 		}
 	}
+	
+	/* LABEL METHODS */
+	
+	/**
+	 * Add a character to the label that is being edited
+	 * 
+     * @param keyCode
+     * 		The keycode for the entered key
+     * @param keyChar
+     * 		The keyChar for the entered key
+	 */
+	@Override
+	public void addLabelCharacter(int keyCode, char keyChar) {
+		if (editingLabel() && getCurrentViewLabel() != null) {
+				getLabelState().setViewLabel(getCurrentViewLabel());
+				getLabelState().addCharacter(keyCode, keyChar);	
+		}
+	}
+
+	/**
+	 * Remove a character of the label that is being edited
+	 */
+	@Override
+	public void removeLabelCharacter() {
+		if (!editingLabel()) return;
+		getLabelState().setViewLabel(getCurrentViewLabel());
+		getLabelState().removeCharacter();
+	}
+
+	/**
+	 * Set label state according to the current viewlabel
+	 */
+	// TODO WAAR WORDT DIT GEBRUIKT???
+	public void setLabelState(ViewLabel viewLabel) {
+		System.out.println("Set label mode dialog box.");
+	}
+	
+	/* USER INPUT */
+	
+	/**
+	 *  The tab key is pressed
+	 */
+	@Override
+	public void pressTab() {
+		System.out.println("Change active control.");
+		
+		changeCurrentControl(false);
+		
+		if (getCurrentControlIndex() < getControls().size() - 1) 
+			setCurrentControlIndex(getCurrentControlIndex() + 1);
+		else 
+			setCurrentControlIndex(0);
+
+		changeCurrentControl(true);
+	}
+	
+	@Override
+	public void singleClick(int x, int y) {
+		for (WindowControl control : getControls()) {
+			if (control.click(x, y) != null) {
+				changeCurrentControl(false);
+				setCurrentControlIndex(getControls().indexOf(control));
+				changeCurrentControl(true);
+				control.click();
+			}
+		}
+	}
+
+	private void changeCurrentControl(boolean isNew) {
+		getCurrentControl().setActive(isNew);
+		getCurrentControl().currentControl(this);
+	}
+	
+	/* GETTERS & SETTERS */
 	
 	public ArrayList<WindowControl> getControls() {
 		return controls;
@@ -66,101 +153,13 @@ public class DialogBox extends SubWindow {
 	
 	@Override
 	public WindowControl getControl() {
-		if (getCurrentControlIndex() >= 0)
-			return getCurrentControl();
-		return null;
-	}
-
-	/**
-	 *  Draw the dialogbox
-	 */
-	@Override
-	public void draw(Graphics2D g) {
-		drawWhiteField(g);	
-		getTitlebar().draw(g, getTitle());
-		drawBlackBorder(g);
-		drawControls(g);
+		if (getCurrentControlIndex() < 0) return null;
+		return getCurrentControl();
 	}
 	
 	@Override
 	public ViewLabel getCurrentViewLabel() {
-		if (getCurrentControl().getViewLabel() != null) 
-			return getCurrentControl().getViewLabel();
-		return null;
-	}
-
-	/*@Override
-	public void confirmLabel() {
-		if (!actionAllowed()) {
-			getLabelState().setViewLabel(getCurrentViewLabel());
-			getLabelState().confirmLabel();
-		}
-	}*/
-
-	/**
-	 * Remove a character of the label that is being edited
-	 */
-	@Override
-	public void removeLabelCharacter() {
-		if (!editingLabel()) return;
-		getLabelState().setViewLabel(getCurrentViewLabel());
-		getLabelState().removeCharacter();
-	}
-
-	/**
-	 * Add a character to the label that is being edited
-	 * 
-     * @param keyCode
-     * 		The keycode for the entered key
-     * @param keyChar
-     * 		The keyChar for the entered key
-	 */
-	@Override
-	public void addLabelCharacter(int keyCode, char keyChar) {
-		if (editingLabel() && getCurrentViewLabel() != null) {
-				getLabelState().setViewLabel(getCurrentViewLabel());
-				getLabelState().addCharacter(keyCode, keyChar);	
-		}
-	}
-	
-	/**
-	 *  The tab key is pressed
-	 */
-	@Override
-	public void pressTab() {
-		System.out.println("Change active control.");
-		
-		changeCurrentControl(false);
-		
-		if (getCurrentControlIndex() < getControls().size() - 1) 
-			setCurrentControlIndex(getCurrentControlIndex() + 1);
-		else 
-			setCurrentControlIndex(0);
-
-		changeCurrentControl(true);
-	}
-	
-	/**
-	 * Set label state according to the current viewlabel
-	 */
-	public void setLabelState(ViewLabel viewLabel) {
-		System.out.println("Set label mode dialog box.");
-	}
-	
-	@Override
-	public void singleClick(int x, int y) {
-		for (WindowControl control : getControls()) {
-			if (control.click(x, y) != null) {
-				changeCurrentControl(false);
-				setCurrentControlIndex(getControls().indexOf(control));
-				changeCurrentControl(true);
-				control.click();
-			}
-		}
-	}
-
-	private void changeCurrentControl(boolean isNew) {
-		getCurrentControl().setActive(isNew);
-		getCurrentControl().currentControl(this);
+		if (getCurrentControl().getViewLabel() == null) return null;
+		return getCurrentControl().getViewLabel();
 	}
 }

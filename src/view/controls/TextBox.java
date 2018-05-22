@@ -142,10 +142,9 @@ public class TextBox extends WindowControl {
 			subwindow.changeLabelState("SHOW");
 		}
 	}
-
-	/**
-	 * Click action window control
-	 */
-	@Override
-	public void click() {}
+	public boolean add() {
+		if (getValue().trim().length() <= 0) return false;
+		getState().addArgument();
+		return true;
+	}
 }

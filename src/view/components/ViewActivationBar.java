@@ -29,12 +29,15 @@ public class ViewActivationBar {
 		g.setColor(new Color(150,150,255));
 		g.fill(rectangle);
 	}
+	
 	public Integer getHeight() {
 		return height;
 	}
+	
 	public void setHeight(Integer height) {
 		this.height = height;
 	}
+	
 	public void increaseHeight(Integer heightIncrease) {
 		this.height += heightIncrease;
 	}

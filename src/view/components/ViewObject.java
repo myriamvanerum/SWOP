@@ -27,17 +27,6 @@ public class ViewObject extends ViewParty {
 	}
 	
 	/**
-	 * ViewObject Constructor
-	 * @param party
-	 * 		Party to draw
-	 * @param clickPosition
-	 * 		Chosen position
-	 */
-	public ViewObject(Party party, Point2D clickPosition) {
-		super(party, clickPosition);
-	}
-	
-	/**
 	 * Copy Constructor
 	 * @param viewParty
 	 * 		The ViewParty to copy

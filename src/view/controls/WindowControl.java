@@ -35,7 +35,7 @@ public abstract class WindowControl {
 	/**
 	 * Click action window control
 	 */
-	public abstract void click();
+	public void click() {}
 	
 	/**
 	 * When current control is changed set label state subwindow to "show"
@@ -50,17 +50,13 @@ public abstract class WindowControl {
 	/**
 	 * Space key is pressed
 	 */
-	public void space() {
-		System.out.println("Activate control.");
-	}
+	public void space() {}
 
 	/**
 	 * Update the control data
 	 * @param items
 	 */
-	public void update(ArrayList<String> items) {
-		System.out.println("Update control.");
-	}
+	public void update(ArrayList<String> items) {}
 
 	/**
 	 * Check if the window control is clicked
@@ -84,9 +80,7 @@ public abstract class WindowControl {
 	 * @param upperbound
 	 * 			The upperbound limit
 	 */
-	public void checkAvailability(int lowerbound, int upperbound) {
-		System.out.println("No action");
-	}
+	public void checkAvailability(int lowerbound, int upperbound) {}
 	
 	/* Getters & Setters */
 	public int getX() {
