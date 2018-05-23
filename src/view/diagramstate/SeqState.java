@@ -5,9 +5,11 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
 import view.components.ViewLifeLine;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.components.ViewResultMessage;
 /**
  * Sequence Diagram State class
  * @author groep 03
@@ -21,40 +23,29 @@ public class SeqState implements State {
 	public String getTitle() {		
 		return "SEQUENCE DIAGRAM";		
 	}
-
-	/**
-	 * Draw the Parties and Messages in the SubWindow
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		Window top left coordinates
-	 * @param viewParties
-	 * 		The Parties in the SubWindow
-	 * @param viewMessages
-	 * 		The Messages in the SubWindow
-	 * @throws IllegalArgumentException
-	 * 		Illegal coordinates
-	 */
-	@Override
-	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		if (windowPosition.getX() < 0 || windowPosition.getY() < 0)
-			throw new IllegalArgumentException();
-		
-		for (ViewParty viewParty : viewParties) {
-	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionSeq(), windowPosition));
-	        viewParty.getViewLifeLine().draw(g);
-	    }
-
-    	for (ViewMessage viewMessage : viewMessages) {
-	    	ViewLifeLine senderLifeline = viewMessage.getSender().getViewLifeLine();
-			ViewLifeLine receiverLifeline = viewMessage.getReceiver().getViewLifeLine();
-			int xSender = senderLifeline.getX();
-			int xReceiver = receiverLifeline.getX();
-			int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
-					
-			viewMessage.draw(g, xSender, xReceiver, y, y);
-			viewMessage.drawActivationBar(g, xSender-5, xReceiver-5, y-5);
-	    }	
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewParty viewParty) {
+		viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionSeq(), windowPosition));
+        viewParty.getViewLifeLine().draw(g);
+	}
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewInvocationMessage viewMessage) {
+		drawMessage(g, windowPosition, viewMessage);
+	}
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewResultMessage viewMessage) {
+		drawMessage(g, windowPosition, viewMessage);
+	}
+	
+	public void drawMessage(Graphics2D g, Point2D windowPosition, ViewMessage viewMessage) {
+		ViewLifeLine senderLifeline = viewMessage.getSender().getViewLifeLine();
+		ViewLifeLine receiverLifeline = viewMessage.getReceiver().getViewLifeLine();
+		int xSender = senderLifeline.getX();
+		int xReceiver = receiverLifeline.getX();
+		int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
+				
+		viewMessage.draw(g, xSender, xReceiver, y, y);
+		viewMessage.drawActivationBar(g, xSender-5, xReceiver-5, y-5);
 	}
 	
 	@Override

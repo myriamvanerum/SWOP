@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import domain.message.InvocationMessage;
 import domain.message.Message;
 import view.ViewInteraction;
+import view.diagramstate.State;
 import view.windows.DialogBox;
 import view.windows.InvocationBox;
 /**
@@ -104,6 +105,11 @@ public class ViewInvocationMessage extends ViewMessage {
 		int[] yCoord = {yReceiver, yReceiver - yCorner1, yReceiver - yCorner2};
 		g.fillPolygon(xCoord, yCoord, 3);
     }
+    
+    @Override
+    public void draw(Graphics2D g, State state, Point2D windowPosition) {
+		state.draw(g, windowPosition, this);
+	}
 		
 	@Override
 	public ViewMessage copy() {

@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 
 import domain.Component;
 import domain.message.Message;
+import view.diagramstate.State;
 import view.labelstate.EditInvocationMessageLabelState;
 import view.windows.SubWindow;
 /**
@@ -74,6 +75,8 @@ public abstract class ViewMessage extends ViewComponent {
 	 * 		Receiver y coordinate
 	 */
 	public abstract void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver);
+	
+	public abstract void draw(Graphics2D g, State state, Point2D windowPosition);
 	
 	public abstract ViewMessage copy();
 	

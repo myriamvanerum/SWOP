@@ -8,6 +8,7 @@ import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.components.ViewResultMessage;
 /**
  * Communication Diagram State class
  * @author groep 03
@@ -21,49 +22,33 @@ public class ComState implements State {
 	public String getTitle() {
 		return "COMMUNICATION DIAGRAM";		
 	}
-
-	/**
-	 * Draw the Parties and Messages in the SubWindow
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		Window top left coordinates
-	 * @param viewParties
-	 * 		The Parties in the SubWindow
-	 * @param viewMessages
-	 * 		The Messages in the SubWindow
-	 * @throws IllegalArgumentException
-	 * 		Illegal window position
-	 */
-	@Override
-	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		if (windowPosition.getX() < 0 || windowPosition.getY() < 0)
-			throw new IllegalArgumentException();
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewParty viewParty) {
+        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionCom(), windowPosition));
+	}
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewInvocationMessage viewMessage) {
+		Point2D sender = viewMessage.getSender().getPositionCom();
+		Point2D receiver = viewMessage.getReceiver().getPositionCom();
 		
-		for (ViewParty viewParty : viewParties) {
-	        viewParty.draw(g, viewParty.positionWindow(viewParty.getPositionCom(), windowPosition));
-	    }
-	    for (ViewMessage viewMessage : viewMessages) {
-	    	if (viewMessage instanceof ViewInvocationMessage) {
-	    		Point2D sender = viewMessage.getSender().getPositionCom();
-	    		Point2D receiver = viewMessage.getReceiver().getPositionCom();
-	    		
-	    		Integer padding = setPadding(viewMessage);
-	    		
-	    		Integer senderExtra, receiverExtra;
-	    		if (sender.getX() <= receiver.getX()) {
-	    			senderExtra = 80;
-	    			receiverExtra = 0;
-	    		} else {
-	    			senderExtra = 0;
-	    			receiverExtra = 80;
-	    		}
-	    		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + senderExtra), 
-	    				(int) (receiver.getX() + windowPosition.getX() + receiverExtra), 
-	    				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
-	    				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
-	    	}
-	    }
+		Integer padding = setPadding(viewMessage);
+		
+		Integer senderExtra, receiverExtra;
+		if (sender.getX() <= receiver.getX()) {
+			senderExtra = 80;
+			receiverExtra = 0;
+		} else {
+			senderExtra = 0;
+			receiverExtra = 80;
+		}
+		viewMessage.draw(g, (int) (sender.getX() + windowPosition.getX() + senderExtra), 
+				(int) (receiver.getX() + windowPosition.getX() + receiverExtra), 
+				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
+				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
+	}
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewResultMessage viewMessage) {
+		// do nothing
 	}
 	
 	public Integer setPadding(ViewMessage viewMessage) {

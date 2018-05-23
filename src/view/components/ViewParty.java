@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 
 import domain.Component;
 import domain.party.Party;
+import view.diagramstate.State;
 import view.labelstate.EditPartyLabelState;
 import view.windows.SubWindow;
 /**
@@ -81,6 +82,10 @@ public abstract class ViewParty extends ViewComponent {
 	 * 			  The position to draw the Party
 	 */
 	public abstract void draw(Graphics2D g, Point2D position);
+	
+	public void draw(Graphics2D g, State state, Point2D windowPosition) {
+		state.draw(g, windowPosition, this);
+	}
 	
 	public abstract ViewParty copy();
 	

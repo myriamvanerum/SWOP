@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import domain.message.Message;
 import domain.message.ResultMessage;
 import view.ViewInteraction;
+import view.diagramstate.State;
 import view.windows.DialogBox;
 import view.windows.ResultBox;
 /**
@@ -107,6 +108,11 @@ public class ViewResultMessage extends ViewMessage {
         g.drawLine(xReceiver, yReceiver, xReceiver - xCorner1, yReceiver - yCorner1);
         g.drawLine(xReceiver, yReceiver, xReceiver - xCorner2, yReceiver - yCorner2);
     }
+    
+    @Override
+    public void draw(Graphics2D g, State state, Point2D windowPosition) {
+		state.draw(g, windowPosition, this);
+	}
 	
 	@Override
 	public ViewMessage copy() {

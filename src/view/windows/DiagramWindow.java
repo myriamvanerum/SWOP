@@ -165,7 +165,13 @@ public class DiagramWindow extends SubWindow {
 	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		getState().drawContents(g, new Point2D.Double(getX(), getY() + getTitlebar().getHeight()), viewParties, viewMessages);
+		for (ViewParty viewParty : viewParties) {
+			viewParty.draw(g, getState(), new Point2D.Double(getX(), getY() + getTitlebar().getHeight()));
+	    }
+
+    	for (ViewMessage viewMessage : viewMessages) {
+    		viewMessage.draw(g, getState(), new Point2D.Double(getX(), getY() + getTitlebar().getHeight()));
+	    }
 	}
 
 	/**

@@ -5,8 +5,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import view.components.ViewComponent;
+import view.components.ViewInvocationMessage;
 import view.components.ViewMessage;
 import view.components.ViewParty;
+import view.components.ViewResultMessage;
 
 public interface State {
 	/**
@@ -14,18 +16,11 @@ public interface State {
 	 */
 	public String getTitle();
 	
-	/**
-	 * Draw the Parties and Messages in the SubWindow
-	 * @param g
-	 * 		Graphics class
-	 * @param windowPosition
-	 * 		Window top left coordinates
-	 * @param viewParties
-	 * 		The Parties in the SubWindow
-	 * @param viewMessages
-	 * 		The Messages in the SubWindow
-	 */
-	public void drawContents(Graphics2D g, Point2D windowPosition, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages);
+	public void draw(Graphics2D g, Point2D windowPosition, ViewParty viewParty);
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewInvocationMessage viewMessage);
+	
+	public void draw(Graphics2D g, Point2D windowPosition, ViewResultMessage viewMessage);
 	
 	public void moveComponent(ViewComponent component, Point2D clickPosition, Point2D windowPosition);
 	
