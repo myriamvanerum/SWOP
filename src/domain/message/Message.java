@@ -47,6 +47,16 @@ public abstract class Message extends Component {
 		setLabel(label);
 		return true;
 	}
+    
+    public abstract Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes);
+    
+    public Object[] makeArray(Stack<Integer> messageNumberStack, int count, boolean foundRes) {
+    	Object temp[] = new Object[3];
+        temp[0] = messageNumberStack;
+        temp[1] = count;
+        temp[2] = foundRes;
+        return temp;
+    }
         
     /* GETTERS AND SETTERS */
 
@@ -81,6 +91,4 @@ public abstract class Message extends Component {
 	public void setMessageNumber(String messageNumber) {
 		this.messageNumber = messageNumber;
 	}
-
-	public abstract Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes);
 }
