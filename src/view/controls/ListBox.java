@@ -62,6 +62,12 @@ public class ListBox extends WindowControl {
 	public void setListener(ListBoxListener listener) {
 		this.listener = listener;
 	}
+	
+	private boolean hasItem(int index) {
+		if (index > -1 && index < getItems().size())
+			return true;
+		return false;
+	}	
 
 	/**
 	 * Draw the list items of the listbox
@@ -217,5 +223,31 @@ public class ListBox extends WindowControl {
 	
 	public void setAvailabilityButtons() {
 		getListener().availabilityButtons(getSelectedItem(), getItems().size());
+	}
+	
+	/**
+	 * Check if the listbox is clicked and set the current selected list item
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 * @return A windowcontrol if it's clicked
+	 * 			Null if no windowcontrol is clicked
+	 */
+	@Override
+	public WindowControl click(int x, int y) {
+		if (x >= getX() && x <= getX() + getWidth() && y >= getY() && y <= getY() + getHeight())
+		{
+			int index = (y-getY()) / 20;
+			
+			if(hasItem(index))
+				setSelectedItem(Math.abs(index));
+			
+			setAvailabilityButtons();
+			
+			return this;
+		}
+		
+		return null;
 	}
 }
