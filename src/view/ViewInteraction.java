@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +12,6 @@ import domain.Interactr;
 import domain.message.Message;
 import domain.party.Party;
 import view.components.ViewComponent;
-import view.components.ViewParty;
 import view.windows.DiagramWindow;
 import view.windows.DialogBox;
 import view.windows.SubWindow;
@@ -162,7 +160,7 @@ public class ViewInteraction implements Observer {
 	public void deleteComponent() {
 		if (getActiveWindow().editingLabel()) return;
 		ViewComponent viewComponent = selectedComponent();
-		if (viewComponent == null) return;
+		if (viewComponent == null || !getActiveWindow().getSelectedComponent().isSelected) return;
 		getInteractr().deleteComponent(viewComponent.getComponent());
 	}
 
@@ -177,8 +175,8 @@ public class ViewInteraction implements Observer {
 	
 	/* COMPONENT OPERATIONS */
 	
-	public void selectComponent(int x, int y) {
-		getActiveWindow().selectComponent(x, y);
+	public void setSelectedComponent(int x, int y) {
+		getActiveWindow().selectedComponent(x, y);
 	}
 	
 	private ViewComponent selectedComponent() {
@@ -197,6 +195,7 @@ public class ViewInteraction implements Observer {
 	/* USER EVENTS */
 	
 	public void doubleClick(int x, int y) {
+		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
 		Party party;
 		if ((party = getActiveWindow().getSelectedParty()) != null)
@@ -205,20 +204,29 @@ public class ViewInteraction implements Observer {
 			getInteractr().addParty();
 	}
 	
+	private void unselectCurrentComponent() {
+		// TODO
+		if(getActiveWindow().getSelectedComponent() != null && getActiveWindow().getSelectedComponent().isSelected)
+			getActiveWindow().getSelectedComponent().unselect();
+	}
+
 	public void singleClick(int x, int y) {
+		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
-		getActiveWindow().singleClick(x, y);
+		getActiveWindow().singleClick(lastPositions);
 	}	
 	
 	Party sender, receiver;
 	public void pressed(int x, int y) {
+		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
 
 		sender = checkLifeLine(x, y);
-		selectComponent(x, y);
+		setSelectedComponent(x, y);
 	}
 
 	public void released(int x, int y) {
+		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
 		receiver = checkLifeLine(x, y);
 		if (sender != null && receiver != null) {

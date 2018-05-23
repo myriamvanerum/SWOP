@@ -3,6 +3,7 @@ package view.windows;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import view.LastPositions;
 import view.ViewInteraction;
 import view.components.ViewLabel;
 import view.controls.WindowControl;
@@ -105,7 +106,10 @@ public class DialogBox extends SubWindow {
 	}
 	
 	@Override
-	public void singleClick(int x, int y) {
+	public void singleClick(LastPositions lastPositions) {
+		int x = (int)lastPositions.getLastClickedPosition().getX();
+		int y = (int)lastPositions.getLastClickedPosition().getY();
+		
 		for (WindowControl control : getControls()) {
 			if (control.click(x, y) != null) {
 				changeCurrentControl(false);

@@ -9,6 +9,7 @@ import java.util.Comparator;
 import domain.Component;
 import domain.message.Message;
 import domain.party.Party;
+import view.LastPositions;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewInvocationMessage;
@@ -294,7 +295,7 @@ public class DiagramWindow extends SubWindow {
 	 * @param 	y
 	 *          The y coordinate of the clicked position*/
 	@Override 
-	public void selectComponent(int x, int y) {
+	public void selectedComponent(int x, int y) {
 		if (editingLabel()) return;
 		setSelectedComponent(clickParty(x, y));
 	}
@@ -478,25 +479,24 @@ public class DiagramWindow extends SubWindow {
 
 	/* USER OPERATIONS */
 	
-	ViewComponent labelClickedOnce = null;
 	@Override
-	public void singleClick(int x2, int y2) {
-		// TODO code fixen
+	public void singleClick(LastPositions lastPositions) {
+		int x = (int)lastPositions.getLastClickedPosition().getX();
+		int y = (int)lastPositions.getLastClickedPosition().getY();
+		
 		if (editingLabel()) return;
-		ViewLabel viewLabel = null;
-		selectComponent(x2, y2);
+		selectedComponent(x, y);
 	
-		if ((viewLabel = clickLabel(x2, y2)) != null) {
+		if (clickLabel((int)lastPositions.getPreviousClickedPosition().getX(), (int)lastPositions.getPreviousClickedPosition().getY()) != null && 
+			clickLabel(x, y) != null && 
+			clickLabel(x, y) == clickLabel((int)lastPositions.getPreviousClickedPosition().getX(), (int)lastPositions.getPreviousClickedPosition().getY()) ) {
 			System.out.println("Label Clicked.");
-			
-			if (labelClickedOnce == null) {
-				selectComponent();
-				labelClickedOnce = getSelectedComponent();
-			} else if (getSelectedComponent() == labelClickedOnce) {
-				getSelectedComponent().setLabelState(this);
-				viewLabel.setOutput(getSelectedComponent().getComponent().getLabel() + "|");
-				labelClickedOnce = null;
-			}
+            selectComponent();
+			getSelectedComponent().setLabelState(this);
+			clickLabel(x, y).setOutput(getSelectedComponent().getComponent().getLabel() + "|");
+		} else if (clickLabel(x, y) != null) {
+			System.out.println("Label Clicked.");
+            selectComponent();
 		}
 	}
 	

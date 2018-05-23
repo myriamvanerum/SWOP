@@ -24,7 +24,7 @@ public class LastPositions {
 	}
 
 	public void setLastClickedPosition(Point2D lastClickedPosition) {
-		if (lastClickedPosition != getLastClickedPosition()) {
+		if (lastClickedPosition.getX() != getLastClickedPosition().getX() && lastClickedPosition.getY() != getLastClickedPosition().getY()) {
 			this.previousClickedPosition = getLastClickedPosition();
 			this.lastClickedPosition = lastClickedPosition;
 		}

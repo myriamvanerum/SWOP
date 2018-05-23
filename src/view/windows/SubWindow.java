@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import domain.Component;
 import domain.message.Message;
 import domain.party.Party;
+import view.LastPositions;
 import view.ViewInteraction;
 import view.components.ViewComponent;
 import view.components.ViewLabel;
@@ -128,9 +129,7 @@ public abstract class SubWindow {
 	}
 
 	public void setSelectedComponent(ViewComponent selectedComponent) {
-	    unselectComponent();
         this.selectedComponent = selectedComponent;
-        selectComponent();
 	}
 
 	/**
@@ -261,7 +260,7 @@ public abstract class SubWindow {
 	}
 
 	public abstract void draw(Graphics2D g);
-	public abstract void singleClick(int x2, int y2);
+	public abstract void singleClick(LastPositions lastPositions);
 	public abstract void pressTab();
 
 	
@@ -287,8 +286,8 @@ public abstract class SubWindow {
 
 	public void selectParty(Party party) {}
 	public void selectMessage(Message message) {}
+	public void selectedComponent(int x, int y) {}
 	public void selectComponent() {}
-	public void selectComponent(int x2, int y2) {}
 	public void unselectComponent() {}
 	
 	public boolean doubleClick() {return false;}
