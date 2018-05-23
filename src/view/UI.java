@@ -165,19 +165,16 @@ public class UI {
 	public ViewInteraction activateSubwindow(int x, int y) {
 		if (x < 0 || y < 0)
 			throw new IllegalArgumentException();
-		
-		if (getActiveInteraction() != null && getActiveInteraction().getActiveWindow() != null && getActiveInteraction().getActiveWindow().clickOutsideActiveSubwindow(x, y))
-		{
-			for (int i = getInteractions().size() - 1; i >= 0; i--) {
-				Boolean found = getInteractions().get(i).activateSubwindow(x, y);
-				if (found && getActiveInteraction() != getInteractions().get(i)) {
-					getActiveInteraction().setActiveWindow(null);
-					setActiveInteraction(getInteractions().get(i));
-					return getInteractions().get(i);
-				}
+		if (getActiveInteraction() == null) return null;
+		if (!getActiveInteraction().getActiveWindow().clickOutsideActiveSubwindow(x, y)) return null;
+		for (int i = getInteractions().size() - 1; i >= 0; i--) {
+			Boolean found = getInteractions().get(i).activateSubwindow(x, y);
+			if (found && getActiveInteraction() != getInteractions().get(i)) {
+				getActiveInteraction().setActiveWindow(null);
+				setActiveInteraction(getInteractions().get(i));
+				return getInteractions().get(i);
 			}
 		}
-		
 		return null;
 	}
 

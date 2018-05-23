@@ -134,43 +134,17 @@ public class MessageSequence {
 	/**
 	 * Reset all message numbers in the message sequence
 	 */
+	@SuppressWarnings("unchecked")
 	private void setMessageNumbers() {
         Stack<Integer> messageNumber = new Stack<>();
         int count = -1;
         boolean foundRes = false;
         for (Message message : getMessages()) {
-        	// new message is invocation message
-            if (message instanceof InvocationMessage) {
-            	// a result message was found before this invocation message
-                if (foundRes) {
-                	messageNumber.set(count, messageNumber.get(count) + 1);
-                // no result message was found before this invocation message
-                } else {
-                	messageNumber.push(1);
-                    count += 1;
-                }
-                
-                message.setMessageNumber(formatMessageNumber(messageNumber.toString()));
-                foundRes = false;
-            // new message is result message, and result message was found before this result message
-            } else if (message instanceof ResultMessage && foundRes) {
-            	messageNumber.pop();
-                count -= 1;
-            // new message is result message, and no result message was found before this result message
-            } else {
-            	foundRes = true;
-            }
+        	Object temp[] = message.setMessageNumber(messageNumber, count, foundRes);
+        	
+        	messageNumber = (Stack<Integer>) temp[0];
+        	count = (int) temp[1];
+        	foundRes = (boolean) temp[2];
         }
-    }
-	
-	/**
-     * Formats the sequence String, the toString of an arrayList has commas and spaces.
-     * Spaces will be removed and commas will be replaced by dots.
-     *
-     * @param sequenceString the string to format.
-     * @return the formatted sequence string.
-     */
-    private String formatMessageNumber(String messageNumber) {
-        return messageNumber.substring(1, messageNumber.length() - 1).replace(" ", "").replace(',', '.');
     }
 }

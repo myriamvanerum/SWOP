@@ -1,6 +1,7 @@
 package domain.message;
 
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,6 +127,36 @@ public class InvocationMessage extends Message {
 			return new ArrayList<String>();
 		return list;
 	}
+	
+	@Override
+	public Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes) {
+		if (foundRes)
+        	messageNumberStack.set(count, messageNumberStack.get(count) + 1);
+        else {
+        	messageNumberStack.push(1);
+            count += 1;
+        }
+        
+        setMessageNumber(formatMessageNumber(messageNumberStack.toString()));
+        foundRes = false;
+        
+        Object temp[] = new Object[3];
+        temp[0] = messageNumberStack;
+        temp[1] = count;
+        temp[2] = foundRes;
+        return temp;
+	}
+	
+	/**
+     * Formats the sequence String, the toString of an arrayList has commas and spaces.
+     * Spaces will be removed and commas will be replaced by dots.
+     *
+     * @param sequenceString the string to format.
+     * @return the formatted sequence string.
+     */
+    private String formatMessageNumber(String messageNumber) {
+        return messageNumber.substring(1, messageNumber.length() - 1).replace(" ", "").replace(',', '.');
+    }
 	
     /* Getters & Setters */
     public String getMethod() {

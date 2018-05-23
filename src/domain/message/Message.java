@@ -1,5 +1,7 @@
 package domain.message;
 
+import java.util.Stack;
+
 import domain.Component;
 import domain.party.Party;
 
@@ -79,4 +81,6 @@ public abstract class Message extends Component {
 	public void setMessageNumber(String messageNumber) {
 		this.messageNumber = messageNumber;
 	}
+
+	public abstract Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes);
 }
