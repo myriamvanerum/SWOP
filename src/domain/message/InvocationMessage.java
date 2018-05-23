@@ -140,11 +140,7 @@ public class InvocationMessage extends Message {
         setMessageNumber(formatMessageNumber(messageNumberStack.toString()));
         foundRes = false;
         
-        Object temp[] = new Object[3];
-        temp[0] = messageNumberStack;
-        temp[1] = count;
-        temp[2] = foundRes;
-        return temp;
+        return makeArray(messageNumberStack, count, foundRes);
 	}
 	
 	/**
