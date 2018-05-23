@@ -63,6 +63,13 @@ public class ListBox extends WindowControl {
 		this.listener = listener;
 	}
 	
+	/**
+	 * Check if there exists an item with the given index
+	 * @param index
+	 * 			The arraylist index
+	 * @return  True if the listbox item with the given index exists
+	 * 			False if the listbox item with teh given index doesn't exists
+	 */
 	private boolean hasItem(int index) {
 		if (index > -1 && index < getItems().size())
 			return true;

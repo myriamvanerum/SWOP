@@ -110,7 +110,7 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	 */
 	@Override
 	public void pressSpace() {
-		getCurrentControl().space();
+		getCurrentControl().click();
 	}
 	
 	@Override

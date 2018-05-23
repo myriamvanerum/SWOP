@@ -48,11 +48,6 @@ public abstract class WindowControl {
 	}
 
 	/**
-	 * Space key is pressed
-	 */
-	public void space() {}
-
-	/**
 	 * Update the control data
 	 * @param items
 	 */

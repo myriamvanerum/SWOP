@@ -101,16 +101,6 @@ public class Button extends WindowControl {
 			getOperator().action();
 		else System.out.println("Button unavailable.");
 	}
-	
-	/**
-	 * Perform the button action
-	 */
-	@Override
-	public void space() {
-		if (isAvailable())
-			getOperator().action();
-		else System.out.println("Button unavailable.");
-	}
 
 	/**
 	 * Check if a window control should be available in the current situation
