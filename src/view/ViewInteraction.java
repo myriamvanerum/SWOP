@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +25,8 @@ public class ViewInteraction implements Observer {
 	public SubWindow activeWindow = null;
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
-	private Point2D lastClickedPosition;
+	//private Point2D lastClickedPosition;
+	private LastPositions lastPositions;
 
 	/* CONSTRUCTOR */
 	
@@ -32,6 +34,7 @@ public class ViewInteraction implements Observer {
 		setInteraction(new Interaction());
 		setInteractr(new Interactr(this));
 		getInteraction().addObserver(this);
+		setLastPositions(new LastPositions(new Point2D.Double(0, 0), new Point2D.Double(0,0)));
 	}
 	
 	/* DRAWING */
@@ -186,7 +189,7 @@ public class ViewInteraction implements Observer {
 		setLastClickedPosition(new Point2D.Double(x, y));
 		getActiveWindow().moveComponent(x, y);
 	}
-	
+
 	public Party checkLifeLine(int x, int y) {
 		return getActiveWindow().clickLifeline(x, y);
 	}
@@ -362,11 +365,19 @@ public class ViewInteraction implements Observer {
 		this.subWindows = subWindows;
 	}
 
-	public Point2D getLastClickedPosition() {
-		return lastClickedPosition;
+	public LastPositions getLastPositions() {
+		return lastPositions;
 	}
 
-	public void setLastClickedPosition(Point2D lastClickedPosition) {
-		this.lastClickedPosition = lastClickedPosition;
+	public void setLastPositions(LastPositions lastPositions) {
+		this.lastPositions = lastPositions;
+	}
+	
+	private void setLastClickedPosition(Point2D position) {
+		getLastPositions().setLastClickedPosition(position);
+	}
+	
+	private Point2D getLastClickedPosition() {
+		return getLastPositions().getLastClickedPosition();
 	}
 }
