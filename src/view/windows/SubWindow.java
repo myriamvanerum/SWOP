@@ -128,7 +128,9 @@ public abstract class SubWindow {
 	}
 
 	public void setSelectedComponent(ViewComponent selectedComponent) {
-		this.selectedComponent = selectedComponent;
+	    unselectComponent();
+        this.selectedComponent = selectedComponent;
+        selectComponent();
 	}
 
 	/**
@@ -287,6 +289,7 @@ public abstract class SubWindow {
 	public void selectMessage(Message message) {}
 	public void selectComponent() {}
 	public void selectComponent(int x2, int y2) {}
+	public void unselectComponent() {}
 	
 	public boolean doubleClick() {return false;}
 

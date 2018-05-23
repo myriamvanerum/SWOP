@@ -268,22 +268,22 @@ public class DiagramWindow extends SubWindow {
 	
 	/**
 	 * Select a Party or Message
-	 * 
-	 * @throws NullPointerException
-	 *             No ViewComponent supplied
 	 */
 	@Override
 	public void selectComponent() {
-		ViewComponent viewComponent = getSelectedComponent();
-		if (viewComponent == null)
-			throw new NullPointerException();
-
 		System.out.println("Select component.");
-
-		if (viewComponent.selected())
-			viewComponent.unselect();
-		else
-			viewComponent.select();
+		if ( getSelectedComponent() != null)
+			 getSelectedComponent().select();
+	}
+	
+	/**
+	 * Unselect a Party or Message
+	 */
+	@Override
+	public void unselectComponent() {
+		System.out.println("Unselect component.");
+		if (getSelectedComponent() != null)
+			getSelectedComponent().unselect();
 	}
 	
 	/**
