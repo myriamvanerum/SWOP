@@ -44,8 +44,16 @@ public class SeqState implements State {
 		int xReceiver = receiverLifeline.getX();
 		int y = (int) (viewMessage.getPositionSeq().getY() + windowPosition.getY());
 				
-		viewMessage.draw(g, xSender, xReceiver, y, y);
+		
 		viewMessage.drawActivationBar(g, xSender-5, xReceiver-5, y-5);
+		if (xSender < xReceiver) {
+			xReceiver -= 5;
+			xSender += 5;
+		} else {
+			xReceiver += 5;
+			xSender -= 5;
+		}
+		viewMessage.draw(g, xSender, xReceiver, y, y);
 	}
 	
 	@Override

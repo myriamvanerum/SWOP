@@ -74,10 +74,6 @@ public class ViewInvocationMessage extends ViewMessage {
 		
 		Stroke full = new BasicStroke(1);
 		g.setStroke(full);
-		if (xSender < xReceiver)
-			xReceiver -= 5;
-		else
-			xReceiver += 5;
 		drawArrow(xSender, ySender, xReceiver, yReceiver, g);
 		
 		String label = getMessage().getLabel();

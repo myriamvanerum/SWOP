@@ -75,13 +75,6 @@ public class ViewResultMessage extends ViewMessage {
 		Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0,
 				new float[] { 9 }, 0);
 		g.setStroke(dashed);
-		if (xSender > xReceiver) {
-			xReceiver += 5;
-			xSender -= 5;
-		} else {
-			xReceiver -= 5;
-			xSender += 5;
-		}
 		drawArrow(xSender, ySender, xReceiver, yReceiver, g);
 				
 		String label = getMessage().getLabel();
