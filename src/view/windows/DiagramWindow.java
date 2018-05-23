@@ -150,7 +150,7 @@ public class DiagramWindow extends SubWindow {
 		drawBlackBorder(g);
 		// Only draw within SubWindow limits (minus 1 px for border)
 		g.setClip(getX() + 1, getY() + getTitlebar().getHeight(), getWidth() - 1, getHeight() - getTitlebar().getHeight());
-		drawContents(g, getViewParties(), getViewMessages());
+		drawContents(g);
 		g.dispose();
 	}
 	
@@ -164,12 +164,12 @@ public class DiagramWindow extends SubWindow {
 	 * @param viewMessages
 	 *            The Messages in the SubWindow
 	 */
-	public void drawContents(Graphics2D g, ArrayList<ViewParty> viewParties, ArrayList<ViewMessage> viewMessages) {
-		for (ViewParty viewParty : viewParties) {
+	public void drawContents(Graphics2D g) {
+		for (ViewParty viewParty : getViewParties()) {
 			viewParty.draw(g, getState(), new Point2D.Double(getX(), getY() + getTitlebar().getHeight()));
 	    }
 
-    	for (ViewMessage viewMessage : viewMessages) {
+    	for (ViewMessage viewMessage : getViewMessages()) {
     		viewMessage.draw(g, getState(), new Point2D.Double(getX(), getY() + getTitlebar().getHeight()));
 	    }
 	}
