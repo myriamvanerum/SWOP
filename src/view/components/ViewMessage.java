@@ -18,6 +18,7 @@ public abstract class ViewMessage extends ViewComponent {
 	ViewParty sender;
 	ViewParty receiver;
 	ViewActivationBar activationBar;
+	ViewMessage companion;
 	
 	/**
 	 * ViewMessage Constructor
@@ -97,9 +98,7 @@ public abstract class ViewMessage extends ViewComponent {
 		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
 	}
 
-	public void lengthenActivationBar(double y) {}
-
-	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {}
+	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int yStart, int yEnd) {}
 
 	public void changeViewParty(ViewParty viewParty, ViewParty newViewParty) {
 		if (viewParty.equals(getSender())) setSender(newViewParty);
@@ -138,5 +137,13 @@ public abstract class ViewMessage extends ViewComponent {
 
 	public void setActivationBar(ViewActivationBar activationBar) {
 		this.activationBar = activationBar;
+	}
+
+	public ViewMessage getCompanion() {
+		return companion;
+	}
+
+	public void setCompanion(ViewMessage companion) {
+		this.companion = companion;
 	}
 }

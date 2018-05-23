@@ -118,16 +118,8 @@ public class ViewInvocationMessage extends ViewMessage {
 	}
 	
 	@Override
-	public void lengthenActivationBar(double y) {
-		if (getPositionSeq().getY() < y - 30 || getPositionSeq().getY() > y) return;
-		System.out.println("Lengthening Activation Bar.");
-		Integer heightIncrease = 40;
-		getActivationBar().increaseHeight(heightIncrease);
-	}
-	
-	@Override
-	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int y) {
-		getActivationBar().draw(g, xSender, y);
-		getActivationBar().draw(g, xReceiver, y);	
+	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int yStart, int yEnd) {
+		getActivationBar().draw(g, xSender, yStart, yEnd - yStart);
+		getActivationBar().draw(g, xReceiver, yStart, yEnd - yStart);	
 	}
 }
