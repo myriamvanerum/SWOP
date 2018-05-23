@@ -258,6 +258,10 @@ public abstract class SubWindow {
 		getLabelState().setViewLabel(getSelectedComponent().getViewLabel());
 		getLabelState().addCharacter(keyCode, keyChar);
 	}
+	
+	public void editLabel(Component component, String label) {
+		getViewInteraction().editLabel(component, label);
+	}
 
 	public abstract void draw(Graphics2D g);
 	public abstract void singleClick(LastPositions lastPositions);

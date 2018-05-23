@@ -26,6 +26,10 @@ public class EditLabelState {
 	public void setViewLabel(ViewLabel viewLabel) {
 		this.viewLabel = viewLabel;
 	}
+	
+	public SubWindow getSubWindow() {
+		return subwindow;
+	}
 
 	public ViewComponent getCurrentViewComponent() {
 		return subwindow.getSelectedComponent();
@@ -60,8 +64,7 @@ public class EditLabelState {
 		String label = getViewLabel().getOutput();		
 		getViewLabel().setColor(Color.BLACK);		
 		label = label.substring(0, label.length() - 1);
-		// TODO FIXME niet echt goed design
-		subwindow.getViewInteraction().editLabel(component, label);
+		getSubWindow().editLabel(component, label);
 		getViewLabel().setOutput(label);	
 	}
 
