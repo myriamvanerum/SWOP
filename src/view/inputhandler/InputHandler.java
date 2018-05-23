@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 import view.UI;
 
 /**
- * EventHandler class. Translates user input for Controller
- * 
+ * InputHandler class. 
+ * Translates user input for Controller
  * @author groep 03
  */
 public class InputHandler {
@@ -15,10 +15,10 @@ public class InputHandler {
 	private KeyModifierHandler keyModifierHandler;
 
 	/**
-	 * EventHandler Constructor
+	 * InputHandler Constructor
 	 * 
-	 * @param window
-	 *            Main Window
+	 * @param UI
+	 *          UI object
 	 */
 	public InputHandler(UI ui) {
 		this.ui = ui;

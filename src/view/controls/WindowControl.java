@@ -35,7 +35,9 @@ public abstract class WindowControl {
 	/**
 	 * Click action window control
 	 */
-	public void click() {}
+	public void click() {
+		System.out.println("Click window control");
+	}
 	
 	/**
 	 * When current control is changed set label state subwindow to "show"
@@ -48,8 +50,9 @@ public abstract class WindowControl {
 	}
 
 	/**
-	 * Update the control data
+	 * Update the window control data
 	 * @param items
+	 * 			List of new items
 	 */
 	public void update(ArrayList<String> items) {}
 
@@ -59,7 +62,7 @@ public abstract class WindowControl {
 	 * 			The x coordinate of the clicked position
 	 * @param y
 	 * 			The y coordinate of the clicked position
-	 * @return A windowcontrol if it's clicked
+	 * @return  A windowcontrol if it's clicked
 	 * 			Null if no windowcontrol is clicked
 	 */
 	public WindowControl click(int x, int y) {

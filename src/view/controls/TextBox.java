@@ -8,6 +8,11 @@ import view.components.ViewLabel;
 import view.labelstate.EditLabelState;
 import view.windows.SubWindow;
 
+/**
+ * TextBox class.
+ * Represents a textbox control used to get user input
+ * @author groep 03
+ */
 public class TextBox extends WindowControl {
 	private String description;
 	private ViewLabel label;
@@ -48,6 +53,7 @@ public class TextBox extends WindowControl {
 		this.label = label;
 	}
 	
+	/* Getters & Setters */
 	public void setParameters(String description, int x, int y, EditLabelState state) {
 		this.description = description;
 		this.state = state;
@@ -142,6 +148,10 @@ public class TextBox extends WindowControl {
 			subwindow.changeLabelState("SHOW");
 		}
 	}
+	
+	/**
+	 * Add the user input as an argument
+	 */
 	public boolean add() {
 		if (getValue().trim().length() <= 0) return false;
 		getState().addArgument();

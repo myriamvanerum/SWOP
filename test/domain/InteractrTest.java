@@ -21,7 +21,7 @@ class InteractrTest {
 
 	public void setup() {
 		viewInteraction.addWindow(window);
-		viewInteraction.setLastClickedPosition(new Point2D.Double(50,50));
+	//	viewInteraction.setLastClickedPosition(new Point2D.Double(50,50));
 	}
 	
 	@Test

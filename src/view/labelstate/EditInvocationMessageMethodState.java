@@ -6,9 +6,21 @@ import domain.message.InvocationMessage;
 import view.components.ViewLabel;
 import view.windows.SubWindow;
 
+/**
+ * EditInvocationMessageMethodState class.
+ * State that processes all valid key input, when a invocation message method is being edited
+ * @author groep 03 
+ */
 public class EditInvocationMessageMethodState extends EditLabelState {
 	private InvocationMessage message;
 	
+	/**
+	 * EditInvocationMessageMethodState Constructor
+	 * @param subwindow
+	 * 			The subwindow in which a label is being edited
+	 * @param viewLabel
+	 * 			The viewlabel that is being edited
+	 */
 	public EditInvocationMessageMethodState(SubWindow subwindow, ViewLabel viewLabel, InvocationMessage message) {
 		super(subwindow, viewLabel);
 		this.message = message;
@@ -18,12 +30,22 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 		return this.message;
 	}
 
+	/**
+	 * Confirm the current input
+	 */
 	@Override
 	public void confirmLabel() {
 		if (viewLabel.getOutput() == null || !syntaxChecker.correctInvocationMessageMethod((viewLabel.getOutput().substring(0, viewLabel.getOutput().length()-1)))) return;
 		enterLabel();
 	}
 	
+	/**
+	 * Add a character to the label
+	 * @param keyCode
+	 * 			KeyCode of the key input
+	 * @param keyChar
+	 * 			Character input
+	 */
 	@Override
 	public void addCharacter(int keyCode, char keyChar) {
 		editLabel(keyChar);
@@ -34,6 +56,9 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 			viewLabel.setColor(Color.GREEN);
 	}
 	
+	/**
+	 * Set the label of a component
+	 */
 	@Override
 	public void enterLabel() {
 		String label = getViewLabel().getOutput();		
