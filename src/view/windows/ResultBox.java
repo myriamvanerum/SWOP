@@ -17,6 +17,15 @@ import view.labelstate.EditLabelState;
 public class ResultBox extends DialogBox {
 	private ViewMessage viewMessage;
 		
+	/**
+	 * ResultBox Constructor
+	 * @param viewMessage
+	 * 			The ViewMessage for which the ResultBox shows the data
+	 * @param x
+	 * 			The x postion of the dialogbox
+	 * @param y
+	 * 			The y postion of the dialogbox
+	 */
 	public ResultBox(ViewInteraction viewInteraction, ViewMessage viewMessage, int x, int y) {
 		super(viewInteraction, x, y, 250, 60, new Titlebar(x,y,250));
 		this.viewMessage = viewMessage;

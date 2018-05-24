@@ -1,7 +1,5 @@
 package view.listboxcommand;
 
-import java.util.ArrayList;
-
 import view.controls.ListBox;
 
 /**
@@ -14,6 +12,11 @@ import view.controls.ListBox;
 public class ScrollDown implements ListBoxOperator {
 	ListBox listBox;
 
+	/**
+	 * ScrollDown Constructor
+	 * @param listbox
+	 * 			ListBox on which to perform the action
+	 */
 	public ScrollDown(ListBox listbox) {
 		this.listBox = listbox;
 	}

@@ -16,6 +16,11 @@ public class Operator {
 	private ScrollDown scrollDown;
 	private ScrollUp scrollUp;
 	
+	/**
+	 * ScrollUp Constructor
+	 * @param listbox
+	 * 			ListBox on which to perform the actions
+	 */
 	public Operator(ListBox listbox) {
 		this.moveItemDown = new MoveItemDown(listbox);
 		this.moveItemUp = new MoveItemUp(listbox);

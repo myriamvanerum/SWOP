@@ -12,6 +12,11 @@ import view.controls.ListBox;
 public class MoveItemUp implements ListBoxOperator {
 	ListBox listBox;
 	
+	/**
+	 * MoveItemUp Constructor
+	 * @param listbox
+	 * 			ListBox on which to perform the action
+	 */
 	public MoveItemUp(ListBox listbox) {
 		this.listBox = listbox;
 	}
