@@ -47,9 +47,17 @@ public abstract class Message extends Component {
 		setLabel(label);
 		return true;
 	}
-    
-    public abstract Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes);
-    
+     
+    /**
+     * Turn message info into an array
+     * @param messageNumberStack
+     * 			Stack of message numbers
+     * @param count
+     * 			The current count
+     * @param foundRes
+     * 			Indicates if there is a result message
+     * @return an array of the 3 given values
+     */
     public Object[] makeArray(Stack<Integer> messageNumberStack, int count, boolean foundRes) {
     	Object temp[] = new Object[3];
         temp[0] = messageNumberStack;
@@ -91,4 +99,6 @@ public abstract class Message extends Component {
 	public void setMessageNumber(String messageNumber) {
 		this.messageNumber = messageNumber;
 	}
+	
+	public abstract Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes);   
 }

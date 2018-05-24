@@ -127,8 +127,20 @@ public class InvocationMessage extends Message {
 			return new ArrayList<String>();
 		return list;
 	}
+		
+	/**
+     * Formats the sequence String, the toString of an arrayList has commas and spaces.
+     * Spaces will be removed and commas will be replaced by dots.
+     *
+     * @param sequenceString the string to format.
+     * @return the formatted sequence string.
+     */
+    private String formatMessageNumber(String messageNumber) {
+        return messageNumber.substring(1, messageNumber.length() - 1).replace(" ", "").replace(',', '.');
+    }
 	
-	@Override
+    /* Getters & Setters */
+    @Override
 	public Object[] setMessageNumber(Stack<Integer> messageNumberStack, int count, boolean foundRes) {
 		if (foundRes)
         	messageNumberStack.set(count, messageNumberStack.get(count) + 1);
@@ -142,19 +154,7 @@ public class InvocationMessage extends Message {
         
         return makeArray(messageNumberStack, count, foundRes);
 	}
-	
-	/**
-     * Formats the sequence String, the toString of an arrayList has commas and spaces.
-     * Spaces will be removed and commas will be replaced by dots.
-     *
-     * @param sequenceString the string to format.
-     * @return the formatted sequence string.
-     */
-    private String formatMessageNumber(String messageNumber) {
-        return messageNumber.substring(1, messageNumber.length() - 1).replace(" ", "").replace(',', '.');
-    }
-	
-    /* Getters & Setters */
+    
     public String getMethod() {
 		return method;
 	}

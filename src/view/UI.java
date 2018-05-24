@@ -20,8 +20,9 @@ public class UI {
 	public ViewInteraction activeInteraction = null;
 	public ArrayList<ViewInteraction> interactions = new ArrayList<>();
 
-	/* CONSTRUCTOR */
-
+	/**
+	 * UI Constructor
+	 */
 	public UI() {
 		setInputHandler(new InputHandler(this));
 	}
@@ -335,7 +336,7 @@ public class UI {
 	}
 	
 	/**
-	 * Forward the request to change the DiagramState for the active DiagramWindow
+	 * Forward the request to change the DiagramState for the active DiagramWindow or to change a DialogBox Control
 	 * to the active ViewInteraction
 	 */
 	public void pressTab() {

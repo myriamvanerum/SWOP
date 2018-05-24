@@ -19,6 +19,11 @@ public class MainWindow extends CanvasWindow {
 	private UI ui;
 	private InputHandler inputHandler;
 
+	/**
+	 * MainWindow Constructor
+	 * @param title
+	 * 		 	Title for the application
+	 */
 	public MainWindow(String title) {
         super(title);
         setUI(new UI());

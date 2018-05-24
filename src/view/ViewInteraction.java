@@ -17,7 +17,8 @@ import view.windows.DialogBox;
 import view.windows.SubWindow;
 
 /**
- * 
+ * ViewInteraction class
+ * Contains all the subwindows that belong to an interation
  * @author groep 03
  *
  */
@@ -60,6 +61,11 @@ public class ViewInteraction implements Observer {
 	
 	/* WINDOW OPERATIONS */
 	
+	/**
+	 * Create an empty diagram window
+	 * @param lowestPosition
+	 * 			The position of the lowest diagram
+	 */
 	public void createDiagramWindow(Point2D lowestPosition) {
 		System.out.println("Create New DiagramWindow.");
 		DiagramWindow subWindow = new DiagramWindow(this, (int)lowestPosition.getX(), (int)lowestPosition.getY());
@@ -79,11 +85,25 @@ public class ViewInteraction implements Observer {
 		addWindow(getActiveWindow().duplicateWindow(x, y));
 	}
 	
+	/**
+	 * Add a new window to the interaction
+	 * @param subWindow
+	 * 			The subwindow that should be added to the viewinteraction
+	 */
 	public void addWindow(SubWindow subWindow) {
 		getSubWindows().add(subWindow);
 		setActiveWindow(subWindow);
 	}
 	
+	/**
+	 * Check if there is a subwindow at position (x,y)
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 * @return	True if a subwindow is found at the clicked position
+	 * 			False if no subwindow was found at the clicked position
+	 */
 	public Boolean activateSubwindow(int x, int y) {
 		SubWindow subwindow = findSubWindow(x, y);
 		
@@ -96,6 +116,14 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 	
+	/**
+	 * Find the subwindow at position (x,y)
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 * @return The subwindow that was found at the clicked position
+	 */
 	public SubWindow findSubWindow(int x, int y) {
 		for (int i = getSubWindows().size() - 1; i >= 0; i--) {
 			if (getSubWindows().get(i) != getActiveWindow()) {
@@ -112,6 +140,10 @@ public class ViewInteraction implements Observer {
 		return null;
 	}
 	
+	/**
+	 * Find the coordinates of the lowest positioned window
+	 * @return The coordinates of the lowest positioned window
+	 */
 	public Point2D findLowestWindow() {
 		Point2D position = new Point2D.Double(0,0);
 		if (getSubWindows().size() > 0) {
@@ -121,6 +153,15 @@ public class ViewInteraction implements Observer {
 		return position;
 	}
 
+	/**
+	 * When there is clicked on the closebutton of a subwindow, this window will be closed
+	 * @param x
+	 * 			The x coordinate of the clicked position
+	 * @param y
+	 * 			The y coordinate of the clicked position
+	 * @return	True if a closebutton was clicked
+	 * 			False if a closebutton wasn't clicked
+	 */
 	public boolean closeWindow(int x, int y) {
 		if (getActiveWindow() != null && getActiveWindow().clickCloseButton(x, y)) {
 			removeWindow(getActiveWindow());
@@ -143,23 +184,44 @@ public class ViewInteraction implements Observer {
 		return false;
 	}
 
+	/**
+	 * Remove the subwindow from the viewinteraction
+	 * @param window
+	 * 			The subwindow that should be removed from the viewinteraction
+	 */
 	private void removeWindow(SubWindow window) {
 		System.out.println("Close SubWindow.");
 		getSubWindows().remove(window);			
 	}
 
+	/**
+	 * Check if the viewinteraction has subwindows
+	 * @return  True if the viewinteraction has no subwindows
+	 * 			False if the viewinteraction has subwindows
+	 */
 	public boolean hasNoWindows() {
 		return (getSubWindows().size() == 0);
 	}
 	
+	/**
+	 * Remove the observer from this interaction
+	 */
 	public void removeInteractionObserver() {
 		getInteraction().removeObserver(this);
 	}
 
+	/**
+	 * The tab key was pressed
+	 */
 	public void pressTab() {
 		getActiveWindow().pressTab();
 	}
 
+	/**
+	 * Open a dialogbox for the selected component
+	 * @param lowestPosition
+	 * 			The position of the lowest diagram
+	 */
 	public void openDialogBox(Point2D lowestPosition) {
 		if (selectedComponent() == null) return;
 		DialogBox dialogBox = selectedComponent().createDialogBox(this, (int)lowestPosition.getX(), (int)lowestPosition.getY());
@@ -168,7 +230,9 @@ public class ViewInteraction implements Observer {
 	}
 	
 	/* DOMAIN OPERATIONS */
-
+	/**
+	 * Delete the selected component
+	 */
 	public void deleteComponent() {
 		if (getActiveWindow().editingLabel()) return;
 		ViewComponent viewComponent = selectedComponent();
@@ -176,36 +240,87 @@ public class ViewInteraction implements Observer {
 		getInteractr().deleteComponent(viewComponent.getComponent());
 	}
 
+	/**
+	 * Add a message to the current interaction
+	 * @param sender
+	 * 			The sender party of the message
+	 * @param receiver
+	 * 			The receiver party of the message
+	 * @param x
+	 * 			The x coordinate of the added message
+	 * @param y
+	 * 		    The y coordinate of the added message
+	 */
 	public void addMessage(Party sender, Party receiver, int x, int y) {
 		Message previous = getActiveWindow().getPreviousMessage(y);
 		getInteractr().addMessage(sender, receiver, previous);
 	}
 	
+	/**
+	 * Edit the label of the given component
+	 * @param component
+	 * 			The component whose label has been edited
+	 * @param label
+	 * 			The new label
+	 */
 	public void editLabel(Component component, String label) {
 		getInteractr().editLabel(component, label);
 	}
 	
 	/* COMPONENT OPERATIONS */
-	
+	/**
+	 * Set the selected component 
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The y coordinate of the mouse event
+	 */
 	public void setSelectedComponent(int x, int y) {
 		getActiveWindow().selectedComponent(x, y);
 	}
 	
+	/**
+	 * Get the selected component
+	 * @return The selected component
+	 * 			Null if there is no selected component
+	 */
 	private ViewComponent selectedComponent() {
 		return getActiveWindow().getSelectedComponent();
 	}
 	
+	/**
+	 * Move the component to the new position
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The y coordinate of the mouse event
+	 */
 	public void moveComponent(int x, int y) {
 		setLastClickedPosition(new Point2D.Double(x, y));
 		getActiveWindow().moveComponent(x, y);
 	}
 
+	/**
+	 * Check if a lifeline was clicke
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The y coordinate of the mouse event
+	 * @return  The party whose lifeline was clicked
+	 * 			Null if no lifeline was clicked
+	 */
 	public Party checkLifeLine(int x, int y) {
 		return getActiveWindow().clickLifeline(x, y);
 	}
 	
 	/* USER EVENTS */
-	
+	/**
+	 * A double click mouse event
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The x coordinate of the mouse event
+	 */
 	public void doubleClick(int x, int y) {
 		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
@@ -216,11 +331,21 @@ public class ViewInteraction implements Observer {
 			getInteractr().addParty();
 	}
 	
+	/**
+	 * Unselect the current component
+	 */
 	private void unselectCurrentComponent() {
 		if (getActiveWindow().getSelectedComponent() == null || !getActiveWindow().getSelectedComponent().isSelected) return;
 		getActiveWindow().getSelectedComponent().unselect();
 	}
 
+	/**
+	 * A single click mouse event
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The x coordinate of the mouse event
+	 */
 	public void singleClick(int x, int y) {
 		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
@@ -228,6 +353,13 @@ public class ViewInteraction implements Observer {
 	}	
 	
 	Party sender, receiver;
+	/**
+	 * Pressed mouse event
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The y coordinate of the mouse event
+	 */
 	public void pressed(int x, int y) {
 		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
@@ -236,6 +368,13 @@ public class ViewInteraction implements Observer {
 		setSelectedComponent(x, y);
 	}
 
+	/**
+	 * Released mouse event
+	 * @param x
+	 * 			The x coordinate of the mouse event
+	 * @param y
+	 * 			The y coordinate of the mouse event
+	 */
 	public void released(int x, int y) {
 		unselectCurrentComponent();
 		setLastClickedPosition(new Point2D.Double(x, y));
@@ -247,28 +386,45 @@ public class ViewInteraction implements Observer {
 		receiver = null;
 	}
 	
+	/**
+	 * Forward the request to select the window control above the current control
+	 */
 	public void arrowUp() {
 		getActiveWindow().scrollUp();
 	}
 
+	/**
+	 * Forward the request to select the window control underneath the current control
+	 */
 	public void arrowDown() {
 		getActiveWindow().scrollDown();
 	}
 
+	/**
+	 * Forward the request to activate a window control
+	 */
 	public void pressSpace() {
 		getActiveWindow().pressSpace();		
 	}
 	
 	/* LABEL METHODS */
-	
+	/**
+	 * The user has pressed the enter key and wants to confirm the current label
+	 */
 	public void confirmLabel() {
 		getActiveWindow().confirmLabel();
 	}
 	
+	/**
+	 *  The user has pressed the back space key and wants to remove a character from the current label
+	 */
 	public void removeLabelCharacter() {
 		getActiveWindow().removeLabelCharacter();
 	}
 	
+	/**
+	 *  The user has pressed a key and wants to add a character to the current label
+	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		getActiveWindow().addLabelCharacter(keyCode, keyChar);
 	}
@@ -343,6 +499,11 @@ public class ViewInteraction implements Observer {
 		getActiveWindow().selectMessage(message);
 	}
 	
+	/**
+	 * Method to be called when a Component's label has been edited
+	 * @param component
+	 *		The component that has had it's label edited
+	 */
 	@Override
 	public void onEditLabel(Component component) {
 		for (SubWindow window : getSubWindows()) {
