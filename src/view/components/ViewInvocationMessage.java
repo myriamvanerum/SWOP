@@ -84,8 +84,18 @@ public class ViewInvocationMessage extends ViewMessage {
 	}
 	
 	/**
-     * Draws an arrow with a filled arrow head
-     */
+	 * Draws an arrow with a filled arrow head
+	 * @param xSender
+	 * 			The x coordinate of the sender
+	 * @param ySender
+	 * 			The y coordinate of the sender
+	 * @param xReceiver
+	 * 			The x coordinate of the receiver
+	 * @param yReceiver
+	 * 			The x coordinate of the receiver
+	 * @param g
+	 * 			Graphics class
+	 */
     public static void drawArrow(int xSender, int ySender, int xReceiver, int yReceiver, Graphics2D g) {
         g.drawLine(xSender, ySender, xReceiver, yReceiver);
 
@@ -102,21 +112,57 @@ public class ViewInvocationMessage extends ViewMessage {
 		g.fillPolygon(xCoord, yCoord, 3);
     }
     
+    /**
+	 * Draw a message
+	 * @param g
+	 * 		Graphics class
+	 * @param state
+	 * 			Current WindowState
+	 * @param windowPosition
+	 * 			The position of the current subwindow
+	 */
     @Override
     public void draw(Graphics2D g, State state, Point2D windowPosition) {
 		state.draw(g, windowPosition, this);
 	}
 		
+    /**
+	 * Copy the ViewMessage
+	 * @return A copy of the ViewMessage
+	 */
 	@Override
 	public ViewMessage copy() {
 		return new ViewInvocationMessage(this);
 	}
 	
+	/**
+	 * Create a dialogbox for the viewcomponent
+	 * @param viewInteraction
+	 * 			The ViewInteraction to which the ViewComponent belongs
+	 * @param x
+	 * 			The x positon of the new DialogBox
+	 * @param y
+	 * 			The y positon of the new DialogBox
+	 * @return A new InvocationBox for the ViewInvocationMessage
+	 */
 	@Override
 	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
 		return new InvocationBox(viewInteraction, this, x, y);
 	}
 	
+	/**
+	 * Draw an activationbar
+	 * @param g
+	 * 			Graphics class
+	 * @param xSender
+	 * 			The x coordinate of the sender
+	 * @param xReceiver
+	 * 			The x coordinate of the receiver
+	 * @param yStart
+	 * 			The y coordinate of where the activationbar should start
+	 * @param yEnd
+	 * 			The x coordinate of where the activationbar should start
+	 */
 	@Override
 	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int yStart, int yEnd) {
 		getActivationBar().draw(g, xSender, yStart, yEnd - yStart);

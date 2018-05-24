@@ -77,20 +77,28 @@ public abstract class ViewMessage extends ViewComponent {
 	 */
 	public abstract void draw(Graphics2D g, int xSender, int xReceiver, int ySender, int yReceiver);
 	
+	 /**
+	 * Draw a message
+	 * @param g
+	 * 		Graphics class
+	 * @param state
+	 * 			Current WindowState
+	 * @param windowPosition
+	 * 			The position of the current subwindow
+	 */
 	public abstract void draw(Graphics2D g, State state, Point2D windowPosition);
 	
+	/**
+	 * Copy the ViewMessage
+	 * @return A copy of the ViewMessage
+	 */
 	public abstract ViewMessage copy();
 	
-	@Override 
-	public Component getComponent() {
-		return this.getMessage();
-	}
-
-	@Override
-	public void setLabelState(SubWindow subwindow) {
-		subwindow.setLabelState(new EditInvocationMessageLabelState(subwindow, getViewLabel()));
-	}
-
+	/**
+	 * The position of the message will be changed if the callstack has changed
+	 * @param y
+	 * 			The y coordinate of the ViewMessage
+	 */
 	public void moveDownIfBelow(double y) {
 		if (getPositionSeq().getY() < y) return;
 		System.out.println("Moving Message Lower.");
@@ -98,8 +106,22 @@ public abstract class ViewMessage extends ViewComponent {
 		setPositionSeq(new Point2D.Double(getPositionSeq().getX(), getPositionSeq().getY() + heightIncrease));
 	}
 
+	/**
+	 * Draw an activationbar
+	 * @param g
+	 * 			Graphics class
+	 * @param xSender
+	 * 			The x coordinate of the sender
+	 * @param xReceiver
+	 * 			The x coordinate of the receiver
+	 * @param yStart
+	 * 			The y coordinate of where the activationbar should start
+	 * @param yEnd
+	 * 			The x coordinate of where the activationbar should start
+	 */
 	public void drawActivationBar(Graphics2D g, int xSender, int xReceiver, int yStart, int yEnd) {}
 
+	
 	public void changeViewParty(ViewParty viewParty, ViewParty newViewParty) {
 		if (viewParty.equals(getSender())) setSender(newViewParty);
 		if (viewParty.equals(getReceiver())) setReceiver(newViewParty);
@@ -145,5 +167,15 @@ public abstract class ViewMessage extends ViewComponent {
 
 	public void setCompanion(ViewMessage companion) {
 		this.companion = companion;
+	}
+	
+	@Override 
+	public Component getComponent() {
+		return this.getMessage();
+	}
+
+	@Override
+	public void setLabelState(SubWindow subwindow) {
+		subwindow.setLabelState(new EditInvocationMessageLabelState(subwindow, getViewLabel()));
 	}
 }
