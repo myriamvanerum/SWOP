@@ -26,6 +26,15 @@ class SubWindowTests {
 	}
 	
 	@Test
+	void testDuplicate() {
+		Integer x = 20, y = 20;
+		SubWindow diagram = activeWindow.duplicateWindow(x, y);
+		assertEquals(x, diagram.getX());
+		assertEquals(y, diagram.getY());
+		assertEquals(viewInteraction, diagram.getViewInteraction());
+	}
+	
+	@Test
 	void testClickOutsideActiveWindow() {
 		Boolean outside = activeWindow.clickOutsideActiveSubwindow(5, 5);
 		assertTrue(outside);

@@ -25,8 +25,8 @@ public class ViewInteraction implements Observer {
 	private Interactr interactr;
 	private Interaction interaction;
 	
-	public SubWindow activeWindow = null;
-	public ArrayList<SubWindow> subWindows = new ArrayList<>();
+	private SubWindow activeWindow = null;
+	private ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
 	private LastPositions lastPositions;
 
@@ -125,11 +125,10 @@ public class ViewInteraction implements Observer {
 		if (getActiveWindow() != null && getActiveWindow().clickCloseButton(x, y)) {
 			removeWindow(getActiveWindow());
 			
-			int index = getSubWindows().size();
-			if (index == 0)
+			if (hasNoWindows())
 				setActiveWindow(null);
 			else
-				setActiveWindow(getSubWindows().get(index-1));
+				setActiveWindow(getSubWindows().get(getSubWindows().size()-1));
 			
 			return true;
 		}
@@ -218,9 +217,8 @@ public class ViewInteraction implements Observer {
 	}
 	
 	private void unselectCurrentComponent() {
-		// TODO
-		if(getActiveWindow().getSelectedComponent() != null && getActiveWindow().getSelectedComponent().isSelected)
-			getActiveWindow().getSelectedComponent().unselect();
+		if (getActiveWindow().getSelectedComponent() == null || !getActiveWindow().getSelectedComponent().isSelected) return;
+		getActiveWindow().getSelectedComponent().unselect();
 	}
 
 	public void singleClick(int x, int y) {

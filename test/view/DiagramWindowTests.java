@@ -49,6 +49,27 @@ class DiagramWindowTests {
 		assertEquals(2, diagram.getViewParties().size());
 		assertEquals(2, diagram.getViewMessages().size());
 	}
+	
+	@Test
+	void testConstructNullError() {
+		setup();
+		
+		try {
+			Integer x = -20, y = 20;
+			new DiagramWindow(activeWindow, x, y);
+	        assert false;
+	    } catch (IllegalArgumentException e) {
+	        assert true;
+	    }
+		
+		try {
+			Integer x = 20, y = -20;
+			new DiagramWindow(activeWindow, x, y);
+	        assert false;
+	    } catch (IllegalArgumentException e) {
+	        assert true;
+	    }
+	}
 
 	@Test
 	void testChangeState() {
