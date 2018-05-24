@@ -202,15 +202,8 @@ public class DiagramWindow extends SubWindow {
 	 * 		  The value of the new label
 	 */
 	private void updateLabels(Component component, String label) {
-		// TODO mss met observer ofzo doen?
-		for (ViewComponent viewComponent : getComponents()) {
-			if (viewComponent.getComponent() == component) {
-				ViewLabel viewLabel = viewComponent.getViewLabel();
-				viewLabel.setColor(Color.BLACK);
-				viewLabel.setOutput(label);
-				return;
-			}
-		}
+		for (ViewComponent viewComponent : getComponents())
+			if (viewComponent.updateLabel(component, label)) return;
 	}
 	
 	/**
