@@ -37,13 +37,8 @@ public class InputHandler {
 	 *            Keyboard key pressed
 	 * @param keyChar
 	 *            keyboard key pressed keyChar
-	 * @throws IllegalArgumentException
-	 *             Illegal id or keyCode
 	 */
-	public void handleKeyEvent(int id, int keyCode, char keyChar) {
-		if (id < 0 || keyCode < 0)
-			throw new IllegalArgumentException();
-		
+	public void handleKeyEvent(int id, int keyCode, char keyChar) {		
 		if (keyCode == KeyEvent.VK_CONTROL) {
 			keyModifierHandler.setModifier(keyCode);
 		} else {
@@ -114,13 +109,8 @@ public class InputHandler {
 	 *            coordinate y
 	 * @param clickCount
 	 *            the number of times the mouse has clicked.
-	 * @throws IllegalArgumentException
-	 *             Illegal id, coordinates or clickCount
 	 */
 	public void handleMouseEvent(int id, int x, int y, int clickCount) {
-		if (id < 0 || x < 0 || y < 0 || clickCount < 0)
-			throw new IllegalArgumentException();
-
 		switch (id) {
 		case MouseEvent.MOUSE_PRESSED:
 			ui.pressed(x,y);
