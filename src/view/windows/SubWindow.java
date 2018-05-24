@@ -272,6 +272,18 @@ public abstract class SubWindow {
 		getLabelState().addCharacter(keyCode, keyChar);
 	}
 	
+	/**
+	 * Duplicate the subwindow
+	 * @param x 
+	 * 			The x position of the new subwindow
+	 * @param y 
+	 * 			The y position of the new subwindow
+	 */
+	public SubWindow duplicateWindow(int x, int y) {
+		System.out.println("Duplicate SubWindow.");
+		return null;
+	}
+	
 	public void editLabel(Component component, String label) {
 		getViewInteraction().editLabel(component, label);
 	}

@@ -16,6 +16,11 @@ import view.windows.DiagramWindow;
 import view.windows.DialogBox;
 import view.windows.SubWindow;
 
+/**
+ * 
+ * @author groep 03
+ *
+ */
 public class ViewInteraction implements Observer {
 	private Interactr interactr;
 	private Interaction interaction;
@@ -23,11 +28,11 @@ public class ViewInteraction implements Observer {
 	public SubWindow activeWindow = null;
 	public ArrayList<SubWindow> subWindows = new ArrayList<>();
 	
-	//private Point2D lastClickedPosition;
 	private LastPositions lastPositions;
 
-	/* CONSTRUCTOR */
-	
+	/**
+	 * ViewInteraction Constructor
+	 */
 	public ViewInteraction() {
 		setInteraction(new Interaction());
 		setInteractr(new Interactr(this));
@@ -37,6 +42,11 @@ public class ViewInteraction implements Observer {
 	
 	/* DRAWING */
 	
+	/**
+	 * Draw all subwindows of the viewinteraction
+	 * @param g
+	 * 			Graphics class
+	 */
 	public void drawWindows(Graphics2D g) {
 		for (SubWindow window : getSubWindows()) {
         	if (window != activeWindow)
@@ -57,16 +67,19 @@ public class ViewInteraction implements Observer {
 		addWindow(subWindow);
 	}
 	
+	/**
+	 * Duplicate the current active window
+	 */
 	public void duplicateActiveWindow() {
 		Integer x = getActiveWindow().getX() + 10;
 		Integer y = getActiveWindow().getY() + 10;
 		
-		DiagramWindow subWindow = new DiagramWindow((DiagramWindow)getActiveWindow(), x, y);
+		if ( getActiveWindow().duplicateWindow(x, y) == null) return;
 		
-		addWindow(subWindow);
+		addWindow(getActiveWindow().duplicateWindow(x, y));
 	}
 	
-	public void addWindow(DiagramWindow subWindow) {
+	public void addWindow(SubWindow subWindow) {
 		getSubWindows().add(subWindow);
 		setActiveWindow(subWindow);
 	}

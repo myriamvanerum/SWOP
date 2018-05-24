@@ -133,6 +133,18 @@ public class DiagramWindow extends SubWindow {
 		return copy;
 	}
 	
+	/**
+	 * Duplicate the subwindow
+	 * @param x 
+	 * 			The x position of the new subwindow
+	 * @param y 
+	 * 			The y position of the new subwindow
+	 */
+	@Override
+	public SubWindow duplicateWindow(int x, int y) {
+		return new DiagramWindow(this, x, y);
+	}
+	
 	/* DRAWING */
 
 	/**
