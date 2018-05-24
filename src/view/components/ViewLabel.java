@@ -67,6 +67,15 @@ public class ViewLabel {
 		drawLabel(g, labelPrefix + "  " + output, position);
 	}
 	
+	/**
+	 * Draw the label
+	 * @param g
+	 * 			Graphics class
+	 * @param label
+	 * 			The label
+	 * @param position
+	 * 			The position of the label
+	 */
 	public void drawLabel(Graphics2D g, String label, Point2D position) {
 		setLastPosition(position);
 		setHeight((int)g.getFontMetrics().getStringBounds(label, g).getHeight());
@@ -77,6 +86,11 @@ public class ViewLabel {
 		g.setColor(colorOrig);
 	}
 	
+	/**
+	 * Edit the label
+	 * @param keyChar
+	 * 			The charachter that should be added to the label
+	 */
 	public void editLabel(char keyChar) {
 		String label = getOutput();
 		if (label.length() > 0)
@@ -84,6 +98,15 @@ public class ViewLabel {
 		else setOutput(keyChar + "|");
 	}
 	
+	/**
+	 * Check if the ViewLabel was clicked
+	 * @param clickedX
+	 * 			The x coordinate of the clicked position
+	 * @param clickedY
+	 * 			The y coordinate of the clicked position
+	 * @return	True if the label was clicked
+	 * 			False if the label wasn't clicked
+	 */
 	public boolean clicked(int clickedX, int clickedY) {
 		int x = (int)getLastPosition().getX();
 		int y = (int)getLastPosition().getY();

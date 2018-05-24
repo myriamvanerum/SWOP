@@ -37,12 +37,29 @@ public abstract class ViewComponent implements Selectable {
 		g.setPaint(new Color(0, 0, 0));
 	}
 	
-	public abstract void setLabelState(SubWindow subwindow);
-	
+	/**
+	 * Create a dialogbox for the viewcomponent
+	 * @param viewInteraction
+	 * 			The ViewInteraction to which the ViewComponent belongs
+	 * @param x
+	 * 			The x positon of the new DialogBox
+	 * @param y
+	 * 			The y positon of the new DialogBox
+	 * @return Null if there is no DialogBox available for the ViewComponent
+	 */
 	public DialogBox createDialogBox(ViewInteraction viewInteraction, int x, int y) {
 		return null;
 	}
 	
+	/**
+	 * Update the label of the ViewComponent
+	 * @param component
+	 * 			The component that belongs to the ViewComponent
+	 * @param label
+	 * 			The new label
+	 * @return  True if the label of the given component had to be updated
+	 * 			False if the label of the given component had to be updated
+	 */
 	public boolean updateLabel(Component component, String label) {
 		if (getComponent() == component) {
 			ViewLabel viewLabel = getViewLabel();
@@ -80,6 +97,8 @@ public abstract class ViewComponent implements Selectable {
 	public void setPositionSeq(Point2D positionSeq) {
 		this.positionSeq = positionSeq;
 	}
+	
+	public abstract void setLabelState(SubWindow subwindow);
 	
 	/**
      * This method determines if the Component is selected

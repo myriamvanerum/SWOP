@@ -58,6 +58,15 @@ public class ViewActor extends ViewParty {
 		resetColor(g);
 	}
 	
+	/**
+	 * Draw a stickman as actor
+	 * @param g
+	 * 			Graphics class.
+	 * @param position
+	 * 			The position of were to draw the stickman
+	 * @param size
+	 * 			The size of the stickman
+	 */
 	public void drawStickman(Graphics2D g, Point2D position, Integer size) {
 		Shape c = new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size);
 		g.draw(c);
@@ -95,11 +104,19 @@ public class ViewActor extends ViewParty {
 		new Line2D.Double(position.getX(), position.getY() + size + 50, position.getX() + 20, position.getY() + size + 70).contains(coordinates.getX(), coordinates.getY());	// legs actor
 	}
 		
+	/**
+	 * Copy the ViewActor
+	 * @return A copy of this ViewActor
+	 */
 	@Override
 	public ViewParty copy() {
 		return new ViewActor(this);
 	}
 	
+	/**
+	 * Change the the party type, the actor becomes an object
+	 * @return The ViewParty as ViewObject
+	 */
 	@Override
 	public ViewParty changeType() {
 		return new ViewObject(this);
