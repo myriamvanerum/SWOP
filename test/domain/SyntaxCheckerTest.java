@@ -158,7 +158,7 @@ class SyntaxCheckerTest {
 	
 	@Test
 	void testInvocationMessageLabelFailHasSpace() {
-		String label = "label(argument, arg2)";
+		String label = "label(argume nt, arg2)";
 		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
 		assertFalse(syntaxCorrect);
 	}
