@@ -88,7 +88,7 @@ public class ComState implements State {
 	 * 			viewMessage that has to be drawn
 	 */
 	public void draw(Graphics2D g, Point2D windowPosition, ViewResultMessage viewMessage) {
-		// do nothing
+		return; // do nothing
 	}
 		
 	/**

@@ -13,6 +13,7 @@ import domain.party.Object;
 import domain.party.Party;
 import view.components.ViewMessage;
 import view.windows.DiagramWindow;
+import view.windows.DialogBox;
 import view.windows.SubWindow;
 
 class ViewInteractionTests {
@@ -109,5 +110,7 @@ class ViewInteractionTests {
 		active.setSelectedComponent(mes);
 		
 		viewInteraction.openDialogBox(pos);
+		assertTrue(viewInteraction.getActiveWindow() instanceof DialogBox);
+		assertEquals(2, viewInteraction.getSubWindows().size());
 	}
 }
