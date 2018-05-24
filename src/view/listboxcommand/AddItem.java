@@ -27,10 +27,6 @@ public class AddItem implements ListBoxOperator {
 	public TextBox getTextbox() {
 		return textBox;
 	}
-	
-	public String getValue() {
-		return getTextbox().getValue();
-	}
 
 	/**
 	 * Add a new item to the listbox 
