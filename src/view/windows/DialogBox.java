@@ -21,6 +21,21 @@ public class DialogBox extends SubWindow {
 	public String title;
 	public Operator operator;
 	
+	/**
+	 * DialogBox Constructor
+	 * @param viewInteraction
+	 * 			The ViewInteraction to which the dialogbox belongs
+	 * @param x
+	 * 			The x postion of the dialogbox
+	 * @param y
+	 * 			The y postion of the dialogbox
+	 * @param width
+	 * 			The width of the dialogbox
+	 * @param height
+	 * 			The height of the dialogbox
+	 * @param titlebar
+	 * 			The title of the dialogbox
+	 */
 	public DialogBox(ViewInteraction viewInteraction, Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super(x, y, width, height, titlebar);
 		setViewInteraction(viewInteraction);

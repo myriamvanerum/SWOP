@@ -187,6 +187,11 @@ public class DiagramWindow extends SubWindow {
 	
 	/* LABEL METHODS */
 	
+	/**
+	 * Get the currentviewlabel
+	 * @return The viewlabel of the selected component
+	 * 			Null if there is no selected component
+	 */
 	@Override
 	public ViewLabel getCurrentViewLabel() {
 		if (getSelectedComponent() == null) return null;
@@ -233,6 +238,9 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 	
+	/**
+	 * The label of a component is edited
+	 */
 	@Override
 	public void editViewLabel(Component component) {
 		setLabelState(getShowState());
@@ -360,6 +368,9 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 	
+	/**
+	 * Add a viewparty to the diagramwindow
+	 */
 	@Override
 	public void addViewParty(Party party, Point2D position) {
 		ViewParty viewParty = new ViewObject(party, position, new Point2D.Double(getX(), getY()));
@@ -397,6 +408,11 @@ public class DiagramWindow extends SubWindow {
 		getViewParties().remove(viewParty);
 	}
 	
+	/**
+	 * Select a viewparty based on its party
+	 * @param	party
+	 * 			The party that belongs to the viewparty that is going to be the selected component	
+	 */
 	@Override
 	public void selectParty(Party party) {
 		setSelectedComponent(findViewParty(party));
@@ -421,6 +437,14 @@ public class DiagramWindow extends SubWindow {
 		return null;
 	}
 
+	/**
+	 * Add a viewmessage to the diagramwindow
+	 * 
+	 * @param message
+	 * 			Message that is going to be added to the diagramwindow
+	 * @param position
+	 * 			Position of the new viewmessages
+	 */
 	@Override
 	public void addViewMessage(Message message, Point2D position) {
 		ViewParty sender = findViewParty(message.getSender());
@@ -441,18 +465,33 @@ public class DiagramWindow extends SubWindow {
 		getViewMessages().add(resMessage);
 	}
 
+	/**
+	 * Remove a viewmessage from the diagramwindow
+	 */
 	@Override
 	public void removeViewMessage(Message message) {
 		ViewMessage viewMessage = findViewMessage(message);
 		getViewMessages().remove(viewMessage);
 	}
 
+	/**
+	 * Select a viewmessage based on its viewmessage
+	 * @param	message
+	 * 			The message that belongs to the viewmessage that is going to be the selected component	
+	 */
 	@Override
 	public void selectMessage(Message message) {
 		setSelectedComponent(findViewMessage(message));
 		changeLabelState("MESSAGE");
 	}
 	
+	/**
+	 * Return the message right above a certain positon 
+	 * @param yClicked
+	 * 			The y coordinate of the clicked position
+	 * @return The previous message in the callstack
+	 * 		   Null if there is no previous message
+	 */
 	@Override
 	public Message getPreviousMessage(int yClicked) {
 		Message previous = null;
@@ -472,6 +511,11 @@ public class DiagramWindow extends SubWindow {
 
 	/* USER OPERATIONS */
 	
+	/**
+	 * Actions to be executed when the user has clicked in the diagram window
+	 * @param lastPositions
+	 * 			LastPositions contains 2 values, the previousClickedPosition and the lastClickedPosition
+	 */
 	@Override
 	public void singleClick(LastPositions lastPositions) {
 		int x = (int)lastPositions.getLastClickedPosition().getX();
@@ -502,6 +546,11 @@ public class DiagramWindow extends SubWindow {
 		changeState();
 	}
 	
+	/**
+	 * Check if there was a double click event
+	 * @return   True if there was a double click event
+	 * 		 	False True if there wasn't a double click event
+	 */
 	@Override
 	public boolean doubleClick() {
 		return true;

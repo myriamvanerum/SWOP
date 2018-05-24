@@ -31,6 +31,17 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	private ViewMessage viewMessage;
 	private Operator operator;
 	
+	/**
+	 * IncovationBox Constructor
+	 * @param viewInteraction
+	 * 			The ViewInteraction to which the InvocationBox belongs
+	 * @param viewMessage
+	 * 			The ViewInvocationMessage for which the InvocationBox shows the data
+	 * @param x
+	 * 			The x postion of the dialogbox
+	 * @param y
+	 * 			The y postion of the dialogbox
+	 */
 	public InvocationBox(ViewInteraction viewInteraction, ViewInvocationMessage viewMessage, int x, int y) {
 		super(viewInteraction, x, y, 250, 275, new Titlebar(x,y,250));
 		setTitle("Invocation message");
@@ -63,6 +74,7 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 		getCurrentControl().currentControl(this);
 	}
 	
+	/* Getters & Setters */
 	public InvocationMessage getMessage() {
 		return message;
 	}
@@ -113,12 +125,22 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 		getCurrentControl().click();
 	}
 	
+	/**
+	 * Edit a viewlabel for a component
+	 */
 	@Override
 	public void editViewLabel(Component component) {
 		for (WindowControl control : controls)
 			control.update(getMessage().getArguments());
 	}
 	
+	/**
+	 * Check the availability of all listbox buttons
+	 * @param index
+	 * 			The current index of the listbox
+	 * @param size
+	 * 			The size of the listbox items
+	 */
 	@Override
 	public void availabilityButtons(int value, int limit) {
 		for (WindowControl control : getControls()) {
@@ -126,6 +148,11 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 		}
 	}
 
+	/**
+	 * Update the arguments of the listbox
+	 * @param arguments
+	 * 			ArrayList of all the listbox items
+	 */
 	@Override
 	public void updateArguments(ArrayList<String> arguments) {
 		getMessage().setArguments(arguments);

@@ -13,6 +13,15 @@ public class Titlebar {
 	private Integer x, y, width, height = 25;
 	private CloseButton closeButton;
 	
+	/**
+	 * Titlebar Constructor
+	 * @param x
+	 * 			The x postion of the titlebar
+	 * @param y
+	 * 			The y postion of the titlebar
+	 * @param width
+	 * 			The width of the titlebar
+	 */
 	public Titlebar(Integer x, Integer y, Integer width) {
 		setX(x);
 		setY(y);

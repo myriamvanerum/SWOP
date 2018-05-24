@@ -12,6 +12,11 @@ import view.controls.ListBox;
 public class DeleteItem implements ListBoxOperator {
 	ListBox listBox;
 
+	/**
+	 * DeleteItem Constructor
+	 * @param listbox
+	 * 			ListBox on which to perform the action
+	 */
 	public DeleteItem(ListBox listbox) {
 		this.listBox = listbox;
 	}

@@ -12,6 +12,11 @@ import view.controls.ListBox;
 public class MoveItemDown implements ListBoxOperator {
 	ListBox listBox;
 
+	/**
+	 * MoveItemDown Constructor
+	 * @param listbox
+	 * 			ListBox on which to perform the action
+	 */
 	public MoveItemDown(ListBox listbox) {
 		this.listBox = listbox;
 	}

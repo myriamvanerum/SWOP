@@ -39,6 +39,19 @@ public abstract class SubWindow {
 	private EditInvocationMessageLabelState invocationState = new EditInvocationMessageLabelState(this, null);
 	private EditPartyLabelState partyState = new EditPartyLabelState(this, null);
 
+	/**
+	 * SubWindow Constructor
+	 * @param x
+	 * 			The x position of the subwindow
+	 * @param y
+	 * 			The y position of the subwindow
+	 * @param width
+	 * 			The width of the subwindow
+	 * @param height
+	 * 			The height of the subwindow
+	 * @param titlebar
+	 * 			The titlebar of the subwindow
+	 */
 	public SubWindow(Integer x, Integer y, Integer width, Integer height, Titlebar titlebar) {
 		super();
 		setX(x);
