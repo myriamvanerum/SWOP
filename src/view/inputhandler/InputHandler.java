@@ -38,7 +38,8 @@ public class InputHandler {
 	 * @param keyChar
 	 *            keyboard key pressed keyChar
 	 */
-	public void handleKeyEvent(int id, int keyCode, char keyChar) {		
+	public void handleKeyEvent(int id, int keyCode, char keyChar) {	
+		
 		if (keyCode == KeyEvent.VK_CONTROL) {
 			keyModifierHandler.setModifier(keyCode);
 		} else {

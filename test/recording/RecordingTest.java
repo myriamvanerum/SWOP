@@ -27,12 +27,12 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-	@Test
-	void testSwitchDiagramTypeFilled() {
-		String name = "switchDiagramTypeFilled";
-		main = new MainWindow(name);
-		replayRecording(directory + name + suffix, main);
-	}
+//	@Test
+//	void testSwitchDiagramTypeFilled() {
+//		String name = "switchDiagramTypeFilled";
+//		main = new MainWindow(name);
+//		replayRecording(directory + name + suffix, main);
+//	}
 	
 	@Test
 	void testCloseWindow() {
@@ -195,13 +195,13 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testMouseClickOutsideWindows() {
-//		String name = "mouseClickOutsideWindows";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	@Test
+	void testMouseClickOutsideWindows() {
+		String name = "mouseClickOutsideWindows";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testOpenDialogBoxInvocation() {
 //		String name = "openDialogBoxInvocation";
