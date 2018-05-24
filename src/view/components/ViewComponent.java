@@ -43,6 +43,16 @@ public abstract class ViewComponent implements Selectable {
 		return null;
 	}
 	
+	public boolean updateLabel(Component component, String label) {
+		if (getComponent() == component) {
+			ViewLabel viewLabel = getViewLabel();
+			viewLabel.setColor(Color.BLACK);
+			viewLabel.setOutput(label);
+			return true;
+		}
+		return false;
+	}
+	
 	/* GETTERS AND SETTERS */
 	
 	public abstract Component getComponent();
