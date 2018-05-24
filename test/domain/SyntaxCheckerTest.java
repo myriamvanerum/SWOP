@@ -73,7 +73,7 @@ class SyntaxCheckerTest {
 	@Test
 	void testInvocationMessageLabelSuccess() {
 		
-		String label = "label(arg1, arg2)";
+		String label = "label(arg1,arg2)";
 		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
 		
 		assertTrue(syntaxCorrect);
@@ -152,6 +152,13 @@ class SyntaxCheckerTest {
 	@Test
 	void testInvocationMessageLabelFailArgumentsEndWithComma() {
 		String label = "label(argument,)";
+		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
+		assertFalse(syntaxCorrect);
+	}
+	
+	@Test
+	void testInvocationMessageLabelFailHasSpace() {
+		String label = "label(argument, arg2)";
 		Boolean syntaxCorrect = syntaxChecker.correctInvocationMessageLabelSyntax(label);
 		assertFalse(syntaxCorrect);
 	}

@@ -31,7 +31,7 @@ class InteractionTest {
 	InvocationMessage invocation2 = new InvocationMessage("message2", actor, object);	
 	ResultMessage result2 = new ResultMessage("result2", object, actor);
 	InvocationMessage invocation3 = new InvocationMessage("message3", object, object2);	
-	ResultMessage result3 = new ResultMessage("result2", object2, object);
+	ResultMessage result3 = new ResultMessage("result2", object2, object); 
 	
 	public void setup() {
 		invocation.setCompanion(result);
