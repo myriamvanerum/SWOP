@@ -21,16 +21,6 @@ public class ComState implements State {
 		return "COMMUNICATION DIAGRAM";		
 	}
 	
-	public Integer setPadding(ViewMessage viewMessage) {
-		//TODO werkt nog niet voor diepere messages
-		Integer padding = -40;
-		String mesNumber = viewMessage.getMessage().getMessageNumber();
-		padding += 30 * Integer.parseInt(mesNumber.substring(0, 1));
-		if (mesNumber.length() > 1)
-			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
-		return padding;
-	}
-	
 	/**
 	 * Draw ViewParty
 	 * @param g
@@ -71,6 +61,21 @@ public class ComState implements State {
 				(int) (receiver.getX() + windowPosition.getX() + receiverExtra), 
 				(int) (sender.getY() + windowPosition.getY() + 25  + padding),
 				(int) (receiver.getY() + windowPosition.getY() + 25 + padding));
+	}
+	
+	/**
+	 * Method to add padding so messages are not drawn across each other
+	 * @param viewMessage
+	 * 		The viewMessage to add padding for
+	 * @return the amount of padding necessary
+	 */
+	public Integer setPadding(ViewMessage viewMessage) {
+		Integer padding = -40;
+		String mesNumber = viewMessage.getMessage().getMessageNumber();
+		padding += 30 * Integer.parseInt(mesNumber.substring(0, 1));
+		if (mesNumber.length() > 1)
+			padding += 15 * Integer.parseInt(mesNumber.substring(2, 3));
+		return padding;
 	}
 	
 	/** 

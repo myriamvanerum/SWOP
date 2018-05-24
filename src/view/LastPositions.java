@@ -36,11 +36,9 @@ public class LastPositions {
 		return lastClickedPosition;
 	}
 
-	public void setLastClickedPosition(Point2D lastClickedPosition) {
-		if (lastClickedPosition.getX() != getLastClickedPosition().getX() && lastClickedPosition.getY() != getLastClickedPosition().getY()) {
-			this.previousClickedPosition = getLastClickedPosition();
-			this.lastClickedPosition = lastClickedPosition;
-		}
-		
+	public void setLastClickedPosition(Point2D last) {
+		if (last.getX() == getLastClickedPosition().getX() && last.getY() == getLastClickedPosition().getY()) return;
+		setPreviousClickedPosition(getLastClickedPosition());
+		this.lastClickedPosition = last; 
 	}
 }
