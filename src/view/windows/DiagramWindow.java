@@ -1,6 +1,5 @@
 package view.windows;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -132,6 +131,18 @@ public class DiagramWindow extends SubWindow {
 			copy.add(newViewMessage);
 		}
 		return copy;
+	}
+	
+	/**
+	 * Duplicate the subwindow
+	 * @param x 
+	 * 			The x position of the new subwindow
+	 * @param y 
+	 * 			The y position of the new subwindow
+	 */
+	@Override
+	public SubWindow duplicateWindow(int x, int y) {
+		return new DiagramWindow(this, x, y);
 	}
 	
 	/* DRAWING */
