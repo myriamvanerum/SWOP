@@ -13,48 +13,48 @@ class RecordingTest {
 	String directory = System.getProperty("user.dir") + File.separator + "test" + File.separator + "recordings" + File.separator;
 	String suffix = File.separator + "recording";
 	
-//	@Test
-//	void testCreateInteraction() {
-//		String name = "createInteraction";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//
-//	@Test
-//	void testSwitchDiagramType() {
-//		String name = "switchDiagramType";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testSwitchDiagramTypeFilled() {
-//		String name = "switchDiagramTypeFilled";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testCloseWindow() {
-//		String name = "closeWindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testCloseActiveWindow() {
-//		String name = "closeActiveWindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testActivateWindow() {
-//		String name = "activateWindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	@Test
+	void testCreateInteraction() {
+		String name = "createInteraction";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+
+	@Test
+	void testSwitchDiagramType() {
+		String name = "switchDiagramType";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testSwitchDiagramTypeFilled() {
+		String name = "switchDiagramTypeFilled";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCloseWindow() {
+		String name = "closeWindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCloseActiveWindow() {
+		String name = "closeActiveWindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testActivateWindow() {
+		String name = "activateWindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testCreateParty() {
 //		String name = "createParty";
@@ -84,8 +84,8 @@ class RecordingTest {
 //	}
 //	
 //	@Test
-//	void testSwitchPartyTypeMultipleTimes() {
-//		String name = "switchPartyTypeMultipleTimes";
+//	void testSwitchPartyTypeWithMessage() {
+//		String name = "switchPartyTypeWithMessage";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
@@ -93,13 +93,6 @@ class RecordingTest {
 //	@Test
 //	void testEditPartyLabel() {
 //		String name = "editPartyLabel";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testEditPartyLabelCom() {
-//		String name = "editPartyLabelCom";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
@@ -124,7 +117,7 @@ class RecordingTest {
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
-//	
+	
 //	@Test
 //	void testMovePartyWithMessage() {
 //		String name = "movePartyWithMessage";
@@ -152,56 +145,56 @@ class RecordingTest {
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
-//	
-//	@Test
-//	void testDuplicateEmptyWindow() {
-//		String name = "duplicateEmptyWindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	
+	@Test
+	void testDuplicateEmptyWindow() {
+		String name = "duplicateEmptyWindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testDuplicateFilledWindow() {
 //		String name = "duplicateFilledWindow";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
-//	
-//	@Test
-//	void testDeleteNothingSelected() {
-//		String name = "deleteNothingSelected";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testCreateInteractionNoCtrl() {
-//		String name = "createInteractionNoCtrl";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	
+	@Test
+	void testDeleteNothingSelected() {
+		String name = "deleteNothingSelected";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCreateInteractionNoCtrl() {
+		String name = "createInteractionNoCtrl";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testDuplicateInteractionNoCtrl() {
 //		String name = "duplicateInteractionNoCtrl";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
-//	
-//	@Test
-//	void testDuplicateInteractionNoActivewindow() {
-//		String name = "duplicateInteractionNoActivewindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testMouseClickEmptyScreen() {
-//		String name = "mouseClickEmptyScreen";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	
+	@Test
+	void testDuplicateInteractionNoActivewindow() {
+		String name = "duplicateInteractionNoActivewindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testMouseClickEmptyScreen() {
+		String name = "mouseClickEmptyScreen";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testMouseClickOutsideWindows() {
 //		String name = "mouseClickOutsideWindows";

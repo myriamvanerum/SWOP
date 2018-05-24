@@ -18,10 +18,6 @@ class UITests {
 	UI ui = new UI();
 	
 	public void setup() {
-		
-	}
-	
-	public void setupLong() {
 		ui.createNewInteraction();
 		ViewInteraction viewInteraction = ui.getActiveInteraction();
 		DiagramWindow active = (DiagramWindow)viewInteraction.getActiveWindow();
@@ -56,7 +52,7 @@ class UITests {
 	
 	@Test
 	void testOpenDialogBox() {
-		setupLong();
+		setup();
 		ui.openDialogBox();
 		assertEquals(1, ui.getInteractions().size());
 		assertEquals(2, ui.getActiveInteraction().getSubWindows().size());
