@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
-import domain.message.InvocationMessage;
 import domain.message.Message;
 import view.ViewInteraction;
 import view.diagramstate.State;

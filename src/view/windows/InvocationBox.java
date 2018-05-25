@@ -29,7 +29,6 @@ import view.listboxcommand.Operator;
 public class InvocationBox extends DialogBox implements ListBoxListener {
 	private InvocationMessage message;
 	private ViewMessage viewMessage;
-	private Operator operator;
 	
 	/**
 	 * IncovationBox Constructor
