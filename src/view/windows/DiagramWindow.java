@@ -576,7 +576,7 @@ public class DiagramWindow extends SubWindow {
 	 */
 	@Override
 	public boolean doubleClick() {
-		return true;
+		return !editingLabel();
 	}
 	
 	/* GETTERS AND SETTERS */

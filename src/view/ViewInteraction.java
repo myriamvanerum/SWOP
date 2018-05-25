@@ -236,7 +236,7 @@ public class ViewInteraction implements Observer {
 	public void deleteComponent() {
 		if (getActiveWindow().editingLabel()) return;
 		ViewComponent viewComponent = selectedComponent();
-		if (viewComponent == null || !getActiveWindow().getSelectedComponent().isSelected) return;
+		if (viewComponent == null || !viewComponent.isSelected) return;
 		getInteractr().deleteComponent(viewComponent.getComponent());
 	}
 
@@ -327,7 +327,7 @@ public class ViewInteraction implements Observer {
 		Party party;
 		if ((party = getActiveWindow().getSelectedParty()) != null)
 			getInteractr().changePartyType(party);
-		else if (!getActiveWindow().editingLabel() && getActiveWindow().doubleClick())
+		else if (getActiveWindow().doubleClick())
 			getInteractr().addParty();
 	}
 	
@@ -335,8 +335,7 @@ public class ViewInteraction implements Observer {
 	 * Unselect the current component
 	 */
 	private void unselectCurrentComponent() {
-		if (getActiveWindow().getSelectedComponent() == null || !getActiveWindow().getSelectedComponent().isSelected) return;
-		getActiveWindow().getSelectedComponent().unselect();
+		getActiveWindow().unselectComponent();
 	}
 
 	/**
