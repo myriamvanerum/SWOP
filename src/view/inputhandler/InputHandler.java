@@ -1,8 +1,11 @@
 package view.inputhandler;
 
+import static java.awt.event.KeyEvent.CHAR_UNDEFINED;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import view.inputhandler.KeyModifierHandler.KeyModifierType;
 import view.UI;
 
 /**
@@ -40,10 +43,12 @@ public class InputHandler {
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {	
 		
-		if (keyCode == KeyEvent.VK_CONTROL) {
-			keyModifierHandler.setModifier(keyCode);
+		if (keyChar == CHAR_UNDEFINED) {
+            keyModifierHandler.addModifier(keyCode);
 		} else {
-            if (keyModifierHandler.ctrlModifierActive()) {
+			if (id == KeyEvent.KEY_TYPED) return; // ignore to prevent handling same keyPress twice
+            KeyModifierType activeModifier = keyModifierHandler.getActiveKeyModifier();
+            if (activeModifier == KeyModifierType.CTRL) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
     				ui.createNewInteraction();

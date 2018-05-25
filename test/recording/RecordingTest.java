@@ -55,12 +55,12 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testCreateParty() {
-//		String name = "createParty";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testCreateParty() {
+		String name = "createParty";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 //	
 //	@Test
 //	void testCreatePartyLongLabel() {
@@ -173,13 +173,6 @@ class RecordingTest {
 		main = new MainWindow(name);
 		replayRecording(directory + name + suffix, main);
 	}
-	
-//	@Test
-//	void testDuplicateInteractionNoCtrl() {
-//		String name = "duplicateInteractionNoCtrl";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
 	
 	@Test
 	void testDuplicateInteractionNoActivewindow() {
