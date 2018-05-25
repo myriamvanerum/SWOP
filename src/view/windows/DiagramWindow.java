@@ -89,6 +89,8 @@ public class DiagramWindow extends SubWindow {
 		setViewParties(parties);
 		ArrayList<ViewMessage> messages = copyMessages(activeWindow.getViewMessages());
 		setViewMessages(messages);
+		
+		setCompanions();
 
 		setState(activeWindow.getState());
 		setSelectedComponent(null);
@@ -130,7 +132,17 @@ public class DiagramWindow extends SubWindow {
 			newViewMessage.setReceiver(receiver);
 			copy.add(newViewMessage);
 		}
+		
 		return copy;
+	}
+	
+	/**
+	 * Set the companions for newly copied viewMessages
+	 */
+	private void setCompanions() {
+		for (ViewMessage viewMessage : getViewMessages()) {
+			viewMessage.setCompanion(findViewMessage(viewMessage.getMessage().getCompanion()));
+		}
 	}
 	
 	/**

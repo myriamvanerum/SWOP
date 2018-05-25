@@ -27,12 +27,12 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testSwitchDiagramTypeFilled() {
-//		String name = "switchDiagramTypeFilled";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testSwitchDiagramTypeFilled() {
+		String name = "switchDiagramTypeFilled";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 	
 	@Test
 	void testCloseWindow() {
@@ -90,12 +90,12 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testEditPartyLabel() {
-//		String name = "editPartyLabel";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testEditPartyLabel() {
+		String name = "editPartyLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 	
 	@Test
 	void testRemoveParty() {
@@ -104,47 +104,54 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testRemovePartyWithMessage() {
-//		String name = "removePartyWithMessage";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testMoveParty() {
-//		String name = "moveParty";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testRemovePartyWithMessage() {
+		String name = "removePartyWithMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 	
-//	@Test
-//	void testMovePartyWithMessage() {
-//		String name = "movePartyWithMessage";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testCreateMessage() {
-//		String name = "createMessage";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//
-//	@Test
-//	void testEditMessageLabel() {
-//		String name = "editMessageLabel";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testRemoveMessage() {
-//		String name = "removeMessage";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testMoveParty() {
+		String name = "moveParty";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testMovePartyWithMessage() {
+		String name = "movePartyWithMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCreateMessage() {
+		String name = "createMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCreateMessageCallStackRejection() {
+		String name = "createMessageCallStackRejection";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+
+	@Test
+	void testEditMessageLabel() {
+		String name = "editMessageLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testRemoveMessage() {
+		String name = "removeMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 	
 	@Test
 	void testDuplicateEmptyWindow() {
@@ -153,12 +160,12 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testDuplicateFilledWindow() {
-//		String name = "duplicateFilledWindow";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testDuplicateFilledWindow() {
+		String name = "duplicateFilledWindow";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 	
 	@Test
 	void testDeleteNothingSelected() {
@@ -217,7 +224,7 @@ class RecordingTest {
 //	}
 //	
 //	@Test
-//	void testDialogBoxResult() {
+//	void testDialogBoxResultEdit() {
 //		String name = "dialogBoxResultEdit";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
