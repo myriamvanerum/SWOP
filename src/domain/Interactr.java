@@ -14,6 +14,7 @@ public class Interactr {
 	/**
 	 * Interactr constructor
 	 * @param viewInteraction
+	 * 			The viewInteraction
 	 */
 	public Interactr(ViewInteraction viewInteraction) {
 		this.interaction = viewInteraction.getInteraction();
