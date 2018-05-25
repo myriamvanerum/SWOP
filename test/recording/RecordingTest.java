@@ -154,6 +154,13 @@ class RecordingTest {
 	}
 	
 	@Test
+	void testEditNothingLabel() {
+		String name = "editNothingLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
 	void testDuplicateEmptyWindow() {
 		String name = "duplicateEmptyWindow";
 		main = new MainWindow(name);
@@ -202,38 +209,24 @@ class RecordingTest {
 		replayRecording(directory + name + suffix, main);
 	}
 	
-//	@Test
-//	void testOpenDialogBoxInvocation() {
-//		String name = "openDialogBoxInvocation";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testOpenDialogBoxResult() {
-//		String name = "openDialogBoxResult";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testDialogBoxInvocationEdit() {
-//		String name = "dialogBoxInvocationEdit";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testDialogBoxResultEdit() {
-//		String name = "dialogBoxResultEdit";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testThorough() {
-//		String name = "thoroughTest";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
+	@Test
+	void testOpenDialogBoxInvocation() {
+		String name = "openDialogBoxInvocation";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testOpenDialogBoxResult() {
+		String name = "openDialogBoxResult";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testDialogBoxResultEdit() {
+		String name = "dialogBoxResultEdit";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
 }
