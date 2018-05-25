@@ -61,49 +61,49 @@ class RecordingTest {
 		main = new MainWindow(name);
 		replayRecording(directory + name + suffix, main);
 	}
-//	
-//	@Test
-//	void testCreatePartyLongLabel() {
-//		String name = "createPartyLongLabel";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testCreatePartyIncorrectLabel() {
-//		String name = "createPartyIncorrectLabel";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testSwitchPartyType() {
-//		String name = "switchPartyType";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
-//	@Test
-//	void testSwitchPartyTypeWithMessage() {
-//		String name = "switchPartyTypeWithMessage";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	
+	@Test
+	void testCreatePartyLongLabel() {
+		String name = "createPartyLongLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testCreatePartyIncorrectLabel() {
+		String name = "createPartyIncorrectLabel";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testSwitchPartyType() {
+		String name = "switchPartyType";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
+	@Test
+	void testSwitchPartyTypeWithMessage() {
+		String name = "switchPartyTypeWithMessage";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testEditPartyLabel() {
 //		String name = "editPartyLabel";
 //		main = new MainWindow(name);
 //		replayRecording(directory + name + suffix, main);
 //	}
-//	
-//	@Test
-//	void testRemoveParty() {
-//		String name = "removeParty";
-//		main = new MainWindow(name);
-//		replayRecording(directory + name + suffix, main);
-//	}
-//	
+	
+	@Test
+	void testRemoveParty() {
+		String name = "removeParty";
+		main = new MainWindow(name);
+		replayRecording(directory + name + suffix, main);
+	}
+	
 //	@Test
 //	void testRemovePartyWithMessage() {
 //		String name = "removePartyWithMessage";

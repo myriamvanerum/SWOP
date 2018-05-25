@@ -43,6 +43,12 @@ public class InputHandler {
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {	
 		
+		if (keyCode == KeyEvent.VK_UP)
+    		ui.arrowUp();
+
+		if (keyCode == KeyEvent.VK_DOWN)
+			ui.arrowDown(); 
+		
 		if (keyChar == CHAR_UNDEFINED) {
             keyModifierHandler.addModifier(keyCode);
 		} else {
@@ -79,11 +85,7 @@ public class InputHandler {
     				break;
     			}
             	
-            	if (keyCode == KeyEvent.VK_UP)
-            		ui.arrowUp();
-
-        		if (keyCode == KeyEvent.VK_DOWN)
-        			ui.arrowDown(); 
+            	
 
     			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
     					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
