@@ -42,6 +42,7 @@ public class InputHandler {
 	 *            keyboard key pressed keyChar
 	 */
 	public void handleKeyEvent(int id, int keyCode, char keyChar) {	
+		if (id == KeyEvent.KEY_TYPED) return; // Only catch KEY_PRESSED (duplicate otherwise)
 		
 		if (keyCode == KeyEvent.VK_UP)
     		ui.arrowUp();
@@ -50,11 +51,9 @@ public class InputHandler {
 			ui.arrowDown(); 
 		
 		if (keyChar == CHAR_UNDEFINED) {
-            keyModifierHandler.addModifier(keyCode);
+            keyModifierHandler.addKeyModifier(keyCode);
 		} else {
-			if (id == KeyEvent.KEY_TYPED) return; // ignore to prevent handling same keyPress twice
-            KeyModifierType activeModifier = keyModifierHandler.getActiveKeyModifier();
-            if (activeModifier == KeyModifierType.CTRL) {
+            if (keyModifierHandler.getActiveKeyModifier() == KeyModifierType.CTRL) {
             	switch (keyCode) {
     			case KeyEvent.VK_N:
     				ui.createNewInteraction();
@@ -85,8 +84,6 @@ public class InputHandler {
     				break;
     			}
             	
-            	
-
     			if (((keyCode >= KeyEvent.VK_A && keyCode <= KeyEvent.VK_Z) // karakters A tot Z
     					|| (keyCode >= KeyEvent.VK_0 && keyCode <= KeyEvent.VK_9) // alle cijfers
     					|| (keyCode >= KeyEvent.VK_NUMPAD0 && keyCode <= KeyEvent.VK_NUMPAD9) // alle cijfers

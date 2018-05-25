@@ -80,9 +80,9 @@ public class ViewInteraction implements Observer {
 		Integer x = getActiveWindow().getX() + 10;
 		Integer y = getActiveWindow().getY() + 10;
 		
-		if ( getActiveWindow().duplicateWindow(x, y) == null) return;
-		
-		addWindow(getActiveWindow().duplicateWindow(x, y));
+		SubWindow window;
+		if ((window = getActiveWindow().duplicateWindow(x, y)) == null) return;
+		addWindow(window);
 	}
 	
 	/**

@@ -2,118 +2,127 @@ package view.inputhandler;
 
 import static java.awt.event.KeyEvent.VK_CONTROL;
 import static java.awt.event.KeyEvent.VK_SHIFT;
+import static java.awt.event.KeyEvent.VK_ALT;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
- * KeyModifierHandler class. 
+ * KeyModifierHandler class. Handles adding KeyModifier functionalty to InputHandler
  * @author groep 03
  */
 public class KeyModifierHandler {
-	private static final int TIMEOUT_DURATION = 1000; // in milliseconds
-    private long timestamp;
-    private List<Integer> keyCodes;
-
-    KeyModifierHandler() {
-        keyCodes = new ArrayList<>();
-        timestamp = getTimeStamp();
+	private static final int ACTIVE_TIME = 1000;
+    private long timePressed = getCurrentTime();
+    private ArrayList<Integer> keyCodes = new ArrayList<>();
+    
+    /**
+     * KeyModifierType enumeration
+     */
+    enum KeyModifierType {
+        NONE, CTRL_SHIFT, CTRL, SHIFT, ALT, CTRL_ALT
     }
 
     /**
-     * Handle the adding of a modifier if supported and not already active.
-     * If the timeOut expired, the active modifiers are reset.
+     * Add a new KeyModifier to the list of active KeyModifiers if the key is valid. 
+     * Also reset all KeyModifiers that are no longer active.
      *
-     * @param keyCode the keyCode of the modifier to add.
+     * @param keyCode the keyCode of the KeyModifier to add
      */
-    public void addModifier(int keyCode) {
-        resetIfTimedOut();
-        if (!isSupported(keyCode) || keyCodes.contains(keyCode)) return;
-        if (timedOut()) reset();
+    public void addKeyModifier(int keyCode) {
+        resetExpired();
+        if (!isValid(keyCode)) return;
+        if (keyCodes.contains(keyCode)) {
+        	resetTimer();
+        	return;
+        }
         this.keyCodes.add(keyCode);
     }
 
     /**
-     * @return the active KeyModifier.
+     * Get the KeyModifierType based on the active KeyModifier(s).
+     * @return the active KeyModifier's KeyModifierType
      */
     public KeyModifierType getActiveKeyModifier() {
-        resetIfTimedOut();
-        if (isActive(new int[]{VK_SHIFT, VK_CONTROL}))
-            return KeyModifierType.CTRL_SHIFT;
-        else if (isActive(new int[]{VK_CONTROL}))
+    	resetExpired();
+    	if (isActive(new int[]{VK_CONTROL}))
             return KeyModifierType.CTRL;
         else if (isActive(new int[]{VK_SHIFT}))
             return KeyModifierType.SHIFT;
+        else if (isActive(new int[]{VK_ALT}))
+            return KeyModifierType.ALT;
+        else if (isActive(new int[]{VK_CONTROL, VK_SHIFT}))
+            return KeyModifierType.CTRL_SHIFT;
+        else if (isActive(new int[]{VK_CONTROL, VK_ALT}))
+            return KeyModifierType.CTRL_ALT;
         else return KeyModifierType.NONE;
     }
 
     /**
-     * Checks whether a series of modifiers is currently active by comparing keyCodes.
+     * Checks whether a list of keyCodes is currently active.
      *
-     * @param keyCodes the modifiers to check.
-     * @return true if the specified modifiers are active.
+     * @param keyCodes
+     * 		The list of keyCodes to check
+     * @return True if all keyCodes in the list are active
      */
     private boolean isActive(int[] keyCodes) {
         if (this.keyCodes.size() != keyCodes.length) return false;
-        for (int keyCode : keyCodes) {
-            if (!this.keyCodes.contains(keyCode))
-                return false;
-        }
+        for (int keyCode : keyCodes)
+            if (!this.keyCodes.contains(keyCode)) return false;
         return true;
     }
 
     /**
-     * Resets the active modifiers if the timeOut expired.
+     * Reset if ACTIVE_TIME exceeded.
      */
-    private void resetIfTimedOut() {
-        if (timedOut()) reset();
+    private void resetExpired() {
+        if (expired()) reset();
+    }
+    
+    /**
+     * Reset the current time.
+     */
+    private void resetTimer() {
+    	timePressed = getCurrentTime();
     }
 
     /**
-     * Get the current time in passed milliseconds.
-     *
-     * @return the time in passed milliseconds since January 1, 1970, 00:00:00 GMT.
-     */
-    private long getTimeStamp() {
-        return new Date().getTime();
-    }
-
-    /**
-     * Reset the keyCodes by replacing the keyCodes list with an empty list and
-     * reinitialising the timestamp.
+     * Reset the keyCodes list and current time
      */
     private void reset() {
         keyCodes = new ArrayList<>();
-        timestamp = getTimeStamp();
+        resetTimer();
+    }
+    
+    /**
+     * Get the current time.
+     * @return the current time
+     */
+    private long getCurrentTime() {
+        return System.currentTimeMillis();
     }
 
     /**
-     * @return <code>true</code> if more time has passed than the TIMEOUT_DURATION; <code>false</code> otherwise
+     * @return True if the expired time is more than the ACTIVE_TIME, False if not
      */
-    private boolean timedOut() {
-        return new Date().getTime() - timestamp > TIMEOUT_DURATION;
+    private boolean expired() {
+        return getCurrentTime() - timePressed > ACTIVE_TIME;
     }
 
     /**
-     * @param keyCode the code to test.
-     * @return true if supported, otherwise false.
+     * Check if the entered keyCode belongs to a valid KeyModifier.
+     * @param keyCode The code to test
+     * @return True if valid, False if not
      */
-    private boolean isSupported(int keyCode) {
+    private boolean isValid(int keyCode) {
         switch (keyCode) {
+        	case VK_CONTROL:
+        		return true;
             case VK_SHIFT:
                 return true;
-            case VK_CONTROL:
-                return true;
+            case VK_ALT:
+            	return true;
             default:
                 return false;
         }
-    }
-
-    /**
-     * Some keyModifierTypes
-     */
-    enum KeyModifierType {
-        NONE, CTRL_SHIFT, CTRL, SHIFT
     }
 }
