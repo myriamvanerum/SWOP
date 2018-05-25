@@ -92,14 +92,6 @@ public class DialogBox extends SubWindow {
 		getLabelState().setViewLabel(getCurrentViewLabel());
 		getLabelState().removeCharacter();
 	}
-
-	/**
-	 * Set label state according to the current viewlabel
-	 */
-	// TODO WAAR WORDT DIT GEBRUIKT???
-	public void setLabelState(ViewLabel viewLabel) {
-		System.out.println("Set label mode dialog box.");
-	}
 	
 	/* USER INPUT */
 	

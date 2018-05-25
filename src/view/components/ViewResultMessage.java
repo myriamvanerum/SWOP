@@ -6,7 +6,6 @@ import java.awt.Stroke;
 import java.awt.geom.Point2D;
 
 import domain.message.Message;
-import domain.message.ResultMessage;
 import view.ViewInteraction;
 import view.diagramstate.State;
 import view.windows.DialogBox;

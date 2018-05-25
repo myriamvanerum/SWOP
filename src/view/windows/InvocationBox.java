@@ -155,5 +155,7 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	@Override
 	public void updateArguments(ArrayList<String> arguments) {
 		getMessage().setArguments(arguments);
+		getMessage().updateLabel();
+		getViewMessage().getViewLabel().setOutput(getMessage().getLabel());
 	}
 }

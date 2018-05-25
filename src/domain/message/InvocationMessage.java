@@ -47,6 +47,13 @@ public class InvocationMessage extends Message {
 	}
     
     /**
+	 * Update the message label when the method name is changed our when the arguments have changed
+	 */
+	public void updateLabel() {
+		setLabel(getMethod() + "(" + argumentsToString() + ")");
+	}
+    
+    /**
      * Make a string of all the arguments of the invocation message
      * @return a string of all the arguments of the invocation message
      */

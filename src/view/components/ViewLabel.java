@@ -26,6 +26,8 @@ public class ViewLabel {
 
 	/**
 	 * Copy Constructor
+	 * @param
+	 * 		Copy of the viewlabel
 	 */
 	public ViewLabel(ViewLabel viewLabel) {
 		output = viewLabel.output;

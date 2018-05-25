@@ -159,7 +159,8 @@ public class UI {
 	 *            The clicked x coordinates
 	 * @param y
 	 *            The clicked y coordinates
-	 * @return 
+	 * @return A viewInteraction if found
+	 * 		   Null if no viewInteraction is found
 	 * @throws IllegalArgumentException
 	 *             Illegal coordinates
 	 */
@@ -212,6 +213,10 @@ public class UI {
 
 	/**
 	 *  The user has pressed a key and wants to add a character to the current label
+     * @param keyCode
+     * 		The keycode for the entered key
+     * @param keyChar
+     * 		The keyChar for the entered key
 	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		if (getActiveInteraction() == null)

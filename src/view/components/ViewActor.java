@@ -48,7 +48,7 @@ public class ViewActor extends ViewParty {
 	@Override
 	public void draw(Graphics2D g, Point2D position) {	
 		setColor(g);
-		// TODO lifeline andere plaats
+		
 		viewLifeLine.setPosition((int) position.getX(), (int) position.getY() + 110, 375);
 		
 		drawStickman(g, position, size);
@@ -94,7 +94,7 @@ public class ViewActor extends ViewParty {
 	@Override
 	public boolean checkCoordinates(Point2D coordinates, Point2D positionState, Point2D windowPosition) {
 		Point2D position = positionWindow(positionState, windowPosition);
-		position = new Point2D.Double(position.getX(), position.getY()+25);	//TODO
+		position = new Point2D.Double(position.getX(), position.getY()+25);
 				
 		return new Ellipse2D.Double(position.getX() - size, position.getY() - size, 2.0 * size, 2.0 * size).contains(coordinates) ||	// head actor
 		coordinates.getX() >= position.getX() -2 && coordinates.getX() <= position.getX() +2 && coordinates.getY() >= position.getY() + size && coordinates.getY() <= position.getY() + size + 50 || 	// body actor

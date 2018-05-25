@@ -44,14 +44,8 @@ public abstract class ViewMessage extends ViewComponent {
 	
 	/**
 	 * Copy Constructor
-	 * @param message
-	 * 		Message to draw
-	 * @param position
-	 * 		Message position
-	 * @param sender
-	 * 		Message sender
-	 * @param receiver
-	 * 		Message receiver
+	 * @param viewMessage
+	 * 		Copy viewMessage
 	 */
 	public ViewMessage(ViewMessage viewMessage) {
 		setViewLabel(new ViewLabel(viewMessage.getViewLabel()));
