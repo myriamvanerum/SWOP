@@ -18,6 +18,8 @@ public class AddItem implements ListBoxOperator {
 	 * AddItem Constructor
 	 * @param listbox
 	 * 			ListBox on which to perform the action
+	 * @param textbox
+	 * 			textbox on which to perform the action
 	 */
 	public AddItem(ListBox listbox, TextBox textbox) {
 		this.listBox = listbox;

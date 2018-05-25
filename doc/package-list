@@ -1,1 +1,13 @@
+domain
+domain.message
+domain.party
+recording
 view
+view.canvaswindow
+view.components
+view.controls
+view.diagramstate
+view.inputhandler
+view.labelstate
+view.listboxcommand
+view.windows

@@ -40,8 +40,8 @@ public class DiagramWindow extends SubWindow {
 	/**
 	 * Create a new DiagramWindow for a new Interaction
 	 * 
-	 * @param interaction
-	 *            The Interaction for this DiagramWindow
+	 * @param viewInteraction
+	 *            The ViewInteraction for this DiagramWindow
 	 * @param x
 	 *            The DiagramWindow's x coordinate
 	 * @param y
@@ -183,10 +183,6 @@ public class DiagramWindow extends SubWindow {
 	 * 
 	 * @param g
 	 *            Graphics class
-	 * @param viewParties
-	 *            The Parties in the SubWindow
-	 * @param viewMessages
-	 *            The Messages in the SubWindow
 	 */
 	public void drawContents(Graphics2D g) {
 		for (ViewParty viewParty : getViewParties()) {

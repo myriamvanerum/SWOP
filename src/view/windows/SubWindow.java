@@ -206,8 +206,6 @@ public abstract class SubWindow {
 	 *            The x coordinate of the clicked position
 	 * @param 	y
 	 *            The y coordinate of the clicked position
-	 * @param 	subwindow
-	 *            The current active subwindow
 	 * @return 	True if the clickevent occured outside of the active subwindow
 	 * 			False if the clickevent did not occure outside of the active subwindow
 	 * @throws IllegalArgumentException
@@ -278,6 +276,7 @@ public abstract class SubWindow {
 	 * 			The x position of the new subwindow
 	 * @param y 
 	 * 			The y position of the new subwindow
+	 * @return null. Override in DiagramWindow
 	 */
 	public SubWindow duplicateWindow(int x, int y) {
 		System.out.println("Duplicate SubWindow.");

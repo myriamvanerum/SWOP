@@ -94,7 +94,7 @@ public class TextBox extends WindowControl {
 
 	/**
 	 * Draw the window control
-	 * @param g
+	 * @param gOrig
 	 * 			Graphics class
 	 */
 	@Override
@@ -151,6 +151,7 @@ public class TextBox extends WindowControl {
 	
 	/**
 	 * Add the user input as an argument
+	 * @return true if success
 	 */
 	public boolean add() {
 		if (getValue().trim().length() <= 0) return false;

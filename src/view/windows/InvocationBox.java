@@ -135,9 +135,9 @@ public class InvocationBox extends DialogBox implements ListBoxListener {
 	
 	/**
 	 * Check the availability of all listbox buttons
-	 * @param index
+	 * @param value
 	 * 			The current index of the listbox
-	 * @param size
+	 * @param limit
 	 * 			The size of the listbox items
 	 */
 	@Override

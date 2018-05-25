@@ -37,12 +37,6 @@ public class ViewInvocationMessage extends ViewMessage {
 	 * Copy Constructor
 	 * @param message
 	 * 		Message to draw
-	 * @param position
-	 * 		Mesage position
-	 * @param sender
-	 * 		Message sender
-	 * @param receiver
-	 * 		Message receiver
 	 */
 	public ViewInvocationMessage(ViewMessage message) {
 		super(message);

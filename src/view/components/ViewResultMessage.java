@@ -36,13 +36,7 @@ public class ViewResultMessage extends ViewMessage {
 	/**
 	 * Copy Constructor
 	 * @param message
-	 * 		Message to draw
-	 * @param position
-	 * 		Mesage position
-	 * @param sender
-	 * 		Message sender
-	 * @param receiver
-	 * 		Message receiver
+	 * 		viewMessage to copy
 	 */
 	public ViewResultMessage(ViewMessage message) {
 		super(message);
@@ -84,8 +78,18 @@ public class ViewResultMessage extends ViewMessage {
 	}
 	
 	/**
-     * Draws an arrow with an open arrow head
-     */
+	 * Draws an arrow with an open arrow head
+	 * @param xSender
+	 * 		Sender x coordinate
+	 * @param ySender
+	 * 		Sender y coordinate
+	 * @param xReceiver
+	 * 		Receiver x coordinate
+	 * @param yReceiver
+	 * 		Receiver y coordinate
+	 * @param g
+	 * 		Graphics class
+	 */
     public static void drawArrow(int xSender, int ySender, int xReceiver, int yReceiver, Graphics2D g) {
         g.drawLine(xSender, ySender, xReceiver, yReceiver);
 

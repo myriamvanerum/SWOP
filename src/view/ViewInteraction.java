@@ -423,6 +423,8 @@ public class ViewInteraction implements Observer {
 	
 	/**
 	 *  The user has pressed a key and wants to add a character to the current label
+	 *  @param keyCode The character's keyCode
+	 *  @param keyChar The character's keyChar
 	 */
 	public void addLabelCharacter(int keyCode, char keyChar) {
 		getActiveWindow().addLabelCharacter(keyCode, keyChar);

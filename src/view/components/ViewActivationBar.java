@@ -20,6 +20,8 @@ public class ViewActivationBar {
 	 * 		X coordinate
 	 * @param y
 	 * 		Y coordinate
+	 * @param height
+	 * 		required height
 	 */
 	public void draw(Graphics2D g, int x, int y, int height) {
 		Rectangle rectangle = new Rectangle(x, y, 12, height);

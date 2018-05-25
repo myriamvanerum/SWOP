@@ -14,6 +14,7 @@ import view.components.ViewResultMessage;
 public interface State {
 	/**
 	 * Get the SubWindow title
+	 * @return title
 	 */
 	public String getTitle();
 	

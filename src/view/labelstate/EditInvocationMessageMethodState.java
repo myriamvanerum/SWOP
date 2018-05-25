@@ -20,6 +20,8 @@ public class EditInvocationMessageMethodState extends EditLabelState {
 	 * 			The subwindow in which a label is being edited
 	 * @param viewLabel
 	 * 			The viewlabel that is being edited
+	 * @param message
+	 * 			The InvocationMessage whose label is being edited
 	 */
 	public EditInvocationMessageMethodState(SubWindow subwindow, ViewLabel viewLabel, InvocationMessage message) {
 		super(subwindow, viewLabel);

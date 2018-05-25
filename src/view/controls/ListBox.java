@@ -133,7 +133,7 @@ public class ListBox extends WindowControl {
 	
 	/**
 	 * Update the control data
-	 * @param items
+	 * @param items the new list of items
 	 */
 	@Override
 	public void update(ArrayList<String> items) {

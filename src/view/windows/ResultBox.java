@@ -19,6 +19,8 @@ public class ResultBox extends DialogBox {
 		
 	/**
 	 * ResultBox Constructor
+	 * @param viewInteraction
+	 * 			The ViewInteraction this DialogBox belongs to
 	 * @param viewMessage
 	 * 			The ViewMessage for which the ResultBox shows the data
 	 * @param x

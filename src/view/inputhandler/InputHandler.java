@@ -20,7 +20,7 @@ public class InputHandler {
 	/**
 	 * InputHandler Constructor
 	 * 
-	 * @param UI
+	 * @param ui
 	 *          UI object
 	 */
 	public InputHandler(UI ui) {

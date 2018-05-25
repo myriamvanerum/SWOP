@@ -20,6 +20,7 @@ public abstract class Component {
 	 * Edit the Label of a Component
 	 * @param label
 	 * 		The new label of a component
+	 * @return true if success
 	 */
 	public abstract Boolean editLabel(String label);
 	
